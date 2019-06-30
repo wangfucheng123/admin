@@ -8,13 +8,8 @@ http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-3.0.xsd
 ">
 	<context:component-scan base-package="com.dfans.service" />
-	
 	<!-- 引入属性文件 -->
 	<context:property-placeholder location="classpath:config.properties" />
-
-	<!-- 自动扫描(自动注入) -->
-	
-	
 	<!-- <bean id="dataJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 	<property name="targetObject">
 	<bean class="com.dfans.job.SacData" />
