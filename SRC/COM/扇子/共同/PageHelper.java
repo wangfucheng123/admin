@@ -11,7 +11,6 @@ public class PageHelper {
 		List<Object> newlist = new ArrayList<>();
 		int totalCount = targetList.size();
 		int pageCount = 0;
-		
 		//总页码计算
 		int pageNum = totalCount % pageSize;
 		if(pageNum > 0) {
@@ -34,9 +33,7 @@ public class PageHelper {
 		}   
 		return newlist;
 	} 
-	//method fenye end
-	
-	      
+	//method fenye end     
 	/*
 	 * 对目标list分页
 	 */
@@ -69,8 +66,7 @@ public class PageHelper {
 			 * @Override public int compare(T o1, T o2) { return 0; }
 			 * 
 			 * });
-			 */
-			 
+			 */	 
 		} 
 		return rlstList;
 		
