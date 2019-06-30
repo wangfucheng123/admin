@@ -23,19 +23,19 @@ public class FuAnWXConfig implements WXPayConfig {
         certStream.read(this.certData);
         certStream.close();
     }
-
+        
     public String getAppID() {
         return "wx4670ed767710c45f";
     }
-
+       
     public String getMchID() {
         return "1484290852";
     }
-
+     
     public String getKey() {
         return "Ma0eYT7hknKxz6L5Bu3kHznHbifEH7N9";
     }
-
+       
     public InputStream getCertStream() {
         ByteArrayInputStream certBis = new ByteArrayInputStream(this.certData);
         return certBis;
@@ -47,6 +47,6 @@ public class FuAnWXConfig implements WXPayConfig {
 
     public int getHttpReadTimeoutMs() {
         return 10000;
-    }
+     }
 
 }
