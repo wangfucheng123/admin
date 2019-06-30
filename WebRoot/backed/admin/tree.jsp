@@ -4,11 +4,15 @@ String path = request.getContextPath();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+	         
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
+	       
 <script type="text/javascript" src="<%=path%>/js/jquery.js"></script>
+	
 <script type="text/javascript" src="<%=path%>/common/common.js"></script>
+	
 <style type="">.ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
 .ztree li span.button.desc {margin-left:2px; margin-right: -1px; background-position:-125px 0; vertical-align:top; *vertical-align:middle}
 </style>
@@ -56,9 +60,11 @@ var setting = {
 			onRename: onRename,
 			onClick: onClick
 		}
+			   
 		};
 		
  
+	
 		function onRename(e, treeId, treeNode, isCancel) {
 			 $.post('<%=path%>/authority/rename.do?id='+treeNode.id+'&name='+encodeURI(encodeURI(treeNode.name)));  
 		}
@@ -78,8 +84,10 @@ var setting = {
 				{
 					document.getElementById('type').checked=false;
 				}
+				
 			}
 		}	
+	
 		
 		var newCount = 1;
 		function addHoverDom(treeId, treeNode) { 
