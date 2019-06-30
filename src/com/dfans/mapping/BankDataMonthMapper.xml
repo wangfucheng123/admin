@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.BankDataMonthMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.BankDataMonth" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="tdate" property="tdate" jdbcType="DATE" />
+    <result column="total_assets" property="totalAssets" jdbcType="REAL" />
+    <result column="total_liabilities" property="totalLiabilities" jdbcType="REAL" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, tdate, total_assets, total_liabilities, type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bank_data_month
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from bank_data_month where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from bank_data_month 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bank_data_month
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.BankDataMonth" >
+    insert into bank_data_month (id, tdate, total_assets, 
+      total_liabilities, type)
+    values (#{id,jdbcType=INTEGER}, #{tdate,jdbcType=DATE}, #{totalAssets,jdbcType=REAL}, 
+      #{totalLiabilities,jdbcType=REAL}, #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.BankDataMonth" >
+    insert into bank_data_month
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tdate != null" >
+        tdate,
+      </if>
+      <if test="totalAssets != null" >
+        total_assets,
+      </if>
+      <if test="totalLiabilities != null" >
+        total_liabilities,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tdate != null" >
+        #{tdate,jdbcType=DATE},
+      </if>
+      <if test="totalAssets != null" >
+        #{totalAssets,jdbcType=REAL},
+      </if>
+      <if test="totalLiabilities != null" >
+        #{totalLiabilities,jdbcType=REAL},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.BankDataMonth" >
+    update bank_data_month
+    <set >
+      <if test="tdate != null" >
+        tdate = #{tdate,jdbcType=DATE},
+      </if>
+      <if test="totalAssets != null" >
+        total_assets = #{totalAssets,jdbcType=REAL},
+      </if>
+      <if test="totalLiabilities != null" >
+        total_liabilities = #{totalLiabilities,jdbcType=REAL},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.BankDataMonth" >
+    update bank_data_month
+    set tdate = #{tdate,jdbcType=DATE},
+      total_assets = #{totalAssets,jdbcType=REAL},
+      total_liabilities = #{totalLiabilities,jdbcType=REAL},
+      type = #{type,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectDataMonth"  resultType="hashmap" parameterType="hashmap">
+	  select DATE_FORMAT(tdate,'%Y-%m') as tdate, total_assets as total_asset , total_liabilities as total_debt,type
+	  from bank_data_month
+	  where 1=1 
+	  <if test="tdate!=null">
+	  and DATE_FORMAT(tdate,'%Y-%m') =#{tdate}
+	  </if>
+	  <if test="type!=null">
+	  and type =#{type}
+	  </if>
+	  order by DATE_FORMAT(tdate,'%Y-%m')
+  </select>
+  
+  <select id="selectDataQuarter"  resultType="hashmap" parameterType="hashmap">
+	  select year, quarter, total_asset ,total_debt,type
+	  from bank_debt_quarter
+	  where 1=1 
+	  <if test="year!=null">
+	  and year=#{year}
+	  </if>
+	  <if test="quarter!=null">
+	  and quarter =#{quarter}
+	  </if>
+	  <if test="type!=null">
+	  and type =#{type}
+	  </if>
+	  ORDER BY YEAR , QUARTER 
+  </select>
+  
+  <select id="selectDataYear"  resultType="hashmap" parameterType="hashmap">
+	  select year, total_asset, total_debt ,type
+	  from bank_debt_year
+	  where 1=1 
+	  <if test="year!=null">
+	  and year=#{year}
+	  </if>
+	  <if test="quarter!=null">
+	  and quarter =#{quarter}
+	  </if>
+	  <if test="type!=null">
+	  and type =#{type}
+	  </if>
+  </select>
+  
+  <select id="selectOwnerEquity"  resultType="hashmap" parameterType="hashmap">
+	  select year, equity ,type
+	  from bank_owner_equity
+	  where 1=1 
+	  <if test="year!=null">
+	  and year=#{year}
+	  </if>
+	  <if test="type!=null">
+	  and type =#{type}
+	  </if>
+	  order by year desc
+  </select>
+  <select id="selectOwnerEquity_table"  resultType="hashmap" parameterType="hashmap">
+SELECT * FROM ( SELECT
+ `year`,
+ MAX(
+  CASE 
+  WHEN TYPE='银行业金融机构' THEN
+   equity
+  END
+ ) AS equity1,
+ MAX(
+  CASE 
+  WHEN TYPE='政策性银行及国家开发银行' THEN
+   equity
+  END
+ ) AS equity2, 
+ MAX(
+  CASE 
+  WHEN TYPE='大型商业银行' THEN
+   equity
+  END
+ ) AS equity3,
+ MAX(
+  CASE 
+  WHEN TYPE='股份制商业银行' THEN
+   equity
+  END
+ ) AS equity4,
+  MAX(
+  CASE 
+  WHEN TYPE='城市商业银行' THEN
+   equity
+  END
+ ) AS equity5,
+   MAX(
+  CASE 
+  WHEN TYPE='农村商业银行' THEN
+   equity
+  END
+ ) AS equity6,
+    MAX(
+  CASE 
+  WHEN TYPE='农村合作银行' THEN
+   equity
+  END
+ ) AS equity7,
+ MAX(
+  CASE 
+  WHEN TYPE='城市信用社' THEN
+   equity
+  END
+ ) AS equity8,
+  MAX(
+  CASE 
+  WHEN TYPE='农村信用社' THEN
+   equity
+  END
+ ) AS equity9,
+ MAX(
+  CASE 
+  WHEN TYPE='非银行金融机构' THEN
+   equity
+  END
+ ) AS equity10,
+ MAX(
+  CASE 
+  WHEN TYPE='外资银行' THEN
+   equity
+  END
+ ) AS equity11,
+ MAX(
+  CASE 
+  WHEN TYPE='新型农村金融机构和邮政储蓄银行' THEN
+   equity
+  END
+ ) AS equity12
+FROM
+ bank_owner_equity
+GROUP BY YEAR
+ORDER BY YEAR DESC) t
+WHERE (equity1 IS NOT NULL OR equity2 IS NOT NULL OR equity3 IS NOT NULL OR equity4 IS NOT NULL OR equity5 IS NOT NULL OR equity6 IS NOT NULL OR equity7 IS NOT NULL
+ OR equity8 IS NOT NULL OR equity9 IS NOT NULL OR equity10 IS NOT NULL OR equity11 IS NOT NULL AND equity12 )
+  </select>
+  
+  <select id="selectDeposit"  resultType="hashmap" parameterType="hashmap">
+	  SELECT
+ `year`,
+ MAX(
+  CASE 
+  WHEN project='各项存款' THEN
+   deposit
+  END
+ ) AS deposit1,
+ MAX(
+  CASE 
+  WHEN project='其中：储蓄存款' THEN
+   deposit
+  END
+ ) AS deposit2, 
+ MAX(
+  CASE 
+  WHEN project='各项贷款' THEN
+   deposit
+  END
+ ) AS deposit3, 
+ MAX(
+  CASE 
+  WHEN project='其中：短期贷款' THEN
+   deposit
+  END
+ ) AS deposit4, 
+ MAX(
+  CASE 
+  WHEN project='中长期贷款' THEN
+   deposit
+  END
+ ) AS deposit5, 
+ MAX(
+  CASE 
+  WHEN project='票据融资' THEN
+   deposit
+  END
+ ) AS deposit6
+
+FROM
+ bank_deposit
+GROUP BY YEAR  ORDER BY YEAR DESC 
+;
+  </select>
+  
+  <select id="selectProfit"  resultType="hashmap" parameterType="hashmap">
+    SELECT
+ `year`,
+ MAX(
+  CASE 
+  WHEN flag=1 THEN
+   asset_profit
+  END
+ ) AS asset_profit1,
+  MAX(
+  CASE 
+  WHEN flag=1 THEN
+   capital_profit
+  END
+ ) AS capital_profit1,
+ MAX(
+  CASE 
+  WHEN flag=11 THEN
+   asset_profit
+  END
+ ) AS asset_profit2,
+   MAX(
+  CASE 
+  WHEN flag=11 THEN
+   capital_profit
+  END
+ ) AS capital_profit2
+
+FROM
+ bank_profit
+GROUP BY YEAR  ORDER BY YEAR DESC 
+;
+<!-- 	  select year, asset_profit ,capital_profit,flag
+	  from bank_profit
+	  where 1=1 
+	  <if test="year!=null">
+	  and year=#{year}
+	  </if>
+	  <if test="flag!=null">
+	  and flag =#{flag}
+	  </if> -->
+  </select>
+  
+  <select id="selectProfit2"  resultType="hashmap" parameterType="hashmap">
+	  <if test="type==1">
+	  select year,asset_profit
+	    from bank_profit
+		  where 1=1 
+		  <if test="flag!=null">
+		  and flag =#{flag}
+		  </if>
+	  </if>
+	  <if test="type==2">
+	  select year,capital_profit
+	    from bank_profit
+		  where 1=1 
+		  <if test="flag!=null">
+		  and flag =#{flag}
+		  </if>
+	  </if>
+  </select>
+  
+    
+  <select id="selectEmpLegal"  resultType="hashmap" parameterType="hashmap">
+	  select year, org ,emp_num,legal_num
+	  from bank_emp_legal
+	  where 1=1 
+	  <if test="year!=null">
+	  and year=#{year}
+	  </if>
+	  <if test="org!=null">
+	  and org =#{org}
+	  </if>
+	  order by id
+  </select>
+  
+   <select id="selectBankDataQuarterMaxDate" resultType="java.lang.String" >
+   select concat(MAX(YEAR),MAX(quarter)) from bank_debt_quarter where year  = (select max(year) from bank_debt_quarter) AND total_asset!=0
+  </select>
+  
+   <select id="selectBankDataMonthMaxDate" resultType="java.lang.String" >
+   select DATE_FORMAT(MAX(tdate),'%Y-%m') from bank_data_month 
+  </select>
+  
+   <select id="selectBankDataYearMaxDate" resultType="java.lang.String" >
+   select MAX(year)from bank_debt_year 
+  </select>
+  
+   <select id="selectBankEmpLegalMaxDate" resultType="java.lang.String" >
+   select MAX(YEAR) from bank_emp_legal 
+  </select>
+  
+  
+</mapper>

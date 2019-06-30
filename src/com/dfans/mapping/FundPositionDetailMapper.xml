@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FundPositionDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FundPositionDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="comname" property="comname" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="quarter" property="quarter" jdbcType="INTEGER" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="hold_num" property="holdNum" jdbcType="INTEGER" />
+    <result column="total_proportion" property="totalProportion" jdbcType="REAL" />
+    <result column="hold_shares" property="holdShares" jdbcType="REAL" />
+    <result column="position_value" property="positionValue" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, comname, year, quarter, stock_code, stock_name, hold_num, total_proportion, 
+    hold_shares, position_value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fund_position_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from fund_position_detail where 1=1 
+    and base_id = #{baseId}
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from fund_position_detail where 1=1 and base_id = #{baseId}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fund_position_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FundPositionDetail" >
+    insert into fund_position_detail (id, base_id, comname, 
+      year, quarter, stock_code, 
+      stock_name, hold_num, total_proportion, 
+      hold_shares, position_value)
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{comname,jdbcType=VARCHAR}, 
+      #{year,jdbcType=INTEGER}, #{quarter,jdbcType=INTEGER}, #{stockCode,jdbcType=VARCHAR}, 
+      #{stockName,jdbcType=VARCHAR}, #{holdNum,jdbcType=INTEGER}, #{totalProportion,jdbcType=REAL}, 
+      #{holdShares,jdbcType=REAL}, #{positionValue,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.FundPositionDetail" >
+    insert into fund_position_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="comname != null" >
+        comname,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="quarter != null" >
+        quarter,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="holdNum != null" >
+        hold_num,
+      </if>
+      <if test="totalProportion != null" >
+        total_proportion,
+      </if>
+      <if test="holdShares != null" >
+        hold_shares,
+      </if>
+      <if test="positionValue != null" >
+        position_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="comname != null" >
+        #{comname,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="holdNum != null" >
+        #{holdNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalProportion != null" >
+        #{totalProportion,jdbcType=REAL},
+      </if>
+      <if test="holdShares != null" >
+        #{holdShares,jdbcType=REAL},
+      </if>
+      <if test="positionValue != null" >
+        #{positionValue,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FundPositionDetail" >
+    update fund_position_detail
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="comname != null" >
+        comname = #{comname,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        quarter = #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="holdNum != null" >
+        hold_num = #{holdNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalProportion != null" >
+        total_proportion = #{totalProportion,jdbcType=REAL},
+      </if>
+      <if test="holdShares != null" >
+        hold_shares = #{holdShares,jdbcType=REAL},
+      </if>
+      <if test="positionValue != null" >
+        position_value = #{positionValue,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FundPositionDetail" >
+    update fund_position_detail
+    set base_id = #{baseId,jdbcType=INTEGER},
+      comname = #{comname,jdbcType=VARCHAR},
+      year = #{year,jdbcType=INTEGER},
+      quarter = #{quarter,jdbcType=INTEGER},
+      stock_code = #{stockCode,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      hold_num = #{holdNum,jdbcType=INTEGER},
+      total_proportion = #{totalProportion,jdbcType=REAL},
+      hold_shares = #{holdShares,jdbcType=REAL},
+      position_value = #{positionValue,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <select id="selectPositionDetailMaxDate" resultType="java.lang.String" >
+   select concat(MAX(YEAR),MAX(quarter)) from fund_position_detail where year  = (select max(year) from fund_position_detail) 
+  </select>
+  
+</mapper>

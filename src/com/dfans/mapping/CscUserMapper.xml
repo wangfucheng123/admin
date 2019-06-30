@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.dao.CscUserMapper">
+	<resultMap id="BaseResultMap" type="com.dfans.model.CscUser">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="company" property="company" jdbcType="VARCHAR" />
+		<result column="realname" property="realname" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="INTEGER" />
+		<result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+		<result column="profession" property="profession" jdbcType="INTEGER" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="last_login_date" property="lastLoginDate"
+			jdbcType="TIMESTAMP" />
+		<result column="balance" property="balance" jdbcType="REAL" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+		<result column="city" property="city" jdbcType="INTEGER" />
+		<result column="screen_num" property="screenNum" jdbcType="INTEGER" />
+		<result column="head_portrait" property="headPortrait"
+			jdbcType="VARCHAR" />
+		<result column="province" property="province" jdbcType="INTEGER" />
+		<result column="source" property="source" jdbcType="INTEGER" />
+		<result column="telphone" property="telphone" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<resultMap id="UnioResultMap" type="com.dfans.model.CscUserAndRole">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="company" property="company" jdbcType="VARCHAR" />
+		<result column="realname" property="realname" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="INTEGER" />
+		<result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+		<result column="profession" property="profession" jdbcType="INTEGER" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="last_login_date" property="lastLoginDate"
+			jdbcType="TIMESTAMP" />
+		<result column="balance" property="balance" jdbcType="REAL" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+		<result column="city" property="city" jdbcType="INTEGER" />
+		<result column="screen_num" property="screenNum" jdbcType="INTEGER" />
+		<result column="head_portrait" property="headPortrait"
+			jdbcType="VARCHAR" />
+		<result column="province" property="province" jdbcType="INTEGER" />
+		<result column="source" property="source" jdbcType="INTEGER" />
+		<result column="telphone" property="telphone" jdbcType="VARCHAR" />
+		<result column="role_name" property="roleName" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+
+
+	<resultMap id="totalString" type="java.lang.String">
+		<result column="total" property="total" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, name, password, type, phone, company, realname, sex, birthday,
+		profession, email,
+		create_date, last_login_date, balance, user_id, is_delete, city, screen_num,
+		head_portrait,
+		province, source, telphone
+	</sql>
+
+
+	<sql id="All_Column_List">
+		a.id, a.name, a.type, a.phone, a.company, a.realname, a.sex, a.birthday,
+		a.profession, a.email, a.create_date, a.last_login_date, a.balance,
+		a.user_id,
+		b.name as type_name, c.name as profession_name, f.role_name as
+		role_name,a.city,a.screen_num
+	</sql>
+	
+
+	<select id="selectAll" resultMap="UnioResultMap" parameterType="hashmap">
+		select
+		<include refid="All_Column_List" />
+		from csc_user a left outer join dic b on a.type=b.id left outer join
+		dic c on a.profession=c.id
+		left outer join csc_user_role d on a.user_id=d.user_id left outer join csc_role
+		f on d.role_id=f.role_id where a.is_delete=0
+		<if test="name != null">
+			and a.name like '%#{name}%'
+		</if>
+		order by a.create_date desc limit #{page},10
+	</select>
+
+	<select id="selectCount" resultMap="totalString" parameterType="hashmap">
+		select count(id) total from csc_user where is_delete=0
+		<if test="name != null">
+			and name like '%#{name}%'
+		</if>
+	</select>
+
+	<select id="total" resultMap="totalString" parameterType="hashmap">
+		select count(id) total from csc_user where is_delete=0 ${sql}
+	</select>
+
+
+
+	<select id="selectByPhone" resultMap="totalString"
+		parameterType="hashmap">
+		select
+		count(id) total
+		from csc_user where phone=#{phone,jdbcType=VARCHAR} and id !=
+		#{id,jdbcType=INTEGER}
+	</select>
+
+
+    <select id="selectById" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from csc_user
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectByUserId" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from csc_user
+		where user_id = #{userId,jdbcType=INTEGER}
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from csc_user
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from csc_user
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.dfans.model.CscUser">
+		insert into csc_user (id, name, password,
+		type, phone, company,
+		realname, sex, birthday,
+		profession, email, create_date,
+		last_login_date, balance, user_id,
+		is_delete, city, screen_num,
+		head_portrait, province, source,
+		telphone)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{type,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR},
+		#{realname,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER},
+		#{birthday,jdbcType=TIMESTAMP},
+		#{profession,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP},
+		#{lastLoginDate,jdbcType=TIMESTAMP}, #{balance,jdbcType=REAL},
+		#{userId,jdbcType=INTEGER},
+		#{isDelete,jdbcType=INTEGER}, #{city,jdbcType=INTEGER}, #{screenNum,jdbcType=INTEGER},
+		#{headPortrait,jdbcType=VARCHAR}, #{province,jdbcType=INTEGER},
+		#{source,jdbcType=INTEGER},
+		#{telphone,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.dfans.model.CscUser">
+		insert into csc_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="company != null">
+				company,
+			</if>
+			<if test="realname != null">
+				realname,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="birthday != null">
+				birthday,
+			</if>
+			<if test="profession != null">
+				profession,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="lastLoginDate != null">
+				last_login_date,
+			</if>
+			<if test="balance != null">
+				balance,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="isDelete != null">
+				is_delete,
+			</if>
+			<if test="city != null">
+				city,
+			</if>
+			<if test="screenNum != null">
+				screen_num,
+			</if>
+			<if test="headPortrait != null">
+				head_portrait,
+			</if>
+			<if test="province != null">
+				province,
+			</if>
+			<if test="source != null">
+				source,
+			</if>
+			<if test="telphone != null">
+				telphone,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="company != null">
+				#{company,jdbcType=VARCHAR},
+			</if>
+			<if test="realname != null">
+				#{realname,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=INTEGER},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=TIMESTAMP},
+			</if>
+			<if test="profession != null">
+				#{profession,jdbcType=INTEGER},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastLoginDate != null">
+				#{lastLoginDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="balance != null">
+				#{balance,jdbcType=REAL},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete,jdbcType=INTEGER},
+			</if>
+			<if test="city != null">
+				#{city,jdbcType=INTEGER},
+			</if>
+			<if test="screenNum != null">
+				#{screenNum,jdbcType=INTEGER},
+			</if>
+			<if test="headPortrait != null">
+				#{headPortrait,jdbcType=VARCHAR},
+			</if>
+			<if test="province != null">
+				#{province,jdbcType=INTEGER},
+			</if>
+			<if test="source != null">
+				#{source,jdbcType=INTEGER},
+			</if>
+			<if test="telphone != null">
+				#{telphone,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.CscUser">
+		update csc_user
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="company != null">
+				company = #{company,jdbcType=VARCHAR},
+			</if>
+			<if test="realname != null">
+				realname = #{realname,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=INTEGER},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=TIMESTAMP},
+			</if>
+			<if test="profession != null">
+				profession = #{profession,jdbcType=INTEGER},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastLoginDate != null">
+				last_login_date = #{lastLoginDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="balance != null">
+				balance = #{balance,jdbcType=REAL},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="isDelete != null">
+				is_delete = #{isDelete,jdbcType=INTEGER},
+			</if>
+			<if test="city != null">
+				city = #{city,jdbcType=INTEGER},
+			</if>
+			<if test="screenNum != null">
+				screen_num = #{screenNum,jdbcType=INTEGER},
+			</if>
+			<if test="headPortrait != null">
+				head_portrait = #{headPortrait,jdbcType=VARCHAR},
+			</if>
+			<if test="province != null">
+				province = #{province,jdbcType=INTEGER},
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=INTEGER},
+			</if>
+			<if test="telphone != null">
+				telphone = #{telphone,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.dfans.model.CscUser">
+		update csc_user
+		set name = #{name,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
+		type = #{type,jdbcType=INTEGER},
+		phone = #{phone,jdbcType=VARCHAR},
+		company = #{company,jdbcType=VARCHAR},
+		realname = #{realname,jdbcType=VARCHAR},
+		sex = #{sex,jdbcType=INTEGER},
+		birthday = #{birthday,jdbcType=TIMESTAMP},
+		profession = #{profession,jdbcType=INTEGER},
+		email = #{email,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		last_login_date = #{lastLoginDate,jdbcType=TIMESTAMP},
+		balance = #{balance,jdbcType=REAL},
+		user_id = #{userId,jdbcType=INTEGER},
+		is_delete = #{isDelete,jdbcType=INTEGER},
+		city = #{city,jdbcType=INTEGER},
+		screen_num = #{screenNum,jdbcType=INTEGER},
+		head_portrait = #{headPortrait,jdbcType=VARCHAR},
+		province = #{province,jdbcType=INTEGER},
+		source = #{source,jdbcType=INTEGER},
+		telphone = #{telphone,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.PrivateFundScaleTotalMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.PrivateFundScaleTotal" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="end_date" property="endDate" jdbcType="DATE" />
+    <result column="glrsl" property="glrsl" jdbcType="INTEGER" />
+    <result column="smjjsl" property="smjjsl" jdbcType="INTEGER" />
+    <result column="rjgm" property="rjgm" jdbcType="REAL" />
+    <result column="sjgm" property="sjgm" jdbcType="REAL" />
+    <result column="cyry" property="cyry" jdbcType="REAL" />
+    <result column="glgm1" property="glgm1" jdbcType="INTEGER" />
+    <result column="glgm2" property="glgm2" jdbcType="INTEGER" />
+    <result column="glgm3" property="glgm3" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, end_date, glrsl, smjjsl, rjgm, sjgm, cyry, glgm1, glgm2, glgm3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from private_funds_scale_total
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from private_funds_scale_total where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from private_funds_scale_total 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from private_funds_scale_total
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.PrivateFundScaleTotal" >
+    insert into private_funds_scale_total (id, end_date, glrsl, 
+      smjjsl, rjgm, sjgm, cyry, 
+      glgm1, glgm2, glgm3
+      )
+    values (#{id,jdbcType=INTEGER}, #{endDate,jdbcType=DATE}, #{glrsl,jdbcType=INTEGER}, 
+      #{smjjsl,jdbcType=INTEGER}, #{rjgm,jdbcType=REAL}, #{sjgm,jdbcType=REAL}, #{cyry,jdbcType=REAL}, 
+      #{glgm1,jdbcType=INTEGER}, #{glgm2,jdbcType=INTEGER}, #{glgm3,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.PrivateFundScaleTotal" >
+    insert into private_funds_scale_total
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="glrsl != null" >
+        glrsl,
+      </if>
+      <if test="smjjsl != null" >
+        smjjsl,
+      </if>
+      <if test="rjgm != null" >
+        rjgm,
+      </if>
+      <if test="sjgm != null" >
+        sjgm,
+      </if>
+      <if test="cyry != null" >
+        cyry,
+      </if>
+      <if test="glgm1 != null" >
+        glgm1,
+      </if>
+      <if test="glgm2 != null" >
+        glgm2,
+      </if>
+      <if test="glgm3 != null" >
+        glgm3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="glrsl != null" >
+        #{glrsl,jdbcType=INTEGER},
+      </if>
+      <if test="smjjsl != null" >
+        #{smjjsl,jdbcType=INTEGER},
+      </if>
+      <if test="rjgm != null" >
+        #{rjgm,jdbcType=REAL},
+      </if>
+      <if test="sjgm != null" >
+        #{sjgm,jdbcType=REAL},
+      </if>
+      <if test="cyry != null" >
+        #{cyry,jdbcType=REAL},
+      </if>
+      <if test="glgm1 != null" >
+        #{glgm1,jdbcType=INTEGER},
+      </if>
+      <if test="glgm2 != null" >
+        #{glgm2,jdbcType=INTEGER},
+      </if>
+      <if test="glgm3 != null" >
+        #{glgm3,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.PrivateFundScaleTotal" >
+    update private_funds_scale_total
+    <set >
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="glrsl != null" >
+        glrsl = #{glrsl,jdbcType=INTEGER},
+      </if>
+      <if test="smjjsl != null" >
+        smjjsl = #{smjjsl,jdbcType=INTEGER},
+      </if>
+      <if test="rjgm != null" >
+        rjgm = #{rjgm,jdbcType=REAL},
+      </if>
+      <if test="sjgm != null" >
+        sjgm = #{sjgm,jdbcType=REAL},
+      </if>
+      <if test="cyry != null" >
+        cyry = #{cyry,jdbcType=REAL},
+      </if>
+      <if test="glgm1 != null" >
+        glgm1 = #{glgm1,jdbcType=INTEGER},
+      </if>
+      <if test="glgm2 != null" >
+        glgm2 = #{glgm2,jdbcType=INTEGER},
+      </if>
+      <if test="glgm3 != null" >
+        glgm3 = #{glgm3,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.PrivateFundScaleTotal" >
+    update private_funds_scale_total
+    set end_date = #{endDate,jdbcType=DATE},
+      glrsl = #{glrsl,jdbcType=INTEGER},
+      smjjsl = #{smjjsl,jdbcType=INTEGER},
+      rjgm = #{rjgm,jdbcType=REAL},
+      sjgm = #{sjgm,jdbcType=REAL},
+      cyry = #{cyry,jdbcType=REAL},
+      glgm1 = #{glgm1,jdbcType=INTEGER},
+      glgm2 = #{glgm2,jdbcType=INTEGER},
+      glgm3 = #{glgm3,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectPrivateFundScale" resultType="hashmap" parameterType="hashmap" >
+	SELECT DATE_FORMAT(end_date,'%Y-%m') end_date,glrsl,smjjsl,FORMAT(rjgm,2) rjgm,FORMAT(sjgm,2) sjgm,FORMAT(cyry,2) cyry,glgm1,glgm2,glgm3
+	FROM private_funds_scale_total 
+	where 1=1 
+    order by end_date asc
+    <if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+</mapper>

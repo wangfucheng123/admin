@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FuturesBranchesMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FuturesBranches" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="xh" property="xh" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="p_szd" property="pSzd" jdbcType="INTEGER" />
+    <result column="xkzh" property="xkzh" jdbcType="VARCHAR" />
+    <result column="cdate" property="cdate" jdbcType="DATE" />
+    <result column="fzr" property="fzr" jdbcType="VARCHAR" />
+    <result column="khfwtsdh" property="khfwtsdh" jdbcType="VARCHAR" />
+    <result column="xxdz" property="xxdz" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, base_id, xh, name, p_szd, xkzh, cdate, fzr, khfwtsdh, xxdz, email
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from futures_branches
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from futures_branches where 1=1 
+    and base_id = #{baseId}
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from futures_branches 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from futures_branches
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FuturesBranches" >
+    insert into futures_branches (id, base_id, xh, 
+      name, p_szd, xkzh, cdate, 
+      fzr, khfwtsdh, xxdz, 
+      email)
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{xh,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{pSzd,jdbcType=INTEGER}, #{xkzh,jdbcType=VARCHAR}, #{cdate,jdbcType=DATE}, 
+      #{fzr,jdbcType=VARCHAR}, #{khfwtsdh,jdbcType=VARCHAR}, #{xxdz,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.FuturesBranches" >
+    insert into futures_branches
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="xh != null" >
+        xh,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="pSzd != null" >
+        p_szd,
+      </if>
+      <if test="xkzh != null" >
+        xkzh,
+      </if>
+      <if test="cdate != null" >
+        cdate,
+      </if>
+      <if test="fzr != null" >
+        fzr,
+      </if>
+      <if test="khfwtsdh != null" >
+        khfwtsdh,
+      </if>
+      <if test="xxdz != null" >
+        xxdz,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="xh != null" >
+        #{xh,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pSzd != null" >
+        #{pSzd,jdbcType=INTEGER},
+      </if>
+      <if test="xkzh != null" >
+        #{xkzh,jdbcType=VARCHAR},
+      </if>
+      <if test="cdate != null" >
+        #{cdate,jdbcType=DATE},
+      </if>
+      <if test="fzr != null" >
+        #{fzr,jdbcType=VARCHAR},
+      </if>
+      <if test="khfwtsdh != null" >
+        #{khfwtsdh,jdbcType=VARCHAR},
+      </if>
+      <if test="xxdz != null" >
+        #{xxdz,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FuturesBranches" >
+    update futures_branches
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="xh != null" >
+        xh = #{xh,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pSzd != null" >
+        p_szd = #{pSzd,jdbcType=INTEGER},
+      </if>
+      <if test="xkzh != null" >
+        xkzh = #{xkzh,jdbcType=VARCHAR},
+      </if>
+      <if test="cdate != null" >
+        cdate = #{cdate,jdbcType=DATE},
+      </if>
+      <if test="fzr != null" >
+        fzr = #{fzr,jdbcType=VARCHAR},
+      </if>
+      <if test="khfwtsdh != null" >
+        khfwtsdh = #{khfwtsdh,jdbcType=VARCHAR},
+      </if>
+      <if test="xxdz != null" >
+        xxdz = #{xxdz,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FuturesBranches" >
+    update futures_branches
+    set base_id = #{baseId,jdbcType=INTEGER},
+      xh = #{xh,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      p_szd = #{pSzd,jdbcType=INTEGER},
+      xkzh = #{xkzh,jdbcType=VARCHAR},
+      cdate = #{cdate,jdbcType=DATE},
+      fzr = #{fzr,jdbcType=VARCHAR},
+      khfwtsdh = #{khfwtsdh,jdbcType=VARCHAR},
+      xxdz = #{xxdz,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

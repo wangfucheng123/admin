@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.BankMainQuotaMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.BankMainQuota" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="quarter" property="quarter" jdbcType="INTEGER" />
+    <result column="project" property="project" jdbcType="VARCHAR" />
+    <result column="quota" property="quota" jdbcType="REAL" />
+    <result column="quota1" property="quota1" jdbcType="REAL" />
+    <result column="quota2" property="quota2" jdbcType="REAL" />
+    <result column="quota3" property="quota3" jdbcType="REAL" />
+    <result column="quota4" property="quota4" jdbcType="REAL" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, year, quarter, project, quota, type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bank_main_quota
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from bank_main_quota where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from bank_main_quota 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bank_main_quota
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.BankMainQuota" >
+    insert into bank_main_quota (id, year, quarter, 
+      project, quota, type)
+    values (#{id,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{quarter,jdbcType=INTEGER}, 
+      #{project,jdbcType=VARCHAR}, #{quota,jdbcType=REAL}, #{type,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.BankMainQuota" >
+    insert into bank_main_quota
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="quarter != null" >
+        quarter,
+      </if>
+      <if test="project != null" >
+        project,
+      </if>
+      <if test="quota != null" >
+        quota,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="project != null" >
+        #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="quota != null" >
+        #{quota,jdbcType=REAL},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.BankMainQuota" >
+    update bank_main_quota
+    <set >
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        quarter = #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="project != null" >
+        project = #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="quota != null" >
+        quota = #{quota,jdbcType=REAL},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.BankMainQuota" >
+    update bank_main_quota
+    set year = #{year,jdbcType=INTEGER},
+      quarter = #{quarter,jdbcType=INTEGER},
+      project = #{project,jdbcType=VARCHAR},
+      quota = #{quota,jdbcType=REAL},
+      type = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+
+  
+ 
+<select id="selectMainQuota"  resultMap="BaseResultMap" parameterType="hashmap">
+	select a.year ,a.project,a.type,a.quota quota1,b.quota quota2,c.quota quota3,d.quota quota4 from
+	(select * from  bank_main_quota WHERE QUARTER =1) a
+	left join (SELECT * FROM  bank_main_quota WHERE QUARTER =2) b on a.project =b.project and a.year=b.year 
+	left join (SELECT * FROM  bank_main_quota WHERE QUARTER =3) c on  a.project =c.project AND c.year=b.year
+	left join (SELECT * FROM  bank_main_quota WHERE QUARTER =4) d on a.project =d.project AND c.year=d.year 
+	where 1=1
+	<if test="year!=null">
+  	and a.year =#{year}
+  	</if>
+    <if test="project!=null">
+ 	 and a.project =#{project}
+  	</if>
+  	ORDER BY a.year asc,a.TYPE  asc,a.project asc
+</select>
+
+  
+
+<select id="selectMainQuotaToChart"  resultMap="BaseResultMap" parameterType="hashmap">
+  select  *
+  from bank_main_quota
+  where 1=1 
+  <if test="year!=null">
+  and year =#{year}
+  </if>
+  <if test="quarter!=null">
+  and quarter =#{quarter}
+  </if>
+  <if test="project!=null">
+  and project =#{project}
+  </if>
+</select> 
+
+<select id="selectBankMainQuotaMaxDate" resultType="java.lang.String" >
+   select MAX(YEAR) from bank_main_quota 
+  </select>
+
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfans.dao.SJChannelPriceMapper">
+  <resultMap id="BaseResultMap" type="com.dfans.model.SJChannelPrice">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="channel_id"  property="channelId" />
+    <result column="limit" jdbcType="INTEGER" property="limit" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List">
+    id, price, channel_id, limits
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sj_channel_price
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="selectByChannelId" parameterType="string" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sj_channel_price
+    where channel_id = #{id} order by limits 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sj_channel_price
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.SJChannelPrice">
+    insert into sj_channel_price ( price, channel_id, 
+      limits)
+    values ( #{price,jdbcType=REAL}, #{channelId,jdbcType=INTEGER}, 
+      #{limits,jdbcType=INTEGER})
+  </insert>
+ 
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.SJChannelPrice">
+    update sj_channel_price
+    set price = #{price,jdbcType=REAL},
+      channel_id = #{channelId,jdbcType=INTEGER},
+      limits = #{limits,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

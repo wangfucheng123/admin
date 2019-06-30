@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FundHolderStructureMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FundHolderStructure" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="comname" property="comname" jdbcType="VARCHAR" />
+    <result column="gdate" property="gdate" jdbcType="DATE" />
+    <result column="org_proportion" property="orgProportion" jdbcType="REAL" />
+    <result column="personal_proportion" property="personalProportion" jdbcType="REAL" />
+    <result column="inside_proportion" property="insideProportion" jdbcType="REAL" />
+    <result column="total_net" property="totalNet" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, comname, gdate, org_proportion, personal_proportion, inside_proportion, 
+    total_net
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fund_holder_structure
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from fund_holder_structure where 1=1 
+    and base_id = #{baseId}
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from fund_holder_structure where 1=1 and base_id = #{baseId}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fund_holder_structure
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FundHolderStructure" >
+    insert into fund_holder_structure (id, base_id, comname, 
+      gdate, org_proportion, personal_proportion, 
+      inside_proportion, total_net)
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{comname,jdbcType=VARCHAR}, 
+      #{gdate,jdbcType=DATE}, #{orgProportion,jdbcType=REAL}, #{personalProportion,jdbcType=REAL}, 
+      #{insideProportion,jdbcType=REAL}, #{totalNet,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.FundHolderStructure" >
+    insert into fund_holder_structure
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="comname != null" >
+        comname,
+      </if>
+      <if test="gdate != null" >
+        gdate,
+      </if>
+      <if test="orgProportion != null" >
+        org_proportion,
+      </if>
+      <if test="personalProportion != null" >
+        personal_proportion,
+      </if>
+      <if test="insideProportion != null" >
+        inside_proportion,
+      </if>
+      <if test="totalNet != null" >
+        total_net,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="comname != null" >
+        #{comname,jdbcType=VARCHAR},
+      </if>
+      <if test="gdate != null" >
+        #{gdate,jdbcType=DATE},
+      </if>
+      <if test="orgProportion != null" >
+        #{orgProportion,jdbcType=REAL},
+      </if>
+      <if test="personalProportion != null" >
+        #{personalProportion,jdbcType=REAL},
+      </if>
+      <if test="insideProportion != null" >
+        #{insideProportion,jdbcType=REAL},
+      </if>
+      <if test="totalNet != null" >
+        #{totalNet,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FundHolderStructure" >
+    update fund_holder_structure
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="comname != null" >
+        comname = #{comname,jdbcType=VARCHAR},
+      </if>
+      <if test="gdate != null" >
+        gdate = #{gdate,jdbcType=DATE},
+      </if>
+      <if test="orgProportion != null" >
+        org_proportion = #{orgProportion,jdbcType=REAL},
+      </if>
+      <if test="personalProportion != null" >
+        personal_proportion = #{personalProportion,jdbcType=REAL},
+      </if>
+      <if test="insideProportion != null" >
+        inside_proportion = #{insideProportion,jdbcType=REAL},
+      </if>
+      <if test="totalNet != null" >
+        total_net = #{totalNet,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FundHolderStructure" >
+    update fund_holder_structure
+    set base_id = #{baseId,jdbcType=INTEGER},
+      comname = #{comname,jdbcType=VARCHAR},
+      gdate = #{gdate,jdbcType=DATE},
+      org_proportion = #{orgProportion,jdbcType=REAL},
+      personal_proportion = #{personalProportion,jdbcType=REAL},
+      inside_proportion = #{insideProportion,jdbcType=REAL},
+      total_net = #{totalNet,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

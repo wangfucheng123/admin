@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.BankDebtYearMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.BankDebtYear" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="total_asset" property="totalAsset" jdbcType="REAL" />
+    <result column="total_debt" property="totalDebt" jdbcType="REAL" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, year, total_asset, total_debt, type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bank_debt_year
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+   <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from bank_debt_year where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from bank_debt_year 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bank_debt_year
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.BankDebtYear" >
+    insert into bank_debt_year (id, year, total_asset, 
+      total_debt, type)
+    values (#{id,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{totalAsset,jdbcType=REAL}, 
+      #{totalDebt,jdbcType=REAL}, #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.BankDebtYear" >
+    insert into bank_debt_year
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="totalAsset != null" >
+        total_asset,
+      </if>
+      <if test="totalDebt != null" >
+        total_debt,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="totalAsset != null" >
+        #{totalAsset,jdbcType=REAL},
+      </if>
+      <if test="totalDebt != null" >
+        #{totalDebt,jdbcType=REAL},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.BankDebtYear" >
+    update bank_debt_year
+    <set >
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="totalAsset != null" >
+        total_asset = #{totalAsset,jdbcType=REAL},
+      </if>
+      <if test="totalDebt != null" >
+        total_debt = #{totalDebt,jdbcType=REAL},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.BankDebtYear" >
+    update bank_debt_year
+    set year = #{year,jdbcType=INTEGER},
+      total_asset = #{totalAsset,jdbcType=REAL},
+      total_debt = #{totalDebt,jdbcType=REAL},
+      type = #{type,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

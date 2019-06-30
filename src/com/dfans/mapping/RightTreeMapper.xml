@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.dao.RightTreeMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.RightTree" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="REAL" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="freeLimit" property="freeLimit" jdbcType="VARCHAR" />
+    <result column="isFree" property="isFree" jdbcType="VARCHAR" />
+    <result column="isTrail" property="isTrail" jdbcType="VARCHAR" />
+        <result column="edate" property="edate" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <resultMap id="MenuTreeMap" type="com.dfans.model.MenuTree" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="code1" property="code1" jdbcType="VARCHAR" />
+    <result column="code2" property="code2" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <resultMap id="ResultMapWithBLOBs" type="com.dfans.model.RightTree" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, parent_id, price, code, type, title ,img  ,content,isFree,freeLimit 
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+   SELECT rt.id, rt.name, rt.parent_id, rt.price, rt.code, rt.isFree,rt.`freeLimit`,rt.type,r.name title ,rt.img  ,rt.content FROM `right_tree` rt,right_tree r WHERE rt.`parent_id`=r.`id` and   NOT EXISTS   ( SELECT   t1.ID,   t1.parent_id   FROM right_tree t1,  right_tree t2 
+  		WHERE t1.id = t2.parent_id 
+    AND rt.ID = t1.ID) and   rt.id=#{id}
+  </select>
+  
+  <select id="selectSjByPrimaryKey" resultType="hashmap" parameterType="java.lang.Integer" >
+   select * from menu_tree where  id=#{id}
+  </select>
+  
+  
+   <select id="sj_selectByPrimaryKey" resultMap="ResultMapWithBLOBs"  >
+   SELECT a.* ,t.`end_date` edate ,t .start_date startDate FROM (
+SELECT   rt.id,  rt.name,  rt.parent_id,  rt.price,  rt.code,  rt.isFree,  rt.`freeLimit`,  rt.type,  r.name title,  rt.img,  rt.content FROM  `right_tree` rt,
+  right_tree r WHERE rt.`parent_id` = r.`id`   AND NOT EXISTS   (SELECT     t1.ID,    t1.parent_id   FROM    right_tree t1,    right_tree t2 
+  WHERE t1.id = t2.parent_id     AND rt.ID = t1.ID) 
+  AND rt.id =#{id}  )a LEFT JOIN `user_right_role` t ON a. id=t.`right_id` AND t.`user_id`=#{uid}
+  </select>
+    <select id="selectTreeList" resultMap="BaseResultMap"  >
+    select   <include refid="Base_Column_List" />  from right_tree t  where  not exists (SELECT tal.`parent_id` FROM `right_tree` tal where t.id=tal.`parent_id`)
+  </select>
+  
+  <select id="selectSjTreeList" resultMap="MenuTreeMap">
+  	select * from menu_tree 
+  </select>
+  
+  <select id="selectTree" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+    SELECT * FROM right_tree WHERE FIND_IN_SET(id,getChildList(#{rootId,jdbcType=INTEGER}))
+  </select>
+  
+  <select id="selectSjTree" resultType="hashmap" parameterType="java.lang.Integer">
+    SELECT id,code,pid,type,name,code1,code2 FROM menu_tree WHERE FIND_IN_SET(id,getSjChildList(#{rootId,jdbcType=INTEGER}))
+  </select>
+  
+  <select id="selectByCode" resultType="hashmap" parameterType="java.lang.String">
+    SELECT * FROM right_tree WHERE code=#{_parameter}
+  </select> 
+  
+  <select id="rightTrees" resultMap="BaseResultMap" >
+    SELECT rt.id, rt.name, rt.parent_id, rt.price, rt.code, rt.isFree,rt.`freeLimit`,rt.type,r.name title ,rt.img  ,rt.content FROM `right_tree` rt,right_tree r WHERE rt.`parent_id`=r.`id` and   NOT EXISTS   ( SELECT   t1.ID,   t1.parent_id   FROM right_tree t1,  right_tree t2 
+  		WHERE t1.id = t2.parent_id 
+    AND rt.ID = t1.ID) and  ( rt.parent_id>92 or rt.`id`=70)  AND rt.`id`!=132
+  </select>
+  <select id="sj_rightTrees" resultMap="BaseResultMap" >
+   SELECT a.* ,t.`end_date` edate ,t .start_date startDate FROM ( SELECT rt.id, rt.name, rt.parent_id, rt.price, rt.code, rt.isFree,rt.`freeLimit`,rt.type,r.name title ,rt.img  ,rt.content FROM `right_tree` rt,right_tree r WHERE rt.`parent_id`=r.`id` and   NOT EXISTS   ( SELECT   t1.ID,   t1.parent_id   FROM right_tree t1,  right_tree t2 
+  		WHERE t1.id = t2.parent_id 
+    AND rt.ID = t1.ID) and    ( rt.parent_id>92 or rt.`id`=70)  AND rt.`id`!=132)a LEFT JOIN `user_right_role` t ON a. id=t.`right_id` AND t.`user_id`=#{uid}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from right_tree
+    where FIND_IN_SET(id,getChildList(#{rootId,jdbcType=INTEGER}))
+  </delete>
+  
+  
+  <delete id="deleteSjByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from menu_tree
+    where FIND_IN_SET(id,getSjChildList(#{id}))
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.dfans.model.RightTree" >
+    insert into right_tree (id, name, parent_id, 
+      price, code)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{price,jdbcType=REAL}, #{code,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.RightTree" >
+    insert into right_tree
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <insert id="insertSjSelective" parameterType="hashmap" >
+    insert into menu_tree 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="img_url != null" >
+        img_url,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="code1 != null" >
+        code1,
+      </if>
+      <if test="code2 != null" >
+        code2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="pid != null" >
+        #{pid},
+      </if>
+      <if test="url != null" >
+        #{url},
+      </if>
+      <if test="code != null" >
+        #{code},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="img_url != null" >
+        #{img_url},
+      </if>
+      <if test="sort != null" >
+        #{sort},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="code1 != null" >
+        #{code1},
+      </if>
+      <if test="code2 != null" >
+        #{code2},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.RightTree" >
+    update right_tree
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="isFree != null" >
+        isFree = #{isFree,jdbcType=LONGVARCHAR},
+      </if>
+       <if test="freeLimit != null" >
+        freeLimit = #{freeLimit,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="img != null" >
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <update id="updateByPrimaryKeySjSelective" parameterType="hashmap" >
+    update menu_tree
+    <set >
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="parentId != null" >
+        pid = #{pid},
+      </if>
+      <if test="url != null" >
+        url = #{url},
+      </if>
+      <if test="code != null" >
+        code = #{code},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="img_url != null" >
+        img_url = #{img_url},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="code1 != null" >
+        code1 = #{code1},
+      </if>
+      <if test="code2 != null" >
+        code2 = #{code2},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  
+  <update id="changeSjSelective" parameterType="hashmap" >
+  	update menu_tree set pid=#{pid} where id=#{id}
+  
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.RightTree" >
+    update right_tree
+    set name = #{name,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      price = #{price,jdbcType=REAL},
+      code = #{code,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+   <update id="editState"  >
+    update right_tree
+    set type = 0
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

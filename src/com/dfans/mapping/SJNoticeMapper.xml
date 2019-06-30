@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfans.dao.SJNoticeMapper">
+  <resultMap id="BaseResultMap" type="com.dfans.model.SJNotice">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="towhere" jdbcType="VARCHAR" property="towhere" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+     <result column="sort" jdbcType="VARCHAR" property="sort" />
+  </resultMap> 
+   
+  <sql id="Base_Column_List">
+    id, title, content, createTime, updateTime, towhere,status,sort
+  </sql> 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sj_notice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+   <select id="logs" resultType="com.dfans.model.LogModel">
+    select LogName logname,UserName username, CreateTime createtime,MSG msg from sj_logs  where 0=0 ${sql}
+  </select>
+   <select id="getNotices" parameterType="string" resultMap="BaseResultMap">
+    select     <include refid="Base_Column_List" />    from sj_notice    where isRev=0 
+    <if test="title != '' and title != null"> and  title like  CONCAT('%', #{title},'%') </if> 
+    <if test="sort != '' and sort != null"> and  sort=#{sort} </if> 
+     <if test="createtime != '' and createtime != null"> and createtime <![CDATA[ > ]]>#{createtime} </if> 
+	<if test="pg == 'pg' "> order by createTime desc limit #{page} ,10</if> 
+	<if test="flag == 'flag' ">  order by createTime desc</if> 
+	<if test="ByTime == 'ByTime' ">	 and status=0 order by createtime desc </if> 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+     delete from sj_notice 
+   		where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="cancelByPrimaryKey" parameterType="java.lang.Integer">
+     update sj_notice set status = 2 where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.SJNotice">
+    insert into sj_notice ( title, content, 
+      createTime, updateTime, towhere,sort,status
+      )
+    values ( #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      now(), now(), #{towhere,jdbcType=VARCHAR}, #{sort,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="logRecord" parameterType="com.dfans.model.LogModel">
+    insert into sj_logs ( LogName, UserName,    ClassName, Mothod, CreateTime, MSG)
+    values (#{logname,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{classname,jdbcType=VARCHAR}, #{mothod,jdbcType=VARCHAR}, now(), 
+       #{msg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.SJNotice">
+    insert into sj_notice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+      <if test="towhere != null">
+        towhere,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="towhere != null">
+        #{towhere,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert> 
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.SJNotice">
+    update sj_notice
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="towhere != null">
+        towhere = #{towhere,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.SJNotice">
+    update sj_notice
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      towhere = #{towhere,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

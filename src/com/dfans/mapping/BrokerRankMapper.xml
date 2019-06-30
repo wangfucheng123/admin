@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.BrokerRankMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.BrokerRank" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="zzc" property="zzc" jdbcType="REAL" />
+    <result column="jzc" property="jzc" jdbcType="REAL" />
+    <result column="yysr" property="yysr" jdbcType="REAL" />
+    <result column="yysrzzl" property="yysrzzl" jdbcType="REAL" />
+    <result column="jlr" property="jlr" jdbcType="REAL" />
+    <result column="jlrzzl" property="jlrzzl" jdbcType="REAL" />
+    <result column="jzcsyl" property="jzcsyl" jdbcType="REAL" />
+    <result column="cbglnl" property="cbglnl" jdbcType="REAL" />
+    <result column="dwrjcl" property="dwrjcl" jdbcType="REAL" />
+    <result column="gyxzc" property="gyxzc" jdbcType="REAL" />
+    <result column="jzb" property="jzb" jdbcType="REAL" />
+    <result column="jzbsyl" property="jzbsyl" jdbcType="REAL" />
+    <result column="fxfgl" property="fxfgl" jdbcType="REAL" />
+    <result column="cwggl" property="cwggl" jdbcType="REAL" />
+    <result column="khzjye" property="khzjye" jdbcType="REAL" />
+    <result column="tgzqsz" property="tgzqsz" jdbcType="REAL" />
+    <result column="dljsr_xwzl" property="dljsrXwzl" jdbcType="REAL" />
+    <result column="dljsr" property="dljsr" jdbcType="REAL" />
+    <result column="jydysr" property="jydysr" jdbcType="REAL" />
+    <result column="yybbjjsr" property="yybbjjsr" jdbcType="REAL" />
+    <result column="dlxsjsr" property="dlxsjsr" jdbcType="REAL" />
+    <result column="dlxscpgm" property="dlxscpgm" jdbcType="REAL" />
+    <result column="khzcglstzj" property="khzcglstzj" jdbcType="REAL" />
+    <result column="stkhywjsr" property="stkhywjsr" jdbcType="REAL" />
+    <result column="tzyhjsr" property="tzyhjsr" jdbcType="REAL" />
+    <result column="cxbjjsr" property="cxbjjsr" jdbcType="REAL" />
+    <result column="gpzcxjs" property="gpzcxjs" jdbcType="REAL" />
+    <result column="gpzcxje" property="gpzcxje" jdbcType="REAL" />
+    <result column="gpcxjsr" property="gpcxjsr" jdbcType="REAL" />
+    <result column="zqzcxjs" property="zqzcxjs" jdbcType="REAL" />
+    <result column="zqzcxje" property="zqzcxje" jdbcType="REAL" />
+    <result column="zqcxjsr" property="zqcxjsr" jdbcType="REAL" />
+    <result column="cwgwjsr" property="cwgwjsr" jdbcType="REAL" />
+    <result column="bgczcwgwjsr" property="bgczcwgwjsr" jdbcType="REAL" />
+    <result column="tzzxjsr" property="tzzxjsr" jdbcType="REAL" />
+    <result column="rzljsr" property="rzljsr" jdbcType="REAL" />
+    <result column="rzrqlxsr" property="rzrqlxsr" jdbcType="REAL" />
+    <result column="rczjye" property="rczjye" jdbcType="REAL" />
+    <result column="ydghlxsr" property="ydghlxsr" jdbcType="REAL" />
+    <result column="ydghrczj" property="ydghrczj" jdbcType="REAL" />
+    <result column="gpzylxsr" property="gpzylxsr" jdbcType="REAL" />
+    <result column="gpzyrczj" property="gpzyrczj" jdbcType="REAL" />
+    <result column="zqtzsr" property="zqtzsr" jdbcType="REAL" />
+    <result column="gqtzsr" property="gqtzsr" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, zzc, jzc, yysr, yysrzzl, jlr, jlrzzl, jzcsyl, cbglnl, dwrjcl, gyxzc, jzb, 
+    jzbsyl, fxfgl, cwggl, khzjye, tgzqsz, dljsr_xwzl, dljsr, jydysr, yybbjjsr, dlxsjsr, 
+    dlxscpgm, khzcglstzj, stkhywjsr, tzyhjsr, cxbjjsr, gpzcxjs, gpzcxje, gpcxjsr, zqzcxjs, 
+    zqzcxje, zqcxjsr, cwgwjsr, bgczcwgwjsr, tzzxjsr, rzljsr, rzrqlxsr, rczjye, ydghlxsr, 
+    ydghrczj, gpzylxsr, gpzyrczj, zqtzsr, gqtzsr
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from broker_rank
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from broker_rank where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from broker_rank 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from broker_rank
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.BrokerRank" >
+    insert into broker_rank (id, name, zzc, jzc, 
+      yysr, yysrzzl, jlr, jlrzzl, 
+      jzcsyl, cbglnl, dwrjcl, gyxzc, 
+      jzb, jzbsyl, fxfgl, cwggl, 
+      khzjye, tgzqsz, dljsr_xwzl, dljsr, 
+      jydysr, yybbjjsr, dlxsjsr, dlxscpgm, 
+      khzcglstzj, stkhywjsr, tzyhjsr, 
+      cxbjjsr, gpzcxjs, gpzcxje, gpcxjsr, 
+      zqzcxjs, zqzcxje, zqcxjsr, cwgwjsr, 
+      bgczcwgwjsr, tzzxjsr, rzljsr, 
+      rzrqlxsr, rczjye, ydghlxsr, 
+      ydghrczj, gpzylxsr, gpzyrczj, 
+      zqtzsr, gqtzsr)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{zzc,jdbcType=REAL}, #{jzc,jdbcType=REAL}, 
+      #{yysr,jdbcType=REAL}, #{yysrzzl,jdbcType=REAL}, #{jlr,jdbcType=REAL}, #{jlrzzl,jdbcType=REAL}, 
+      #{jzcsyl,jdbcType=REAL}, #{cbglnl,jdbcType=REAL}, #{dwrjcl,jdbcType=REAL}, #{gyxzc,jdbcType=REAL}, 
+      #{jzb,jdbcType=REAL}, #{jzbsyl,jdbcType=REAL}, #{fxfgl,jdbcType=REAL}, #{cwggl,jdbcType=REAL}, 
+      #{khzjye,jdbcType=REAL}, #{tgzqsz,jdbcType=REAL}, #{dljsrXwzl,jdbcType=REAL}, #{dljsr,jdbcType=REAL}, 
+      #{jydysr,jdbcType=REAL}, #{yybbjjsr,jdbcType=REAL}, #{dlxsjsr,jdbcType=REAL}, #{dlxscpgm,jdbcType=REAL}, 
+      #{khzcglstzj,jdbcType=REAL}, #{stkhywjsr,jdbcType=REAL}, #{tzyhjsr,jdbcType=REAL}, 
+      #{cxbjjsr,jdbcType=REAL}, #{gpzcxjs,jdbcType=REAL}, #{gpzcxje,jdbcType=REAL}, #{gpcxjsr,jdbcType=REAL}, 
+      #{zqzcxjs,jdbcType=REAL}, #{zqzcxje,jdbcType=REAL}, #{zqcxjsr,jdbcType=REAL}, #{cwgwjsr,jdbcType=REAL}, 
+      #{bgczcwgwjsr,jdbcType=REAL}, #{tzzxjsr,jdbcType=REAL}, #{rzljsr,jdbcType=REAL}, 
+      #{rzrqlxsr,jdbcType=REAL}, #{rczjye,jdbcType=REAL}, #{ydghlxsr,jdbcType=REAL}, 
+      #{ydghrczj,jdbcType=REAL}, #{gpzylxsr,jdbcType=REAL}, #{gpzyrczj,jdbcType=REAL}, 
+      #{zqtzsr,jdbcType=REAL}, #{gqtzsr,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.BrokerRank" >
+    insert into broker_rank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="zzc != null" >
+        zzc,
+      </if>
+      <if test="jzc != null" >
+        jzc,
+      </if>
+      <if test="yysr != null" >
+        yysr,
+      </if>
+      <if test="yysrzzl != null" >
+        yysrzzl,
+      </if>
+      <if test="jlr != null" >
+        jlr,
+      </if>
+      <if test="jlrzzl != null" >
+        jlrzzl,
+      </if>
+      <if test="jzcsyl != null" >
+        jzcsyl,
+      </if>
+      <if test="cbglnl != null" >
+        cbglnl,
+      </if>
+      <if test="dwrjcl != null" >
+        dwrjcl,
+      </if>
+      <if test="gyxzc != null" >
+        gyxzc,
+      </if>
+      <if test="jzb != null" >
+        jzb,
+      </if>
+      <if test="jzbsyl != null" >
+        jzbsyl,
+      </if>
+      <if test="fxfgl != null" >
+        fxfgl,
+      </if>
+      <if test="cwggl != null" >
+        cwggl,
+      </if>
+      <if test="khzjye != null" >
+        khzjye,
+      </if>
+      <if test="tgzqsz != null" >
+        tgzqsz,
+      </if>
+      <if test="dljsrXwzl != null" >
+        dljsr_xwzl,
+      </if>
+      <if test="dljsr != null" >
+        dljsr,
+      </if>
+      <if test="jydysr != null" >
+        jydysr,
+      </if>
+      <if test="yybbjjsr != null" >
+        yybbjjsr,
+      </if>
+      <if test="dlxsjsr != null" >
+        dlxsjsr,
+      </if>
+      <if test="dlxscpgm != null" >
+        dlxscpgm,
+      </if>
+      <if test="khzcglstzj != null" >
+        khzcglstzj,
+      </if>
+      <if test="stkhywjsr != null" >
+        stkhywjsr,
+      </if>
+      <if test="tzyhjsr != null" >
+        tzyhjsr,
+      </if>
+      <if test="cxbjjsr != null" >
+        cxbjjsr,
+      </if>
+      <if test="gpzcxjs != null" >
+        gpzcxjs,
+      </if>
+      <if test="gpzcxje != null" >
+        gpzcxje,
+      </if>
+      <if test="gpcxjsr != null" >
+        gpcxjsr,
+      </if>
+      <if test="zqzcxjs != null" >
+        zqzcxjs,
+      </if>
+      <if test="zqzcxje != null" >
+        zqzcxje,
+      </if>
+      <if test="zqcxjsr != null" >
+        zqcxjsr,
+      </if>
+      <if test="cwgwjsr != null" >
+        cwgwjsr,
+      </if>
+      <if test="bgczcwgwjsr != null" >
+        bgczcwgwjsr,
+      </if>
+      <if test="tzzxjsr != null" >
+        tzzxjsr,
+      </if>
+      <if test="rzljsr != null" >
+        rzljsr,
+      </if>
+      <if test="rzrqlxsr != null" >
+        rzrqlxsr,
+      </if>
+      <if test="rczjye != null" >
+        rczjye,
+      </if>
+      <if test="ydghlxsr != null" >
+        ydghlxsr,
+      </if>
+      <if test="ydghrczj != null" >
+        ydghrczj,
+      </if>
+      <if test="gpzylxsr != null" >
+        gpzylxsr,
+      </if>
+      <if test="gpzyrczj != null" >
+        gpzyrczj,
+      </if>
+      <if test="zqtzsr != null" >
+        zqtzsr,
+      </if>
+      <if test="gqtzsr != null" >
+        gqtzsr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="zzc != null" >
+        #{zzc,jdbcType=REAL},
+      </if>
+      <if test="jzc != null" >
+        #{jzc,jdbcType=REAL},
+      </if>
+      <if test="yysr != null" >
+        #{yysr,jdbcType=REAL},
+      </if>
+      <if test="yysrzzl != null" >
+        #{yysrzzl,jdbcType=REAL},
+      </if>
+      <if test="jlr != null" >
+        #{jlr,jdbcType=REAL},
+      </if>
+      <if test="jlrzzl != null" >
+        #{jlrzzl,jdbcType=REAL},
+      </if>
+      <if test="jzcsyl != null" >
+        #{jzcsyl,jdbcType=REAL},
+      </if>
+      <if test="cbglnl != null" >
+        #{cbglnl,jdbcType=REAL},
+      </if>
+      <if test="dwrjcl != null" >
+        #{dwrjcl,jdbcType=REAL},
+      </if>
+      <if test="gyxzc != null" >
+        #{gyxzc,jdbcType=REAL},
+      </if>
+      <if test="jzb != null" >
+        #{jzb,jdbcType=REAL},
+      </if>
+      <if test="jzbsyl != null" >
+        #{jzbsyl,jdbcType=REAL},
+      </if>
+      <if test="fxfgl != null" >
+        #{fxfgl,jdbcType=REAL},
+      </if>
+      <if test="cwggl != null" >
+        #{cwggl,jdbcType=REAL},
+      </if>
+      <if test="khzjye != null" >
+        #{khzjye,jdbcType=REAL},
+      </if>
+      <if test="tgzqsz != null" >
+        #{tgzqsz,jdbcType=REAL},
+      </if>
+      <if test="dljsrXwzl != null" >
+        #{dljsrXwzl,jdbcType=REAL},
+      </if>
+      <if test="dljsr != null" >
+        #{dljsr,jdbcType=REAL},
+      </if>
+      <if test="jydysr != null" >
+        #{jydysr,jdbcType=REAL},
+      </if>
+      <if test="yybbjjsr != null" >
+        #{yybbjjsr,jdbcType=REAL},
+      </if>
+      <if test="dlxsjsr != null" >
+        #{dlxsjsr,jdbcType=REAL},
+      </if>
+      <if test="dlxscpgm != null" >
+        #{dlxscpgm,jdbcType=REAL},
+      </if>
+      <if test="khzcglstzj != null" >
+        #{khzcglstzj,jdbcType=REAL},
+      </if>
+      <if test="stkhywjsr != null" >
+        #{stkhywjsr,jdbcType=REAL},
+      </if>
+      <if test="tzyhjsr != null" >
+        #{tzyhjsr,jdbcType=REAL},
+      </if>
+      <if test="cxbjjsr != null" >
+        #{cxbjjsr,jdbcType=REAL},
+      </if>
+      <if test="gpzcxjs != null" >
+        #{gpzcxjs,jdbcType=REAL},
+      </if>
+      <if test="gpzcxje != null" >
+        #{gpzcxje,jdbcType=REAL},
+      </if>
+      <if test="gpcxjsr != null" >
+        #{gpcxjsr,jdbcType=REAL},
+      </if>
+      <if test="zqzcxjs != null" >
+        #{zqzcxjs,jdbcType=REAL},
+      </if>
+      <if test="zqzcxje != null" >
+        #{zqzcxje,jdbcType=REAL},
+      </if>
+      <if test="zqcxjsr != null" >
+        #{zqcxjsr,jdbcType=REAL},
+      </if>
+      <if test="cwgwjsr != null" >
+        #{cwgwjsr,jdbcType=REAL},
+      </if>
+      <if test="bgczcwgwjsr != null" >
+        #{bgczcwgwjsr,jdbcType=REAL},
+      </if>
+      <if test="tzzxjsr != null" >
+        #{tzzxjsr,jdbcType=REAL},
+      </if>
+      <if test="rzljsr != null" >
+        #{rzljsr,jdbcType=REAL},
+      </if>
+      <if test="rzrqlxsr != null" >
+        #{rzrqlxsr,jdbcType=REAL},
+      </if>
+      <if test="rczjye != null" >
+        #{rczjye,jdbcType=REAL},
+      </if>
+      <if test="ydghlxsr != null" >
+        #{ydghlxsr,jdbcType=REAL},
+      </if>
+      <if test="ydghrczj != null" >
+        #{ydghrczj,jdbcType=REAL},
+      </if>
+      <if test="gpzylxsr != null" >
+        #{gpzylxsr,jdbcType=REAL},
+      </if>
+      <if test="gpzyrczj != null" >
+        #{gpzyrczj,jdbcType=REAL},
+      </if>
+      <if test="zqtzsr != null" >
+        #{zqtzsr,jdbcType=REAL},
+      </if>
+      <if test="gqtzsr != null" >
+        #{gqtzsr,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.BrokerRank" >
+    update broker_rank
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="zzc != null" >
+        zzc = #{zzc,jdbcType=REAL},
+      </if>
+      <if test="jzc != null" >
+        jzc = #{jzc,jdbcType=REAL},
+      </if>
+      <if test="yysr != null" >
+        yysr = #{yysr,jdbcType=REAL},
+      </if>
+      <if test="yysrzzl != null" >
+        yysrzzl = #{yysrzzl,jdbcType=REAL},
+      </if>
+      <if test="jlr != null" >
+        jlr = #{jlr,jdbcType=REAL},
+      </if>
+      <if test="jlrzzl != null" >
+        jlrzzl = #{jlrzzl,jdbcType=REAL},
+      </if>
+      <if test="jzcsyl != null" >
+        jzcsyl = #{jzcsyl,jdbcType=REAL},
+      </if>
+      <if test="cbglnl != null" >
+        cbglnl = #{cbglnl,jdbcType=REAL},
+      </if>
+      <if test="dwrjcl != null" >
+        dwrjcl = #{dwrjcl,jdbcType=REAL},
+      </if>
+      <if test="gyxzc != null" >
+        gyxzc = #{gyxzc,jdbcType=REAL},
+      </if>
+      <if test="jzb != null" >
+        jzb = #{jzb,jdbcType=REAL},
+      </if>
+      <if test="jzbsyl != null" >
+        jzbsyl = #{jzbsyl,jdbcType=REAL},
+      </if>
+      <if test="fxfgl != null" >
+        fxfgl = #{fxfgl,jdbcType=REAL},
+      </if>
+      <if test="cwggl != null" >
+        cwggl = #{cwggl,jdbcType=REAL},
+      </if>
+      <if test="khzjye != null" >
+        khzjye = #{khzjye,jdbcType=REAL},
+      </if>
+      <if test="tgzqsz != null" >
+        tgzqsz = #{tgzqsz,jdbcType=REAL},
+      </if>
+      <if test="dljsrXwzl != null" >
+        dljsr_xwzl = #{dljsrXwzl,jdbcType=REAL},
+      </if>
+      <if test="dljsr != null" >
+        dljsr = #{dljsr,jdbcType=REAL},
+      </if>
+      <if test="jydysr != null" >
+        jydysr = #{jydysr,jdbcType=REAL},
+      </if>
+      <if test="yybbjjsr != null" >
+        yybbjjsr = #{yybbjjsr,jdbcType=REAL},
+      </if>
+      <if test="dlxsjsr != null" >
+        dlxsjsr = #{dlxsjsr,jdbcType=REAL},
+      </if>
+      <if test="dlxscpgm != null" >
+        dlxscpgm = #{dlxscpgm,jdbcType=REAL},
+      </if>
+      <if test="khzcglstzj != null" >
+        khzcglstzj = #{khzcglstzj,jdbcType=REAL},
+      </if>
+      <if test="stkhywjsr != null" >
+        stkhywjsr = #{stkhywjsr,jdbcType=REAL},
+      </if>
+      <if test="tzyhjsr != null" >
+        tzyhjsr = #{tzyhjsr,jdbcType=REAL},
+      </if>
+      <if test="cxbjjsr != null" >
+        cxbjjsr = #{cxbjjsr,jdbcType=REAL},
+      </if>
+      <if test="gpzcxjs != null" >
+        gpzcxjs = #{gpzcxjs,jdbcType=REAL},
+      </if>
+      <if test="gpzcxje != null" >
+        gpzcxje = #{gpzcxje,jdbcType=REAL},
+      </if>
+      <if test="gpcxjsr != null" >
+        gpcxjsr = #{gpcxjsr,jdbcType=REAL},
+      </if>
+      <if test="zqzcxjs != null" >
+        zqzcxjs = #{zqzcxjs,jdbcType=REAL},
+      </if>
+      <if test="zqzcxje != null" >
+        zqzcxje = #{zqzcxje,jdbcType=REAL},
+      </if>
+      <if test="zqcxjsr != null" >
+        zqcxjsr = #{zqcxjsr,jdbcType=REAL},
+      </if>
+      <if test="cwgwjsr != null" >
+        cwgwjsr = #{cwgwjsr,jdbcType=REAL},
+      </if>
+      <if test="bgczcwgwjsr != null" >
+        bgczcwgwjsr = #{bgczcwgwjsr,jdbcType=REAL},
+      </if>
+      <if test="tzzxjsr != null" >
+        tzzxjsr = #{tzzxjsr,jdbcType=REAL},
+      </if>
+      <if test="rzljsr != null" >
+        rzljsr = #{rzljsr,jdbcType=REAL},
+      </if>
+      <if test="rzrqlxsr != null" >
+        rzrqlxsr = #{rzrqlxsr,jdbcType=REAL},
+      </if>
+      <if test="rczjye != null" >
+        rczjye = #{rczjye,jdbcType=REAL},
+      </if>
+      <if test="ydghlxsr != null" >
+        ydghlxsr = #{ydghlxsr,jdbcType=REAL},
+      </if>
+      <if test="ydghrczj != null" >
+        ydghrczj = #{ydghrczj,jdbcType=REAL},
+      </if>
+      <if test="gpzylxsr != null" >
+        gpzylxsr = #{gpzylxsr,jdbcType=REAL},
+      </if>
+      <if test="gpzyrczj != null" >
+        gpzyrczj = #{gpzyrczj,jdbcType=REAL},
+      </if>
+      <if test="zqtzsr != null" >
+        zqtzsr = #{zqtzsr,jdbcType=REAL},
+      </if>
+      <if test="gqtzsr != null" >
+        gqtzsr = #{gqtzsr,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.BrokerRank" >
+    update broker_rank
+    set name = #{name,jdbcType=VARCHAR},
+      zzc = #{zzc,jdbcType=REAL},
+      jzc = #{jzc,jdbcType=REAL},
+      yysr = #{yysr,jdbcType=REAL},
+      yysrzzl = #{yysrzzl,jdbcType=REAL},
+      jlr = #{jlr,jdbcType=REAL},
+      jlrzzl = #{jlrzzl,jdbcType=REAL},
+      jzcsyl = #{jzcsyl,jdbcType=REAL},
+      cbglnl = #{cbglnl,jdbcType=REAL},
+      dwrjcl = #{dwrjcl,jdbcType=REAL},
+      gyxzc = #{gyxzc,jdbcType=REAL},
+      jzb = #{jzb,jdbcType=REAL},
+      jzbsyl = #{jzbsyl,jdbcType=REAL},
+      fxfgl = #{fxfgl,jdbcType=REAL},
+      cwggl = #{cwggl,jdbcType=REAL},
+      khzjye = #{khzjye,jdbcType=REAL},
+      tgzqsz = #{tgzqsz,jdbcType=REAL},
+      dljsr_xwzl = #{dljsrXwzl,jdbcType=REAL},
+      dljsr = #{dljsr,jdbcType=REAL},
+      jydysr = #{jydysr,jdbcType=REAL},
+      yybbjjsr = #{yybbjjsr,jdbcType=REAL},
+      dlxsjsr = #{dlxsjsr,jdbcType=REAL},
+      dlxscpgm = #{dlxscpgm,jdbcType=REAL},
+      khzcglstzj = #{khzcglstzj,jdbcType=REAL},
+      stkhywjsr = #{stkhywjsr,jdbcType=REAL},
+      tzyhjsr = #{tzyhjsr,jdbcType=REAL},
+      cxbjjsr = #{cxbjjsr,jdbcType=REAL},
+      gpzcxjs = #{gpzcxjs,jdbcType=REAL},
+      gpzcxje = #{gpzcxje,jdbcType=REAL},
+      gpcxjsr = #{gpcxjsr,jdbcType=REAL},
+      zqzcxjs = #{zqzcxjs,jdbcType=REAL},
+      zqzcxje = #{zqzcxje,jdbcType=REAL},
+      zqcxjsr = #{zqcxjsr,jdbcType=REAL},
+      cwgwjsr = #{cwgwjsr,jdbcType=REAL},
+      bgczcwgwjsr = #{bgczcwgwjsr,jdbcType=REAL},
+      tzzxjsr = #{tzzxjsr,jdbcType=REAL},
+      rzljsr = #{rzljsr,jdbcType=REAL},
+      rzrqlxsr = #{rzrqlxsr,jdbcType=REAL},
+      rczjye = #{rczjye,jdbcType=REAL},
+      ydghlxsr = #{ydghlxsr,jdbcType=REAL},
+      ydghrczj = #{ydghrczj,jdbcType=REAL},
+      gpzylxsr = #{gpzylxsr,jdbcType=REAL},
+      gpzyrczj = #{gpzyrczj,jdbcType=REAL},
+      zqtzsr = #{zqtzsr,jdbcType=REAL},
+      gqtzsr = #{gqtzsr,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectQsRank" resultType="hashmap" parameterType="hashmap" >
+	select *
+	FROM broker_rank 
+	where 1=1 
+	<if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+  <select id="selectName1" resultType="String" parameterType="hashmap" >
+	select DISTINCT(name),company_schema.`id`
+	FROM broker_rank 
+	left join company_schema on broker_rank.name = company_schema.`short_name`
+	where 1=1 
+	<if test="brokerName != null" >
+       and  (company_schema.`short_name` = #{brokerName} or broker_rank.name = #{brokerName})
+      </if>
+  </select>
+  <select id="selectName2" resultType="String" parameterType="hashmap" >
+	select DISTINCT(name),company_schema.`id`
+	FROM broker_rank 
+	left join company_schema on broker_rank.name = company_schema.`full_name`
+	where 1=1 
+	<if test="brokerName != null" >
+       and  (company_schema.`full_name`= #{brokerName} or broker_rank.name = #{brokerName})
+      </if>
+  </select>
+  
+  <select id="selectId" resultType="String" parameterType="hashmap" >
+	select id
+	FROM broker_rank 
+	where 1=1 
+	<if test="comName != null" >
+       and  name= #{comName} 
+      </if>
+  </select>
+  
+</mapper>

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.InsuranceBusinessMapper">
+	<resultMap id="BaseResultMap" type="com.dfans.model.InsuranceBusiness">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="statistical_time" property="statisticalTime"
+			jdbcType="DATE" />
+		<result column="insu_prem_inco" property="insuPremInco"
+			jdbcType="DECIMAL" />
+		<result column="prop_insu_inco" property="propInsuInco"
+			jdbcType="DECIMAL" />
+		<result column="pers_insu_inco" property="persInsuInco"
+			jdbcType="DECIMAL" />
+		<result column="pers_life_inco" property="persLifeInco"
+			jdbcType="DECIMAL" />
+		<result column="pers_heal_inco" property="persHealInco"
+			jdbcType="DECIMAL" />
+		<result column="pers_acci_inco" property="persAcciInco"
+			jdbcType="DECIMAL" />
+		<result column="insu_adde_pay" property="insuAddePay" jdbcType="DECIMAL" />
+		<result column="segr_adde_pay" property="segrAddePay" jdbcType="DECIMAL" />
+		<result column="endo_comp_pay" property="endoCompPay" jdbcType="DECIMAL" />
+		<result column="insu_prem_paid" property="insuPremPaid"
+			jdbcType="DECIMAL" />
+		<result column="prop_insu_paid" property="propInsuPaid"
+			jdbcType="DECIMAL" />
+		<result column="pers_insu_paid" property="persInsuPaid"
+			jdbcType="DECIMAL" />
+		<result column="pers_life_paid" property="persLifePaid"
+			jdbcType="DECIMAL" />
+		<result column="pers_heal_paid" property="persHealPaid"
+			jdbcType="DECIMAL" />
+		<result column="pers_acci_paid" property="persAcciPaid"
+			jdbcType="DECIMAL" />
+		<result column="oper_admi_expe" property="operAdmiExpe"
+			jdbcType="DECIMAL" />
+		<result column="deposit_bank" property="depositBank" jdbcType="DECIMAL" />
+		<result column="investment" property="investment" jdbcType="DECIMAL" />
+		<result column="total_assets" property="totalAssets" jdbcType="DECIMAL" />
+		<result column="endo_comp_entr_asse" property="endoCompEntrAsse"
+			jdbcType="DECIMAL" />
+		<result column="endo_comp_inve_asse" property="endoCompInveAsse"
+			jdbcType="DECIMAL" />
+	</resultMap>
+	<resultMap id="totalString" type="java.lang.String">
+		<result column="total" property="total" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, statistical_time, insu_prem_inco, prop_insu_inco, pers_insu_inco,
+		pers_life_inco,
+		pers_heal_inco, pers_acci_inco, insu_adde_pay, segr_adde_pay, endo_comp_pay,
+		insu_prem_paid,
+		prop_insu_paid, pers_insu_paid, pers_life_paid, pers_heal_paid, pers_acci_paid,
+		oper_admi_expe,
+		deposit_bank, investment, total_assets, endo_comp_entr_asse, endo_comp_inve_asse
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from insurance_business
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+		select
+		<include refid="Base_Column_List" />
+		from insurance_business where 1=1
+		order by statistical_time DESC  limit ${page},10
+	</select>
+	<select id="selectInsuranceByTime" resultMap="BaseResultMap" parameterType="hashmap">
+		select
+		id, statistical_time,convert(insu_prem_inco,DECIMAL(20 ,2))  insu_prem_inco,convert(prop_insu_inco,DECIMAL(20 ,2))  prop_insu_inco,
+		convert(pers_insu_inco,DECIMAL(20 ,2)) pers_insu_inco,
+		convert(pers_life_inco,DECIMAL(20 ,2)) pers_life_inco,
+		convert(pers_life_inco,DECIMAL(20 ,2)) pers_heal_inco,convert(pers_acci_inco,DECIMAL(20 ,2)) pers_acci_inco,
+		convert(insu_adde_pay,DECIMAL(20 ,2)) insu_adde_pay,convert(segr_adde_pay,DECIMAL(20 ,2)) segr_adde_pay,convert(endo_comp_pay,DECIMAL(20 ,2)) endo_comp_pay,
+		convert(insu_prem_paid,DECIMAL(20 ,2)) insu_prem_paid,
+		convert(prop_insu_paid,DECIMAL(20 ,2))  prop_insu_paid,convert(pers_insu_paid,DECIMAL(20 ,2)) pers_insu_paid,
+		convert(pers_life_paid,DECIMAL(20 ,2))  pers_life_paid,convert(pers_heal_paid,DECIMAL(20 ,2)) pers_heal_paid,convert(pers_acci_paid,DECIMAL(20 ,2)) pers_acci_paid,
+		convert(pers_life_paid,DECIMAL(20 ,2))  oper_admi_expe,
+		convert(deposit_bank,DECIMAL(20 ,2)) deposit_bank,convert(investment,DECIMAL(20 ,2)) investment,convert(total_assets,DECIMAL(20 ,2)) total_assets,
+		convert(endo_comp_entr_asse,DECIMAL(20 ,2)) endo_comp_entr_asse,convert(endo_comp_inve_asse,DECIMAL(20 ,2)) endo_comp_inve_asse
+		from insurance_business where 1=1 
+		<if test="year != null" >
+      	and DATE_FORMAT(statistical_time,'%Y') = #{year}
+   		</if>
+		order by statistical_time asc
+	</select>
+	
+	
+	<select id="selectInsuranceByField" resultMap="BaseResultMap" parameterType="hashmap">
+		select
+		${field}
+		from insurance_business where 1=1 and
+		DATE_FORMAT(statistical_time,'%Y') = #{year} 
+	</select>
+	
+	<select id="selectCount" resultMap="totalString" parameterType="hashmap">
+		select count(id) total from insurance_business
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from insurance_business
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.dfans.model.InsuranceBusiness">
+		insert into insurance_business (id, statistical_time, insu_prem_inco,
+		prop_insu_inco, pers_insu_inco, pers_life_inco,
+		pers_heal_inco, pers_acci_inco, insu_adde_pay,
+		segr_adde_pay, endo_comp_pay, insu_prem_paid,
+		prop_insu_paid, pers_insu_paid, pers_life_paid,
+		pers_heal_paid, pers_acci_paid, oper_admi_expe,
+		deposit_bank, investment, total_assets,
+		endo_comp_entr_asse, endo_comp_inve_asse)
+		values (#{id,jdbcType=INTEGER}, #{statisticalTime,jdbcType=DATE},
+		#{insuPremInco,jdbcType=DECIMAL},
+		#{propInsuInco,jdbcType=DECIMAL}, #{persInsuInco,jdbcType=DECIMAL}, #{persLifeInco,jdbcType=DECIMAL},
+		#{persHealInco,jdbcType=DECIMAL}, #{persAcciInco,jdbcType=DECIMAL},
+		#{insuAddePay,jdbcType=DECIMAL},
+		#{segrAddePay,jdbcType=DECIMAL}, #{endoCompPay,jdbcType=DECIMAL}, #{insuPremPaid,jdbcType=DECIMAL},
+		#{propInsuPaid,jdbcType=DECIMAL}, #{persInsuPaid,jdbcType=DECIMAL},
+		#{persLifePaid,jdbcType=DECIMAL},
+		#{persHealPaid,jdbcType=DECIMAL}, #{persAcciPaid,jdbcType=DECIMAL}, #{operAdmiExpe,jdbcType=DECIMAL},
+		#{depositBank,jdbcType=DECIMAL}, #{investment,jdbcType=DECIMAL},
+		#{totalAssets,jdbcType=DECIMAL},
+		#{endoCompEntrAsse,jdbcType=DECIMAL}, #{endoCompInveAsse,jdbcType=DECIMAL})
+	</insert>
+	<insert id="insertSelective" parameterType="com.dfans.model.InsuranceBusiness">
+		insert into insurance_business
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="statisticalTime != null">
+				statistical_time,
+			</if>
+			<if test="insuPremInco != null">
+				insu_prem_inco,
+			</if>
+			<if test="propInsuInco != null">
+				prop_insu_inco,
+			</if>
+			<if test="persInsuInco != null">
+				pers_insu_inco,
+			</if>
+			<if test="persLifeInco != null">
+				pers_life_inco,
+			</if>
+			<if test="persHealInco != null">
+				pers_heal_inco,
+			</if>
+			<if test="persAcciInco != null">
+				pers_acci_inco,
+			</if>
+			<if test="insuAddePay != null">
+				insu_adde_pay,
+			</if>
+			<if test="segrAddePay != null">
+				segr_adde_pay,
+			</if>
+			<if test="endoCompPay != null">
+				endo_comp_pay,
+			</if>
+			<if test="insuPremPaid != null">
+				insu_prem_paid,
+			</if>
+			<if test="propInsuPaid != null">
+				prop_insu_paid,
+			</if>
+			<if test="persInsuPaid != null">
+				pers_insu_paid,
+			</if>
+			<if test="persLifePaid != null">
+				pers_life_paid,
+			</if>
+			<if test="persHealPaid != null">
+				pers_heal_paid,
+			</if>
+			<if test="persAcciPaid != null">
+				pers_acci_paid,
+			</if>
+			<if test="operAdmiExpe != null">
+				oper_admi_expe,
+			</if>
+			<if test="depositBank != null">
+				deposit_bank,
+			</if>
+			<if test="investment != null">
+				investment,
+			</if>
+			<if test="totalAssets != null">
+				total_assets,
+			</if>
+			<if test="endoCompEntrAsse != null">
+				endo_comp_entr_asse,
+			</if>
+			<if test="endoCompInveAsse != null">
+				endo_comp_inve_asse,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="statisticalTime != null">
+				#{statisticalTime,jdbcType=DATE},
+			</if>
+			<if test="insuPremInco != null">
+				#{insuPremInco,jdbcType=DECIMAL},
+			</if>
+			<if test="propInsuInco != null">
+				#{propInsuInco,jdbcType=DECIMAL},
+			</if>
+			<if test="persInsuInco != null">
+				#{persInsuInco,jdbcType=DECIMAL},
+			</if>
+			<if test="persLifeInco != null">
+				#{persLifeInco,jdbcType=DECIMAL},
+			</if>
+			<if test="persHealInco != null">
+				#{persHealInco,jdbcType=DECIMAL},
+			</if>
+			<if test="persAcciInco != null">
+				#{persAcciInco,jdbcType=DECIMAL},
+			</if>
+			<if test="insuAddePay != null">
+				#{insuAddePay,jdbcType=DECIMAL},
+			</if>
+			<if test="segrAddePay != null">
+				#{segrAddePay,jdbcType=DECIMAL},
+			</if>
+			<if test="endoCompPay != null">
+				#{endoCompPay,jdbcType=DECIMAL},
+			</if>
+			<if test="insuPremPaid != null">
+				#{insuPremPaid,jdbcType=DECIMAL},
+			</if>
+			<if test="propInsuPaid != null">
+				#{propInsuPaid,jdbcType=DECIMAL},
+			</if>
+			<if test="persInsuPaid != null">
+				#{persInsuPaid,jdbcType=DECIMAL},
+			</if>
+			<if test="persLifePaid != null">
+				#{persLifePaid,jdbcType=DECIMAL},
+			</if>
+			<if test="persHealPaid != null">
+				#{persHealPaid,jdbcType=DECIMAL},
+			</if>
+			<if test="persAcciPaid != null">
+				#{persAcciPaid,jdbcType=DECIMAL},
+			</if>
+			<if test="operAdmiExpe != null">
+				#{operAdmiExpe,jdbcType=DECIMAL},
+			</if>
+			<if test="depositBank != null">
+				#{depositBank,jdbcType=DECIMAL},
+			</if>
+			<if test="investment != null">
+				#{investment,jdbcType=DECIMAL},
+			</if>
+			<if test="totalAssets != null">
+				#{totalAssets,jdbcType=DECIMAL},
+			</if>
+			<if test="endoCompEntrAsse != null">
+				#{endoCompEntrAsse,jdbcType=DECIMAL},
+			</if>
+			<if test="endoCompInveAsse != null">
+				#{endoCompInveAsse,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.InsuranceBusiness">
+		update insurance_business
+		<set>
+			<if test="statisticalTime != null">
+				statistical_time = #{statisticalTime,jdbcType=DATE},
+			</if>
+			<if test="insuPremInco != null">
+				insu_prem_inco = #{insuPremInco,jdbcType=DECIMAL},
+			</if>
+			<if test="propInsuInco != null">
+				prop_insu_inco = #{propInsuInco,jdbcType=DECIMAL},
+			</if>
+			<if test="persInsuInco != null">
+				pers_insu_inco = #{persInsuInco,jdbcType=DECIMAL},
+			</if>
+			<if test="persLifeInco != null">
+				pers_life_inco = #{persLifeInco,jdbcType=DECIMAL},
+			</if>
+			<if test="persHealInco != null">
+				pers_heal_inco = #{persHealInco,jdbcType=DECIMAL},
+			</if>
+			<if test="persAcciInco != null">
+				pers_acci_inco = #{persAcciInco,jdbcType=DECIMAL},
+			</if>
+			<if test="insuAddePay != null">
+				insu_adde_pay = #{insuAddePay,jdbcType=DECIMAL},
+			</if>
+			<if test="segrAddePay != null">
+				segr_adde_pay = #{segrAddePay,jdbcType=DECIMAL},
+			</if>
+			<if test="endoCompPay != null">
+				endo_comp_pay = #{endoCompPay,jdbcType=DECIMAL},
+			</if>
+			<if test="insuPremPaid != null">
+				insu_prem_paid = #{insuPremPaid,jdbcType=DECIMAL},
+			</if>
+			<if test="propInsuPaid != null">
+				prop_insu_paid = #{propInsuPaid,jdbcType=DECIMAL},
+			</if>
+			<if test="persInsuPaid != null">
+				pers_insu_paid = #{persInsuPaid,jdbcType=DECIMAL},
+			</if>
+			<if test="persLifePaid != null">
+				pers_life_paid = #{persLifePaid,jdbcType=DECIMAL},
+			</if>
+			<if test="persHealPaid != null">
+				pers_heal_paid = #{persHealPaid,jdbcType=DECIMAL},
+			</if>
+			<if test="persAcciPaid != null">
+				pers_acci_paid = #{persAcciPaid,jdbcType=DECIMAL},
+			</if>
+			<if test="operAdmiExpe != null">
+				oper_admi_expe = #{operAdmiExpe,jdbcType=DECIMAL},
+			</if>
+			<if test="depositBank != null">
+				deposit_bank = #{depositBank,jdbcType=DECIMAL},
+			</if>
+			<if test="investment != null">
+				investment = #{investment,jdbcType=DECIMAL},
+			</if>
+			<if test="totalAssets != null">
+				total_assets = #{totalAssets,jdbcType=DECIMAL},
+			</if>
+			<if test="endoCompEntrAsse != null">
+				endo_comp_entr_asse = #{endoCompEntrAsse,jdbcType=DECIMAL},
+			</if>
+			<if test="endoCompInveAsse != null">
+				endo_comp_inve_asse = #{endoCompInveAsse,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.dfans.model.InsuranceBusiness">
+		update insurance_business
+		set statistical_time = #{statisticalTime,jdbcType=DATE},
+		insu_prem_inco = #{insuPremInco,jdbcType=DECIMAL},
+		prop_insu_inco = #{propInsuInco,jdbcType=DECIMAL},
+		pers_insu_inco = #{persInsuInco,jdbcType=DECIMAL},
+		pers_life_inco = #{persLifeInco,jdbcType=DECIMAL},
+		pers_heal_inco = #{persHealInco,jdbcType=DECIMAL},
+		pers_acci_inco = #{persAcciInco,jdbcType=DECIMAL},
+		insu_adde_pay = #{insuAddePay,jdbcType=DECIMAL},
+		segr_adde_pay = #{segrAddePay,jdbcType=DECIMAL},
+		endo_comp_pay = #{endoCompPay,jdbcType=DECIMAL},
+		insu_prem_paid = #{insuPremPaid,jdbcType=DECIMAL},
+		prop_insu_paid = #{propInsuPaid,jdbcType=DECIMAL},
+		pers_insu_paid = #{persInsuPaid,jdbcType=DECIMAL},
+		pers_life_paid = #{persLifePaid,jdbcType=DECIMAL},
+		pers_heal_paid = #{persHealPaid,jdbcType=DECIMAL},
+		pers_acci_paid = #{persAcciPaid,jdbcType=DECIMAL},
+		oper_admi_expe = #{operAdmiExpe,jdbcType=DECIMAL},
+		deposit_bank = #{depositBank,jdbcType=DECIMAL},
+		investment = #{investment,jdbcType=DECIMAL},
+		total_assets = #{totalAssets,jdbcType=DECIMAL},
+		endo_comp_entr_asse = #{endoCompEntrAsse,jdbcType=DECIMAL},
+		endo_comp_inve_asse = #{endoCompInveAsse,jdbcType=DECIMAL}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	 <select id="selectInsuranceBusinessMaxDate" resultType="java.lang.String" >
+   select date_format(MAX(statistical_time),'%Y') from insurance_business
+  </select>
+  
+  
+</mapper>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.ZcglYwtjMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.ZcglYwtj" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="yeat" property="yeat" jdbcType="INTEGER" />
+    <result column="quarter" property="quarter" jdbcType="INTEGER" />
+    <result column="zgm" property="zgm" jdbcType="REAL" />
+    <result column="gmjjgm" property="gmjjgm" jdbcType="REAL" />
+    <result column="zgszhgm" property="zgszhgm" jdbcType="REAL" />
+    <result column="zqgszc" property="zqgszc" jdbcType="REAL" />
+    <result column="qhgszc" property="qhgszc" jdbcType="REAL" />
+    <result column="smjjzc" property="smjjzc" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, yeat, quarter, zgm, gmjjgm, zgszhgm, zqgszc, qhgszc, smjjzc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from zcgl_ywtj
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from zcgl_ywtj where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from zcgl_ywtj 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from zcgl_ywtj
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.ZcglYwtj" >
+    insert into zcgl_ywtj (id, yeat, quarter, 
+      zgm, gmjjgm, zgszhgm, zqgszc, 
+      qhgszc, smjjzc)
+    values (#{id,jdbcType=INTEGER}, #{yeat,jdbcType=INTEGER}, #{quarter,jdbcType=INTEGER}, 
+      #{zgm,jdbcType=REAL}, #{gmjjgm,jdbcType=REAL}, #{zgszhgm,jdbcType=REAL}, #{zqgszc,jdbcType=REAL}, 
+      #{qhgszc,jdbcType=REAL}, #{smjjzc,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.ZcglYwtj" >
+    insert into zcgl_ywtj
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="yeat != null" >
+        yeat,
+      </if>
+      <if test="quarter != null" >
+        quarter,
+      </if>
+      <if test="zgm != null" >
+        zgm,
+      </if>
+      <if test="gmjjgm != null" >
+        gmjjgm,
+      </if>
+      <if test="zgszhgm != null" >
+        zgszhgm,
+      </if>
+      <if test="zqgszc != null" >
+        zqgszc,
+      </if>
+      <if test="qhgszc != null" >
+        qhgszc,
+      </if>
+      <if test="smjjzc != null" >
+        smjjzc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="yeat != null" >
+        #{yeat,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="zgm != null" >
+        #{zgm,jdbcType=REAL},
+      </if>
+      <if test="gmjjgm != null" >
+        #{gmjjgm,jdbcType=REAL},
+      </if>
+      <if test="zgszhgm != null" >
+        #{zgszhgm,jdbcType=REAL},
+      </if>
+      <if test="zqgszc != null" >
+        #{zqgszc,jdbcType=REAL},
+      </if>
+      <if test="qhgszc != null" >
+        #{qhgszc,jdbcType=REAL},
+      </if>
+      <if test="smjjzc != null" >
+        #{smjjzc,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.ZcglYwtj" >
+    update zcgl_ywtj
+    <set >
+      <if test="yeat != null" >
+        yeat = #{yeat,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        quarter = #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="zgm != null" >
+        zgm = #{zgm,jdbcType=REAL},
+      </if>
+      <if test="gmjjgm != null" >
+        gmjjgm = #{gmjjgm,jdbcType=REAL},
+      </if>
+      <if test="zgszhgm != null" >
+        zgszhgm = #{zgszhgm,jdbcType=REAL},
+      </if>
+      <if test="zqgszc != null" >
+        zqgszc = #{zqgszc,jdbcType=REAL},
+      </if>
+      <if test="qhgszc != null" >
+        qhgszc = #{qhgszc,jdbcType=REAL},
+      </if>
+      <if test="smjjzc != null" >
+        smjjzc = #{smjjzc,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.ZcglYwtj" >
+    update zcgl_ywtj
+    set yeat = #{yeat,jdbcType=INTEGER},
+      quarter = #{quarter,jdbcType=INTEGER},
+      zgm = #{zgm,jdbcType=REAL},
+      gmjjgm = #{gmjjgm,jdbcType=REAL},
+      zgszhgm = #{zgszhgm,jdbcType=REAL},
+      zqgszc = #{zqgszc,jdbcType=REAL},
+      qhgszc = #{qhgszc,jdbcType=REAL},
+      smjjzc = #{smjjzc,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

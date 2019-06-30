@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.InsuranceAreasMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.InsuranceAreas" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="statistical_time" property="statisticalTime" jdbcType="DATE" />
+    <result column="area_name" property="areaName" jdbcType="VARCHAR" />
+    <result column="total" property="total" jdbcType="DECIMAL" />
+    <result column="prop_insu_inco" property="propInsuInco" jdbcType="DECIMAL" />
+    <result column="life_insu_inco" property="lifeInsuInco" jdbcType="DECIMAL" />
+    <result column="acci_insu_inco" property="acciInsuInco" jdbcType="DECIMAL" />
+    <result column="heal_insu_inco" property="healInsuInco" jdbcType="DECIMAL" />
+  </resultMap>
+   <resultMap id="totalString" type="java.lang.String">
+		<result column="total" property="total" jdbcType="VARCHAR" />
+	</resultMap>
+  <sql id="Base_Column_List" >
+    id, statistical_time, area_name, prop_insu_inco, life_insu_inco, acci_insu_inco, 
+    heal_insu_inco
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from insurance_areas
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+		select
+		<include refid="Base_Column_List" />
+		from insurance_areas where 1=1
+		order by statistical_time DESC  limit ${page},10
+	</select>
+	<select id="selectCount" resultMap="totalString" parameterType="hashmap">
+		select count(id) total from insurance_areas
+	</select>
+  
+  	<select id="selectAreasByTime" resultMap="BaseResultMap" parameterType="hashmap">
+SELECT NOW() AS statistical_time,'全国合计' AS area_name,(SUM(prop_insu_inco)+SUM(life_insu_inco)+SUM(acci_insu_inco)) total,SUM(prop_insu_inco) prop_insu_inco,SUM(life_insu_inco) life_insu_inco, SUM(acci_insu_inco) acci_insu_inco
+ FROM insurance_areas WHERE 1=1
+ 	<if test="year != null" >
+      	and	DATE_FORMAT(statistical_time,'%Y-%m') = #{year}
+    </if>
+UNION ALL
+
+SELECT  statistical_time, area_name,(prop_insu_inco+life_insu_inco+acci_insu_inco) AS total,prop_insu_inco, life_insu_inco, acci_insu_inco
+
+ FROM insurance_areas WHERE 1=1
+	<if test="year != null" >
+      	and	DATE_FORMAT(statistical_time,'%Y-%m') = #{year}
+    </if>
+	</select>
+	
+	
+	<select id="selectAreasByArea" resultMap="BaseResultMap" parameterType="hashmap">
+	  <if test="type == 1" >
+		 SELECT DATE_FORMAT(statistical_time,'%Y-%m')  AS statistical_time,'全国合计' AS area_name,(SUM(prop_insu_inco)+SUM(life_insu_inco)+SUM(acci_insu_inco)) total,SUM(prop_insu_inco) prop_insu_inco,SUM(life_insu_inco) life_insu_inco, SUM(acci_insu_inco) acci_insu_inco
+		 FROM insurance_areas 
+		 where 1=1
+		 <if test ="year != null">
+		  and DATE_FORMAT(statistical_time,'%Y') = #{year} 
+		 </if>
+		 GROUP BY DATE_FORMAT(statistical_time,'%Y-%m')
+	 	 ORDER BY DATE_FORMAT(statistical_time,'%Y-%m') ASC
+      </if>
+	  <if test ="type ==2">
+		 SELECT  DATE_FORMAT(statistical_time,'%Y-%m') statistical_time, area_name,(prop_insu_inco+life_insu_inco+acci_insu_inco) AS total,prop_insu_inco, life_insu_inco, acci_insu_inco
+		 FROM insurance_areas WHERE 1=1
+		 <if test ="area != null">
+		 and area_name=#{area}
+		 </if>
+		 <if test="year != null" >
+      	 and	DATE_FORMAT(statistical_time,'%Y-%m') = #{year}
+    	 </if>
+		 order by statistical_time asc
+	</if>
+
+	
+	</select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from insurance_areas
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.InsuranceAreas" >
+    insert into insurance_areas (id, statistical_time, area_name, 
+      prop_insu_inco, life_insu_inco, acci_insu_inco, 
+      heal_insu_inco)
+    values (#{id,jdbcType=INTEGER}, #{statisticalTime,jdbcType=DATE}, #{areaName,jdbcType=VARCHAR}, 
+      #{propInsuInco,jdbcType=DECIMAL}, #{lifeInsuInco,jdbcType=DECIMAL}, #{acciInsuInco,jdbcType=DECIMAL}, 
+      #{healInsuInco,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.InsuranceAreas" >
+    insert into insurance_areas
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="statisticalTime != null" >
+        statistical_time,
+      </if>
+      <if test="areaName != null" >
+        area_name,
+      </if>
+      <if test="propInsuInco != null" >
+        prop_insu_inco,
+      </if>
+      <if test="lifeInsuInco != null" >
+        life_insu_inco,
+      </if>
+      <if test="acciInsuInco != null" >
+        acci_insu_inco,
+      </if>
+      <if test="healInsuInco != null" >
+        heal_insu_inco,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="statisticalTime != null" >
+        #{statisticalTime,jdbcType=DATE},
+      </if>
+      <if test="areaName != null" >
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="propInsuInco != null" >
+        #{propInsuInco,jdbcType=DECIMAL},
+      </if>
+      <if test="lifeInsuInco != null" >
+        #{lifeInsuInco,jdbcType=DECIMAL},
+      </if>
+      <if test="acciInsuInco != null" >
+        #{acciInsuInco,jdbcType=DECIMAL},
+      </if>
+      <if test="healInsuInco != null" >
+        #{healInsuInco,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.InsuranceAreas" >
+    update insurance_areas
+    <set >
+      <if test="statisticalTime != null" >
+        statistical_time = #{statisticalTime,jdbcType=DATE},
+      </if>
+      <if test="areaName != null" >
+        area_name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="propInsuInco != null" >
+        prop_insu_inco = #{propInsuInco,jdbcType=DECIMAL},
+      </if>
+      <if test="lifeInsuInco != null" >
+        life_insu_inco = #{lifeInsuInco,jdbcType=DECIMAL},
+      </if>
+      <if test="acciInsuInco != null" >
+        acci_insu_inco = #{acciInsuInco,jdbcType=DECIMAL},
+      </if>
+      <if test="healInsuInco != null" >
+        heal_insu_inco = #{healInsuInco,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.InsuranceAreas" >
+    update insurance_areas
+    set statistical_time = #{statisticalTime,jdbcType=DATE},
+      area_name = #{areaName,jdbcType=VARCHAR},
+      prop_insu_inco = #{propInsuInco,jdbcType=DECIMAL},
+      life_insu_inco = #{lifeInsuInco,jdbcType=DECIMAL},
+      acci_insu_inco = #{acciInsuInco,jdbcType=DECIMAL},
+      heal_insu_inco = #{healInsuInco,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <select id="selectInsuranceAreasMaxDate" resultType="java.lang.String" >
+   select DATE_FORMAT(MAX(statistical_time),'%Y-%m') from insurance_areas 
+  </select>
+  
+</mapper>

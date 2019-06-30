@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FundManagerMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FundManager" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="comname" property="comname" jdbcType="VARCHAR" />
+    <result column="manager_name" property="managerName" jdbcType="VARCHAR" />
+    <result column="fund_code" property="fundCode" jdbcType="VARCHAR" />
+    <result column="fund_name" property="fundName" jdbcType="VARCHAR" />
+    <result column="relevant_info" property="relevantInfo" jdbcType="VARCHAR" />
+    <result column="fund_type" property="fundType" jdbcType="INTEGER" />
+    <result column="start_date" property="startDate" jdbcType="DATE" />
+    <result column="end_date" property="endDate" jdbcType="DATE" />
+    <result column="tenure" property="tenure" jdbcType="VARCHAR" />
+    <result column="job_return" property="jobReturn" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, comname, manager_name, fund_code, fund_name, relevant_info, fund_type, 
+    start_date, end_date, tenure, job_return
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fund_manager
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from fund_manager where 1=1 
+    and base_id = #{baseId}
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from fund_manager where 1=1 and base_id = #{baseId}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fund_manager
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FundManager" >
+    insert into fund_manager (id, base_id, comname, 
+      manager_name, fund_code, fund_name, 
+      relevant_info, fund_type, start_date, 
+      end_date, tenure, job_return
+      )
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{comname,jdbcType=VARCHAR}, 
+      #{managerName,jdbcType=VARCHAR}, #{fundCode,jdbcType=VARCHAR}, #{fundName,jdbcType=VARCHAR}, 
+      #{relevantInfo,jdbcType=VARCHAR}, #{fundType,jdbcType=INTEGER}, #{startDate,jdbcType=DATE}, 
+      #{endDate,jdbcType=DATE}, #{tenure,jdbcType=VARCHAR}, #{jobReturn,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.FundManager" >
+    insert into fund_manager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="comname != null" >
+        comname,
+      </if>
+      <if test="managerName != null" >
+        manager_name,
+      </if>
+      <if test="fundCode != null" >
+        fund_code,
+      </if>
+      <if test="fundName != null" >
+        fund_name,
+      </if>
+      <if test="relevantInfo != null" >
+        relevant_info,
+      </if>
+      <if test="fundType != null" >
+        fund_type,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="tenure != null" >
+        tenure,
+      </if>
+      <if test="jobReturn != null" >
+        job_return,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="comname != null" >
+        #{comname,jdbcType=VARCHAR},
+      </if>
+      <if test="managerName != null" >
+        #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="fundCode != null" >
+        #{fundCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fundName != null" >
+        #{fundName,jdbcType=VARCHAR},
+      </if>
+      <if test="relevantInfo != null" >
+        #{relevantInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="fundType != null" >
+        #{fundType,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="tenure != null" >
+        #{tenure,jdbcType=VARCHAR},
+      </if>
+      <if test="jobReturn != null" >
+        #{jobReturn,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FundManager" >
+    update fund_manager
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="comname != null" >
+        comname = #{comname,jdbcType=VARCHAR},
+      </if>
+      <if test="managerName != null" >
+        manager_name = #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="fundCode != null" >
+        fund_code = #{fundCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fundName != null" >
+        fund_name = #{fundName,jdbcType=VARCHAR},
+      </if>
+      <if test="relevantInfo != null" >
+        relevant_info = #{relevantInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="fundType != null" >
+        fund_type = #{fundType,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="tenure != null" >
+        tenure = #{tenure,jdbcType=VARCHAR},
+      </if>
+      <if test="jobReturn != null" >
+        job_return = #{jobReturn,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FundManager" >
+    update fund_manager
+    set base_id = #{baseId,jdbcType=INTEGER},
+      comname = #{comname,jdbcType=VARCHAR},
+      manager_name = #{managerName,jdbcType=VARCHAR},
+      fund_code = #{fundCode,jdbcType=VARCHAR},
+      fund_name = #{fundName,jdbcType=VARCHAR},
+      relevant_info = #{relevantInfo,jdbcType=VARCHAR},
+      fund_type = #{fundType,jdbcType=INTEGER},
+      start_date = #{startDate,jdbcType=DATE},
+      end_date = #{endDate,jdbcType=DATE},
+      tenure = #{tenure,jdbcType=VARCHAR},
+      job_return = #{jobReturn,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

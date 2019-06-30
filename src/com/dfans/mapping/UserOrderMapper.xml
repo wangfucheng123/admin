@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.dao.UserOrderMapper">
+	<resultMap id="BaseResultMap" type="com.dfans.model.UserOrder">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="mtype" property="mtype" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="cdate" property="cdate" jdbcType="TIMESTAMP" />
+		<result column="cdate" property="startDate" jdbcType="TIMESTAMP" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="qq" property="qq" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="fromwhere" property="fromwhere" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="price" jdbcType="VARCHAR" property="price" />
+	</resultMap>
+	<resultMap id="BaseResultMap2" type="com.dfans.model.UserOederData">
+		<id column="orderid" property="orderid" jdbcType="INTEGER" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="num" property="limit" jdbcType="INTEGER" />
+		<result column="price" jdbcType="VARCHAR" property="price" />
+		<result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+		<result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+		<result column="price" property="amount2" jdbcType="VARCHAR" />
+		<result column="uprice" property="amount" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="fromwhere" property="fromwhere" jdbcType="VARCHAR" />
+		<result column="treeId" property="treeId" jdbcType="INTEGER" />
+	</resultMap> 
+	<resultMap id="ResultMapWithBLOBs" type="com.dfans.model.UserOrder"
+		extends="BaseResultMap">
+		<result column="content" property="content" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<resultMap id="totalString" type="java.lang.String">
+		<result column="total" property="total" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		user_order.id, title,mtype, user_order.name,
+		user_order.phone, user_order.status,user_order.email, qq,
+		user_id,cdate,fromwhere ,price,remark
+	</sql>
+	<sql id="Blob_Column_List">
+		content
+	</sql>
+	<select id="selectorderchannel" resultMap="BaseResultMap2"
+		parameterType="string">
+		SELECT   t.*,  b.order_id orderid,  b.status FROM
+  (SELECT     tree.id treeId,    tree.content content,   DATE_FORMAT (u.update_time,'%Y-%m-%d %H:%i:%S') create_date,     DATE_FORMAT (u.start_date,'%Y-%m-%d %H:%i:%S') start_date,   DATE_FORMAT (u.end_date,'%Y-%m-%d %H:%i:%S')end_date, u.`order_id`,
+    (SELECT       IFNULL(FORMAT(SUM(o.price), 2), 0)     FROM      payment_order o     WHERE o.tree_id = u.right_id       AND o.user_id = u.user_id       AND o.status = 1) price,
+    tree.name NAME,    r.name title   FROM    right_tree tree,    user_right_role u,
+    right_tree r   WHERE tree.`parent_id` = r.`id`     AND NOT EXISTS     (SELECT       t1.ID,      t1.parent_id     FROM
+      right_tree t1,      right_tree t2     WHERE t1.id = t2.parent_id       AND tree.ID = t1.ID) 
+    AND u.user_id =#{userid}    AND u.right_id = tree.id  ) t   LEFT JOIN payment_order b    ON t.order_id = b.order_id  ORDER BY t.create_date DESC
+		<!-- SELECT tree.id treeId, o.order_id orderid,tree.content
+		content,
+		u.update_time create_date,u.start_date, u.end_date, 
+		(SELECT 
+	IFNULL (FORMAT(SUM(o.price),2),0)  FROM payment_order o WHERE o.tree_id= u.right_id
+		AND o.user_id=u.user_id AND o.status=1
+		) price, o.status, tree.name NAME ,r.name title FROM right_tree
+		tree,user_right_role u,right_tree r ,payment_order o
+		WHERE
+		tree.`parent_id`=r.`id` AND NOT EXISTS ( SELECT t1.ID, t1.parent_id
+		FROM right_tree t1, right_tree t2
+		WHERE t1.id = t2.parent_id
+		AND tree.ID
+		= t1.ID) AND u.user_id = #{userid} AND u.right_id = tree.id
+		AND
+		u.order_id = o.order_id order by u.update_time DESC -->
+	</select>
+
+	<select id="getUserOrders" resultMap="BaseResultMap"		>
+		SELECT st.name status ,u.id
+		id,u.content,u.fromwhere,u.name,u.phone,
+		phone,u.cdate,u.email,u.mtype,u.qq,u.remark FROM `order_status`
+		st,`user_order`
+		u WHERE st.id=u.status <if test="name != '' and name != null"> and (u.id like  CONCAT('%', #{name},'%') or phone  like CONCAT('%', #{name},'%') ) </if> 
+		 <if test="status != '' and status != null">and status = #{status}</if> 
+		 <if test="fromwhere != '' and fromwhere != null">and fromwhere = #{fromwhere}</if> 
+		 <if test="sdate != '' and sdate != null">and cdate  <![CDATA[ >= ]]>#{sdate}</if> 
+		 <if test="edate != '' and edate != null">and cdate  <![CDATA[ <= ]]> #{edate}</if> 
+		 <if test="pg == 'pg' ">order by cdate desc limit #{page} ,10</if> 
+	</select>
+	<select id="getOrders" resultMap="BaseResultMap" parameterType="string">
+		SELECT st.name status ,u.id id,u.title,u.fromwhere,u.name,u.phone
+		phone,u.cdate,u.email,u.mtype,u.qq FROM `orderstatus` st,`user_order`
+		u WHERE st.id=u.status <if test="name != '' and name != null">and (u.id like CONCAT('%', #{name},'%') or phone  like CONCAT('%', #{name},'%') ) </if> 
+		 <if test="status != '' and status != null">and status = #{status}</if> 
+		 <if test="mtype != '' and mtype != null">and mtype = #{mtype}</if> 
+		 <if test="sdate != '' and sdate != null">and cdate  <![CDATA[ >= ]]>#{sdate}</if> 
+		 <if test="edate != '' and edate != null">and cdate  <![CDATA[ <= ]]> #{edate}</if> 
+		 and mtype is not null
+		 <if test="pg == 'pg' ">order by cdate desc limit #{page} ,10</if> 
+	</select>
+	<select id="getStatus" resultMap="BaseResultMap" parameterType="string">
+		SELECT st.name,st.id FROM `order_status` st
+	</select>
+	<select id="getOrderStatus" resultMap="BaseResultMap"
+		parameterType="string">
+		SELECT st.name,st.id FROM `orderstatus` st
+	</select>
+
+	<select id="getOrderById" resultMap="BaseResultMap"
+		parameterType="string">
+		SELECT u.status ,mtype,u.id
+		id,u.title,u.content,u.name,u.phone phone,u.price
+		price,u.cdate,u.email,u.qq,u.remark FROM `user_order` u WHERE
+		u.id=#{id}
+	</select>
+	<select id="getDataByUserId" resultType="com.dfans.model.User"
+		parameterType="string">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		,s.name status
+		from user_order u,order_status s where id =#{userid} and
+		u.status=s.id
+	</select>
+	<select id="getDatasByUserId" resultType="com.dfans.model.UserOrder"
+		parameterType="string">
+		select
+		u.id id, u.title title,u.mtype mtype, u.name name,
+		u.phone phone, u.email
+		email, u.qq qq, u.user_id user_id,u.cdate
+		cdate,u.content content,s.id
+		statusid,s.name status,u.price
+		price,u.status stat,s.desc descb
+		from user_order u,order_status s where u.user_id =#{userid} and
+		u.status=s.id order by u.cdate desc
+	</select>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="string">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from user_order
+		where id = #{value}
+	</select>
+	<select id="selectAll" resultType="hashmap" parameterType="hashmap">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		,user.name as uName,user.phone as uPhone,DATE_FORMAT(cdate,'%Y-%m-%日')
+		cdate
+		from user_order left outer join user on
+		user_order.user_id=user.id where
+		1=1
+
+		<if test="status != null">
+			and status=#{status}
+		</if>
+
+		order by cdate desc limit #{page},10
+	</select>
+
+	<select id="selectCount" resultMap="totalString" parameterType="hashmap">
+		select count(id) total from user_order where 1=1
+		<if test="status != null">
+			and status=#{status}
+		</if>
+	</select>
+
+	<select id="order_datas" parameterType="string"
+		resultType="com.dfans.model.UserOederData">
+		SELECT (COUNT(*) - 1) flag, al.dday content FROM (SELECT
+		DATE_FORMAT(${columnName},${format}) AS dday FROM ${tableName} WHERE
+		DATE(${columnName}) &lt;= CURDATE()
+		UNION ALL SELECT DATE_FORMAT(cdate,
+		${format}) DATE FROM user_order ${type}
+		) al GROUP BY al.dday
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="string">
+		delete from
+		user_order
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.dfans.model.UserOrder">
+		insert into user_order (id,
+		title,mtype, name,
+		phone, email, qq, user_id, fromwhere,
+		content)
+		values
+		(#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
+		#{mtype,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},
+		#{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+		#{qq,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER},
+		#{fromwhere,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
+	</insert>
+	<select id="getNo" resultType="java.util.HashMap">
+		select * from index_count
+	</select>
+	<select id="isExist" resultType="string">
+		select id from order_times where name=#{name} 
+	</select>
+	<select id="getTimes" resultType="java.util.HashMap">
+		select times,(SELECT sum(times) FROM order_times) totimes,name from order_times <if test="name != null and name !=''"> where name=#{name} </if>
+	</select>
+	<insert id="insertOrderTimes" parameterType="com.dfans.model.UserOrder">
+		insert into order_times (
+		name,times，totimes)
+		values
+		( 
+		#{name,jdbcType=VARCHAR},1,1)
+	</insert>
+	<update id="updateOrderTimes">
+		update order_times set times=times+1  where id=#{id } 
+	</update>
+	<update id="updateOrderTotTimes">
+		update order_times set totimes=totimes+1 
+	</update>
+	<insert id="insertSelective" parameterType="com.dfans.model.UserOrder">
+		insert into user_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="mtype != null">
+				mtype,
+			</if>
+
+			<if test="name != null">
+				name,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="qq != null">
+				qq,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="fromwhere != null">
+				fromwhere,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="mtype != null">
+				#{mtype,jdbcType=VARCHAR},
+			</if>
+
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="qq != null">
+				#{qq,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="fromwhere != null">
+				#{fromwhere,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.UserOrder">
+		update user_order
+		<set>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="qq != null">
+				qq = #{qq,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dfans.model.UserOrder">
+		update
+		user_order
+		set title = #{title,jdbcType=VARCHAR},
+		name =
+		#{name,jdbcType=VARCHAR},
+		phone = #{phone,jdbcType=VARCHAR},
+		email =
+		#{email,jdbcType=VARCHAR},
+		qq = #{qq,jdbcType=VARCHAR},
+		user_id =
+		#{userId,jdbcType=INTEGER},
+		content = #{content,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.dfans.model.UserOrder">
+		update user_order
+		set title = #{title,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		phone = #{phone,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		qq = #{qq,jdbcType=VARCHAR},
+		status = #{status,jdbcType=VARCHAR},
+		user_id = #{userId,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

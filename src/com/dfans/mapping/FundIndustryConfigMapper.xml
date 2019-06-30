@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FundIndustryConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FundIndustryConfig" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="comname" property="comname" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="quarter" property="quarter" jdbcType="INTEGER" />
+    <result column="industry_type" property="industryType" jdbcType="VARCHAR" />
+    <result column="hold_num" property="holdNum" jdbcType="INTEGER" />
+    <result column="net_proportion" property="netProportion" jdbcType="REAL" />
+    <result column="market_value" property="marketValue" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, comname, year, quarter, industry_type, hold_num, net_proportion, market_value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fund_industry_config
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from fund_industry_config where 1=1 
+    and base_id = #{baseId}
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from fund_industry_config where 1=1 and base_id = #{baseId}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fund_industry_config
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FundIndustryConfig" >
+    insert into fund_industry_config (id, base_id, comname, 
+      year, quarter, industry_type, 
+      hold_num, net_proportion, market_value
+      )
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{comname,jdbcType=VARCHAR}, 
+      #{year,jdbcType=INTEGER}, #{quarter,jdbcType=INTEGER}, #{industryType,jdbcType=VARCHAR}, 
+      #{holdNum,jdbcType=INTEGER}, #{netProportion,jdbcType=REAL}, #{marketValue,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.FundIndustryConfig" >
+    insert into fund_industry_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="comname != null" >
+        comname,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="quarter != null" >
+        quarter,
+      </if>
+      <if test="industryType != null" >
+        industry_type,
+      </if>
+      <if test="holdNum != null" >
+        hold_num,
+      </if>
+      <if test="netProportion != null" >
+        net_proportion,
+      </if>
+      <if test="marketValue != null" >
+        market_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="comname != null" >
+        #{comname,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="industryType != null" >
+        #{industryType,jdbcType=VARCHAR},
+      </if>
+      <if test="holdNum != null" >
+        #{holdNum,jdbcType=INTEGER},
+      </if>
+      <if test="netProportion != null" >
+        #{netProportion,jdbcType=REAL},
+      </if>
+      <if test="marketValue != null" >
+        #{marketValue,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FundIndustryConfig" >
+    update fund_industry_config
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="comname != null" >
+        comname = #{comname,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        quarter = #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="industryType != null" >
+        industry_type = #{industryType,jdbcType=VARCHAR},
+      </if>
+      <if test="holdNum != null" >
+        hold_num = #{holdNum,jdbcType=INTEGER},
+      </if>
+      <if test="netProportion != null" >
+        net_proportion = #{netProportion,jdbcType=REAL},
+      </if>
+      <if test="marketValue != null" >
+        market_value = #{marketValue,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FundIndustryConfig" >
+    update fund_industry_config
+    set base_id = #{baseId,jdbcType=INTEGER},
+      comname = #{comname,jdbcType=VARCHAR},
+      year = #{year,jdbcType=INTEGER},
+      quarter = #{quarter,jdbcType=INTEGER},
+      industry_type = #{industryType,jdbcType=VARCHAR},
+      hold_num = #{holdNum,jdbcType=INTEGER},
+      net_proportion = #{netProportion,jdbcType=REAL},
+      market_value = #{marketValue,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

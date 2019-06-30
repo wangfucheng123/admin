@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.dao.TCityMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.TCity" >
+    <id column="CityID" property="cityid" jdbcType="INTEGER" />
+    <result column="CityName" property="cityname" jdbcType="VARCHAR" />
+    <result column="ProID" property="proid" jdbcType="INTEGER" />
+    <result column="CitySort" property="citysort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CityID, CityName, ProID, CitySort
+  </sql>
+  
+    <select id="selectByName" resultMap="BaseResultMap" parameterType="com.dfans.model.TCity">
+    select 
+    <include refid="Base_Column_List" />
+    from t_city where CityName like '%${cityname}%' 
+  </select>
+  
+  <select id="selectByProvince" resultMap="BaseResultMap" parameterType="hashmap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_city
+    where 1=1 <if test="proid != null" > and ProID = #{proid,jdbcType=INTEGER} order by ProID</if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_city
+    where CityID = #{cityid,jdbcType=INTEGER} 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_city
+    where CityID = #{cityid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.TCity" >
+    insert into t_city (CityID, CityName, ProID, 
+      CitySort)
+    values (#{cityid,jdbcType=INTEGER}, #{cityname,jdbcType=VARCHAR}, #{proid,jdbcType=INTEGER}, 
+      #{citysort,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.TCity" >
+    insert into t_city
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cityid != null" >
+        CityID,
+      </if>
+      <if test="cityname != null" >
+        CityName,
+      </if>
+      <if test="proid != null" >
+        ProID,
+      </if>
+      <if test="citysort != null" >
+        CitySort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cityid != null" >
+        #{cityid,jdbcType=INTEGER},
+      </if>
+      <if test="cityname != null" >
+        #{cityname,jdbcType=VARCHAR},
+      </if>
+      <if test="proid != null" >
+        #{proid,jdbcType=INTEGER},
+      </if>
+      <if test="citysort != null" >
+        #{citysort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.TCity" >
+    update t_city
+    <set >
+      <if test="cityname != null" >
+        CityName = #{cityname,jdbcType=VARCHAR},
+      </if>
+      <if test="proid != null" >
+        ProID = #{proid,jdbcType=INTEGER},
+      </if>
+      <if test="citysort != null" >
+        CitySort = #{citysort,jdbcType=INTEGER},
+      </if>
+    </set>
+    where CityID = #{cityid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.TCity" >
+    update t_city
+    set CityName = #{cityname,jdbcType=VARCHAR},
+      ProID = #{proid,jdbcType=INTEGER},
+      CitySort = #{citysort,jdbcType=INTEGER}
+    where CityID = #{cityid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.BankDebtMonthMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.BankDebtMonth" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="DATE" />
+    <result column="bank_total_asset" property="bankTotalAsset" jdbcType="REAL" />
+    <result column="bank_total_debt" property="bankTotalDebt" jdbcType="REAL" />
+    <result column="business_total_asset" property="businessTotalAsset" jdbcType="REAL" />
+    <result column="business_total_debt" property="businessTotalDebt" jdbcType="REAL" />
+    <result column="big_total_asset" property="bigTotalAsset" jdbcType="REAL" />
+    <result column="big_total_debt" property="bigTotalDebt" jdbcType="REAL" />
+    <result column="share_total_asset" property="shareTotalAsset" jdbcType="REAL" />
+    <result column="share_total_debt" property="shareTotalDebt" jdbcType="REAL" />
+    <result column="city_total_asset" property="cityTotalAsset" jdbcType="REAL" />
+    <result column="city_total_debt" property="cityTotalDebt" jdbcType="REAL" />
+    <result column="countryside_total_asset" property="countrysideTotalAsset" jdbcType="REAL" />
+    <result column="countryside_total_debt" property="countrysideTotalDebt" jdbcType="REAL" />
+    <result column="other_total_asset" property="otherTotalAsset" jdbcType="REAL" />
+    <result column="other_total_debt" property="otherTotalDebt" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, date, bank_total_asset, bank_total_debt, business_total_asset, business_total_debt, 
+    big_total_asset, big_total_debt, share_total_asset, share_total_debt, city_total_asset, 
+    city_total_debt, countryside_total_asset, countryside_total_debt, other_total_asset, 
+    other_total_debt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bank_debt_month
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from bank_debt_month where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from bank_debt_month 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bank_debt_month
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.BankDebtMonth" >
+    insert into bank_debt_month (id, date, bank_total_asset, 
+      bank_total_debt, business_total_asset, business_total_debt, 
+      big_total_asset, big_total_debt, share_total_asset, 
+      share_total_debt, city_total_asset, city_total_debt, 
+      countryside_total_asset, countryside_total_debt, 
+      other_total_asset, other_total_debt)
+    values (#{id,jdbcType=INTEGER}, #{date,jdbcType=DATE}, #{bankTotalAsset,jdbcType=REAL}, 
+      #{bankTotalDebt,jdbcType=REAL}, #{businessTotalAsset,jdbcType=REAL}, #{businessTotalDebt,jdbcType=REAL}, 
+      #{bigTotalAsset,jdbcType=REAL}, #{bigTotalDebt,jdbcType=REAL}, #{shareTotalAsset,jdbcType=REAL}, 
+      #{shareTotalDebt,jdbcType=REAL}, #{cityTotalAsset,jdbcType=REAL}, #{cityTotalDebt,jdbcType=REAL}, 
+      #{countrysideTotalAsset,jdbcType=REAL}, #{countrysideTotalDebt,jdbcType=REAL}, 
+      #{otherTotalAsset,jdbcType=REAL}, #{otherTotalDebt,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.BankDebtMonth" >
+    insert into bank_debt_month
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="bankTotalAsset != null" >
+        bank_total_asset,
+      </if>
+      <if test="bankTotalDebt != null" >
+        bank_total_debt,
+      </if>
+      <if test="businessTotalAsset != null" >
+        business_total_asset,
+      </if>
+      <if test="businessTotalDebt != null" >
+        business_total_debt,
+      </if>
+      <if test="bigTotalAsset != null" >
+        big_total_asset,
+      </if>
+      <if test="bigTotalDebt != null" >
+        big_total_debt,
+      </if>
+      <if test="shareTotalAsset != null" >
+        share_total_asset,
+      </if>
+      <if test="shareTotalDebt != null" >
+        share_total_debt,
+      </if>
+      <if test="cityTotalAsset != null" >
+        city_total_asset,
+      </if>
+      <if test="cityTotalDebt != null" >
+        city_total_debt,
+      </if>
+      <if test="countrysideTotalAsset != null" >
+        countryside_total_asset,
+      </if>
+      <if test="countrysideTotalDebt != null" >
+        countryside_total_debt,
+      </if>
+      <if test="otherTotalAsset != null" >
+        other_total_asset,
+      </if>
+      <if test="otherTotalDebt != null" >
+        other_total_debt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="bankTotalAsset != null" >
+        #{bankTotalAsset,jdbcType=REAL},
+      </if>
+      <if test="bankTotalDebt != null" >
+        #{bankTotalDebt,jdbcType=REAL},
+      </if>
+      <if test="businessTotalAsset != null" >
+        #{businessTotalAsset,jdbcType=REAL},
+      </if>
+      <if test="businessTotalDebt != null" >
+        #{businessTotalDebt,jdbcType=REAL},
+      </if>
+      <if test="bigTotalAsset != null" >
+        #{bigTotalAsset,jdbcType=REAL},
+      </if>
+      <if test="bigTotalDebt != null" >
+        #{bigTotalDebt,jdbcType=REAL},
+      </if>
+      <if test="shareTotalAsset != null" >
+        #{shareTotalAsset,jdbcType=REAL},
+      </if>
+      <if test="shareTotalDebt != null" >
+        #{shareTotalDebt,jdbcType=REAL},
+      </if>
+      <if test="cityTotalAsset != null" >
+        #{cityTotalAsset,jdbcType=REAL},
+      </if>
+      <if test="cityTotalDebt != null" >
+        #{cityTotalDebt,jdbcType=REAL},
+      </if>
+      <if test="countrysideTotalAsset != null" >
+        #{countrysideTotalAsset,jdbcType=REAL},
+      </if>
+      <if test="countrysideTotalDebt != null" >
+        #{countrysideTotalDebt,jdbcType=REAL},
+      </if>
+      <if test="otherTotalAsset != null" >
+        #{otherTotalAsset,jdbcType=REAL},
+      </if>
+      <if test="otherTotalDebt != null" >
+        #{otherTotalDebt,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.BankDebtMonth" >
+    update bank_debt_month
+    <set >
+      <if test="date != null" >
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="bankTotalAsset != null" >
+        bank_total_asset = #{bankTotalAsset,jdbcType=REAL},
+      </if>
+      <if test="bankTotalDebt != null" >
+        bank_total_debt = #{bankTotalDebt,jdbcType=REAL},
+      </if>
+      <if test="businessTotalAsset != null" >
+        business_total_asset = #{businessTotalAsset,jdbcType=REAL},
+      </if>
+      <if test="businessTotalDebt != null" >
+        business_total_debt = #{businessTotalDebt,jdbcType=REAL},
+      </if>
+      <if test="bigTotalAsset != null" >
+        big_total_asset = #{bigTotalAsset,jdbcType=REAL},
+      </if>
+      <if test="bigTotalDebt != null" >
+        big_total_debt = #{bigTotalDebt,jdbcType=REAL},
+      </if>
+      <if test="shareTotalAsset != null" >
+        share_total_asset = #{shareTotalAsset,jdbcType=REAL},
+      </if>
+      <if test="shareTotalDebt != null" >
+        share_total_debt = #{shareTotalDebt,jdbcType=REAL},
+      </if>
+      <if test="cityTotalAsset != null" >
+        city_total_asset = #{cityTotalAsset,jdbcType=REAL},
+      </if>
+      <if test="cityTotalDebt != null" >
+        city_total_debt = #{cityTotalDebt,jdbcType=REAL},
+      </if>
+      <if test="countrysideTotalAsset != null" >
+        countryside_total_asset = #{countrysideTotalAsset,jdbcType=REAL},
+      </if>
+      <if test="countrysideTotalDebt != null" >
+        countryside_total_debt = #{countrysideTotalDebt,jdbcType=REAL},
+      </if>
+      <if test="otherTotalAsset != null" >
+        other_total_asset = #{otherTotalAsset,jdbcType=REAL},
+      </if>
+      <if test="otherTotalDebt != null" >
+        other_total_debt = #{otherTotalDebt,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.BankDebtMonth" >
+    update bank_debt_month
+    set date = #{date,jdbcType=DATE},
+      bank_total_asset = #{bankTotalAsset,jdbcType=REAL},
+      bank_total_debt = #{bankTotalDebt,jdbcType=REAL},
+      business_total_asset = #{businessTotalAsset,jdbcType=REAL},
+      business_total_debt = #{businessTotalDebt,jdbcType=REAL},
+      big_total_asset = #{bigTotalAsset,jdbcType=REAL},
+      big_total_debt = #{bigTotalDebt,jdbcType=REAL},
+      share_total_asset = #{shareTotalAsset,jdbcType=REAL},
+      share_total_debt = #{shareTotalDebt,jdbcType=REAL},
+      city_total_asset = #{cityTotalAsset,jdbcType=REAL},
+      city_total_debt = #{cityTotalDebt,jdbcType=REAL},
+      countryside_total_asset = #{countrysideTotalAsset,jdbcType=REAL},
+      countryside_total_debt = #{countrysideTotalDebt,jdbcType=REAL},
+      other_total_asset = #{otherTotalAsset,jdbcType=REAL},
+      other_total_debt = #{otherTotalDebt,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

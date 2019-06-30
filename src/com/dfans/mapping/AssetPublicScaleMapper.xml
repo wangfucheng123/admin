@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.AssetPublicScaleMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.AssetPublicScale" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="quarter" property="quarter" jdbcType="INTEGER" />
+    <result column="fund_type" property="fundType" jdbcType="VARCHAR" />
+    <result column="fund_num" property="fundNum" jdbcType="INTEGER" />
+    <result column="fund_share" property="fundShare" jdbcType="REAL" />
+    <result column="fund_net" property="fundNet" jdbcType="REAL" />
+    <result column="son_type" property="sonType" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, year, quarter, fund_type, fund_num, fund_share, fund_net, son_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from asset_public_scale
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from asset_public_scale where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from asset_public_scale 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from asset_public_scale
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.AssetPublicScale" >
+    insert into asset_public_scale (id, year, quarter, 
+      fund_type, fund_num, fund_share, 
+      fund_net, son_type)
+    values (#{id,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{quarter,jdbcType=INTEGER}, 
+      #{fundType,jdbcType=VARCHAR}, #{fundNum,jdbcType=INTEGER}, #{fundShare,jdbcType=REAL}, 
+      #{fundNet,jdbcType=REAL}, #{sonType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.AssetPublicScale" >
+    insert into asset_public_scale
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="quarter != null" >
+        quarter,
+      </if>
+      <if test="fundType != null" >
+        fund_type,
+      </if>
+      <if test="fundNum != null" >
+        fund_num,
+      </if>
+      <if test="fundShare != null" >
+        fund_share,
+      </if>
+      <if test="fundNet != null" >
+        fund_net,
+      </if>
+      <if test="sonType != null" >
+        son_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="fundType != null" >
+        #{fundType,jdbcType=VARCHAR},
+      </if>
+      <if test="fundNum != null" >
+        #{fundNum,jdbcType=INTEGER},
+      </if>
+      <if test="fundShare != null" >
+        #{fundShare,jdbcType=REAL},
+      </if>
+      <if test="fundNet != null" >
+        #{fundNet,jdbcType=REAL},
+      </if>
+      <if test="sonType != null" >
+        #{sonType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.AssetPublicScale" >
+    update asset_public_scale
+    <set >
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        quarter = #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="fundType != null" >
+        fund_type = #{fundType,jdbcType=VARCHAR},
+      </if>
+      <if test="fundNum != null" >
+        fund_num = #{fundNum,jdbcType=INTEGER},
+      </if>
+      <if test="fundShare != null" >
+        fund_share = #{fundShare,jdbcType=REAL},
+      </if>
+      <if test="fundNet != null" >
+        fund_net = #{fundNet,jdbcType=REAL},
+      </if>
+      <if test="sonType != null" >
+        son_type = #{sonType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.AssetPublicScale" >
+    update asset_public_scale
+    set year = #{year,jdbcType=INTEGER},
+      quarter = #{quarter,jdbcType=INTEGER},
+      fund_type = #{fundType,jdbcType=VARCHAR},
+      fund_num = #{fundNum,jdbcType=INTEGER},
+      fund_share = #{fundShare,jdbcType=REAL},
+      fund_net = #{fundNet,jdbcType=REAL},
+      son_type = #{sonType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectPublicScale" resultType="hashmap" parameterType="hashmap" >
+  
+  <if test="flag == 1" >
+  	select * from asset_public_scale
+	where 1=1 
+	<if test="year != null" >
+      and	year = #{year}
+    </if>
+	<if test="quarter != null" >
+      and	quarter = #{quarter}
+    </if>
+    <if test="fundType != null" >
+      and	fund_type = #{fundType}
+    </if>
+    and quarter !=""
+    order by id asc
+	<if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </if>
+     <if test="flag == 2" >
+     
+SELECT SUM(fund_share) fund_share,SUM(fund_net) fund_net,year,quarter 
+ FROM asset_public_scale 
+	WHERE 1=1 AND (fund_type='封闭式基金'  OR fund_type='开放式基金') and quarter !="" GROUP BY YEAR,QUARTER 
+     </if> 
+    
+  </select>
+</mapper>

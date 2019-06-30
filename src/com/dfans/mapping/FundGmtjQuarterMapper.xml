@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FundGmtjQuarterMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FundGmtjQuarter" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="quarter" property="quarter" jdbcType="INTEGER" />
+    <result column="fundtype" property="fundtype" jdbcType="VARCHAR" />
+    <result column="jjzs" property="jjzs" jdbcType="REAL" />
+    <result column="qmzfe" property="qmzfe" jdbcType="REAL" />
+    <result column="zcjz" property="zcjz" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, year, quarter, fundtype, jjzs, qmzfe, zcjz
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fund_gmtj_quarter
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+      <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from fund_gmtj_quarter where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from fund_gmtj_quarter 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fund_gmtj_quarter
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FundGmtjQuarter" >
+    insert into fund_gmtj_quarter (id, year, quarter, 
+      fundtype, jjzs, qmzfe, zcjz
+      )
+    values (#{id,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{quarter,jdbcType=INTEGER}, 
+      #{fundtype,jdbcType=VARCHAR}, #{jjzs,jdbcType=REAL}, #{qmzfe,jdbcType=REAL}, #{zcjz,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.FundGmtjQuarter" >
+    insert into fund_gmtj_quarter
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="quarter != null" >
+        quarter,
+      </if>
+      <if test="fundtype != null" >
+        fundtype,
+      </if>
+      <if test="jjzs != null" >
+        jjzs,
+      </if>
+      <if test="qmzfe != null" >
+        qmzfe,
+      </if>
+      <if test="zcjz != null" >
+        zcjz,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="fundtype != null" >
+        #{fundtype,jdbcType=VARCHAR},
+      </if>
+      <if test="jjzs != null" >
+        #{jjzs,jdbcType=REAL},
+      </if>
+      <if test="qmzfe != null" >
+        #{qmzfe,jdbcType=REAL},
+      </if>
+      <if test="zcjz != null" >
+        #{zcjz,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FundGmtjQuarter" >
+    update fund_gmtj_quarter
+    <set >
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        quarter = #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="fundtype != null" >
+        fundtype = #{fundtype,jdbcType=VARCHAR},
+      </if>
+      <if test="jjzs != null" >
+        jjzs = #{jjzs,jdbcType=REAL},
+      </if>
+      <if test="qmzfe != null" >
+        qmzfe = #{qmzfe,jdbcType=REAL},
+      </if>
+      <if test="zcjz != null" >
+        zcjz = #{zcjz,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FundGmtjQuarter" >
+    update fund_gmtj_quarter
+    set year = #{year,jdbcType=INTEGER},
+      quarter = #{quarter,jdbcType=INTEGER},
+      fundtype = #{fundtype,jdbcType=VARCHAR},
+      jjzs = #{jjzs,jdbcType=REAL},
+      qmzfe = #{qmzfe,jdbcType=REAL},
+      zcjz = #{zcjz,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    
+  <select id="selectFundGmtjData" resultType="hashmap" parameterType="hashmap" >
+	select *
+	FROM fund_gmtj_quarter 
+	where 1=1 
+	<if test="year != null" >
+	and year = #{year}
+	</if>
+	<if test="quarter != null" >
+	and quarter = #{quarter}
+	</if>
+	<if test="fundtype != null" >
+	and fundtype = #{fundtype}
+	</if>
+	ORDER BY year DESC, quarter DESC,id asc
+	<if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+    <select id="selectFundGmtjQuarterMaxDate" resultType="java.lang.String" >
+   select concat(MAX(YEAR),MAX(quarter)) from fund_gmtj_quarter where year  = (select max(year) from fund_gmtj_quarter)
+  </select>
+  
+  
+</mapper>

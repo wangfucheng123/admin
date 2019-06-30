@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.dao.VisitRoomMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.VisitRoom" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="visit_title" property="visitTitle" jdbcType="VARCHAR" />
+    <result column="visit_date" property="visitDate" jdbcType="DATE" />
+    <result column="visit_introd" property="visitIntrod" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="video" property="video" jdbcType="VARCHAR" />
+    <result column="audio" property="audio" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.dfans.model.VisitRoom" extends="BaseResultMap" >
+    <result column="text_record" property="textRecord" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, visit_title, visit_date, visit_introd, name, title, introduction, photo, img, 
+    video, audio
+  </sql>
+  <sql id="Blob_Column_List" >
+    text_record
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from visit_room
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from visit_room
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.VisitRoom" >
+    insert into visit_room (id, visit_title, visit_date, 
+      visit_introd, name, title, 
+      introduction, photo, img, 
+      video, audio, text_record
+      )
+    values (#{id,jdbcType=INTEGER}, #{visitTitle,jdbcType=VARCHAR}, #{visitDate,jdbcType=DATE}, 
+      #{visitIntrod,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{introduction,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, 
+      #{video,jdbcType=VARCHAR}, #{audio,jdbcType=VARCHAR}, #{textRecord,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.VisitRoom" >
+    insert into visit_room
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="visitTitle != null" >
+        visit_title,
+      </if>
+      <if test="visitDate != null" >
+        visit_date,
+      </if>
+      <if test="visitIntrod != null" >
+        visit_introd,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="photo != null" >
+        photo,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+      <if test="video != null" >
+        video,
+      </if>
+      <if test="audio != null" >
+        audio,
+      </if>
+      <if test="textRecord != null" >
+        text_record,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="visitTitle != null" >
+        #{visitTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="visitDate != null" >
+        #{visitDate,jdbcType=DATE},
+      </if>
+      <if test="visitIntrod != null" >
+        #{visitIntrod,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null" >
+        #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="audio != null" >
+        #{audio,jdbcType=VARCHAR},
+      </if>
+      <if test="textRecord != null" >
+        #{textRecord,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.VisitRoom" >
+    update visit_room
+    <set >
+      <if test="visitTitle != null" >
+        visit_title = #{visitTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="visitDate != null" >
+        visit_date = #{visitDate,jdbcType=DATE},
+      </if>
+      <if test="visitIntrod != null" >
+        visit_introd = #{visitIntrod,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null" >
+        video = #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="audio != null" >
+        audio = #{audio,jdbcType=VARCHAR},
+      </if>
+      <if test="textRecord != null" >
+        text_record = #{textRecord,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dfans.model.VisitRoom" >
+    update visit_room
+    set visit_title = #{visitTitle,jdbcType=VARCHAR},
+      visit_date = #{visitDate,jdbcType=DATE},
+      visit_introd = #{visitIntrod,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      video = #{video,jdbcType=VARCHAR},
+      audio = #{audio,jdbcType=VARCHAR},
+      text_record = #{textRecord,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.VisitRoom" >
+    update visit_room
+    set visit_title = #{visitTitle,jdbcType=VARCHAR},
+      visit_date = #{visitDate,jdbcType=DATE},
+      visit_introd = #{visitIntrod,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      video = #{video,jdbcType=VARCHAR},
+      audio = #{audio,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

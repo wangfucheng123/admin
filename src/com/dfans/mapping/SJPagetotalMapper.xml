@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfans.dao.SJPagetotalMapper">
+  <resultMap id="BaseResultMap" type="com.dfans.model.SJPagetotal">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="c_date" jdbcType="TIMESTAMP" property="cDate" />
+    <result column="userId" jdbcType="VARCHAR" property="userid" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, c_date, userId, ip
+  </sql>  
+  <select id="totalBydate" parameterType="string" resultType="com.dfans.model.SJPagetotal">
+  	SELECT   COUNT(*) COUNT, DATE_FORMAT(c_date, ${format}) cDate FROM `sj_datatotal` WHERE source='page'  GROUP BY DATE_FORMAT(c_date, ${format})
+  </select>
+  <select id="avgBydate" parameterType="string" resultType="com.dfans.model.SJPagetotal">
+	SELECT COUNT(id)  count FROM user 
+  </select>
+   <select id="getListByType" parameterType="string" resultType="com.dfans.model.SJConsumerData">
+	SELECT  id,url,user_id userId,description   FROM sj_consumer_dz where user_id=#{sj_id} and type=#{type}
+  </select> 
+  <select id="getById" parameterType="string" resultType="com.dfans.model.SJConsumerData">
+	SELECT  id,url,user_id userId,description   FROM sj_consumer_dz where id=#{id} 
+  </select> 
+  <select id="downlaod_list" parameterType="string" resultType="com.dfans.model.SJPagetotal">
+	SELECT   COUNT(*) - 1 COUNT, al.dday cDate FROM (SELECT     DATE_FORMAT(${columnName},${format}) AS dday  FROM  ${tableName}    WHERE DATE(${columnName}) &lt;= CURDATE() 
+	UNION  ALL SELECT DATE_FORMAT(c_date, ${format}) DATE  FROM `sj_datatotal` where source=#{source} ) al GROUP BY al.dday 
+  </select>
+   <select id="data_downlaod_statist" parameterType="string" resultType="com.dfans.model.SJPagetotal">
+	SELECT   COUNT(*) - 1 COUNT, al.dday cDate FROM (SELECT   DATE_FORMAT(${columnName},${format}) AS dday  FROM  ${tableName}   WHERE DATE(${columnName}) &lt;= CURDATE() 
+	UNION  ALL SELECT DATE_FORMAT(c_date, ${format}) DATE  FROM `sj_datatotal` where pid=#{pid} ) al GROUP BY al.dday 
+  </select>
+  <insert id="save" parameterType="com.dfans.model.SJPagetotal">
+    insert into sj_datatotal ( c_date, userId,ip,source)
+    values (now(), #{userid,jdbcType=VARCHAR},   #{ip,jdbcType=VARCHAR},#{source,jdbcType=VARCHAR})
+  </insert> 
+    <insert id="saveData" parameterType="com.dfans.model.SJPagetotal">
+    insert into sj_datatotal ( c_date, userId,ip,pid)
+    values ( #{cDate,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR},   #{ip,jdbcType=VARCHAR},#{pid,jdbcType=VARCHAR})
+  </insert> 
+</mapper>

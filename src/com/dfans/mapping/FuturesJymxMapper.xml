@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FuturesJymxMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FuturesJymx" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="month" property="month" jdbcType="INTEGER" />
+    <result column="jysname" property="jysname" jdbcType="VARCHAR" />
+    <result column="pzname" property="pzname" jdbcType="VARCHAR" />
+    <result column="bycjl_month" property="bycjlMonth" jdbcType="REAL" />
+    <result column="qntqcjl_month" property="qntqcjlMonth" jdbcType="REAL" />
+    <result column="tbzj_month" property="tbzjMonth" jdbcType="REAL" />
+    <result column="sycjl_month" property="sycjlMonth" jdbcType="REAL" />
+    <result column="hbzj_month" property="hbzjMonth" jdbcType="REAL" />
+    <result column="zqgfe_month" property="zqgfeMonth" jdbcType="REAL" />
+    <result column="bycje_monthcje" property="bycjeMonthcje" jdbcType="REAL" />
+    <result column="qntqcje_monthcje" property="qntqcjeMonthcje" jdbcType="REAL" />
+    <result column="tbzj_monthcje" property="tbzjMonthcje" jdbcType="REAL" />
+    <result column="sycje_monthcje" property="sycjeMonthcje" jdbcType="REAL" />
+    <result column="hbzj_monthcje" property="hbzjMonthcje" jdbcType="REAL" />
+    <result column="zqgfe_monthcje" property="zqgfeMonthcje" jdbcType="REAL" />
+    <result column="cjl_year" property="cjlYear" jdbcType="REAL" />
+    <result column="qntqcjzl_year" property="qntqcjzlYear" jdbcType="REAL" />
+    <result column="tbzj_year" property="tbzjYear" jdbcType="REAL" />
+    <result column="cjlzqgfe_year" property="cjlzqgfeYear" jdbcType="REAL" />
+    <result column="cjze_yearze" property="cjzeYearze" jdbcType="REAL" />
+    <result column="qntqcjze_yearze" property="qntqcjzeYearze" jdbcType="REAL" />
+    <result column="tbzj_yearze" property="tbzjYearze" jdbcType="REAL" />
+    <result column="cjzezqgfe_yearze" property="cjzezqgfeYearze" jdbcType="REAL" />
+    <result column="byymccl_cc" property="byymcclCc" jdbcType="REAL" />
+    <result column="zqgfe_cc" property="zqgfeCc" jdbcType="REAL" />
+    <result column="syymccl_cc" property="syymcclCc" jdbcType="REAL" />
+    <result column="hbzj_cc" property="hbzjCc" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, year, month, jysname, pzname, bycjl_month, qntqcjl_month, tbzj_month, sycjl_month, 
+    hbzj_month, zqgfe_month, bycje_monthcje, qntqcje_monthcje, tbzj_monthcje, sycje_monthcje, 
+    hbzj_monthcje, zqgfe_monthcje, cjl_year, qntqcjzl_year, tbzj_year, cjlzqgfe_year, 
+    cjze_yearze, qntqcjze_yearze, tbzj_yearze, cjzezqgfe_yearze, byymccl_cc, zqgfe_cc, 
+    syymccl_cc, hbzj_cc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from futures_jymx
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+      <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from futures_jymx where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from futures_jymx 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from futures_jymx
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FuturesJymx" >
+    insert into futures_jymx (id, year, month, 
+      jysname, pzname, bycjl_month, 
+      qntqcjl_month, tbzj_month, sycjl_month, 
+      hbzj_month, zqgfe_month, bycje_monthcje, 
+      qntqcje_monthcje, tbzj_monthcje, sycje_monthcje, 
+      hbzj_monthcje, zqgfe_monthcje, cjl_year, 
+      qntqcjzl_year, tbzj_year, cjlzqgfe_year, 
+      cjze_yearze, qntqcjze_yearze, tbzj_yearze, 
+      cjzezqgfe_yearze, byymccl_cc, zqgfe_cc, 
+      syymccl_cc, hbzj_cc)
+    values (#{id,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{month,jdbcType=INTEGER}, 
+      #{jysname,jdbcType=VARCHAR}, #{pzname,jdbcType=VARCHAR}, #{bycjlMonth,jdbcType=REAL}, 
+      #{qntqcjlMonth,jdbcType=REAL}, #{tbzjMonth,jdbcType=REAL}, #{sycjlMonth,jdbcType=REAL}, 
+      #{hbzjMonth,jdbcType=REAL}, #{zqgfeMonth,jdbcType=REAL}, #{bycjeMonthcje,jdbcType=REAL}, 
+      #{qntqcjeMonthcje,jdbcType=REAL}, #{tbzjMonthcje,jdbcType=REAL}, #{sycjeMonthcje,jdbcType=REAL}, 
+      #{hbzjMonthcje,jdbcType=REAL}, #{zqgfeMonthcje,jdbcType=REAL}, #{cjlYear,jdbcType=REAL}, 
+      #{qntqcjzlYear,jdbcType=REAL}, #{tbzjYear,jdbcType=REAL}, #{cjlzqgfeYear,jdbcType=REAL}, 
+      #{cjzeYearze,jdbcType=REAL}, #{qntqcjzeYearze,jdbcType=REAL}, #{tbzjYearze,jdbcType=REAL}, 
+      #{cjzezqgfeYearze,jdbcType=REAL}, #{byymcclCc,jdbcType=REAL}, #{zqgfeCc,jdbcType=REAL}, 
+      #{syymcclCc,jdbcType=REAL}, #{hbzjCc,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.FuturesJymx" >
+    insert into futures_jymx
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="month != null" >
+        month,
+      </if>
+      <if test="jysname != null" >
+        jysname,
+      </if>
+      <if test="pzname != null" >
+        pzname,
+      </if>
+      <if test="bycjlMonth != null" >
+        bycjl_month,
+      </if>
+      <if test="qntqcjlMonth != null" >
+        qntqcjl_month,
+      </if>
+      <if test="tbzjMonth != null" >
+        tbzj_month,
+      </if>
+      <if test="sycjlMonth != null" >
+        sycjl_month,
+      </if>
+      <if test="hbzjMonth != null" >
+        hbzj_month,
+      </if>
+      <if test="zqgfeMonth != null" >
+        zqgfe_month,
+      </if>
+      <if test="bycjeMonthcje != null" >
+        bycje_monthcje,
+      </if>
+      <if test="qntqcjeMonthcje != null" >
+        qntqcje_monthcje,
+      </if>
+      <if test="tbzjMonthcje != null" >
+        tbzj_monthcje,
+      </if>
+      <if test="sycjeMonthcje != null" >
+        sycje_monthcje,
+      </if>
+      <if test="hbzjMonthcje != null" >
+        hbzj_monthcje,
+      </if>
+      <if test="zqgfeMonthcje != null" >
+        zqgfe_monthcje,
+      </if>
+      <if test="cjlYear != null" >
+        cjl_year,
+      </if>
+      <if test="qntqcjzlYear != null" >
+        qntqcjzl_year,
+      </if>
+      <if test="tbzjYear != null" >
+        tbzj_year,
+      </if>
+      <if test="cjlzqgfeYear != null" >
+        cjlzqgfe_year,
+      </if>
+      <if test="cjzeYearze != null" >
+        cjze_yearze,
+      </if>
+      <if test="qntqcjzeYearze != null" >
+        qntqcjze_yearze,
+      </if>
+      <if test="tbzjYearze != null" >
+        tbzj_yearze,
+      </if>
+      <if test="cjzezqgfeYearze != null" >
+        cjzezqgfe_yearze,
+      </if>
+      <if test="byymcclCc != null" >
+        byymccl_cc,
+      </if>
+      <if test="zqgfeCc != null" >
+        zqgfe_cc,
+      </if>
+      <if test="syymcclCc != null" >
+        syymccl_cc,
+      </if>
+      <if test="hbzjCc != null" >
+        hbzj_cc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null" >
+        #{month,jdbcType=INTEGER},
+      </if>
+      <if test="jysname != null" >
+        #{jysname,jdbcType=VARCHAR},
+      </if>
+      <if test="pzname != null" >
+        #{pzname,jdbcType=VARCHAR},
+      </if>
+      <if test="bycjlMonth != null" >
+        #{bycjlMonth,jdbcType=REAL},
+      </if>
+      <if test="qntqcjlMonth != null" >
+        #{qntqcjlMonth,jdbcType=REAL},
+      </if>
+      <if test="tbzjMonth != null" >
+        #{tbzjMonth,jdbcType=REAL},
+      </if>
+      <if test="sycjlMonth != null" >
+        #{sycjlMonth,jdbcType=REAL},
+      </if>
+      <if test="hbzjMonth != null" >
+        #{hbzjMonth,jdbcType=REAL},
+      </if>
+      <if test="zqgfeMonth != null" >
+        #{zqgfeMonth,jdbcType=REAL},
+      </if>
+      <if test="bycjeMonthcje != null" >
+        #{bycjeMonthcje,jdbcType=REAL},
+      </if>
+      <if test="qntqcjeMonthcje != null" >
+        #{qntqcjeMonthcje,jdbcType=REAL},
+      </if>
+      <if test="tbzjMonthcje != null" >
+        #{tbzjMonthcje,jdbcType=REAL},
+      </if>
+      <if test="sycjeMonthcje != null" >
+        #{sycjeMonthcje,jdbcType=REAL},
+      </if>
+      <if test="hbzjMonthcje != null" >
+        #{hbzjMonthcje,jdbcType=REAL},
+      </if>
+      <if test="zqgfeMonthcje != null" >
+        #{zqgfeMonthcje,jdbcType=REAL},
+      </if>
+      <if test="cjlYear != null" >
+        #{cjlYear,jdbcType=REAL},
+      </if>
+      <if test="qntqcjzlYear != null" >
+        #{qntqcjzlYear,jdbcType=REAL},
+      </if>
+      <if test="tbzjYear != null" >
+        #{tbzjYear,jdbcType=REAL},
+      </if>
+      <if test="cjlzqgfeYear != null" >
+        #{cjlzqgfeYear,jdbcType=REAL},
+      </if>
+      <if test="cjzeYearze != null" >
+        #{cjzeYearze,jdbcType=REAL},
+      </if>
+      <if test="qntqcjzeYearze != null" >
+        #{qntqcjzeYearze,jdbcType=REAL},
+      </if>
+      <if test="tbzjYearze != null" >
+        #{tbzjYearze,jdbcType=REAL},
+      </if>
+      <if test="cjzezqgfeYearze != null" >
+        #{cjzezqgfeYearze,jdbcType=REAL},
+      </if>
+      <if test="byymcclCc != null" >
+        #{byymcclCc,jdbcType=REAL},
+      </if>
+      <if test="zqgfeCc != null" >
+        #{zqgfeCc,jdbcType=REAL},
+      </if>
+      <if test="syymcclCc != null" >
+        #{syymcclCc,jdbcType=REAL},
+      </if>
+      <if test="hbzjCc != null" >
+        #{hbzjCc,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FuturesJymx" >
+    update futures_jymx
+    <set >
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null" >
+        month = #{month,jdbcType=INTEGER},
+      </if>
+      <if test="jysname != null" >
+        jysname = #{jysname,jdbcType=VARCHAR},
+      </if>
+      <if test="pzname != null" >
+        pzname = #{pzname,jdbcType=VARCHAR},
+      </if>
+      <if test="bycjlMonth != null" >
+        bycjl_month = #{bycjlMonth,jdbcType=REAL},
+      </if>
+      <if test="qntqcjlMonth != null" >
+        qntqcjl_month = #{qntqcjlMonth,jdbcType=REAL},
+      </if>
+      <if test="tbzjMonth != null" >
+        tbzj_month = #{tbzjMonth,jdbcType=REAL},
+      </if>
+      <if test="sycjlMonth != null" >
+        sycjl_month = #{sycjlMonth,jdbcType=REAL},
+      </if>
+      <if test="hbzjMonth != null" >
+        hbzj_month = #{hbzjMonth,jdbcType=REAL},
+      </if>
+      <if test="zqgfeMonth != null" >
+        zqgfe_month = #{zqgfeMonth,jdbcType=REAL},
+      </if>
+      <if test="bycjeMonthcje != null" >
+        bycje_monthcje = #{bycjeMonthcje,jdbcType=REAL},
+      </if>
+      <if test="qntqcjeMonthcje != null" >
+        qntqcje_monthcje = #{qntqcjeMonthcje,jdbcType=REAL},
+      </if>
+      <if test="tbzjMonthcje != null" >
+        tbzj_monthcje = #{tbzjMonthcje,jdbcType=REAL},
+      </if>
+      <if test="sycjeMonthcje != null" >
+        sycje_monthcje = #{sycjeMonthcje,jdbcType=REAL},
+      </if>
+      <if test="hbzjMonthcje != null" >
+        hbzj_monthcje = #{hbzjMonthcje,jdbcType=REAL},
+      </if>
+      <if test="zqgfeMonthcje != null" >
+        zqgfe_monthcje = #{zqgfeMonthcje,jdbcType=REAL},
+      </if>
+      <if test="cjlYear != null" >
+        cjl_year = #{cjlYear,jdbcType=REAL},
+      </if>
+      <if test="qntqcjzlYear != null" >
+        qntqcjzl_year = #{qntqcjzlYear,jdbcType=REAL},
+      </if>
+      <if test="tbzjYear != null" >
+        tbzj_year = #{tbzjYear,jdbcType=REAL},
+      </if>
+      <if test="cjlzqgfeYear != null" >
+        cjlzqgfe_year = #{cjlzqgfeYear,jdbcType=REAL},
+      </if>
+      <if test="cjzeYearze != null" >
+        cjze_yearze = #{cjzeYearze,jdbcType=REAL},
+      </if>
+      <if test="qntqcjzeYearze != null" >
+        qntqcjze_yearze = #{qntqcjzeYearze,jdbcType=REAL},
+      </if>
+      <if test="tbzjYearze != null" >
+        tbzj_yearze = #{tbzjYearze,jdbcType=REAL},
+      </if>
+      <if test="cjzezqgfeYearze != null" >
+        cjzezqgfe_yearze = #{cjzezqgfeYearze,jdbcType=REAL},
+      </if>
+      <if test="byymcclCc != null" >
+        byymccl_cc = #{byymcclCc,jdbcType=REAL},
+      </if>
+      <if test="zqgfeCc != null" >
+        zqgfe_cc = #{zqgfeCc,jdbcType=REAL},
+      </if>
+      <if test="syymcclCc != null" >
+        syymccl_cc = #{syymcclCc,jdbcType=REAL},
+      </if>
+      <if test="hbzjCc != null" >
+        hbzj_cc = #{hbzjCc,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FuturesJymx" >
+    update futures_jymx
+    set year = #{year,jdbcType=INTEGER},
+      month = #{month,jdbcType=INTEGER},
+      jysname = #{jysname,jdbcType=VARCHAR},
+      pzname = #{pzname,jdbcType=VARCHAR},
+      bycjl_month = #{bycjlMonth,jdbcType=REAL},
+      qntqcjl_month = #{qntqcjlMonth,jdbcType=REAL},
+      tbzj_month = #{tbzjMonth,jdbcType=REAL},
+      sycjl_month = #{sycjlMonth,jdbcType=REAL},
+      hbzj_month = #{hbzjMonth,jdbcType=REAL},
+      zqgfe_month = #{zqgfeMonth,jdbcType=REAL},
+      bycje_monthcje = #{bycjeMonthcje,jdbcType=REAL},
+      qntqcje_monthcje = #{qntqcjeMonthcje,jdbcType=REAL},
+      tbzj_monthcje = #{tbzjMonthcje,jdbcType=REAL},
+      sycje_monthcje = #{sycjeMonthcje,jdbcType=REAL},
+      hbzj_monthcje = #{hbzjMonthcje,jdbcType=REAL},
+      zqgfe_monthcje = #{zqgfeMonthcje,jdbcType=REAL},
+      cjl_year = #{cjlYear,jdbcType=REAL},
+      qntqcjzl_year = #{qntqcjzlYear,jdbcType=REAL},
+      tbzj_year = #{tbzjYear,jdbcType=REAL},
+      cjlzqgfe_year = #{cjlzqgfeYear,jdbcType=REAL},
+      cjze_yearze = #{cjzeYearze,jdbcType=REAL},
+      qntqcjze_yearze = #{qntqcjzeYearze,jdbcType=REAL},
+      tbzj_yearze = #{tbzjYearze,jdbcType=REAL},
+      cjzezqgfe_yearze = #{cjzezqgfeYearze,jdbcType=REAL},
+      byymccl_cc = #{byymcclCc,jdbcType=REAL},
+      zqgfe_cc = #{zqgfeCc,jdbcType=REAL},
+      syymccl_cc = #{syymcclCc,jdbcType=REAL},
+      hbzj_cc = #{hbzjCc,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <select id="selectJymxData" resultType="hashmap" parameterType="hashmap" >
+	select  
+	year,month,REPLACE(REPLACE(jysname, CHAR(10), ''), CHAR(13), '') jysname,REPLACE(REPLACE(pzname, CHAR(10), ''), CHAR(13), '') pzname,bycjl_month,qntqcjl_month,tbzj_month,sycjl_month,hbzj_month,zqgfe_month,bycje_monthcje,qntqcje_monthcje,tbzj_monthcje,sycje_monthcje
+,hbzj_monthcje,zqgfe_monthcje,cjl_year,qntqcjzl_year,tbzj_year,cjlzqgfe_year,cjze_yearze,qntqcjze_yearze,tbzj_yearze,cjzezqgfe_yearze,byymccl_cc,zqgfe_cc,syymccl_cc,hbzj_cc
+	
+	from futures_jymx 
+	where 1=1 
+	<if test="year != null" >
+	and year = #{year}
+	</if>
+	<if test="month != null" >
+	and month = #{month}
+	</if>
+	<if test="pzname != null" >
+	and REPLACE(REPLACE(pzname, CHAR(10), ''), CHAR(13), '') = #{pzname}
+	</if>
+	<if test="jysname != null" >
+	and REPLACE(REPLACE(jysname, CHAR(10), ''), CHAR(13), '')  = #{jysname}
+	</if>
+  <if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+  <select id="selectJytjChart" resultType="hashmap" parameterType="hashmap" >
+	select 
+	year,month,REPLACE(REPLACE(jysname, CHAR(10), ''), CHAR(13), '') jysname,REPLACE(REPLACE(pzname, CHAR(10), ''), CHAR(13), '') pzname,bycjl_month,qntqcjl_month,tbzj_month,sycjl_month,hbzj_month,zqgfe_month,bycje_monthcje,qntqcje_monthcje,tbzj_monthcje,sycje_monthcje
+,hbzj_monthcje,zqgfe_monthcje,cjl_year,qntqcjzl_year,tbzj_year,cjlzqgfe_year,cjze_yearze,qntqcjze_yearze,tbzj_yearze,cjzezqgfe_yearze,byymccl_cc,zqgfe_cc,syymccl_cc,hbzj_cc
+	from futures_jymx 
+	where 1=1 
+	<if test="year != null" >
+	and year = #{year}
+	</if>
+	<if test="month != null" >
+	and month = #{month}
+	</if>
+	<if test="pzname != null" >
+	and REPLACE(REPLACE(pzname, CHAR(10), ''), CHAR(13), '') = #{pzname}
+	</if>
+	<if test="jysname != null" >
+	and REPLACE(REPLACE(jysname, CHAR(10), ''), CHAR(13), '') = #{jysname}
+	</if>
+	order by year asc, month asc
+  <if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+  <select id="selectFuturesJymxMaxDate" resultType="java.lang.String" >
+   select concat(MAX(YEAR),MAX(month)) from futures_jymx where year  = (select max(year) from futures_jymx)
+  </select>
+  
+</mapper>

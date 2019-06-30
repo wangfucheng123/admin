@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.BaseZxpjjgMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.BaseZxpjjg" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ch_name" property="chName" jdbcType="VARCHAR" />
+    <result column="s_ch_name" property="sChName" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="DATE" />
+    <result column="en_name" property="enName" jdbcType="VARCHAR" />
+    <result column="s_en_name" property="sEnName" jdbcType="VARCHAR" />
+    <result column="ywzgxkz" property="ywzgxkz" jdbcType="VARCHAR" />
+    <result column="fddbr" property="fddbr" jdbcType="VARCHAR" />
+    <result column="zjl" property="zjl" jdbcType="VARCHAR" />
+    <result column="zczb" property="zczb" jdbcType="VARCHAR" />
+    <result column="sszb" property="sszb" jdbcType="VARCHAR" />
+    <result column="jzc" property="jzc" jdbcType="VARCHAR" />
+    <result column="xxzcdz" property="xxzcdz" jdbcType="VARCHAR" />
+    <result column="zcdyzbm" property="zcdyzbm" jdbcType="VARCHAR" />
+    <result column="zcs" property="zcs" jdbcType="INTEGER" />
+    <result column="bgdz" property="bgdz" jdbcType="VARCHAR" />
+    <result column="bgdzyzbm" property="bgdzyzbm" jdbcType="VARCHAR" />
+    <result column="khfwtsdh" property="khfwtsdh" jdbcType="VARCHAR" />
+    <result column="web_url" property="webUrl" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="fax" property="fax" jdbcType="VARCHAR" />
+    <result column="zzjg" property="zzjg" jdbcType="VARCHAR" />
+    <result column="ygrs" property="ygrs" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ch_name, s_ch_name, create_date, en_name, s_en_name,hydm,hysx,hyzsdm, ywzgxkz, fddbr, zjl, zczb, 
+    sszb, jzc, xxzcdz, zcdyzbm, zcs, bgdz, bgdzyzbm, khfwtsdh, web_url, email, phone, 
+    fax, zzjg, ygrs
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_zxpjjg
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_zxpjjg where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from base_zxpjjg 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from base_zxpjjg
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.BaseZxpjjg" >
+    insert into base_zxpjjg (id, ch_name, s_ch_name, 
+      create_date, en_name, s_en_name, 
+      ywzgxkz, fddbr, zjl, 
+      zczb, sszb, jzc, xxzcdz, 
+      zcdyzbm, zcs, bgdz, 
+      bgdzyzbm, khfwtsdh, web_url, 
+      email, phone, fax, 
+      zzjg, ygrs)
+    values (#{id,jdbcType=INTEGER}, #{chName,jdbcType=VARCHAR}, #{sChName,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=DATE}, #{enName,jdbcType=VARCHAR}, #{sEnName,jdbcType=VARCHAR}, 
+      #{ywzgxkz,jdbcType=VARCHAR}, #{fddbr,jdbcType=VARCHAR}, #{zjl,jdbcType=VARCHAR}, 
+      #{zczb,jdbcType=VARCHAR}, #{sszb,jdbcType=VARCHAR}, #{jzc,jdbcType=VARCHAR}, #{xxzcdz,jdbcType=VARCHAR}, 
+      #{zcdyzbm,jdbcType=VARCHAR}, #{zcs,jdbcType=INTEGER}, #{bgdz,jdbcType=VARCHAR}, 
+      #{bgdzyzbm,jdbcType=VARCHAR}, #{khfwtsdh,jdbcType=VARCHAR}, #{webUrl,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, 
+      #{zzjg,jdbcType=VARCHAR}, #{ygrs,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.dfans.model.BaseZxpjjg" >
+    insert into base_zxpjjg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="chName != null" >
+        ch_name,
+      </if>
+      <if test="sChName != null" >
+        s_ch_name,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="enName != null" >
+        en_name,
+      </if>
+      <if test="sEnName != null" >
+        s_en_name,
+      </if>
+      <if test="hydm != null" >
+        hydm,
+      </if>
+      <if test="hysx != null" >
+        hysx,
+      </if>
+      <if test="hyzsdm != null" >
+        hyzsdm,
+      </if>
+      <if test="ywzgxkz != null" >
+        ywzgxkz,
+      </if>
+      <if test="fddbr != null" >
+        fddbr,
+      </if>
+      <if test="zjl != null" >
+        zjl,
+      </if>
+      <if test="zczb != null" >
+        zczb,
+      </if>
+      <if test="sszb != null" >
+        sszb,
+      </if>
+      <if test="jzc != null" >
+        jzc,
+      </if>
+      <if test="xxzcdz != null" >
+        xxzcdz,
+      </if>
+      <if test="zcdyzbm != null" >
+        zcdyzbm,
+      </if>
+      <if test="zcs != null" >
+        zcs,
+      </if>
+      <if test="bgdz != null" >
+        bgdz,
+      </if>
+      <if test="bgdzyzbm != null" >
+        bgdzyzbm,
+      </if>
+      <if test="khfwtsdh != null" >
+        khfwtsdh,
+      </if>
+      <if test="webUrl != null" >
+        web_url,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+      <if test="zzjg != null" >
+        zzjg,
+      </if>
+      <if test="ygrs != null" >
+        ygrs,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="chName != null" >
+        #{chName,jdbcType=VARCHAR},
+      </if>
+      <if test="sChName != null" >
+        #{sChName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=DATE},
+      </if>
+      <if test="enName != null" >
+        #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="sEnName != null" >
+        #{sEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="hydm != null" >
+        #{hydm,jdbcType=VARCHAR},
+      </if>
+      <if test="hysx != null" >
+        #{hysx,jdbcType=VARCHAR},
+      </if>
+      <if test="hyzsdm != null" >
+        #{hyzsdm,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="ywzgxkz != null" >
+        #{ywzgxkz,jdbcType=VARCHAR},
+      </if>
+      <if test="fddbr != null" >
+        #{fddbr,jdbcType=VARCHAR},
+      </if>
+      <if test="zjl != null" >
+        #{zjl,jdbcType=VARCHAR},
+      </if>
+      <if test="zczb != null" >
+        #{zczb,jdbcType=VARCHAR},
+      </if>
+      <if test="sszb != null" >
+        #{sszb,jdbcType=VARCHAR},
+      </if>
+      <if test="jzc != null" >
+        #{jzc,jdbcType=VARCHAR},
+      </if>
+      <if test="xxzcdz != null" >
+        #{xxzcdz,jdbcType=VARCHAR},
+      </if>
+      <if test="zcdyzbm != null" >
+        #{zcdyzbm,jdbcType=VARCHAR},
+      </if>
+      <if test="zcs != null" >
+        #{zcs,jdbcType=INTEGER},
+      </if>
+      <if test="bgdz != null" >
+        #{bgdz,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdzyzbm != null" >
+        #{bgdzyzbm,jdbcType=VARCHAR},
+      </if>
+      <if test="khfwtsdh != null" >
+        #{khfwtsdh,jdbcType=VARCHAR},
+      </if>
+      <if test="webUrl != null" >
+        #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="zzjg != null" >
+        #{zzjg,jdbcType=VARCHAR},
+      </if>
+      <if test="ygrs != null" >
+        #{ygrs,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.BaseZxpjjg" >
+    update base_zxpjjg
+    <set >
+      <if test="chName != null" >
+        ch_name = #{chName,jdbcType=VARCHAR},
+      </if>
+      <if test="sChName != null" >
+        s_ch_name = #{sChName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=DATE},
+      </if>
+      <if test="enName != null" >
+        en_name = #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="sEnName != null" >
+        s_en_name = #{sEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="ywzgxkz != null" >
+        ywzgxkz = #{ywzgxkz,jdbcType=VARCHAR},
+      </if>
+      <if test="fddbr != null" >
+        fddbr = #{fddbr,jdbcType=VARCHAR},
+      </if>
+      <if test="zjl != null" >
+        zjl = #{zjl,jdbcType=VARCHAR},
+      </if>
+      <if test="zczb != null" >
+        zczb = #{zczb,jdbcType=VARCHAR},
+      </if>
+      <if test="sszb != null" >
+        sszb = #{sszb,jdbcType=VARCHAR},
+      </if>
+      <if test="jzc != null" >
+        jzc = #{jzc,jdbcType=VARCHAR},
+      </if>
+      <if test="xxzcdz != null" >
+        xxzcdz = #{xxzcdz,jdbcType=VARCHAR},
+      </if>
+      <if test="zcdyzbm != null" >
+        zcdyzbm = #{zcdyzbm,jdbcType=VARCHAR},
+      </if>
+      <if test="zcs != null" >
+        zcs = #{zcs,jdbcType=INTEGER},
+      </if>
+      <if test="bgdz != null" >
+        bgdz = #{bgdz,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdzyzbm != null" >
+        bgdzyzbm = #{bgdzyzbm,jdbcType=VARCHAR},
+      </if>
+      <if test="khfwtsdh != null" >
+        khfwtsdh = #{khfwtsdh,jdbcType=VARCHAR},
+      </if>
+      <if test="webUrl != null" >
+        web_url = #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="zzjg != null" >
+        zzjg = #{zzjg,jdbcType=VARCHAR},
+      </if>
+      <if test="ygrs != null" >
+        ygrs = #{ygrs,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.BaseZxpjjg" >
+    update base_zxpjjg
+    set ch_name = #{chName,jdbcType=VARCHAR},
+      s_ch_name = #{sChName,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=DATE},
+      en_name = #{enName,jdbcType=VARCHAR},
+      s_en_name = #{sEnName,jdbcType=VARCHAR},
+      ywzgxkz = #{ywzgxkz,jdbcType=VARCHAR},
+      fddbr = #{fddbr,jdbcType=VARCHAR},
+      zjl = #{zjl,jdbcType=VARCHAR},
+      zczb = #{zczb,jdbcType=VARCHAR},
+      sszb = #{sszb,jdbcType=VARCHAR},
+      jzc = #{jzc,jdbcType=VARCHAR},
+      xxzcdz = #{xxzcdz,jdbcType=VARCHAR},
+      zcdyzbm = #{zcdyzbm,jdbcType=VARCHAR},
+      zcs = #{zcs,jdbcType=INTEGER},
+      bgdz = #{bgdz,jdbcType=VARCHAR},
+      bgdzyzbm = #{bgdzyzbm,jdbcType=VARCHAR},
+      khfwtsdh = #{khfwtsdh,jdbcType=VARCHAR},
+      web_url = #{webUrl,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      zzjg = #{zzjg,jdbcType=VARCHAR},
+      ygrs = #{ygrs,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="fuzzyQueryZxpjjg" resultType="hashmap" parameterType="hashmap" >
+	select ch_name as name,s_ch_name,DATE_FORMAT(create_date,'%Y-%m-%d') create_date,en_name,
+	s_en_name,hydm,hysx,hyzsdm,ywzgxkz,fddbr,zjl,zczb,
+	sszb,FORMAT(base_zxpjjg.jzc ,2) jzc,xxzcdz,zcdyzbm,zcs,bgdz,bgdzyzbm,
+	khfwtsdh,web_url,email,phone,fax,zzjg,ygrs 
+	from base_zxpjjg 
+	where 1=1 
+	and (ch_name like '%${fuzzyQuery}%' 
+	or bgdz like '%${fuzzyQuery}%') 
+	limit 0,10
+  </select>
+  <select id="fuzzyQueryZxpjjg2" resultType="hashmap" parameterType="hashmap" >
+	select ch_name from base_zxpjjg 
+	where 1=1 
+	and (ch_name like '%${fuzzyQuery}%' 
+) 
+	limit 0,10
+  </select>
+  
+  <select id="selectZxpjjgList" resultType="hashmap" parameterType="hashmap" >
+	select ch_name,s_ch_name,DATE_FORMAT(create_date,'%Y-%m-%d') create_date,en_name,s_en_name,hydm,hysx,hyzsdm,ywzgxkz,fddbr,zjl,zczb,
+	sszb,FORMAT(base_zxpjjg.jzc ,2) jzc,xxzcdz,zcdyzbm,zcs,bgdz,bgdzyzbm,khfwtsdh,web_url,email,phone,fax,zzjg,ygrs 
+	from base_zxpjjg 
+	where 1=1 
+	order by CAST(zczb AS DECIMAL) desc
+  <if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+  <select id="selectZxpj" resultType="hashmap" parameterType="hashmap" >
+	select ch_name,s_ch_name,DATE_FORMAT(create_date,'%Y-%m-%d') create_date,en_name,
+	s_en_name,hydm,hysx,hyzsdm,ywzgxkz,fddbr,zjl,zczb,
+	sszb,FORMAT(base_zxpjjg.jzc ,2) jzc,xxzcdz,zcdyzbm,zcs,bgdz,bgdzyzbm,
+	khfwtsdh,web_url,email,phone,fax,zzjg,ygrs 
+	from base_zxpjjg 
+	where 1=1 
+   <if test="comName != null" >
+      and ch_name = #{comName}
+    </if>
+  </select>
+  
+  <select id="selectExec" resultType="hashmap" parameterType="hashmap" >
+	SELECT b.ch_name,a.base_id,a.name,a.sex,a.xrzw,
+	DATE_FORMAT(a.start_date,'%Y-%m-%d') start_date,a.cyzshm,a.zkhm,a.flag 
+	FROM exec_zxpjjg a
+LEFT JOIN base_zxpjjg b ON a.base_id=b.id
+	where 1=1 
+   <if test="comName != null" >
+      and ch_name = #{comName}
+    </if>
+      <if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+  <select id="selectEmp" resultType="hashmap" parameterType="hashmap" >
+	SELECT b.ch_name,a.base_id,a.name,a.sex,a.zsbh,a.xrzw,DATE_FORMAT(a.start_date,'%Y-%m-%d') start_date
+	FROM emp_zxpjjg a
+	LEFT JOIN base_zxpjjg b ON a.base_id=b.id
+	where 1=1 
+   <if test="comName != null" >
+      and ch_name = #{comName}
+    </if>
+      <if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+</mapper>

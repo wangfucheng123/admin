@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.TzzhGlrfltjMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.TzzhGlrfltj" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="quarter" property="quarter" jdbcType="INTEGER" />
+    <result column="jjlx" property="jjlx" jdbcType="VARCHAR" />
+    <result column="gjzq" property="gjzq" jdbcType="REAL" />
+    <result column="yhpj" property="yhpj" jdbcType="REAL" />
+    <result column="jrzq" property="jrzq" jdbcType="REAL" />
+    <result column="qyzq" property="qyzq" jdbcType="REAL" />
+    <result column="qydqrzq" property="qydqrzq" jdbcType="REAL" />
+    <result column="kzz" property="kzz" jdbcType="REAL" />
+    <result column="other" property="other" jdbcType="REAL" />
+    <result column="total" property="total" jdbcType="REAL" />
+  </resultMap>
+  
+      <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, year, quarter, jjlx, gjzq, yhpj, jrzq, qyzq, qydqrzq, kzz, other, total
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tzzh_glrfltj
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+        <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from tzzh_glrfltj where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from tzzh_glrfltj 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tzzh_glrfltj
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.TzzhGlrfltj" >
+    insert into tzzh_glrfltj (id, year, quarter, 
+      jjlx, gjzq, yhpj, jrzq, 
+      qyzq, qydqrzq, kzz, other, 
+      total)
+    values (#{id,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{quarter,jdbcType=INTEGER}, 
+      #{jjlx,jdbcType=VARCHAR}, #{gjzq,jdbcType=REAL}, #{yhpj,jdbcType=REAL}, #{jrzq,jdbcType=REAL}, 
+      #{qyzq,jdbcType=REAL}, #{qydqrzq,jdbcType=REAL}, #{kzz,jdbcType=REAL}, #{other,jdbcType=REAL}, 
+      #{total,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.TzzhGlrfltj" >
+    insert into tzzh_glrfltj
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="quarter != null" >
+        quarter,
+      </if>
+      <if test="jjlx != null" >
+        jjlx,
+      </if>
+      <if test="gjzq != null" >
+        gjzq,
+      </if>
+      <if test="yhpj != null" >
+        yhpj,
+      </if>
+      <if test="jrzq != null" >
+        jrzq,
+      </if>
+      <if test="qyzq != null" >
+        qyzq,
+      </if>
+      <if test="qydqrzq != null" >
+        qydqrzq,
+      </if>
+      <if test="kzz != null" >
+        kzz,
+      </if>
+      <if test="other != null" >
+        other,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="jjlx != null" >
+        #{jjlx,jdbcType=VARCHAR},
+      </if>
+      <if test="gjzq != null" >
+        #{gjzq,jdbcType=REAL},
+      </if>
+      <if test="yhpj != null" >
+        #{yhpj,jdbcType=REAL},
+      </if>
+      <if test="jrzq != null" >
+        #{jrzq,jdbcType=REAL},
+      </if>
+      <if test="qyzq != null" >
+        #{qyzq,jdbcType=REAL},
+      </if>
+      <if test="qydqrzq != null" >
+        #{qydqrzq,jdbcType=REAL},
+      </if>
+      <if test="kzz != null" >
+        #{kzz,jdbcType=REAL},
+      </if>
+      <if test="other != null" >
+        #{other,jdbcType=REAL},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.TzzhGlrfltj" >
+    update tzzh_glrfltj
+    <set >
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        quarter = #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="jjlx != null" >
+        jjlx = #{jjlx,jdbcType=VARCHAR},
+      </if>
+      <if test="gjzq != null" >
+        gjzq = #{gjzq,jdbcType=REAL},
+      </if>
+      <if test="yhpj != null" >
+        yhpj = #{yhpj,jdbcType=REAL},
+      </if>
+      <if test="jrzq != null" >
+        jrzq = #{jrzq,jdbcType=REAL},
+      </if>
+      <if test="qyzq != null" >
+        qyzq = #{qyzq,jdbcType=REAL},
+      </if>
+      <if test="qydqrzq != null" >
+        qydqrzq = #{qydqrzq,jdbcType=REAL},
+      </if>
+      <if test="kzz != null" >
+        kzz = #{kzz,jdbcType=REAL},
+      </if>
+      <if test="other != null" >
+        other = #{other,jdbcType=REAL},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.TzzhGlrfltj" >
+    update tzzh_glrfltj
+    set year = #{year,jdbcType=INTEGER},
+      quarter = #{quarter,jdbcType=INTEGER},
+      jjlx = #{jjlx,jdbcType=VARCHAR},
+      gjzq = #{gjzq,jdbcType=REAL},
+      yhpj = #{yhpj,jdbcType=REAL},
+      jrzq = #{jrzq,jdbcType=REAL},
+      qyzq = #{qyzq,jdbcType=REAL},
+      qydqrzq = #{qydqrzq,jdbcType=REAL},
+      kzz = #{kzz,jdbcType=REAL},
+      other = #{other,jdbcType=REAL},
+      total = #{total,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

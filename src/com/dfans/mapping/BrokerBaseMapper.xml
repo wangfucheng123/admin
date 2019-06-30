@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.BrokerBaseMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.BrokerBase" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="INTEGER" />
+    <result column="zcdz" property="zcdz" jdbcType="VARCHAR" />
+    <result column="frdb" property="frdb" jdbcType="VARCHAR" />
+    <result column="xkzbh" property="xkzbh" jdbcType="VARCHAR" />
+    <result column="zczb" property="zczb" jdbcType="VARCHAR" />
+    <result column="bgdz" property="bgdz" jdbcType="VARCHAR" />
+    <result column="bgdyb" property="bgdyb" jdbcType="VARCHAR" />
+    <result column="tsdh" property="tsdh" jdbcType="VARCHAR" />
+    <result column="web_url" property="webUrl" jdbcType="VARCHAR" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.dfans.model.BrokerBase" extends="BaseResultMap" >
+    <result column="zgxx" property="zgxx" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, province, city, zcdz, frdb, xkzbh, zczb, bgdz, bgdyb, tsdh, web_url, logo
+  </sql>
+  <sql id="Blob_Column_List" >
+    zgxx
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from broker_base
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from broker_base where 1=1 
+    
+      
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from broker_base 
+  </select>
+  
+    <select id="selectName" resultType="String" parameterType="java.lang.String" >
+    select 
+    name
+    from broker_base
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+    <select id="selectId" resultType="Integer" parameterType="java.lang.String" >
+    select 
+    id
+    from broker_base
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from broker_base
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.BrokerBase" >
+    insert into broker_base (id, name, province, 
+      city, zcdz, frdb, xkzbh, 
+      zczb, bgdz, bgdyb, 
+      tsdh, web_url, logo, 
+      zgxx)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{province,jdbcType=INTEGER}, 
+      #{city,jdbcType=INTEGER}, #{zcdz,jdbcType=VARCHAR}, #{frdb,jdbcType=VARCHAR}, #{xkzbh,jdbcType=VARCHAR}, 
+      #{zczb,jdbcType=VARCHAR}, #{bgdz,jdbcType=VARCHAR}, #{bgdyb,jdbcType=VARCHAR}, 
+      #{tsdh,jdbcType=VARCHAR}, #{webUrl,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, 
+      #{zgxx,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.BrokerBase" >
+    insert into broker_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="zcdz != null" >
+        zcdz,
+      </if>
+      <if test="frdb != null" >
+        frdb,
+      </if>
+      <if test="xkzbh != null" >
+        xkzbh,
+      </if>
+      <if test="zczb != null" >
+        zczb,
+      </if>
+      <if test="bgdz != null" >
+        bgdz,
+      </if>
+      <if test="bgdyb != null" >
+        bgdyb,
+      </if>
+      <if test="tsdh != null" >
+        tsdh,
+      </if>
+      <if test="webUrl != null" >
+        web_url,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+      <if test="zgxx != null" >
+        zgxx,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=INTEGER},
+      </if>
+      <if test="zcdz != null" >
+        #{zcdz,jdbcType=VARCHAR},
+      </if>
+      <if test="frdb != null" >
+        #{frdb,jdbcType=VARCHAR},
+      </if>
+      <if test="xkzbh != null" >
+        #{xkzbh,jdbcType=VARCHAR},
+      </if>
+      <if test="zczb != null" >
+        #{zczb,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdz != null" >
+        #{bgdz,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdyb != null" >
+        #{bgdyb,jdbcType=VARCHAR},
+      </if>
+      <if test="tsdh != null" >
+        #{tsdh,jdbcType=VARCHAR},
+      </if>
+      <if test="webUrl != null" >
+        #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="zgxx != null" >
+        #{zgxx,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.BrokerBase" >
+    update broker_base
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=INTEGER},
+      </if>
+      <if test="zcdz != null" >
+        zcdz = #{zcdz,jdbcType=VARCHAR},
+      </if>
+      <if test="frdb != null" >
+        frdb = #{frdb,jdbcType=VARCHAR},
+      </if>
+      <if test="xkzbh != null" >
+        xkzbh = #{xkzbh,jdbcType=VARCHAR},
+      </if>
+      <if test="zczb != null" >
+        zczb = #{zczb,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdz != null" >
+        bgdz = #{bgdz,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdyb != null" >
+        bgdyb = #{bgdyb,jdbcType=VARCHAR},
+      </if>
+      <if test="tsdh != null" >
+        tsdh = #{tsdh,jdbcType=VARCHAR},
+      </if>
+      <if test="webUrl != null" >
+        web_url = #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="zgxx != null" >
+        zgxx = #{zgxx,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dfans.model.BrokerBase" >
+    update broker_base
+    set name = #{name,jdbcType=VARCHAR},
+      province = #{province,jdbcType=INTEGER},
+      city = #{city,jdbcType=INTEGER},
+      zcdz = #{zcdz,jdbcType=VARCHAR},
+      frdb = #{frdb,jdbcType=VARCHAR},
+      xkzbh = #{xkzbh,jdbcType=VARCHAR},
+      zczb = #{zczb,jdbcType=VARCHAR},
+      bgdz = #{bgdz,jdbcType=VARCHAR},
+      bgdyb = #{bgdyb,jdbcType=VARCHAR},
+      tsdh = #{tsdh,jdbcType=VARCHAR},
+      web_url = #{webUrl,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      zgxx = #{zgxx,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.BrokerBase" >
+    update broker_base
+    set name = #{name,jdbcType=VARCHAR},
+      province = #{province,jdbcType=INTEGER},
+      city = #{city,jdbcType=INTEGER},
+      zcdz = #{zcdz,jdbcType=VARCHAR},
+      frdb = #{frdb,jdbcType=VARCHAR},
+      xkzbh = #{xkzbh,jdbcType=VARCHAR},
+      zczb = #{zczb,jdbcType=VARCHAR},
+      bgdz = #{bgdz,jdbcType=VARCHAR},
+      bgdyb = #{bgdyb,jdbcType=VARCHAR},
+      tsdh = #{tsdh,jdbcType=VARCHAR},
+      web_url = #{webUrl,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectBrokerCount" resultType="hashmap" parameterType="hashmap" >
+	  <if test="type == 1" >
+	  	SELECT COUNT(province) COUNT,province,proname
+		FROM broker_base 
+		LEFT JOIN db_shuqin.t_province ON broker_base.province =db_shuqin.t_province.ProID
+		WHERE province IS NOT NULL
+		GROUP BY province
+	  </if>
+	  <if test="type == 2" >
+	  	SELECT COUNT(zcd) COUNT,zcd as province,proname
+		FROM base_tzzxgs 
+		LEFT JOIN db_shuqin.t_province ON base_tzzxgs.zcd =db_shuqin.t_province.ProID
+		WHERE zcd IS NOT NULL
+		GROUP BY zcd
+	  </if>
+	  <if test="type == 3" >
+	  	SELECT COUNT(zcs) COUNT,zcs as province,proname
+		FROM base_zxpjjg 
+		LEFT JOIN db_shuqin.t_province ON base_zxpjjg.zcs =db_shuqin.t_province.ProID
+		WHERE zcs IS NOT NULL
+		GROUP BY zcs
+	  </if>
+	  <if test="type == 4" >
+	  	SELECT COUNT(xq) COUNT,xq as province,proname
+		FROM qhgsml 
+		LEFT JOIN db_shuqin.t_province ON qhgsml.xq =db_shuqin.t_province.ProID
+		WHERE xq IS NOT NULL
+		GROUP BY xq
+	  </if>
+	  <if test="type == 5" >
+		SELECT COUNT(zcs) COUNT,zcs AS province,zcs proname
+		FROM private_funds_base
+		GROUP BY zcs
+	  </if>
+	  <if test="type == 6" >
+	  	SELECT COUNT(zcs) COUNT,zcs as province,proname
+		FROM jjml_glgs 
+		LEFT JOIN db_shuqin.t_province ON jjml_glgs.zcs =db_shuqin.t_province.ProID
+		WHERE zcs IS NOT NULL
+		GROUP BY zcs
+	  </if>
+	  <if test="type == 7" >
+	  	SELECT COUNT(zcd) COUNT,zcd as province,proname
+		FROM jjml_xsjg 
+		LEFT JOIN db_shuqin.t_province ON jjml_xsjg.zcd =db_shuqin.t_province.ProID
+		WHERE zcd IS NOT NULL
+		GROUP BY zcd
+	  </if>
+	  <if test="type == 8" >
+	  	SELECT COUNT(zcd) COUNT,zcd as province,proname
+		FROM jjml_zcglljg 
+		LEFT JOIN db_shuqin.t_province ON jjml_zcglljg.zcd =db_shuqin.t_province.ProID
+		WHERE zcd IS NOT NULL
+		GROUP BY zcd
+	  </if>
+  </select>
+ 
+  <select id="selectOrgInfoByPro" resultType="hashmap" parameterType="hashmap" >
+  		<if test="type == 1" >
+		  	SELECT REPLACE(REPLACE(name, CHAR(10), ''), CHAR(13), '') name,zczb,REPLACE(REPLACE(bgdz, CHAR(10), ''), CHAR(13), '') address ,
+		  	REPLACE(REPLACE(tsdh, CHAR(10), ''), CHAR(13), '')  as tel,proname
+			FROM broker_base 
+			LEFT JOIN db_shuqin.t_province ON broker_base.province =db_shuqin.t_province.ProID
+			WHERE broker_base.province IS NOT NULL
+			<if test="province != null" >
+			and (province = #{province} or proname= #{province})
+			</if>
+  		</if>
+  		<if test="type == 2" >
+		  	SELECT REPLACE(REPLACE(name, CHAR(10), ''), CHAR(13), '') name,zczb,REPLACE(REPLACE(bgdz, CHAR(10), ''), CHAR(13), '')  as address,
+		  	REPLACE(REPLACE(phone, CHAR(10), ''), CHAR(13), '')  as tel,proname
+			FROM base_tzzxgs 
+			LEFT JOIN db_shuqin.t_province ON base_tzzxgs.zcd =db_shuqin.t_province.ProID
+			WHERE base_tzzxgs.zcd IS NOT NULL
+			<if test="province != null" >
+			and (zcd = #{province} or proname= #{province})
+			</if>
+  		</if>
+  		<if test="type == 3" >
+		  	SELECT REPLACE(REPLACE(ch_name, CHAR(10), ''), CHAR(13), '') name ,zczb,REPLACE(REPLACE(bgdz, CHAR(10), ''), CHAR(13), '')  as address,
+		  	REPLACE(REPLACE(phone, CHAR(10), ''), CHAR(13), '')   as tel,proname
+			FROM base_zxpjjg 
+			LEFT JOIN db_shuqin.t_province ON base_zxpjjg.zcs =db_shuqin.t_province.ProID
+			WHERE base_zxpjjg.zcs IS NOT NULL
+			<if test="province != null" >
+			and (base_zxpjjg.zcs = #{province} or proname= #{province})
+			</if>
+	  </if>
+  		<if test="type == 4" >
+		  	SELECT REPLACE(REPLACE(futures_base.name, CHAR(10), ''), CHAR(13), '')  as name,zczb,REPLACE(REPLACE(bgdz, CHAR(10), ''), CHAR(13), '') as address,
+		  	REPLACE(REPLACE(khfwtsdh, CHAR(10), ''), CHAR(13), '')  as tel,proname
+			FROM futures_base
+			LEFT JOIN qhgsml ON futures_base.`name`=qhgsml.`name`
+			LEFT JOIN db_shuqin.t_province ON qhgsml.xq =db_shuqin.t_province.ProID
+			WHERE xq IS NOT NULL
+			<if test="province != null" >
+			and (qhgsml.`xq` = #{province} or proname= #{province})
+			</if>
+	  </if>
+  	  <if test="type == 5" >
+		  	SELECT REPLACE(REPLACE(private_funds_base.`ch_name`, CHAR(10), ''), CHAR(13), '')  as name,zczb,REPLACE(REPLACE(bgdz, CHAR(10), ''), CHAR(13), '') as address,
+		  	proname
+			from private_funds_base
+			left join private_manage_list on private_funds_base.`ch_name`=private_manage_list.`name`
+			LEFT JOIN db_shuqin.t_province ON private_manage_list.`regist_addr` =db_shuqin.t_province.ProID
+			WHERE regist_addr IS NOT NULL
+			<if test="province != null" >
+			and (private_manage_list.`regist_addr` = #{province} or proname= #{province})
+			</if>
+	  </if>
+  	  <if test="type == 6" >
+		  	SELECT REPLACE(REPLACE(name, CHAR(10), ''), CHAR(13), '') name,REPLACE(REPLACE(address, CHAR(10), ''), CHAR(13), '') address,
+		  	REPLACE(REPLACE(tel, CHAR(10), ''), CHAR(13), '') tel,proname
+			from jjml_glgs
+			LEFT JOIN db_shuqin.t_province ON jjml_glgs.`zcd` =db_shuqin.t_province.ProID
+			WHERE zcd IS NOT NULL
+			<if test="province != null" >
+			and (zcd = #{province} or proname= #{province})
+			</if>
+	  </if>
+  	  <if test="type == 7" >
+		  	SELECT REPLACE(REPLACE(name, CHAR(10), ''), CHAR(13), '') name,REPLACE(REPLACE(address, CHAR(10), ''), CHAR(13), '') address,
+		  	REPLACE(REPLACE(tel, CHAR(10), ''), CHAR(13), '') tel,proname
+			FROM jjml_xsjg
+			LEFT JOIN db_shuqin.t_province ON jjml_xsjg.`zcd` =db_shuqin.t_province.ProID
+			WHERE zcd IS NOT NULL
+			<if test="province != null" >
+			and (zcd = #{province} or proname= #{province})
+			</if>
+	  </if>
+  	  <if test="type == 8" >
+		  	SELECT REPLACE(REPLACE(name, CHAR(10), ''), CHAR(13), '') name,REPLACE(REPLACE(address, CHAR(10), ''), CHAR(13), '') address,
+		  	REPLACE(REPLACE(tel, CHAR(10), ''), CHAR(13), '') tel,proname
+			FROM jjml_zcglljg
+			LEFT JOIN db_shuqin.t_province ON jjml_zcglljg.`zcd` =db_shuqin.t_province.ProID
+			WHERE zcd IS NOT NULL
+			<if test="province != null" >
+			and (zcd = #{province} or proname= #{province})
+			</if>
+	  </if>
+  </select>
+
+  
+  <select id="fuzzyQueryQs" resultType="hashmap" parameterType="hashmap" >
+	select * from broker_base 
+	where 1=1 
+	and 
+	<if test="fuzzyQuery != null" >
+	(name like '%${fuzzyQuery}%' 
+	or bgdz like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10
+  </select>
+  
+  <select id="fuzzyQueryQs2" resultType="hashmap" parameterType="hashmap" >
+	select * from broker_base 
+	where 1=1 
+	and 
+	<if test="fuzzyQuery != null" >
+	name like '%${fuzzyQuery}%'
+	</if>
+	limit 0,10
+  </select>
+  
+  <select id="fuzzyQueryQsyyb" resultType="hashmap" parameterType="hashmap" >
+	SELECT broker_base.name brokerName,broker_yyb.name,broker_yyb.zcdz,bgdyb,broker_yyb.name ,broker_yyb.`yybfzr`,broker_yyb.`bgdz`
+	FROM broker_base 
+	LEFT JOIN broker_yyb ON broker_base.id = broker_yyb.base_id
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	 and  (broker_yyb.name like '%${fuzzyQuery}%'
+	 or broker_yyb.`bgdz` like '%${fuzzyQuery}%')
+	</if>
+	<if test="comName != null" >
+	 and broker_base.name = #{comName} 
+	</if>
+	<if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+  <select id="selectFuzzyQueryFgs" resultType="hashmap" parameterType="hashmap" >
+SELECT b.name qsName,a.name,a.* FROM broker_fgs a
+LEFT JOIN broker_base b ON a.base_id = b.id
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	 and (a.name LIKE '%${fuzzyQuery}%' 
+	 or a.bgdz LIKE '%${fuzzyQuery}%') 
+	</if>
+	<if test="comName != null" >
+	 and b.name = #{comName} 
+	</if>
+	
+	limit 0,10
+  </select>
+  
+  <select id="selectQsList" resultType="hashmap" parameterType="hashmap" >
+	select
+	a.id,a.name,frdb,zczb,bgdyb,web_url,zcdz,xkzbh,bgdz,tsdh,zgxx,
+	IF(c.total_assets is null,'',CAST(c.total_assets as char)) as total_assets,
+	IF(c.net_assets is null,'',CAST(c.net_assets as char)) as net_assets ,
+	IF(c.net_capital is null,'',CAST(c.net_capital as char)) as net_capital ,
+	IF(c.business_income is null,'',CAST(c.business_income as char)) as business_income ,
+	IF(c.net_profit is null,'',CAST(c.net_profit as char)) as net_profit,
+	IF(c.total_assets_rank is null,'',CAST(c.total_assets_rank as char)) as total_assets_rank,
+	IF(c.net_profit_rank is null,'',CAST(c.net_profit_rank as char)) as net_profit_rank	,province ,
+	IF(e.LEVEL is null,'',CAST(e.LEVEL as char)) as level 
+	FROM broker_base a
+	LEFT JOIN company_schema b ON (a.`name` = b.`full_name` or a.`name`= b.`short_name`)
+	LEFT JOIN broker_operate_rank  c ON (b.`full_name` = c.`NAME` OR b.`short_name` = c.`NAME`)  
+		 AND c.YEAR =(SELECT MAX(YEAR) FROM broker_operate_rank WHERE  broker_operate_rank.`NAME` =   c.`NAME`)
+    LEFT JOIN broker_grade_rank e ON (b.`short_name` = e.`comname` OR b.`full_name` = e.`comname`) 
+         AND e.YEAR =(SELECT MAX(YEAR) FROM broker_grade_rank WHERE  broker_grade_rank.`comname` = e.`comname` )
+	
+<!-- 	LEFT JOIN (SELECT DISTINCT(broker_operate_rank.NAME) TNAME ,MAX(YEAR),broker_operate_rank.* FROM broker_operate_rank GROUP BY broker_operate_rank.NAME) c ON (b.`full_name` = c.`NAME` OR b.`short_name` = c.`NAME`) 
+	LEFT JOIN (SELECT DISTINCT 
+      (broker_grade_rank.comname) cNAME,
+      MAX(YEAR),
+      broker_grade_rank.* 
+    FROM
+      broker_grade_rank 
+    GROUP BY broker_grade_rank.comNAME)  e  
+    ON (
+      b.`short_name` = e.`comname` 
+      OR b.`full_name` = e.`comname`
+       
+    )  -->
+	where 1=1 
+	order by CAST(a.zczb AS DECIMAL) desc
+	<if test="page != null" >
+      	limit ${page},${count}
+    </if>
+    
+  </select>
+  
+  <select id="selectBrokerBase" resultType="hashmap" parameterType="hashmap" >
+  select  id,name,province,city,zcdz,frdb,xkzbh,FORMAT(zczb, 2) zczb,bgdz,bgdyb,tsdh,web_url,zgxx from broker_base
+  where 1=1
+  <if test="comName != null" >
+		and name =#{comName}
+  </if>
+  </select>
+  
+  <select id="selectBrokerExec" resultType="hashmap" parameterType="hashmap" >
+  SELECT  b.name comename,a.name,if(a.sex=0,"男","女") as sex ,a.xrzw,date_format(a.start_date,'%Y-%m-%d') start_date
+  FROM broker_exec a
+  LEFT JOIN broker_base b ON a.base_id = b.id
+  where 1=1
+  <if test="comName != null" >
+		and b.name =#{comName}
+  </if>
+  <if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+  <select id="selectBrokerEmp" resultType="hashmap" parameterType="hashmap" >
+SELECT name,if(gender=0,"男","女") as gender ,education,certificate_num,practice_institute,practice_post,
+date_format(get_date,'%Y-%m-%d') get_date,date_format(end_date,'%Y-%m-%d') end_date,change_record,credit_record
+FROM broker_emp_situation
+  where 1=1
+  <if test="comName != null" >
+		and practice_institute =#{comName}
+  </if>
+  	<if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+  <select id="selectBrokerFgs" resultType="hashmap" parameterType="hashmap" >
+SELECT a.name,a.* FROM broker_fgs a
+LEFT JOIN broker_base b ON a.base_id =b.id
+  where 1=1
+  <if test="comName != null" >
+		and b.name =#{comName}
+  </if>
+  	<if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+  
+  <select id="selectBrokerYyb" resultType="hashmap" parameterType="hashmap" >
+	SELECT a.name,a.* FROM broker_yyb a
+	LEFT JOIN broker_base b ON a.base_id =b.id
+  	where 1=1
+  	<if test="comName != null" >
+		and b.name =#{comName}
+  	</if>
+  	<if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+  <select id="selectInstitutionalOperation" resultType="hashmap" parameterType="hashmap" >
+select b.full_name,b.short_name,a.* from broker_institutional_operation a
+left join `company_schema` b on a.base_id = b.`id`
+  where 1=1
+  <if test="comName != null" >
+		and (b.full_name =#{comName} or b.short_name = #{comName})
+  </if>
+  	<if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+ <!-- 
+  <select id="selectEmpStatistics" resultType="hashmap" parameterType="hashmap" >
+select * from broker_emp_statistics 
+  where 1=1
+  <if test="comName != null" >
+		and org_name= #{comName}
+  </if>
+  ORDER BY id ASC 
+  </select>
+  -->
+  <select id="selectEmpStatistics" resultType="hashmap" parameterType="hashmap" >
+select * from broker_emp_statistics a
+LEFT JOIN 
+	(SELECT *,SUM(emp_num) SUM FROM broker_emp_statistics WHERE 1=1 GROUP BY org_name,TYPE) b 
+ON 
+a.org_name = b.org_name AND a.project = b.project AND a.type = b.type
+  where 1=1
+  <if test="comName != null" >
+		and a.org_name= #{comName}
+  </if>
+  ORDER BY a.id ASC 
+  </select>
+  
+    
+  <select id="selectOrgQualification" resultType="hashmap" parameterType="hashmap" >
+select b.full_name,b.short_name,a.* from broker_org_qualification a
+left join `company_schema` b on a.base_id = b.`id`
+  where 1=1
+  <if test="comName != null" >
+		and (b.full_name =#{comName} or b.short_name = #{comName})
+  </if>
+  	ORDER BY id ASC
+  	<if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+    <select id="selectDz" resultType="java.lang.String" parameterType="java.lang.String" >
+SELECT xq1 FROM    broker_zqgsml
+LEFT JOIN broker_base ON (broker_zqgsml.`name`=broker_base.`name`)
+  where 1=1
+		and broker_zqgsml.name= #{name}
+
+  </select>
+    <select id="selectDzCity" resultType="java.lang.String" parameterType="java.lang.String" >
+SELECT xq2 FROM   broker_zqgsml
+LEFT JOIN broker_base ON (broker_zqgsml.`name`=broker_base.`name`)
+  where 1=1
+		and broker_zqgsml.name= #{name}
+
+  </select>
+  <select id="fuzzyQueryOrg" resultType="hashmap" parameterType="hashmap" >
+	(select name,zczb,bgdz as addr,tsdh as tel
+	from broker_base 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and  (name like '%${fuzzyQuery}%' 
+	or bgdz like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select name,zczb,bgdz as addr,phone as tel
+	from base_tzzxgs 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' 
+	or xxzcdz like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select ch_name as name ,zczb,bgdz as addr ,phone as tel 
+	from base_zxpjjg 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (ch_name like '%${fuzzyQuery}%' 
+	or bgdz like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select name,zczb,bgdz,khfwtsdh as tel
+	from futures_base 
+	where 1=1 
+	and (name like '%${fuzzyQuery}%' 
+	or bgdz like '%${fuzzyQuery}%') 
+	limit 0,10)
+	union all
+	(select ch_name as name ,zczb,bgdz,''
+	from private_funds_base 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (ch_name like '%${fuzzyQuery}%' 
+	or zcdz like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select name,'',address as addr,tel
+	from jjml_glgs 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' 
+	or address like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select name,'',address as addr,tel
+	from jjml_xsjg 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' 
+	or address like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select name,'',address as addr,tel
+	from jjml_zcglljg 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' 
+	or address like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+  </select>
+  <select id="fuzzyQueryOrgCount" resultType="hashmap" parameterType="hashmap" >
+SELECT '券商' AS orgName,COUNT(1) AS COUNT FROM broker_base 
+<!-- WHERE province IS NOT NULL -->
+ UNION ALL 
+ SELECT '投资咨询公司' ,COUNT(1)AS COUNT FROM `base_tzzxgs` 
+ <!--  where   zcd IS NOT NULL -->
+ UNION ALL  
+  SELECT '资信评级机构',COUNT(1) AS COUNT FROM  `base_zxpjjg` 
+  <!--  where   zcs IS NOT NULL -->
+ union all
+ SELECT '期货公司',COUNT(1) AS COUNT FROM  `qhgsml` 
+ <!--  where xq IS NOT NULL -->
+  union all
+  SELECT '私募基金',COUNT(1) COUNT FROM private_funds_base 
+  <!--   LEFT JOIN private_manage_list ON private_funds_base.ch_name=private_manage_list.name
+   LEFT JOIN db_shuqin.t_province ON private_manage_list.regist_addr =db_shuqin.t_province.ProID
+    WHERE regist_addr IS NOT NULL  -->
+
+   union all
+ SELECT '基金管理公司',COUNT(1) AS COUNT FROM  `jjml_glgs` 
+ <!--  where zcd IS NOT NULL -->
+    union all 	
+ SELECT '基金销售公司',COUNT(1) AS COUNT FROM  `jjml_xsjg`  
+ <!--  where zcd IS NOT NULL -->
+     UNION ALL
+ SELECT '资产管理类机构',COUNT(1) AS COUNT FROM  `jjml_zcglljg` 
+ <!--  where zcd IS NOT NULL -->
+  
+  </select>
+  
+  <select id="fuzzyQueryOrg2" resultType="hashmap" parameterType="hashmap" >
+	(select name,zczb,bgdz as addr,tsdh as tel,'券商' AS orgName
+	from broker_base 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and  (name like '%${fuzzyQuery}%' 
+	or bgdz like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select name,zczb,bgdz as addr,phone as tel,'投资咨询公司' AS orgName
+	from base_tzzxgs 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' 
+	or xxzcdz like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select ch_name as name ,zczb,bgdz as addr ,phone as tel ,'资信评级机构' AS orgName
+	from base_zxpjjg 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (ch_name like '%${fuzzyQuery}%' 
+	or bgdz like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select name,zczb,bgdz,khfwtsdh as tel,'期货公司' AS orgName
+	from futures_base 
+	where 1=1 
+	and (name like '%${fuzzyQuery}%' 
+	or bgdz like '%${fuzzyQuery}%') 
+	limit 0,10)
+	union all
+	(select ch_name as name ,zczb,bgdz,'','私募基金' AS orgName
+	from private_funds_base 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (ch_name like '%${fuzzyQuery}%' 
+	or zcdz like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select name,'',address as addr,tel,'基金管理公司' AS orgName
+	from jjml_glgs 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' 
+	or address like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select name,'',address as addr,tel,'基金销售公司' AS orgName
+	from jjml_xsjg 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' 
+	or address like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select name,'',address as addr,tel,'资产管理类机构' AS orgName
+	from jjml_zcglljg 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' 
+	or address like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select name,'',address as addr,tel,'基金托管行' AS orgName
+	from jjml_tgh 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' 
+	or address like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select name,'',address as addr,tel,'基金评价机构' AS orgName
+	from jjml_pjjg 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' 
+	or address like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select name,'',address as addr,tel,'支付结算机构' AS orgName
+	from jjml_zfjsjg 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' 
+	or address like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select name,'',address as addr,tel,'律师事务所' AS orgName
+	from jjml_lssws 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' 
+	or address like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+	union all
+	(select name,'',address as addr,tel,'律师事务所' AS orgName
+	from jjml_kjssws 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' 
+	or address like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10)
+  </select>
+  
+  
+</mapper>

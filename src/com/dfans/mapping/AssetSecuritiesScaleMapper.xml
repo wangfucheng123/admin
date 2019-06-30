@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.AssetSecuritiesScaleMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.AssetSecuritiesScale" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="quarter" property="quarter" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="product_num" property="productNum" jdbcType="INTEGER" />
+    <result column="asset_scale" property="assetScale" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, year, quarter, type, product_num, asset_scale
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from asset_securities_scale
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from asset_securities_scale where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from asset_securities_scale 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from asset_securities_scale
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.AssetSecuritiesScale" >
+    insert into asset_securities_scale (id, year, quarter, 
+      type, product_num, asset_scale
+      )
+    values (#{id,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{quarter,jdbcType=INTEGER}, 
+      #{type,jdbcType=VARCHAR}, #{productNum,jdbcType=INTEGER}, #{assetScale,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.AssetSecuritiesScale" >
+    insert into asset_securities_scale
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="quarter != null" >
+        quarter,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="productNum != null" >
+        product_num,
+      </if>
+      <if test="assetScale != null" >
+        asset_scale,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="productNum != null" >
+        #{productNum,jdbcType=INTEGER},
+      </if>
+      <if test="assetScale != null" >
+        #{assetScale,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.AssetSecuritiesScale" >
+    update asset_securities_scale
+    <set >
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        quarter = #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="productNum != null" >
+        product_num = #{productNum,jdbcType=INTEGER},
+      </if>
+      <if test="assetScale != null" >
+        asset_scale = #{assetScale,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.AssetSecuritiesScale" >
+    update asset_securities_scale
+    set year = #{year,jdbcType=INTEGER},
+      quarter = #{quarter,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      product_num = #{productNum,jdbcType=INTEGER},
+      asset_scale = #{assetScale,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <select id="selectSecuritiesScale" resultType="hashmap" parameterType="hashmap" >
+    <if test="flag == 1" >
+	    select * 
+		from asset_securities_scale
+		where 1=1 
+		<if test="year != null" >
+	      and	year = #{year}
+	    </if>
+		<if test="quarter != null" >
+	      and	quarter = #{quarter}
+	    </if>
+		<if test="type != null" >
+	      and	type = #{type}
+	    </if>
+	    and quarter !=""
+		<if test="page != null" >
+	      	limit ${page},${count}
+	    </if>
+    </if>
+    
+    <if test="flag == 2" >
+    SELECT SUM(asset_scale) asset_scale,year,quarter  FROM asset_securities_scale 
+	WHERE 1=1   and quarter !="" GROUP BY YEAR,QUARTER 
+    </if>
+  </select>
+  
+    <select id="selectAssetSecuritiesScaleMaxDate" resultType="java.lang.String" >
+   select concat(MAX(YEAR),MAX(quarter)) from asset_securities_scale where year  = (select max(year) from asset_securities_scale) and quarter !=""
+  </select>
+  
+</mapper>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FuturesExecMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FuturesExec" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="dic_position" property="dicPosition" jdbcType="INTEGER" />
+    <result column="zgpzwh" property="zgpzwh" jdbcType="VARCHAR" />
+    <result column="cdate" property="cdate" jdbcType="DATE" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.dfans.model.FuturesExecWithBLOBs" extends="BaseResultMap" >
+    <result column="rzjl" property="rzjl" jdbcType="LONGVARCHAR" />
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, name, sex, dic_position, zgpzwh, cdate
+  </sql>
+  <sql id="Blob_Column_List" >
+    rzjl, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from futures_exec
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+   <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from futures_exec where 1=1 
+    and base_id = #{baseId}
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from futures_exec 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from futures_exec
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FuturesExecWithBLOBs" >
+    insert into futures_exec (id, base_id, name, 
+      sex, dic_position, zgpzwh, 
+      cdate, rzjl, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=INTEGER}, #{dicPosition,jdbcType=INTEGER}, #{zgpzwh,jdbcType=VARCHAR}, 
+      #{cdate,jdbcType=DATE}, #{rzjl,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.FuturesExecWithBLOBs" >
+    insert into futures_exec
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="dicPosition != null" >
+        dic_position,
+      </if>
+      <if test="zgpzwh != null" >
+        zgpzwh,
+      </if>
+      <if test="cdate != null" >
+        cdate,
+      </if>
+      <if test="rzjl != null" >
+        rzjl,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="dicPosition != null" >
+        #{dicPosition,jdbcType=INTEGER},
+      </if>
+      <if test="zgpzwh != null" >
+        #{zgpzwh,jdbcType=VARCHAR},
+      </if>
+      <if test="cdate != null" >
+        #{cdate,jdbcType=DATE},
+      </if>
+      <if test="rzjl != null" >
+        #{rzjl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FuturesExecWithBLOBs" >
+    update futures_exec
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="dicPosition != null" >
+        dic_position = #{dicPosition,jdbcType=INTEGER},
+      </if>
+      <if test="zgpzwh != null" >
+        zgpzwh = #{zgpzwh,jdbcType=VARCHAR},
+      </if>
+      <if test="cdate != null" >
+        cdate = #{cdate,jdbcType=DATE},
+      </if>
+      <if test="rzjl != null" >
+        rzjl = #{rzjl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dfans.model.FuturesExecWithBLOBs" >
+    update futures_exec
+    set base_id = #{baseId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      dic_position = #{dicPosition,jdbcType=INTEGER},
+      zgpzwh = #{zgpzwh,jdbcType=VARCHAR},
+      cdate = #{cdate,jdbcType=DATE},
+      rzjl = #{rzjl,jdbcType=LONGVARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FuturesExec" >
+    update futures_exec
+    set base_id = #{baseId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      dic_position = #{dicPosition,jdbcType=INTEGER},
+      zgpzwh = #{zgpzwh,jdbcType=VARCHAR},
+      cdate = #{cdate,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

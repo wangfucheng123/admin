@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+     <result column="regisday" property="birthday" jdbcType="VARCHAR" />
+    <result column="profession" property="profession" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="last_login_date" property="lastLoginDate" jdbcType="TIMESTAMP" />
+    <result column="balance" property="balance" jdbcType="REAL" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="profession_name" property="professionName" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="INTEGER" />
+    <result column="province" property="province" jdbcType="INTEGER" />
+    <result column="screen_num" property="screenNum" jdbcType="INTEGER" />
+    <result column="head_portrait" property="headPortrait" jdbcType="VARCHAR" />
+    <result column="telphone" property="telphone" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, name, password, type, phone, company, realname, sex,DATE_FORMAT(birthday,'%Y-%m-%d') as birthday, profession, email, 
+    create_date, last_login_date, balance,role_id,city,screen_num,head_portrait,telphone 
+  </sql>
+  
+  <sql id="All_Column_List" >
+    a.id, a.name, a.password, a.type, a.phone, a.company, a.realname, a.sex, a.birthday, 
+    a.profession, a.email, a.create_date, a.last_login_date, a.balance, a.role_id, 
+    b.name as type_name, c.name as profession_name, d.name as role_name,a.city,a.screen_num 
+  </sql>
+  
+  <sql id="All_Csc_Column_List" >
+    a.id, a.name, a.password, a.type, a.phone, a.company, a.realname, a.sex, a.birthday, 
+    a.profession, a.email, a.create_date as createDate, a.last_login_date as lastLoginDate, a.balance, a.role_id as roleId, 
+    b.name as typeName, c.name as professionName, d.role_name as roleName,a.city,a.screen_num as screenNum
+  </sql>
+  
+  <select id="getUser" resultMap="BaseResultMap" parameterType="com.dfans.model.User" >
+    select 
+    <include refid="Base_Column_List" />
+    from user where phone=#{phone,jdbcType=VARCHAR} 
+  </select>
+  
+  <select id="getLogin" resultMap="BaseResultMap" parameterType="com.dfans.model.User" >
+    select 
+    <include refid="Base_Column_List" />
+    from user where (name=#{phone,jdbcType=VARCHAR} or email=#{phone,jdbcType=VARCHAR} or phone=#{phone,jdbcType=VARCHAR}) and password=#{password,jdbcType=VARCHAR} and  is_delete=0   
+  </select>
+  
+  <select id="getChkLogin" resultMap="BaseResultMap" parameterType="com.dfans.model.User" >
+    select 
+    <include refid="Base_Column_List" />
+    from user where (name=#{phone,jdbcType=VARCHAR} or email=#{phone,jdbcType=VARCHAR} or phone=#{phone,jdbcType=VARCHAR}) and  is_delete=0   
+  </select>
+  
+  
+  <select id="selectByPhone" resultMap="totalString" parameterType="hashmap">
+    select 
+    count(id) total 
+    from user where phone=#{phone,jdbcType=VARCHAR} and id != #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByName" resultMap="totalString" parameterType="hashmap">
+    select 
+    count(id) total 
+    from user where name=#{name,jdbcType=VARCHAR} and  is_delete=0   
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap" >
+    select 
+    <include refid="All_Column_List" />
+    from user a left outer join dic b on a.type=b.id left outer join dic c on a.profession=c.id 
+    left outer join role d on a.role_id=d.id where a.is_delete=0 
+    <if test="name != null" >
+        and  a.name like '%#{name}%' 
+      </if> 
+    order by a.create_date desc limit #{page},10 
+  </select>
+  
+
+  <select id="selectUnionCscAll"  parameterType="java.lang.String"  resultType="java.util.HashMap" >
+ 	 select 
+    <include refid="All_Csc_Column_List" />
+    from user a left outer join dic b on a.type=b.id left outer join dic c on a.profession=c.id 
+    left outer join csc_role d on a.role_id=d.role_id where a.is_delete=0 
+    <if test="name != null" >
+        and  a.name like '%#{name}%' 
+      </if> 
+    order by a.create_date desc limit #{page},10 
+  </select>
+    
+  
+  <select id="getList" resultType="com.dfans.model.User"  >
+    select  a.id, a.name, a.password, a.type, a.phone, a.company, a.realname, a.sex, a.birthday, 
+    (SELECT  t.name  FROM dic t  WHERE t.id= a.profession) profession , a.email, a.create_date regisday, a.last_login_date, a.role_id, source,
+    (SELECT  t.ProName  FROM t_province t  WHERE t.ProID= a.province)  province,(SELECT t.CityName FROM t_city t WHERE t.CityID=a.city) city,a.screen_num 
+    from user a where a.is_delete=0   ${sql}
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from user where is_delete=0   
+      <if test="name != null" >
+        and  name like '%#{name}%' 
+      </if>
+  </select>
+   <select id="phoneList" resultType="java.util.HashMap" >
+    	select phone  from user where is_delete=0    and  phone like concat('%',#{phone} ,'%')
+  </select>
+  <select id="total" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from user where is_delete=0   ${sql}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getHeadPortrait" resultMap="BaseResultMap" parameterType="com.dfans.model.User" >
+    select head_portrait from user where phone=#{phone,jdbcType=VARCHAR} 
+  </select>
+  
+  <select id="selectAllUserId" resultType="hashmap" parameterType="hashmap" >
+    select 
+    a.id
+    from user a left outer join dic b on a.type=b.id left outer join dic c on a.profession=c.id 
+    left outer join role d on a.role_id=d.id where a.is_delete=0 
+  </select>
+  
+  <select id="selectVersion" resultType="hashmap">
+    select * from db_shuqin.version where flag=#{flag} order by create_time desc limit 0,1
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user 
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertVersion" parameterType="hashmap" >
+  	insert into db_shuqin.version (type,version,url,flag) values (#{type},#{version},#{url},#{flag})
+  </insert>
+  
+  
+  <insert id="insert" parameterType="com.dfans.model.User" >
+    insert into user (id, name, password, 
+      type, phone, company, 
+      realname, sex, birthday, 
+      profession, email, create_date, 
+      last_login_date, balance)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{realname,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{birthday,jdbcType=TIMESTAMP}, 
+      #{profession,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{lastLoginDate,jdbcType=TIMESTAMP}, #{balance,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.User" useGeneratedKeys="true" keyProperty="id">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="realname != null" >
+        realname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null and ''!=birthday " >
+        birthday,
+      </if>
+      <if test="profession != null" >
+        profession,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="lastLoginDate != null" >
+        last_login_date,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="screenNum != null" >
+        screen_num,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+       <if test="source != null" >
+        source
+      </if>
+      <if test="telphone != null" >
+        telphone
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null  and ''!=birthday" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        #{profession,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginDate != null" >
+        #{lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=INTEGER},
+      </if>
+       <if test="province != null" >
+        #{province,jdbcType=INTEGER},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="screenNum != null" >
+        #{screen_num,jdbcType=INTEGER},
+      </if>
+      <if test="telphone != null" >
+        #{telphone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <insert id="insertFeedback" parameterType="map" >
+    insert into user_feedback
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      create_date,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=INTEGER},
+      </if>
+      now(),
+    </trim>
+  </insert>
+  
+  <update id="upPassword" parameterType="com.dfans.model.User" >
+    update user set password=#{password,jdbcType=VARCHAR} where phone = #{phone,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateAccount" parameterType="com.dfans.model.User" >
+    update user set balance=balance+#{balance,jdbcType=REAL} where id = #{id,jdbcType=INTEGER} and 
+    balance+#{balance,jdbcType=REAL}>=0
+  </update>
+  
+  <update id="updateHeadPortrait" parameterType="com.dfans.model.User" >
+    update user set head_portrait=#{headPortrait,jdbcType=VARCHAR} where phone = #{phone,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updatePhone" parameterType="com.dfans.model.User" >
+    update user 
+	<set >
+		phone=#{phone,jdbcType=VARCHAR},
+		<if test="name != null" >
+	       name = #{name,jdbcType=VARCHAR},
+	    </if>
+    </set>
+	where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateEmail" parameterType="com.dfans.model.User" >
+    update user set email=#{email,jdbcType=VARCHAR} where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.User" >
+    update user
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null and sex != '' " >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+        <if test="birthday != null  and ''!=birthday" >
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="profession != null and profession != '' " >
+        profession = #{profession,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginDate != null" >
+        last_login_date = #{lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="city != null and city != '' " >
+        city = #{city,jdbcType=INTEGER},
+      </if>
+      <if test="screenNum != null" >
+        screen_num = #{screenNum,jdbcType=INTEGER},
+      </if>
+        <if test="province != null and province != '' " >
+        province = #{province,jdbcType=INTEGER},
+      </if>
+        <if test="source != null" >
+        source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="telphone != null" >
+        telphone = #{telphone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.User" >
+    update user
+    set name = #{name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      profession = #{profession,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      last_login_date = #{lastLoginDate,jdbcType=TIMESTAMP},
+      balance = #{balance,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <select id="searchHistory" resultType="hashmap" parameterType="hashmap" >
+    select user_id,type,content from search_history
+    where user_id = #{userId,jdbcType=INTEGER} and type = #{type,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insertHistory" parameterType="map" >
+    insert into search_history
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      create_date,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      now(),
+    </trim>
+  </insert>
+  
+  <update id="updateHistory" parameterType="hashmap" >
+    update search_history set 
+    content = #{content,jdbcType=VARCHAR}
+    ,create_date = now()
+    where user_id = #{userId,jdbcType=INTEGER} and type = #{type,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.TzzhQDIIFbtjMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.TzzhQDIIFbtj" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="quarter" property="quarter" jdbcType="INTEGER" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="tzed" property="tzed" jdbcType="REAL" />
+    <result column="jzbl" property="jzbl" jdbcType="DOUBLE" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, year, quarter, country, tzed, jzbl
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tzzh_QDIIFbtj
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from tzzh_QDIIFbtj where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from tzzh_QDIIFbtj 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tzzh_QDIIFbtj
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.TzzhQDIIFbtj" >
+    insert into tzzh_QDIIFbtj (id, year, quarter, 
+      country, tzed, jzbl)
+    values (#{id,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{quarter,jdbcType=INTEGER}, 
+      #{country,jdbcType=VARCHAR}, #{tzed,jdbcType=REAL}, #{jzbl,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.TzzhQDIIFbtj" >
+    insert into tzzh_QDIIFbtj
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="quarter != null" >
+        quarter,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="tzed != null" >
+        tzed,
+      </if>
+      <if test="jzbl != null" >
+        jzbl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="tzed != null" >
+        #{tzed,jdbcType=REAL},
+      </if>
+      <if test="jzbl != null" >
+        #{jzbl,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.TzzhQDIIFbtj" >
+    update tzzh_QDIIFbtj
+    <set >
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        quarter = #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="tzed != null" >
+        tzed = #{tzed,jdbcType=REAL},
+      </if>
+      <if test="jzbl != null" >
+        jzbl = #{jzbl,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.TzzhQDIIFbtj" >
+    update tzzh_QDIIFbtj
+    set year = #{year,jdbcType=INTEGER},
+      quarter = #{quarter,jdbcType=INTEGER},
+      country = #{country,jdbcType=VARCHAR},
+      tzed = #{tzed,jdbcType=REAL},
+      jzbl = #{jzbl,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+        
+  <select id="selectQDIIFbtj" resultType="hashmap" parameterType="hashmap" >
+	select *
+	FROM tzzh_QDIIFbtj 
+	where 1=1 
+	<if test="year != null" >
+	and year = #{year}
+	</if>
+	<if test="quarter != null" >
+	and quarter = #{quarter}
+	</if>
+	<if test="country != null" >
+	and country = #{country}
+	</if>
+	order by year asc, quarter asc
+	<if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+
+  <select id="selectTzzhQDIIFbtjMaxDate" resultType="java.lang.String" >
+   select concat(MAX(YEAR),MAX(quarter)) from tzzh_QDIIFbtj where year  = (select max(year) from tzzh_QDIIFbtj)
+  </select>
+  
+</mapper>

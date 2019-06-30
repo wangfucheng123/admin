@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FundManagecomBaseMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FundManagecomBase" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="ch_name" property="chName" jdbcType="VARCHAR" />
+    <result column="en_name" property="enName" jdbcType="VARCHAR" />
+    <result column="com_attribute" property="comAttribute" jdbcType="VARCHAR" />
+    <result column="cdate" property="cdate" jdbcType="DATE" />
+    <result column="regist_capital" property="registCapital" jdbcType="VARCHAR" />
+    <result column="legal_representative" property="legalRepresentative" jdbcType="VARCHAR" />
+    <result column="manager" property="manager" jdbcType="VARCHAR" />
+    <result column="regist_addr" property="registAddr" jdbcType="VARCHAR" />
+    <result column="Office_addr" property="officeAddr" jdbcType="VARCHAR" />
+    <result column="web_site" property="webSite" jdbcType="VARCHAR" />
+    <result column="postcode" property="postcode" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="fax" property="fax" jdbcType="VARCHAR" />
+    <result column="business_scope" property="businessScope" jdbcType="VARCHAR" />
+    <result column="fund_num" property="fundNum" jdbcType="VARCHAR" />
+    <result column="manage_scale" property="manageScale" jdbcType="VARCHAR" />
+    <result column="manager_num" property="managerNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, ch_name, en_name, com_attribute, cdate, regist_capital, legal_representative, 
+    manager, regist_addr, Office_addr, web_site, postcode, email, tel, fax, business_scope, 
+    fund_num, manage_scale, manager_num
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fund_managecom_base
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from fund_managecom_base where 1=1 
+    and base_id = #{baseId}
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from fund_managecom_base where 1=1 and base_id = #{baseId}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fund_managecom_base
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FundManagecomBase" >
+    insert into fund_managecom_base (id, base_id, ch_name, 
+      en_name, com_attribute, cdate, 
+      regist_capital, legal_representative, manager, 
+      regist_addr, Office_addr, web_site, 
+      postcode, email, tel, 
+      fax, business_scope, fund_num, 
+      manage_scale, manager_num)
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{chName,jdbcType=VARCHAR}, 
+      #{enName,jdbcType=VARCHAR}, #{comAttribute,jdbcType=VARCHAR}, #{cdate,jdbcType=DATE}, 
+      #{registCapital,jdbcType=VARCHAR}, #{legalRepresentative,jdbcType=VARCHAR}, #{manager,jdbcType=VARCHAR}, 
+      #{registAddr,jdbcType=VARCHAR}, #{officeAddr,jdbcType=VARCHAR}, #{webSite,jdbcType=VARCHAR}, 
+      #{postcode,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+      #{fax,jdbcType=VARCHAR}, #{businessScope,jdbcType=VARCHAR}, #{fundNum,jdbcType=VARCHAR}, 
+      #{manageScale,jdbcType=VARCHAR}, #{managerNum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.FundManagecomBase" >
+    insert into fund_managecom_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="chName != null" >
+        ch_name,
+      </if>
+      <if test="enName != null" >
+        en_name,
+      </if>
+      <if test="comAttribute != null" >
+        com_attribute,
+      </if>
+      <if test="cdate != null" >
+        cdate,
+      </if>
+      <if test="registCapital != null" >
+        regist_capital,
+      </if>
+      <if test="legalRepresentative != null" >
+        legal_representative,
+      </if>
+      <if test="manager != null" >
+        manager,
+      </if>
+      <if test="registAddr != null" >
+        regist_addr,
+      </if>
+      <if test="officeAddr != null" >
+        Office_addr,
+      </if>
+      <if test="webSite != null" >
+        web_site,
+      </if>
+      <if test="postcode != null" >
+        postcode,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+      <if test="businessScope != null" >
+        business_scope,
+      </if>
+      <if test="fundNum != null" >
+        fund_num,
+      </if>
+      <if test="manageScale != null" >
+        manage_scale,
+      </if>
+      <if test="managerNum != null" >
+        manager_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="chName != null" >
+        #{chName,jdbcType=VARCHAR},
+      </if>
+      <if test="enName != null" >
+        #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="comAttribute != null" >
+        #{comAttribute,jdbcType=VARCHAR},
+      </if>
+      <if test="cdate != null" >
+        #{cdate,jdbcType=DATE},
+      </if>
+      <if test="registCapital != null" >
+        #{registCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRepresentative != null" >
+        #{legalRepresentative,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null" >
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="registAddr != null" >
+        #{registAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddr != null" >
+        #{officeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="webSite != null" >
+        #{webSite,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="fundNum != null" >
+        #{fundNum,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScale != null" >
+        #{manageScale,jdbcType=VARCHAR},
+      </if>
+      <if test="managerNum != null" >
+        #{managerNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FundManagecomBase" >
+    update fund_managecom_base
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="chName != null" >
+        ch_name = #{chName,jdbcType=VARCHAR},
+      </if>
+      <if test="enName != null" >
+        en_name = #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="comAttribute != null" >
+        com_attribute = #{comAttribute,jdbcType=VARCHAR},
+      </if>
+      <if test="cdate != null" >
+        cdate = #{cdate,jdbcType=DATE},
+      </if>
+      <if test="registCapital != null" >
+        regist_capital = #{registCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRepresentative != null" >
+        legal_representative = #{legalRepresentative,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null" >
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="registAddr != null" >
+        regist_addr = #{registAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddr != null" >
+        Office_addr = #{officeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="webSite != null" >
+        web_site = #{webSite,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        business_scope = #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="fundNum != null" >
+        fund_num = #{fundNum,jdbcType=VARCHAR},
+      </if>
+      <if test="manageScale != null" >
+        manage_scale = #{manageScale,jdbcType=VARCHAR},
+      </if>
+      <if test="managerNum != null" >
+        manager_num = #{managerNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FundManagecomBase" >
+    update fund_managecom_base
+    set base_id = #{baseId,jdbcType=INTEGER},
+      ch_name = #{chName,jdbcType=VARCHAR},
+      en_name = #{enName,jdbcType=VARCHAR},
+      com_attribute = #{comAttribute,jdbcType=VARCHAR},
+      cdate = #{cdate,jdbcType=DATE},
+      regist_capital = #{registCapital,jdbcType=VARCHAR},
+      legal_representative = #{legalRepresentative,jdbcType=VARCHAR},
+      manager = #{manager,jdbcType=VARCHAR},
+      regist_addr = #{registAddr,jdbcType=VARCHAR},
+      Office_addr = #{officeAddr,jdbcType=VARCHAR},
+      web_site = #{webSite,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      business_scope = #{businessScope,jdbcType=VARCHAR},
+      fund_num = #{fundNum,jdbcType=VARCHAR},
+      manage_scale = #{manageScale,jdbcType=VARCHAR},
+      manager_num = #{managerNum,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectBaseId" resultType="String" parameterType="String" >
+  select id from jjml_glgs where REPLACE(NAME,' ','') =#{excelComNamae}
+  </select>
+  
+    
+  <select id="selectComBase" resultType="hashmap" parameterType="hashmap" >
+	select ch_name,en_name,com_attribute,DATE_FORMAT(cdate,'%Y-%m-%d') cdate,regist_capital,legal_representative,manager,regist_addr,
+	Office_addr,web_site,postcode,email,tel,fax,business_scope,fund_num,manage_scale,manager_num
+	from fund_managecom_base 
+	where 1=1 
+   <if test="comName != null" >
+      and ch_name = #{comName}
+    </if>
+  </select>
+    
+  <select id="selectAssetAllocation" resultType="hashmap" parameterType="hashmap" >
+	select comname,DATE_FORMAT(report_date,'%Y-%m-%d') report_date,shares_ratio,bond_ratio,cash_ratio,net_assets
+	from fund_asset_allocation 
+	where 1=1 
+   <if test="comName != null" >
+      and comname = #{comName}
+    </if>
+   <if test="reportDate != null" >
+      and report_date = #{reportDate}
+    </if>
+  </select>
+    
+  <select id="selectFundMananger" resultType="hashmap" parameterType="hashmap" >
+SELECT MAX(pub_dt),psn_name,gender,edu,BKGD ,FMC_COM_NAME 
+ FROM bd_admin.FNDCN_MNG 
+LEFT JOIN bd_admin.fndcn_bas_info ON SECU_ID = FNDCN_MNG.MAIN_SECU_ID 
+WHERE 1=1
+   <if test="comName != null" >
+      and FMC_COM_NAME = #{comName}
+    </if>
+      GROUP BY    psn_name 
+  </select>
+    
+  <select id="selectManaged" resultType="hashmap" parameterType="hashmap" >
+SELECT manager_name,fund_code,fund_name,fund_type,DATE_FORMAT(start_date,'%Y-%m-%d') start_date,DATE_FORMAT(end_date,'%Y-%m-%d') end_date,tenure,job_return
+ FROM fund_manager
+WHERE 1=1
+   <if test="managerName != null" >
+      and manager_name = #{managerName}
+    </if>
+  </select>
+    
+  <select id="selectIndustryConfig" resultType="hashmap" parameterType="hashmap" >
+SELECT comname,year,quarter,industry_type,hold_num,net_proportion,market_value
+ FROM fund_industry_config
+WHERE 1=1
+   <if test="comName != null" >
+      and comname = #{comName}
+    </if>
+   <if test="year != null" >
+      and year = #{year}
+    </if>
+   <if test="quarter != null" >
+      and quarter = #{quarter}
+    </if>
+  </select>
+    
+  <select id="selectScaleChange" resultType="hashmap" parameterType="hashmap" >
+SELECT come_name,DATE_FORMAT(bdate,'%Y-%m-%d') bdate,duration_buy,duration_redeem,final_total,final_net_asset
+ FROM fund_scale_change
+WHERE 1=1
+   <if test="comName != null" >
+      and come_name = #{comName}
+    </if>
+  </select>
+    
+  <select id="selectHolderStructure" resultType="hashmap" parameterType="hashmap" >
+SELECT comname,DATE_FORMAT(gdate,'%Y-%m-%d') gdate,org_proportion,personal_proportion,inside_proportion,total_net
+ FROM fund_holder_structure
+WHERE 1=1
+   <if test="comName != null" >
+      and comname = #{comName}
+    </if>
+   <if test="gdate != null" >
+      and gdate = #{gdate}
+    </if>
+  </select>
+    
+  <select id="selectPositionDetail" resultType="hashmap" parameterType="hashmap" >
+SELECT comname,year,quarter,stock_code,stock_name,hold_num,
+FORMAT(total_proportion,2) total_proportion,FORMAT(hold_shares,2) hold_shares,FORMAT(position_value,2) position_value
+ FROM fund_position_detail
+WHERE 1=1
+   <if test="comName != null" >
+      and comname = #{comName}
+    </if>
+   <if test="year != null" >
+      and year = #{year}
+    </if>
+   <if test="quarter != null" >
+      and quarter = #{quarter}
+    </if>
+    order by position_value desc
+    <if test="page != null" >
+      limit ${page},${count}
+    </if>
+    
+  </select>
+    
+  <select id="selectPositionChange" resultType="hashmap" parameterType="hashmap" >
+  SELECT comname,year,quarter,stock_code,stock_name,in_num,in_money
+  FROM fund_position_change
+  WHERE 1=1 and type=1
+  <if test="comName != null" >
+      and comname = #{comName}
+  </if>
+  <if test="year != null" >
+      and year = #{year}
+  </if>
+  <if test="quarter != null" >
+      and quarter = #{quarter}
+  </if>
+    order by in_money desc
+  <if test="page != null" >
+      limit ${page},${count}
+  </if>
+    
+  </select>
+  
+</mapper>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FuturesIntegrityMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FuturesIntegrity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="cdate" property="cdate" jdbcType="DATE" />
+    <result column="dic_lb" property="dicLb" jdbcType="INTEGER" />
+    <result column="ssjg" property="ssjg" jdbcType="VARCHAR" />
+    <result column="wh" property="wh" jdbcType="VARCHAR" />
+    <result column="qkjj" property="qkjj" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, cdate, dic_lb, ssjg, wh, qkjj
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from futures_integrity
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from futures_integrity where 1=1 
+    and base_id = #{baseId}
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from futures_integrity 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from futures_integrity
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FuturesIntegrity" >
+    insert into futures_integrity (id, base_id, cdate, 
+      dic_lb, ssjg, wh, qkjj
+      )
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{cdate,jdbcType=DATE}, 
+      #{dicLb,jdbcType=INTEGER}, #{ssjg,jdbcType=VARCHAR}, #{wh,jdbcType=VARCHAR}, #{qkjj,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.FuturesIntegrity" >
+    insert into futures_integrity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="cdate != null" >
+        cdate,
+      </if>
+      <if test="dicLb != null" >
+        dic_lb,
+      </if>
+      <if test="ssjg != null" >
+        ssjg,
+      </if>
+      <if test="wh != null" >
+        wh,
+      </if>
+      <if test="qkjj != null" >
+        qkjj,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="cdate != null" >
+        #{cdate,jdbcType=DATE},
+      </if>
+      <if test="dicLb != null" >
+        #{dicLb,jdbcType=INTEGER},
+      </if>
+      <if test="ssjg != null" >
+        #{ssjg,jdbcType=VARCHAR},
+      </if>
+      <if test="wh != null" >
+        #{wh,jdbcType=VARCHAR},
+      </if>
+      <if test="qkjj != null" >
+        #{qkjj,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FuturesIntegrity" >
+    update futures_integrity
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="cdate != null" >
+        cdate = #{cdate,jdbcType=DATE},
+      </if>
+      <if test="dicLb != null" >
+        dic_lb = #{dicLb,jdbcType=INTEGER},
+      </if>
+      <if test="ssjg != null" >
+        ssjg = #{ssjg,jdbcType=VARCHAR},
+      </if>
+      <if test="wh != null" >
+        wh = #{wh,jdbcType=VARCHAR},
+      </if>
+      <if test="qkjj != null" >
+        qkjj = #{qkjj,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FuturesIntegrity" >
+    update futures_integrity
+    set base_id = #{baseId,jdbcType=INTEGER},
+      cdate = #{cdate,jdbcType=DATE},
+      dic_lb = #{dicLb,jdbcType=INTEGER},
+      ssjg = #{ssjg,jdbcType=VARCHAR},
+      wh = #{wh,jdbcType=VARCHAR},
+      qkjj = #{qkjj,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

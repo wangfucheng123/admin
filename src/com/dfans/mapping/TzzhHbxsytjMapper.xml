@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.TzzhHbxsytjMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.TzzhHbxsytj" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="quarter" property="quarter" jdbcType="INTEGER" />
+    <result column="date_interval" property="dateInterval" jdbcType="VARCHAR" />
+    <result column="assets_proportion" property="assetsProportion" jdbcType="REAL" />
+    <result column="liabilities_proportion" property="liabilitiesProportion" jdbcType="REAL" />
+    <result column="avg_term" property="avgTerm" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, year, quarter, date_interval, assets_proportion, liabilities_proportion, avg_term
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tzzh_hbxsytj
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from tzzh_hbxsytj where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from tzzh_hbxsytj 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tzzh_hbxsytj
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.TzzhHbxsytj" >
+    insert into tzzh_hbxsytj (id, year, quarter, 
+      date_interval, assets_proportion, liabilities_proportion, 
+      avg_term)
+    values (#{id,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{quarter,jdbcType=INTEGER}, 
+      #{dateInterval,jdbcType=VARCHAR}, #{assetsProportion,jdbcType=REAL}, #{liabilitiesProportion,jdbcType=REAL}, 
+      #{avgTerm,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.TzzhHbxsytj" >
+    insert into tzzh_hbxsytj
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="quarter != null" >
+        quarter,
+      </if>
+      <if test="dateInterval != null" >
+        date_interval,
+      </if>
+      <if test="assetsProportion != null" >
+        assets_proportion,
+      </if>
+      <if test="liabilitiesProportion != null" >
+        liabilities_proportion,
+      </if>
+      <if test="avgTerm != null" >
+        avg_term,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="dateInterval != null" >
+        #{dateInterval,jdbcType=VARCHAR},
+      </if>
+      <if test="assetsProportion != null" >
+        #{assetsProportion,jdbcType=REAL},
+      </if>
+      <if test="liabilitiesProportion != null" >
+        #{liabilitiesProportion,jdbcType=REAL},
+      </if>
+      <if test="avgTerm != null" >
+        #{avgTerm,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.TzzhHbxsytj" >
+    update tzzh_hbxsytj
+    <set >
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        quarter = #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="dateInterval != null" >
+        date_interval = #{dateInterval,jdbcType=VARCHAR},
+      </if>
+      <if test="assetsProportion != null" >
+        assets_proportion = #{assetsProportion,jdbcType=REAL},
+      </if>
+      <if test="liabilitiesProportion != null" >
+        liabilities_proportion = #{liabilitiesProportion,jdbcType=REAL},
+      </if>
+      <if test="avgTerm != null" >
+        avg_term = #{avgTerm,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.TzzhHbxsytj" >
+    update tzzh_hbxsytj
+    set year = #{year,jdbcType=INTEGER},
+      quarter = #{quarter,jdbcType=INTEGER},
+      date_interval = #{dateInterval,jdbcType=VARCHAR},
+      assets_proportion = #{assetsProportion,jdbcType=REAL},
+      liabilities_proportion = #{liabilitiesProportion,jdbcType=REAL},
+      avg_term = #{avgTerm,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

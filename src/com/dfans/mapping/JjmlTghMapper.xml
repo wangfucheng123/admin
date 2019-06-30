@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.JjmlTghMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.JjmlTgh" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="qdate" property="qdate" jdbcType="DATE" />
+    <result column="website" property="website" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="zcd" property="zcd" jdbcType="INTEGER" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="xhhy" property="xhhy" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, qdate, website, address, zcd, tel, xhhy
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jjml_tgh
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+     <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from jjml_tgh where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+   <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from jjml_tgh 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jjml_tgh
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.JjmlTgh" >
+    insert into jjml_tgh (id, name, qdate, 
+      website, address, zcd, 
+      tel, xhhy)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{qdate,jdbcType=DATE}, 
+      #{website,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{zcd,jdbcType=INTEGER}, 
+      #{tel,jdbcType=VARCHAR}, #{xhhy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.JjmlTgh" >
+    insert into jjml_tgh
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="qdate != null" >
+        qdate,
+      </if>
+      <if test="website != null" >
+        website,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="zcd != null" >
+        zcd,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="xhhy != null" >
+        xhhy,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="qdate != null" >
+        #{qdate,jdbcType=DATE},
+      </if>
+      <if test="website != null" >
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="zcd != null" >
+        #{zcd,jdbcType=INTEGER},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="xhhy != null" >
+        #{xhhy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.JjmlTgh" >
+    update jjml_tgh
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="qdate != null" >
+        qdate = #{qdate,jdbcType=DATE},
+      </if>
+      <if test="website != null" >
+        website = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="zcd != null" >
+        zcd = #{zcd,jdbcType=INTEGER},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="xhhy != null" >
+        xhhy = #{xhhy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.JjmlTgh" >
+    update jjml_tgh
+    set name = #{name,jdbcType=VARCHAR},
+      qdate = #{qdate,jdbcType=DATE},
+      website = #{website,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      zcd = #{zcd,jdbcType=INTEGER},
+      tel = #{tel,jdbcType=VARCHAR},
+      xhhy = #{xhhy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+      
+  <select id="fuzzyQueryTgh" resultType="hashmap" parameterType="hashmap" >
+	select * from jjml_tgh 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' 
+	or address like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10
+  </select>
+      
+  <select id="fuzzyQueryTgh2" resultType="hashmap" parameterType="hashmap" >
+	select name from jjml_tgh 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10
+  </select>
+  
+  <select id="selectTghList" resultType="hashmap" parameterType="hashmap" >
+	select 
+	  name, 
+      DATE_FORMAT(qdate,'%Y-%m-%d') qdate ,
+      website,
+      address,
+      zcd,
+      tel,
+      xhhy 
+	from jjml_tgh 
+	where 1=1 
+  <if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+
+<select id="selectTrustBank" resultType="hashmap" parameterType="hashmap" >
+	select * from jjml_tgh 
+	where 1=1 
+  	<if test="comName != null" >
+     and 	REPLACE(NAME,' ','') =#{comName}
+    </if>
+  </select>
+  
+  
+</mapper>

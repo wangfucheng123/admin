@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.ExecZxpjjgMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.ExecZxpjjg" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="xrzw" property="xrzw" jdbcType="INTEGER" />
+    <result column="start_date" property="startDate" jdbcType="DATE" />
+    <result column="cyzshm" property="cyzshm" jdbcType="VARCHAR" />
+    <result column="zkhm" property="zkhm" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, name, sex, xrzw, start_date, cyzshm, zkhm, flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from exec_zxpjjg
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+   <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from exec_zxpjjg where 1=1 
+    and base_id = #{baseId}
+    order by id desc limit #{page},10 
+  </select>
+   <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from exec_zxpjjg 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from exec_zxpjjg
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.ExecZxpjjg" >
+    insert into exec_zxpjjg (id, base_id, name, 
+      sex, xrzw, start_date, 
+      cyzshm, zkhm, flag)
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=INTEGER}, #{xrzw,jdbcType=VARCHAR}, #{startDate,jdbcType=DATE}, 
+      #{cyzshm,jdbcType=VARCHAR}, #{zkhm,jdbcType=VARCHAR}, #{flag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.ExecZxpjjg" >
+    insert into exec_zxpjjg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="xrzw != null" >
+        xrzw,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="cyzshm != null" >
+        cyzshm,
+      </if>
+      <if test="zkhm != null" >
+        zkhm,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="xrzw != null" >
+        #{xrzw,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="cyzshm != null" >
+        #{cyzshm,jdbcType=VARCHAR},
+      </if>
+      <if test="zkhm != null" >
+        #{zkhm,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.ExecZxpjjg" >
+    update exec_zxpjjg
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="xrzw != null" >
+        xrzw = #{xrzw,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="cyzshm != null" >
+        cyzshm = #{cyzshm,jdbcType=VARCHAR},
+      </if>
+      <if test="zkhm != null" >
+        zkhm = #{zkhm,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.ExecZxpjjg" >
+    update exec_zxpjjg
+    set base_id = #{baseId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      xrzw = #{xrzw,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=DATE},
+      cyzshm = #{cyzshm,jdbcType=VARCHAR},
+      zkhm = #{zkhm,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+
+</mapper>

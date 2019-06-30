@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfans.dao.CscRolePermissionMapper">
+	<resultMap id="BaseResultMap" type="com.dfans.model.CscRolePermission">
+		<id column="role_permission_id" jdbcType="INTEGER" property="rolePermissionId" />
+		<result column="role_id" jdbcType="INTEGER" property="roleId" />
+		<result column="menu_id" jdbcType="INTEGER" property="menuId" />
+		<result column="function_id" jdbcType="INTEGER" property="functionId" />
+		<result column="data_id" jdbcType="INTEGER" property="dataId" />
+		<result column="temp" jdbcType="INTEGER" property="temp" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		role_permission_id, role_id, menu_id, function_id, data_id, temp
+	</sql>
+
+
+	<sql id="out_id_Column_List">
+		role_id, function_id, menu_id, temp
+	</sql>
+
+	<sql id="other_id_Column_List">
+		c.role_id, function_id, menu_id,data_id temp
+	</sql>
+
+	<select id="selectUserPermissions" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="other_id_Column_List" />
+		from user a,csc_user_role b,csc_role_permission c WHERE a.id
+		=b.user_id AND b.role_id=c.role_id AND a.id =
+		#{userId,jdbcType=INTEGER}
+	</select>
+	
+	
+	<select id="selectRolePermissions" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from csc_role_permission
+		where role_id = #{roleId,jdbcType=INTEGER}
+	</select>
+	
+	
+
+
+	<select id="isExists" parameterType="com.dfans.model.CscRolePermission"
+		resultType="int">
+		select count(role_permission_id) from csc_role_permission where
+		<if test="roleId != null">
+			role_id = #{roleId,jdbcType=INTEGER} and
+		</if>
+		<if test="functionId != null">
+			function_id = #{functionId,jdbcType=INTEGER} and
+		</if>
+		<if test="menuId != null">
+			menu_id = #{menuId,jdbcType=INTEGER} and
+		</if>
+		<if test="dataId != null">
+			menu_id = #{dataId,jdbcType=INTEGER} and
+		</if>
+		<if test="temp != null">
+			temp = #{temp,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	
+	
+	<select id="isExistsById" parameterType="com.dfans.model.CscRolePermission"
+		resultType="int">
+		select count(role_permission_id) from csc_role_permission where
+		role_permission_id = #{rolePermissionId,jdbcType=INTEGER}
+	</select>
+
+
+	<select id="isExistsMenuId" parameterType="Integer"
+		resultType="int">
+		select count(role_permission_id) from csc_role_permission 
+		<if test="menuId != null">
+		where menu_id = #{menuId,jdbcType=INTEGER}
+		</if>
+
+	</select>
+
+
+
+	<delete id="deleteByMenuIds" parameterType="java.lang.Integer">
+
+
+		delete from csc_role_permission WHERE menu_id IN (SELECT menu_id FROM
+		csc_menu WHERE parent_id =#{menuId,jdbcType=INTEGER})
+
+	</delete>
+	
+	
+	<delete id="deleteByMenuId" parameterType="java.lang.Integer">
+
+
+		delete from csc_role_permission WHERE menu_id =#{menuId,jdbcType=INTEGER}
+
+	</delete>
+
+
+
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from csc_role_permission
+		where role_permission_id = #{rolePermissionId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from csc_role_permission
+		where role_permission_id = #{rolePermissionId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.dfans.model.CscRolePermission">
+		insert into csc_role_permission (role_permission_id, role_id, menu_id,
+		function_id, data_id, temp
+		)
+		values (#{rolePermissionId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER},
+		#{menuId,jdbcType=INTEGER},
+		#{functionId,jdbcType=INTEGER}, #{dataId,jdbcType=INTEGER}, #{temp,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.dfans.model.CscRolePermission">
+		insert into csc_role_permission
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="rolePermissionId != null">
+				role_permission_id,
+			</if>
+			<if test="roleId != null">
+				role_id,
+			</if>
+			<if test="menuId != null">
+				menu_id,
+			</if>
+			<if test="functionId != null">
+				function_id,
+			</if>
+			<if test="dataId != null">
+				data_id,
+			</if>
+			<if test="temp != null">
+				temp,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="rolePermissionId != null">
+				#{rolePermissionId,jdbcType=INTEGER},
+			</if>
+			<if test="roleId != null">
+				#{roleId,jdbcType=INTEGER},
+			</if>
+			<if test="menuId != null">
+				#{menuId,jdbcType=INTEGER},
+			</if>
+			<if test="functionId != null">
+				#{functionId,jdbcType=INTEGER},
+			</if>
+			<if test="dataId != null">
+				#{dataId,jdbcType=INTEGER},
+			</if>
+			<if test="temp != null">
+				#{temp,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.CscRolePermission">
+		update csc_role_permission
+		<set>
+			<if test="roleId != null">
+				role_id = #{roleId,jdbcType=INTEGER},
+			</if>
+			<if test="menuId != null">
+				menu_id = #{menuId,jdbcType=INTEGER},
+			</if>
+			<if test="functionId != null">
+				function_id = #{functionId,jdbcType=INTEGER},
+			</if>
+			<if test="dataId != null">
+				data_id = #{dataId,jdbcType=INTEGER},
+			</if>
+			<if test="temp != null">
+				temp = #{temp,jdbcType=INTEGER},
+			</if>
+		</set>
+		where role_permission_id = #{rolePermissionId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.dfans.model.CscRolePermission">
+		update csc_role_permission
+		set role_id = #{roleId,jdbcType=INTEGER},
+		menu_id = #{menuId,jdbcType=INTEGER},
+		function_id = #{functionId,jdbcType=INTEGER},
+		data_id = #{dataId,jdbcType=INTEGER},
+		temp = #{temp,jdbcType=INTEGER}
+		where role_permission_id = #{rolePermissionId,jdbcType=INTEGER}
+	</update>
+
+</mapper>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FundGmjjgstjMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FundGmjjgstj" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="jdate" property="jdate" jdbcType="DATE" />
+    <result column="comcount" property="comcount" jdbcType="INTEGER" />
+    <result column="zwhzgs" property="zwhzgs" jdbcType="INTEGER" />
+    <result column="zqjzggs" property="zqjzggs" jdbcType="INTEGER" />
+    <result column="bxzggs" property="bxzggs" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.dfans.model.FundGmjjgstj" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, jdate, comcount, zwhzgs, zqjzggs, bxzggs
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fund_gmjjgstj
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from fund_gmjjgstj where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from fund_gmjjgstj 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fund_gmjjgstj
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FundGmjjgstj" >
+    insert into fund_gmjjgstj (id, jdate, comcount, 
+      zwhzgs, zqjzggs, bxzggs, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{jdate,jdbcType=DATE}, #{comcount,jdbcType=INTEGER}, 
+      #{zwhzgs,jdbcType=INTEGER}, #{zqjzggs,jdbcType=INTEGER}, #{bxzggs,jdbcType=INTEGER}, 
+      #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.FundGmjjgstj" >
+    insert into fund_gmjjgstj
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="jdate != null" >
+        jdate,
+      </if>
+      <if test="comcount != null" >
+        comcount,
+      </if>
+      <if test="zwhzgs != null" >
+        zwhzgs,
+      </if>
+      <if test="zqjzggs != null" >
+        zqjzggs,
+      </if>
+      <if test="bxzggs != null" >
+        bxzggs,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jdate != null" >
+        #{jdate,jdbcType=DATE},
+      </if>
+      <if test="comcount != null" >
+        #{comcount,jdbcType=INTEGER},
+      </if>
+      <if test="zwhzgs != null" >
+        #{zwhzgs,jdbcType=INTEGER},
+      </if>
+      <if test="zqjzggs != null" >
+        #{zqjzggs,jdbcType=INTEGER},
+      </if>
+      <if test="bxzggs != null" >
+        #{bxzggs,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FundGmjjgstj" >
+    update fund_gmjjgstj
+    <set >
+      <if test="jdate != null" >
+        jdate = #{jdate,jdbcType=DATE},
+      </if>
+      <if test="comcount != null" >
+        comcount = #{comcount,jdbcType=INTEGER},
+      </if>
+      <if test="zwhzgs != null" >
+        zwhzgs = #{zwhzgs,jdbcType=INTEGER},
+      </if>
+      <if test="zqjzggs != null" >
+        zqjzggs = #{zqjzggs,jdbcType=INTEGER},
+      </if>
+      <if test="bxzggs != null" >
+        bxzggs = #{bxzggs,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dfans.model.FundGmjjgstj" >
+    update fund_gmjjgstj
+    set jdate = #{jdate,jdbcType=DATE},
+      comcount = #{comcount,jdbcType=INTEGER},
+      zwhzgs = #{zwhzgs,jdbcType=INTEGER},
+      zqjzggs = #{zqjzggs,jdbcType=INTEGER},
+      bxzggs = #{bxzggs,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FundGmjjgstj" >
+    update fund_gmjjgstj
+    set jdate = #{jdate,jdbcType=DATE},
+      comcount = #{comcount,jdbcType=INTEGER},
+      zwhzgs = #{zwhzgs,jdbcType=INTEGER},
+      zqjzggs = #{zqjzggs,jdbcType=INTEGER},
+      bxzggs = #{bxzggs,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+      
+  <select id="selectGssl" resultType="hashmap" parameterType="hashmap" >
+	select DATE_FORMAT(jdate,'%Y-%m') jdate,comcount,zwhzgs,zqjzggs,bxzggs 
+	FROM fund_gmjjgstj 
+	where 1=1 
+	order by DATE_FORMAT(jdate,'%Y-%m') desc
+	<if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+</mapper>

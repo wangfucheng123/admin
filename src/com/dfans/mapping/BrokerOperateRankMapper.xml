@@ -1,0 +1,2015 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.BrokerOperateRankMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.BrokerOperateRank" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="total_assets" property="totalAssets" jdbcType="REAL" />
+    <result column="total_assets_rank" property="totalAssetsRank" jdbcType="INTEGER" />
+    <result column="net_assets" property="netAssets" jdbcType="REAL" />
+    <result column="net_assets_rank" property="netAssetsRank" jdbcType="INTEGER" />
+    <result column="business_income" property="businessIncome" jdbcType="REAL" />
+    <result column="business_income_rank" property="businessIncomeRank" jdbcType="INTEGER" />
+    <result column="income_growth" property="incomeGrowth" jdbcType="REAL" />
+    <result column="income_growth_rank" property="incomeGrowthRank" jdbcType="INTEGER" />
+    <result column="net_profit" property="netProfit" jdbcType="REAL" />
+    <result column="net_profit_rank" property="netProfitRank" jdbcType="INTEGER" />
+    <result column="profit_growth" property="profitGrowth" jdbcType="REAL" />
+    <result column="profit_growth_rank" property="profitGrowthRank" jdbcType="INTEGER" />
+    <result column="assets_yield" property="assetsYield" jdbcType="REAL" />
+    <result column="assets_yield_rank" property="assetsYieldRank" jdbcType="INTEGER" />
+    <result column="cost_management" property="costManagement" jdbcType="REAL" />
+    <result column="cost_management_rank" property="costManagementRank" jdbcType="INTEGER" />
+    <result column="average_profit" property="averageProfit" jdbcType="REAL" />
+    <result column="average_profit_rank" property="averageProfitRank" jdbcType="INTEGER" />
+    <result column="public_expendit" property="publicExpendit" jdbcType="REAL" />
+    <result column="public_expendit_rank" property="publicExpenditRank" jdbcType="INTEGER" />
+    <result column="net_capital" property="netCapital" jdbcType="REAL" />
+    <result column="net_capital_rank" property="netCapitalRank" jdbcType="INTEGER" />
+    <result column="capital_yield" property="capitalYield" jdbcType="REAL" />
+    <result column="capital_yield_rank" property="capitalYieldRank" jdbcType="INTEGER" />
+    <result column="risk_coverage" property="riskCoverage" jdbcType="REAL" />
+    <result column="risk_coverage_rank" property="riskCoverageRank" jdbcType="INTEGER" />
+    <result column="financial_leverage" property="financialLeverage" jdbcType="REAL" />
+    <result column="financial_leverage_rank" property="financialLeverageRank" jdbcType="INTEGER" />
+    <result column="customer_balance" property="customerBalance" jdbcType="REAL" />
+    <result column="customer_balance_rank" property="customerBalanceRank" jdbcType="INTEGER" />
+    <result column="escrow_securities" property="escrowSecurities" jdbcType="REAL" />
+    <result column="escrow_securities_rank" property="escrowSecuritiesRank" jdbcType="INTEGER" />
+    <result column="trade_income_lease" property="tradeIncomeLease" jdbcType="REAL" />
+    <result column="trade_income_lease_rank" property="tradeIncomeLeaseRank" jdbcType="INTEGER" />
+    <result column="trade_income" property="tradeIncome" jdbcType="REAL" />
+    <result column="trade_income_rank" property="tradeIncomeRank" jdbcType="INTEGER" />
+    <result column="rental_income" property="rentalIncome" jdbcType="REAL" />
+    <result column="rental_income_rank" property="rentalIncomeRank" jdbcType="INTEGER" />
+    <result column="department_avg_income" property="departmentAvgIncome" jdbcType="REAL" />
+    <result column="department_avg_income_rank" property="departmentAvgIncomeRank" jdbcType="INTEGER" />
+    <result column="finance_income" property="financeIncome" jdbcType="REAL" />
+    <result column="finance_income_rank" property="financeIncomeRank" jdbcType="INTEGER" />
+    <result column="finance_scale" property="financeScale" jdbcType="REAL" />
+    <result column="finance_scale_rank" property="financeScaleRank" jdbcType="INTEGER" />
+    <result column="management_fund" property="managementFund" jdbcType="REAL" />
+    <result column="management_fund_rank" property="managementFundRank" jdbcType="INTEGER" />
+    <result column="management_income" property="managementIncome" jdbcType="REAL" />
+    <result column="management_income_rank" property="managementIncomeRank" jdbcType="INTEGER" />
+    <result column="bank_income" property="bankIncome" jdbcType="REAL" />
+    <result column="bank_income_rank" property="bankIncomeRank" jdbcType="INTEGER" />
+    <result column="underwriting_sponsor_income" property="underwritingSponsorIncome" jdbcType="REAL" />
+    <result column="underwriting_sponsor_income_rank" property="underwritingSponsorIncomeRank" jdbcType="INTEGER" />
+    <result column="stock_underwriting_num" property="stockUnderwritingNum" jdbcType="REAL" />
+    <result column="stock_underwriting_num_rank" property="stockUnderwritingNumRank" jdbcType="INTEGER" />
+    <result column="stock_underwriting_money" property="stockUnderwritingMoney" jdbcType="REAL" />
+    <result column="stock_underwriting_money_rank" property="stockUnderwritingMoneyRank" jdbcType="INTEGER" />
+    <result column="stock_underwriting_income" property="stockUnderwritingIncome" jdbcType="REAL" />
+    <result column="stock_underwriting_income_rank" property="stockUnderwritingIncomeRank" jdbcType="INTEGER" />
+    <result column="bond_underwriting_num" property="bondUnderwritingNum" jdbcType="REAL" />
+    <result column="bond_underwriting_num_rank" property="bondUnderwritingNumRank" jdbcType="INTEGER" />
+    <result column="bond_underwriting_money" property="bondUnderwritingMoney" jdbcType="REAL" />
+    <result column="bond_underwriting_money_rank" property="bondUnderwritingMoneyRank" jdbcType="INTEGER" />
+    <result column="bond_underwriting_income" property="bondUnderwritingIncome" jdbcType="REAL" />
+    <result column="bond_underwriting_income_rank" property="bondUnderwritingIncomeRank" jdbcType="INTEGER" />
+    <result column="adviser_income" property="adviserIncome" jdbcType="REAL" />
+    <result column="adviser_income_rank" property="adviserIncomeRank" jdbcType="INTEGER" />
+    <result column="mergers_adviser_income" property="mergersAdviserIncome" jdbcType="REAL" />
+    <result column="mergers_adviser_income_rank" property="mergersAdviserIncomeRank" jdbcType="INTEGER" />
+    <result column="consult_income" property="consultIncome" jdbcType="REAL" />
+    <result column="consult_income_rank" property="consultIncomeRank" jdbcType="INTEGER" />
+    <result column="financing_income" property="financingIncome" jdbcType="REAL" />
+    <result column="financing_income_rank" property="financingIncomeRank" jdbcType="INTEGER" />
+    <result column="financing_interest_income" property="financingInterestIncome" jdbcType="REAL" />
+    <result column="financing_interest_income_rank" property="financingInterestIncomeRank" jdbcType="INTEGER" />
+    <result column="financing_balance" property="financingBalance" jdbcType="REAL" />
+    <result column="financing_balance_rank" property="financingBalanceRank" jdbcType="INTEGER" />
+    <result column="repurchase_income" property="repurchaseIncome" jdbcType="REAL" />
+    <result column="repurchase_income_rank" property="repurchaseIncomeRank" jdbcType="INTEGER" />
+    <result column="repurchase_scale" property="repurchaseScale" jdbcType="REAL" />
+    <result column="repurchase_scale_rank" property="repurchaseScaleRank" jdbcType="INTEGER" />
+    <result column="stock_pledge_income" property="stockPledgeIncome" jdbcType="REAL" />
+    <result column="stock_pledge_income_rank" property="stockPledgeIncomeRank" jdbcType="INTEGER" />
+    <result column="stock_pledge_scale" property="stockPledgeScale" jdbcType="REAL" />
+    <result column="stock_pledge_scale_rank" property="stockPledgeScaleRank" jdbcType="INTEGER" />
+    <result column="security_income" property="securityIncome" jdbcType="REAL" />
+    <result column="security_income_rank" property="securityIncomeRank" jdbcType="INTEGER" />
+    <result column="stock_income" property="stockIncome" jdbcType="REAL" />
+    <result column="stock_income_rank" property="stockIncomeRank" jdbcType="INTEGER" />
+    <result column="active_asset" property="activeAsset" jdbcType="REAL" />
+    <result column="active_asset_rank" property="activeAssetRank" jdbcType="INTEGER" />
+    <result column="stocks_bond_money" property="stocksBondMoney" jdbcType="REAL" />
+    <result column="stocks_bond_money_rank" property="stocksBondMoneyRank" jdbcType="INTEGER" />
+    <result column="stocks_bond_num" property="stocksBondNum" jdbcType="REAL" />
+    <result column="stocks_bond_num_rank" property="stocksBondNumRank" jdbcType="INTEGER" />
+    <result column="trade_balance" property="tradeBalance" jdbcType="REAL" />
+    <result column="trade_balance_rank" property="tradeBalanceRank" jdbcType="INTEGER" />
+    <result column="department_income_above" property="departmentIncomeAbove" jdbcType="REAL" />
+    <result column="department_income_above_rank" property="departmentIncomeAboveRank" jdbcType="INTEGER" />
+    <result column="agent_income_above" property="agentIncomeAbove" jdbcType="REAL" />
+    <result column="agent_income_above_rank" property="agentIncomeAboveRank" jdbcType="INTEGER" />
+    <result column="merge_etc_above" property="mergeEtcAbove" jdbcType="REAL" />
+    <result column="merge_etc_above_rank" property="mergeEtcAboveRank" jdbcType="INTEGER" />
+    <result column="capital_gains_above" property="capitalGainsAbove" jdbcType="REAL" />
+    <result column="capital_gains_above_rank" property="capitalGainsAboveRank" jdbcType="INTEGER" />
+    <result column="agent_growth_above" property="agentGrowthAbove" jdbcType="REAL" />
+    <result column="agent_growth_above_rank" property="agentGrowthAboveRank" jdbcType="INTEGER" />
+    <result column="mergeetc_growth_above" property="mergeetcGrowthAbove" jdbcType="REAL" />
+    <result column="mergeetc_growth_above_rank" property="mergeetcGrowthAboveRank" jdbcType="INTEGER" />
+    <result column="asset_growth_above" property="assetGrowthAbove" jdbcType="REAL" />
+    <result column="asset_growth_above_rank" property="assetGrowthAboveRank" jdbcType="INTEGER" />
+    <result column="total_trust_fund" property="totalTrustFund" jdbcType="REAL" />
+    <result column="total_trust_fund_rank" property="totalTrustFundRank" jdbcType="INTEGER" />
+    <result column="total_trust_income" property="totalTrustIncome" jdbcType="REAL" />
+    <result column="total_trust_income_rank" property="totalTrustIncomeRank" jdbcType="INTEGER" />
+    <result column="capital_sum_above" property="capitalSumAbove" jdbcType="REAL" />
+    <result column="capital_sum_above_rank" property="capitalSumAboveRank" jdbcType="INTEGER" />
+    <result column="avg_income_above" property="avgIncomeAbove" jdbcType="REAL" />
+    <result column="avg_income_above_rank" property="avgIncomeAboveRank" jdbcType="INTEGER" />
+    <result column="consultant_income_above" property="consultantIncomeAbove" jdbcType="REAL" />
+    <result column="consultant_income_above_rank" property="consultantIncomeAboveRank" jdbcType="INTEGER" />
+    <result column="consultant_growth" property="consultantGrowth" jdbcType="REAL" />
+    <result column="consultant_growth_rank" property="consultantGrowthRank" jdbcType="INTEGER" />
+    <result column="stock_trade_money" property="stockTradeMoney" jdbcType="REAL" />
+    <result column="stock_trade_money_rank" property="stockTradeMoneyRank" jdbcType="INTEGER" />
+    <result column="stockbond_man_above" property="stockbondManAbove" jdbcType="REAL" />
+    <result column="stockbond_man_above_rank" property="stockbondManAboveRank" jdbcType="INTEGER" />
+    <result column="cxbj_growth" property="cxbjGrowth" jdbcType="REAL" />
+    <result column="cxbj_growth_rank" property="cxbjGrowthRank" jdbcType="INTEGER" />
+    <result column="asset_manage_growth" property="assetManageGrowth" jdbcType="REAL" />
+    <result column="asset_manage_growth_rank" property="assetManageGrowthRank" jdbcType="INTEGER" />
+    <result column="broker_income_growth" property="brokerIncomeGrowth" jdbcType="REAL" />
+    <result column="broker_income_growth_rank" property="brokerIncomeGrowthRank" jdbcType="INTEGER" />
+    <result column="gjzq_total_amount" property="gjzqTotalAmount" jdbcType="REAL" />
+    <result column="gjzq_total_amount_rank" property="gjzqTotalAmountRank" jdbcType="INTEGER" />
+    <result column="settlement_fund_balance" property="settlementFundBalance" jdbcType="REAL" />
+    <result column="settlement_fund_balance_rank" property="settlementFundBalanceRank" jdbcType="INTEGER" />
+    <result column="broke_share" property="brokeShare" jdbcType="REAL" />
+    <result column="broke_share_rank" property="brokeShareRank" jdbcType="INTEGER" />
+    <result column="underwriting_share" property="underwritingShare" jdbcType="REAL" />
+    <result column="underwriting_share_rank" property="underwritingShareRank" jdbcType="INTEGER" />
+    <result column="minus_assets_total" property="minusAssetsTotal" jdbcType="REAL" />
+    <result column="minus_assets_total_rank" property="minusAssetsTotalRank" jdbcType="INTEGER" />
+    <result column="minus_avg_total" property="minusAvgTotal" jdbcType="REAL" />
+    <result column="minus_avg_total_rank" property="minusAvgTotalRank" jdbcType="INTEGER" />
+    <result column="stock_fund_money" property="stockFundMoney" jdbcType="REAL" />
+    <result column="stock_fund_money_rank" property="stockFundMoneyRank" jdbcType="INTEGER" />
+    <result column="stock_fund_special" property="stockFundSpecial" jdbcType="REAL" />
+    <result column="stock_fund_special_rank" property="stockFundSpecialRank" jdbcType="INTEGER" />
+    <result column="reform_sponso_num" property="reformSponsoNum" jdbcType="REAL" />
+    <result column="reform_sponso_num_rank" property="reformSponsoNumRank" jdbcType="INTEGER" />
+    <result column="minus_loss_total" property="minusLossTotal" jdbcType="REAL" />
+    <result column="minus_loss_total_rank" property="minusLossTotalRank" jdbcType="INTEGER" />
+    <result column="loss_avg_toatl" property="lossAvgToatl" jdbcType="REAL" />
+    <result column="loss_avg_toatl_rank" property="lossAvgToatlRank" jdbcType="INTEGER" />
+    <result column="profit_total" property="profitTotal" jdbcType="REAL" />
+    <result column="profit_total_rank" property="profitTotalRank" jdbcType="INTEGER" />
+    <result column="avg_profit_total" property="avgProfitTotal" jdbcType="REAL" />
+    <result column="avg_profit_total_rank" property="avgProfitTotalRank" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, year, total_assets, total_assets_rank, net_assets, net_assets_rank, business_income, 
+    business_income_rank, income_growth, income_growth_rank, net_profit, net_profit_rank, 
+    profit_growth, profit_growth_rank, assets_yield, assets_yield_rank, cost_management, 
+    cost_management_rank, average_profit, average_profit_rank, public_expendit, public_expendit_rank, 
+    net_capital, net_capital_rank, capital_yield, capital_yield_rank, risk_coverage, 
+    risk_coverage_rank, financial_leverage, financial_leverage_rank, customer_balance, 
+    customer_balance_rank, escrow_securities, escrow_securities_rank, trade_income_lease, 
+    trade_income_lease_rank, trade_income, trade_income_rank, rental_income, rental_income_rank, 
+    department_avg_income, department_avg_income_rank, finance_income, finance_income_rank, 
+    finance_scale, finance_scale_rank, management_fund, management_fund_rank, management_income, 
+    management_income_rank, bank_income, bank_income_rank, underwriting_sponsor_income, 
+    underwriting_sponsor_income_rank, stock_underwriting_num, stock_underwriting_num_rank, 
+    stock_underwriting_money, stock_underwriting_money_rank, stock_underwriting_income, 
+    stock_underwriting_income_rank, bond_underwriting_num, bond_underwriting_num_rank, 
+    bond_underwriting_money, bond_underwriting_money_rank, bond_underwriting_income, 
+    bond_underwriting_income_rank, adviser_income, adviser_income_rank, mergers_adviser_income, 
+    mergers_adviser_income_rank, consult_income, consult_income_rank, financing_income, 
+    financing_income_rank, financing_interest_income, financing_interest_income_rank, 
+    financing_balance, financing_balance_rank, repurchase_income, repurchase_income_rank, 
+    repurchase_scale, repurchase_scale_rank, stock_pledge_income, stock_pledge_income_rank, 
+    stock_pledge_scale, stock_pledge_scale_rank, security_income, security_income_rank, 
+    stock_income, stock_income_rank, active_asset, active_asset_rank, stocks_bond_money, 
+    stocks_bond_money_rank, stocks_bond_num, stocks_bond_num_rank, trade_balance, trade_balance_rank, 
+    department_income_above, department_income_above_rank, agent_income_above, agent_income_above_rank, 
+    merge_etc_above, merge_etc_above_rank, capital_gains_above, capital_gains_above_rank, 
+    agent_growth_above, agent_growth_above_rank, mergeetc_growth_above, mergeetc_growth_above_rank, 
+    asset_growth_above, asset_growth_above_rank, total_trust_fund, total_trust_fund_rank, 
+    total_trust_income, total_trust_income_rank, capital_sum_above, capital_sum_above_rank, 
+    avg_income_above, avg_income_above_rank, consultant_income_above, consultant_income_above_rank, 
+    consultant_growth, consultant_growth_rank, stock_trade_money, stock_trade_money_rank, 
+    stockbond_man_above, stockbond_man_above_rank, cxbj_growth, cxbj_growth_rank, asset_manage_growth, 
+    asset_manage_growth_rank, broker_income_growth, broker_income_growth_rank, gjzq_total_amount, 
+    gjzq_total_amount_rank, settlement_fund_balance, settlement_fund_balance_rank, broke_share, 
+    broke_share_rank, underwriting_share, underwriting_share_rank, minus_assets_total, 
+    minus_assets_total_rank, minus_avg_total, minus_avg_total_rank, stock_fund_money, 
+    stock_fund_money_rank, stock_fund_special, stock_fund_special_rank, reform_sponso_num, 
+    reform_sponso_num_rank, minus_loss_total, minus_loss_total_rank, loss_avg_toatl, 
+    loss_avg_toatl_rank, profit_total, profit_total_rank, avg_profit_total, avg_profit_total_rank
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from broker_operate_rank
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from broker_operate_rank where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from broker_operate_rank 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from broker_operate_rank
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.BrokerOperateRank" >
+    insert into broker_operate_rank (id, name, year, 
+      total_assets, total_assets_rank, net_assets, 
+      net_assets_rank, business_income, business_income_rank, 
+      income_growth, income_growth_rank, net_profit, 
+      net_profit_rank, profit_growth, profit_growth_rank, 
+      assets_yield, assets_yield_rank, cost_management, 
+      cost_management_rank, average_profit, average_profit_rank, 
+      public_expendit, public_expendit_rank, net_capital, 
+      net_capital_rank, capital_yield, capital_yield_rank, 
+      risk_coverage, risk_coverage_rank, financial_leverage, 
+      financial_leverage_rank, customer_balance, customer_balance_rank, 
+      escrow_securities, escrow_securities_rank, trade_income_lease, 
+      trade_income_lease_rank, trade_income, trade_income_rank, 
+      rental_income, rental_income_rank, department_avg_income, 
+      department_avg_income_rank, finance_income, finance_income_rank, 
+      finance_scale, finance_scale_rank, management_fund, 
+      management_fund_rank, management_income, management_income_rank, 
+      bank_income, bank_income_rank, underwriting_sponsor_income, 
+      underwriting_sponsor_income_rank, stock_underwriting_num, 
+      stock_underwriting_num_rank, stock_underwriting_money, 
+      stock_underwriting_money_rank, stock_underwriting_income, 
+      stock_underwriting_income_rank, bond_underwriting_num, 
+      bond_underwriting_num_rank, bond_underwriting_money, 
+      bond_underwriting_money_rank, bond_underwriting_income, 
+      bond_underwriting_income_rank, adviser_income, 
+      adviser_income_rank, mergers_adviser_income, mergers_adviser_income_rank, 
+      consult_income, consult_income_rank, financing_income, 
+      financing_income_rank, financing_interest_income, 
+      financing_interest_income_rank, financing_balance, 
+      financing_balance_rank, repurchase_income, repurchase_income_rank, 
+      repurchase_scale, repurchase_scale_rank, stock_pledge_income, 
+      stock_pledge_income_rank, stock_pledge_scale, stock_pledge_scale_rank, 
+      security_income, security_income_rank, stock_income, 
+      stock_income_rank, active_asset, active_asset_rank, 
+      stocks_bond_money, stocks_bond_money_rank, stocks_bond_num, 
+      stocks_bond_num_rank, trade_balance, trade_balance_rank, 
+      department_income_above, department_income_above_rank, 
+      agent_income_above, agent_income_above_rank, merge_etc_above, 
+      merge_etc_above_rank, capital_gains_above, capital_gains_above_rank, 
+      agent_growth_above, agent_growth_above_rank, mergeetc_growth_above, 
+      mergeetc_growth_above_rank, asset_growth_above, 
+      asset_growth_above_rank, total_trust_fund, total_trust_fund_rank, 
+      total_trust_income, total_trust_income_rank, capital_sum_above, 
+      capital_sum_above_rank, avg_income_above, avg_income_above_rank, 
+      consultant_income_above, consultant_income_above_rank, 
+      consultant_growth, consultant_growth_rank, stock_trade_money, 
+      stock_trade_money_rank, stockbond_man_above, stockbond_man_above_rank, 
+      cxbj_growth, cxbj_growth_rank, asset_manage_growth, 
+      asset_manage_growth_rank, broker_income_growth, 
+      broker_income_growth_rank, gjzq_total_amount, gjzq_total_amount_rank, 
+      settlement_fund_balance, settlement_fund_balance_rank, 
+      broke_share, broke_share_rank, underwriting_share, 
+      underwriting_share_rank, minus_assets_total, minus_assets_total_rank, 
+      minus_avg_total, minus_avg_total_rank, stock_fund_money, 
+      stock_fund_money_rank, stock_fund_special, stock_fund_special_rank, 
+      reform_sponso_num, reform_sponso_num_rank, minus_loss_total, 
+      minus_loss_total_rank, loss_avg_toatl, loss_avg_toatl_rank, 
+      profit_total, profit_total_rank, avg_profit_total, 
+      avg_profit_total_rank)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER}, 
+      #{totalAssets,jdbcType=REAL}, #{totalAssetsRank,jdbcType=INTEGER}, #{netAssets,jdbcType=REAL}, 
+      #{netAssetsRank,jdbcType=INTEGER}, #{businessIncome,jdbcType=REAL}, #{businessIncomeRank,jdbcType=INTEGER}, 
+      #{incomeGrowth,jdbcType=REAL}, #{incomeGrowthRank,jdbcType=INTEGER}, #{netProfit,jdbcType=REAL}, 
+      #{netProfitRank,jdbcType=INTEGER}, #{profitGrowth,jdbcType=REAL}, #{profitGrowthRank,jdbcType=INTEGER}, 
+      #{assetsYield,jdbcType=REAL}, #{assetsYieldRank,jdbcType=INTEGER}, #{costManagement,jdbcType=REAL}, 
+      #{costManagementRank,jdbcType=INTEGER}, #{averageProfit,jdbcType=REAL}, #{averageProfitRank,jdbcType=INTEGER}, 
+      #{publicExpendit,jdbcType=REAL}, #{publicExpenditRank,jdbcType=INTEGER}, #{netCapital,jdbcType=REAL}, 
+      #{netCapitalRank,jdbcType=INTEGER}, #{capitalYield,jdbcType=REAL}, #{capitalYieldRank,jdbcType=INTEGER}, 
+      #{riskCoverage,jdbcType=REAL}, #{riskCoverageRank,jdbcType=INTEGER}, #{financialLeverage,jdbcType=REAL}, 
+      #{financialLeverageRank,jdbcType=INTEGER}, #{customerBalance,jdbcType=REAL}, #{customerBalanceRank,jdbcType=INTEGER}, 
+      #{escrowSecurities,jdbcType=REAL}, #{escrowSecuritiesRank,jdbcType=INTEGER}, #{tradeIncomeLease,jdbcType=REAL}, 
+      #{tradeIncomeLeaseRank,jdbcType=INTEGER}, #{tradeIncome,jdbcType=REAL}, #{tradeIncomeRank,jdbcType=INTEGER}, 
+      #{rentalIncome,jdbcType=REAL}, #{rentalIncomeRank,jdbcType=INTEGER}, #{departmentAvgIncome,jdbcType=REAL}, 
+      #{departmentAvgIncomeRank,jdbcType=INTEGER}, #{financeIncome,jdbcType=REAL}, #{financeIncomeRank,jdbcType=INTEGER}, 
+      #{financeScale,jdbcType=REAL}, #{financeScaleRank,jdbcType=INTEGER}, #{managementFund,jdbcType=REAL}, 
+      #{managementFundRank,jdbcType=INTEGER}, #{managementIncome,jdbcType=REAL}, #{managementIncomeRank,jdbcType=INTEGER}, 
+      #{bankIncome,jdbcType=REAL}, #{bankIncomeRank,jdbcType=INTEGER}, #{underwritingSponsorIncome,jdbcType=REAL}, 
+      #{underwritingSponsorIncomeRank,jdbcType=INTEGER}, #{stockUnderwritingNum,jdbcType=REAL}, 
+      #{stockUnderwritingNumRank,jdbcType=INTEGER}, #{stockUnderwritingMoney,jdbcType=REAL}, 
+      #{stockUnderwritingMoneyRank,jdbcType=INTEGER}, #{stockUnderwritingIncome,jdbcType=REAL}, 
+      #{stockUnderwritingIncomeRank,jdbcType=INTEGER}, #{bondUnderwritingNum,jdbcType=REAL}, 
+      #{bondUnderwritingNumRank,jdbcType=INTEGER}, #{bondUnderwritingMoney,jdbcType=REAL}, 
+      #{bondUnderwritingMoneyRank,jdbcType=INTEGER}, #{bondUnderwritingIncome,jdbcType=REAL}, 
+      #{bondUnderwritingIncomeRank,jdbcType=INTEGER}, #{adviserIncome,jdbcType=REAL}, 
+      #{adviserIncomeRank,jdbcType=INTEGER}, #{mergersAdviserIncome,jdbcType=REAL}, #{mergersAdviserIncomeRank,jdbcType=INTEGER}, 
+      #{consultIncome,jdbcType=REAL}, #{consultIncomeRank,jdbcType=INTEGER}, #{financingIncome,jdbcType=REAL}, 
+      #{financingIncomeRank,jdbcType=INTEGER}, #{financingInterestIncome,jdbcType=REAL}, 
+      #{financingInterestIncomeRank,jdbcType=INTEGER}, #{financingBalance,jdbcType=REAL}, 
+      #{financingBalanceRank,jdbcType=INTEGER}, #{repurchaseIncome,jdbcType=REAL}, #{repurchaseIncomeRank,jdbcType=INTEGER}, 
+      #{repurchaseScale,jdbcType=REAL}, #{repurchaseScaleRank,jdbcType=INTEGER}, #{stockPledgeIncome,jdbcType=REAL}, 
+      #{stockPledgeIncomeRank,jdbcType=INTEGER}, #{stockPledgeScale,jdbcType=REAL}, #{stockPledgeScaleRank,jdbcType=INTEGER}, 
+      #{securityIncome,jdbcType=REAL}, #{securityIncomeRank,jdbcType=INTEGER}, #{stockIncome,jdbcType=REAL}, 
+      #{stockIncomeRank,jdbcType=INTEGER}, #{activeAsset,jdbcType=REAL}, #{activeAssetRank,jdbcType=INTEGER}, 
+      #{stocksBondMoney,jdbcType=REAL}, #{stocksBondMoneyRank,jdbcType=INTEGER}, #{stocksBondNum,jdbcType=REAL}, 
+      #{stocksBondNumRank,jdbcType=INTEGER}, #{tradeBalance,jdbcType=REAL}, #{tradeBalanceRank,jdbcType=INTEGER}, 
+      #{departmentIncomeAbove,jdbcType=REAL}, #{departmentIncomeAboveRank,jdbcType=INTEGER}, 
+      #{agentIncomeAbove,jdbcType=REAL}, #{agentIncomeAboveRank,jdbcType=INTEGER}, #{mergeEtcAbove,jdbcType=REAL}, 
+      #{mergeEtcAboveRank,jdbcType=INTEGER}, #{capitalGainsAbove,jdbcType=REAL}, #{capitalGainsAboveRank,jdbcType=INTEGER}, 
+      #{agentGrowthAbove,jdbcType=REAL}, #{agentGrowthAboveRank,jdbcType=INTEGER}, #{mergeetcGrowthAbove,jdbcType=REAL}, 
+      #{mergeetcGrowthAboveRank,jdbcType=INTEGER}, #{assetGrowthAbove,jdbcType=REAL}, 
+      #{assetGrowthAboveRank,jdbcType=INTEGER}, #{totalTrustFund,jdbcType=REAL}, #{totalTrustFundRank,jdbcType=INTEGER}, 
+      #{totalTrustIncome,jdbcType=REAL}, #{totalTrustIncomeRank,jdbcType=INTEGER}, #{capitalSumAbove,jdbcType=REAL}, 
+      #{capitalSumAboveRank,jdbcType=INTEGER}, #{avgIncomeAbove,jdbcType=REAL}, #{avgIncomeAboveRank,jdbcType=INTEGER}, 
+      #{consultantIncomeAbove,jdbcType=REAL}, #{consultantIncomeAboveRank,jdbcType=INTEGER}, 
+      #{consultantGrowth,jdbcType=REAL}, #{consultantGrowthRank,jdbcType=INTEGER}, #{stockTradeMoney,jdbcType=REAL}, 
+      #{stockTradeMoneyRank,jdbcType=INTEGER}, #{stockbondManAbove,jdbcType=REAL}, #{stockbondManAboveRank,jdbcType=INTEGER}, 
+      #{cxbjGrowth,jdbcType=REAL}, #{cxbjGrowthRank,jdbcType=INTEGER}, #{assetManageGrowth,jdbcType=REAL}, 
+      #{assetManageGrowthRank,jdbcType=INTEGER}, #{brokerIncomeGrowth,jdbcType=REAL}, 
+      #{brokerIncomeGrowthRank,jdbcType=INTEGER}, #{gjzqTotalAmount,jdbcType=REAL}, #{gjzqTotalAmountRank,jdbcType=INTEGER}, 
+      #{settlementFundBalance,jdbcType=REAL}, #{settlementFundBalanceRank,jdbcType=INTEGER}, 
+      #{brokeShare,jdbcType=REAL}, #{brokeShareRank,jdbcType=INTEGER}, #{underwritingShare,jdbcType=REAL}, 
+      #{underwritingShareRank,jdbcType=INTEGER}, #{minusAssetsTotal,jdbcType=REAL}, #{minusAssetsTotalRank,jdbcType=INTEGER}, 
+      #{minusAvgTotal,jdbcType=REAL}, #{minusAvgTotalRank,jdbcType=INTEGER}, #{stockFundMoney,jdbcType=REAL}, 
+      #{stockFundMoneyRank,jdbcType=INTEGER}, #{stockFundSpecial,jdbcType=REAL}, #{stockFundSpecialRank,jdbcType=INTEGER}, 
+      #{reformSponsoNum,jdbcType=REAL}, #{reformSponsoNumRank,jdbcType=INTEGER}, #{minusLossTotal,jdbcType=REAL}, 
+      #{minusLossTotalRank,jdbcType=INTEGER}, #{lossAvgToatl,jdbcType=REAL}, #{lossAvgToatlRank,jdbcType=INTEGER}, 
+      #{profitTotal,jdbcType=REAL}, #{profitTotalRank,jdbcType=INTEGER}, #{avgProfitTotal,jdbcType=REAL}, 
+      #{avgProfitTotalRank,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.BrokerOperateRank" >
+    insert into broker_operate_rank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="totalAssets != null" >
+        total_assets,
+      </if>
+      <if test="totalAssetsRank != null" >
+        total_assets_rank,
+      </if>
+      <if test="netAssets != null" >
+        net_assets,
+      </if>
+      <if test="netAssetsRank != null" >
+        net_assets_rank,
+      </if>
+      <if test="businessIncome != null" >
+        business_income,
+      </if>
+      <if test="businessIncomeRank != null" >
+        business_income_rank,
+      </if>
+      <if test="incomeGrowth != null" >
+        income_growth,
+      </if>
+      <if test="incomeGrowthRank != null" >
+        income_growth_rank,
+      </if>
+      <if test="netProfit != null" >
+        net_profit,
+      </if>
+      <if test="netProfitRank != null" >
+        net_profit_rank,
+      </if>
+      <if test="profitGrowth != null" >
+        profit_growth,
+      </if>
+      <if test="profitGrowthRank != null" >
+        profit_growth_rank,
+      </if>
+      <if test="assetsYield != null" >
+        assets_yield,
+      </if>
+      <if test="assetsYieldRank != null" >
+        assets_yield_rank,
+      </if>
+      <if test="costManagement != null" >
+        cost_management,
+      </if>
+      <if test="costManagementRank != null" >
+        cost_management_rank,
+      </if>
+      <if test="averageProfit != null" >
+        average_profit,
+      </if>
+      <if test="averageProfitRank != null" >
+        average_profit_rank,
+      </if>
+      <if test="publicExpendit != null" >
+        public_expendit,
+      </if>
+      <if test="publicExpenditRank != null" >
+        public_expendit_rank,
+      </if>
+      <if test="netCapital != null" >
+        net_capital,
+      </if>
+      <if test="netCapitalRank != null" >
+        net_capital_rank,
+      </if>
+      <if test="capitalYield != null" >
+        capital_yield,
+      </if>
+      <if test="capitalYieldRank != null" >
+        capital_yield_rank,
+      </if>
+      <if test="riskCoverage != null" >
+        risk_coverage,
+      </if>
+      <if test="riskCoverageRank != null" >
+        risk_coverage_rank,
+      </if>
+      <if test="financialLeverage != null" >
+        financial_leverage,
+      </if>
+      <if test="financialLeverageRank != null" >
+        financial_leverage_rank,
+      </if>
+      <if test="customerBalance != null" >
+        customer_balance,
+      </if>
+      <if test="customerBalanceRank != null" >
+        customer_balance_rank,
+      </if>
+      <if test="escrowSecurities != null" >
+        escrow_securities,
+      </if>
+      <if test="escrowSecuritiesRank != null" >
+        escrow_securities_rank,
+      </if>
+      <if test="tradeIncomeLease != null" >
+        trade_income_lease,
+      </if>
+      <if test="tradeIncomeLeaseRank != null" >
+        trade_income_lease_rank,
+      </if>
+      <if test="tradeIncome != null" >
+        trade_income,
+      </if>
+      <if test="tradeIncomeRank != null" >
+        trade_income_rank,
+      </if>
+      <if test="rentalIncome != null" >
+        rental_income,
+      </if>
+      <if test="rentalIncomeRank != null" >
+        rental_income_rank,
+      </if>
+      <if test="departmentAvgIncome != null" >
+        department_avg_income,
+      </if>
+      <if test="departmentAvgIncomeRank != null" >
+        department_avg_income_rank,
+      </if>
+      <if test="financeIncome != null" >
+        finance_income,
+      </if>
+      <if test="financeIncomeRank != null" >
+        finance_income_rank,
+      </if>
+      <if test="financeScale != null" >
+        finance_scale,
+      </if>
+      <if test="financeScaleRank != null" >
+        finance_scale_rank,
+      </if>
+      <if test="managementFund != null" >
+        management_fund,
+      </if>
+      <if test="managementFundRank != null" >
+        management_fund_rank,
+      </if>
+      <if test="managementIncome != null" >
+        management_income,
+      </if>
+      <if test="managementIncomeRank != null" >
+        management_income_rank,
+      </if>
+      <if test="bankIncome != null" >
+        bank_income,
+      </if>
+      <if test="bankIncomeRank != null" >
+        bank_income_rank,
+      </if>
+      <if test="underwritingSponsorIncome != null" >
+        underwriting_sponsor_income,
+      </if>
+      <if test="underwritingSponsorIncomeRank != null" >
+        underwriting_sponsor_income_rank,
+      </if>
+      <if test="stockUnderwritingNum != null" >
+        stock_underwriting_num,
+      </if>
+      <if test="stockUnderwritingNumRank != null" >
+        stock_underwriting_num_rank,
+      </if>
+      <if test="stockUnderwritingMoney != null" >
+        stock_underwriting_money,
+      </if>
+      <if test="stockUnderwritingMoneyRank != null" >
+        stock_underwriting_money_rank,
+      </if>
+      <if test="stockUnderwritingIncome != null" >
+        stock_underwriting_income,
+      </if>
+      <if test="stockUnderwritingIncomeRank != null" >
+        stock_underwriting_income_rank,
+      </if>
+      <if test="bondUnderwritingNum != null" >
+        bond_underwriting_num,
+      </if>
+      <if test="bondUnderwritingNumRank != null" >
+        bond_underwriting_num_rank,
+      </if>
+      <if test="bondUnderwritingMoney != null" >
+        bond_underwriting_money,
+      </if>
+      <if test="bondUnderwritingMoneyRank != null" >
+        bond_underwriting_money_rank,
+      </if>
+      <if test="bondUnderwritingIncome != null" >
+        bond_underwriting_income,
+      </if>
+      <if test="bondUnderwritingIncomeRank != null" >
+        bond_underwriting_income_rank,
+      </if>
+      <if test="adviserIncome != null" >
+        adviser_income,
+      </if>
+      <if test="adviserIncomeRank != null" >
+        adviser_income_rank,
+      </if>
+      <if test="mergersAdviserIncome != null" >
+        mergers_adviser_income,
+      </if>
+      <if test="mergersAdviserIncomeRank != null" >
+        mergers_adviser_income_rank,
+      </if>
+      <if test="consultIncome != null" >
+        consult_income,
+      </if>
+      <if test="consultIncomeRank != null" >
+        consult_income_rank,
+      </if>
+      <if test="financingIncome != null" >
+        financing_income,
+      </if>
+      <if test="financingIncomeRank != null" >
+        financing_income_rank,
+      </if>
+      <if test="financingInterestIncome != null" >
+        financing_interest_income,
+      </if>
+      <if test="financingInterestIncomeRank != null" >
+        financing_interest_income_rank,
+      </if>
+      <if test="financingBalance != null" >
+        financing_balance,
+      </if>
+      <if test="financingBalanceRank != null" >
+        financing_balance_rank,
+      </if>
+      <if test="repurchaseIncome != null" >
+        repurchase_income,
+      </if>
+      <if test="repurchaseIncomeRank != null" >
+        repurchase_income_rank,
+      </if>
+      <if test="repurchaseScale != null" >
+        repurchase_scale,
+      </if>
+      <if test="repurchaseScaleRank != null" >
+        repurchase_scale_rank,
+      </if>
+      <if test="stockPledgeIncome != null" >
+        stock_pledge_income,
+      </if>
+      <if test="stockPledgeIncomeRank != null" >
+        stock_pledge_income_rank,
+      </if>
+      <if test="stockPledgeScale != null" >
+        stock_pledge_scale,
+      </if>
+      <if test="stockPledgeScaleRank != null" >
+        stock_pledge_scale_rank,
+      </if>
+      <if test="securityIncome != null" >
+        security_income,
+      </if>
+      <if test="securityIncomeRank != null" >
+        security_income_rank,
+      </if>
+      <if test="stockIncome != null" >
+        stock_income,
+      </if>
+      <if test="stockIncomeRank != null" >
+        stock_income_rank,
+      </if>
+      <if test="activeAsset != null" >
+        active_asset,
+      </if>
+      <if test="activeAssetRank != null" >
+        active_asset_rank,
+      </if>
+      <if test="stocksBondMoney != null" >
+        stocks_bond_money,
+      </if>
+      <if test="stocksBondMoneyRank != null" >
+        stocks_bond_money_rank,
+      </if>
+      <if test="stocksBondNum != null" >
+        stocks_bond_num,
+      </if>
+      <if test="stocksBondNumRank != null" >
+        stocks_bond_num_rank,
+      </if>
+      <if test="tradeBalance != null" >
+        trade_balance,
+      </if>
+      <if test="tradeBalanceRank != null" >
+        trade_balance_rank,
+      </if>
+      <if test="departmentIncomeAbove != null" >
+        department_income_above,
+      </if>
+      <if test="departmentIncomeAboveRank != null" >
+        department_income_above_rank,
+      </if>
+      <if test="agentIncomeAbove != null" >
+        agent_income_above,
+      </if>
+      <if test="agentIncomeAboveRank != null" >
+        agent_income_above_rank,
+      </if>
+      <if test="mergeEtcAbove != null" >
+        merge_etc_above,
+      </if>
+      <if test="mergeEtcAboveRank != null" >
+        merge_etc_above_rank,
+      </if>
+      <if test="capitalGainsAbove != null" >
+        capital_gains_above,
+      </if>
+      <if test="capitalGainsAboveRank != null" >
+        capital_gains_above_rank,
+      </if>
+      <if test="agentGrowthAbove != null" >
+        agent_growth_above,
+      </if>
+      <if test="agentGrowthAboveRank != null" >
+        agent_growth_above_rank,
+      </if>
+      <if test="mergeetcGrowthAbove != null" >
+        mergeetc_growth_above,
+      </if>
+      <if test="mergeetcGrowthAboveRank != null" >
+        mergeetc_growth_above_rank,
+      </if>
+      <if test="assetGrowthAbove != null" >
+        asset_growth_above,
+      </if>
+      <if test="assetGrowthAboveRank != null" >
+        asset_growth_above_rank,
+      </if>
+      <if test="totalTrustFund != null" >
+        total_trust_fund,
+      </if>
+      <if test="totalTrustFundRank != null" >
+        total_trust_fund_rank,
+      </if>
+      <if test="totalTrustIncome != null" >
+        total_trust_income,
+      </if>
+      <if test="totalTrustIncomeRank != null" >
+        total_trust_income_rank,
+      </if>
+      <if test="capitalSumAbove != null" >
+        capital_sum_above,
+      </if>
+      <if test="capitalSumAboveRank != null" >
+        capital_sum_above_rank,
+      </if>
+      <if test="avgIncomeAbove != null" >
+        avg_income_above,
+      </if>
+      <if test="avgIncomeAboveRank != null" >
+        avg_income_above_rank,
+      </if>
+      <if test="consultantIncomeAbove != null" >
+        consultant_income_above,
+      </if>
+      <if test="consultantIncomeAboveRank != null" >
+        consultant_income_above_rank,
+      </if>
+      <if test="consultantGrowth != null" >
+        consultant_growth,
+      </if>
+      <if test="consultantGrowthRank != null" >
+        consultant_growth_rank,
+      </if>
+      <if test="stockTradeMoney != null" >
+        stock_trade_money,
+      </if>
+      <if test="stockTradeMoneyRank != null" >
+        stock_trade_money_rank,
+      </if>
+      <if test="stockbondManAbove != null" >
+        stockbond_man_above,
+      </if>
+      <if test="stockbondManAboveRank != null" >
+        stockbond_man_above_rank,
+      </if>
+      <if test="cxbjGrowth != null" >
+        cxbj_growth,
+      </if>
+      <if test="cxbjGrowthRank != null" >
+        cxbj_growth_rank,
+      </if>
+      <if test="assetManageGrowth != null" >
+        asset_manage_growth,
+      </if>
+      <if test="assetManageGrowthRank != null" >
+        asset_manage_growth_rank,
+      </if>
+      <if test="brokerIncomeGrowth != null" >
+        broker_income_growth,
+      </if>
+      <if test="brokerIncomeGrowthRank != null" >
+        broker_income_growth_rank,
+      </if>
+      <if test="gjzqTotalAmount != null" >
+        gjzq_total_amount,
+      </if>
+      <if test="gjzqTotalAmountRank != null" >
+        gjzq_total_amount_rank,
+      </if>
+      <if test="settlementFundBalance != null" >
+        settlement_fund_balance,
+      </if>
+      <if test="settlementFundBalanceRank != null" >
+        settlement_fund_balance_rank,
+      </if>
+      <if test="brokeShare != null" >
+        broke_share,
+      </if>
+      <if test="brokeShareRank != null" >
+        broke_share_rank,
+      </if>
+      <if test="underwritingShare != null" >
+        underwriting_share,
+      </if>
+      <if test="underwritingShareRank != null" >
+        underwriting_share_rank,
+      </if>
+      <if test="minusAssetsTotal != null" >
+        minus_assets_total,
+      </if>
+      <if test="minusAssetsTotalRank != null" >
+        minus_assets_total_rank,
+      </if>
+      <if test="minusAvgTotal != null" >
+        minus_avg_total,
+      </if>
+      <if test="minusAvgTotalRank != null" >
+        minus_avg_total_rank,
+      </if>
+      <if test="stockFundMoney != null" >
+        stock_fund_money,
+      </if>
+      <if test="stockFundMoneyRank != null" >
+        stock_fund_money_rank,
+      </if>
+      <if test="stockFundSpecial != null" >
+        stock_fund_special,
+      </if>
+      <if test="stockFundSpecialRank != null" >
+        stock_fund_special_rank,
+      </if>
+      <if test="reformSponsoNum != null" >
+        reform_sponso_num,
+      </if>
+      <if test="reformSponsoNumRank != null" >
+        reform_sponso_num_rank,
+      </if>
+      <if test="minusLossTotal != null" >
+        minus_loss_total,
+      </if>
+      <if test="minusLossTotalRank != null" >
+        minus_loss_total_rank,
+      </if>
+      <if test="lossAvgToatl != null" >
+        loss_avg_toatl,
+      </if>
+      <if test="lossAvgToatlRank != null" >
+        loss_avg_toatl_rank,
+      </if>
+      <if test="profitTotal != null" >
+        profit_total,
+      </if>
+      <if test="profitTotalRank != null" >
+        profit_total_rank,
+      </if>
+      <if test="avgProfitTotal != null" >
+        avg_profit_total,
+      </if>
+      <if test="avgProfitTotalRank != null" >
+        avg_profit_total_rank,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="totalAssets != null" >
+        #{totalAssets,jdbcType=REAL},
+      </if>
+      <if test="totalAssetsRank != null" >
+        #{totalAssetsRank,jdbcType=INTEGER},
+      </if>
+      <if test="netAssets != null" >
+        #{netAssets,jdbcType=REAL},
+      </if>
+      <if test="netAssetsRank != null" >
+        #{netAssetsRank,jdbcType=INTEGER},
+      </if>
+      <if test="businessIncome != null" >
+        #{businessIncome,jdbcType=REAL},
+      </if>
+      <if test="businessIncomeRank != null" >
+        #{businessIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="incomeGrowth != null" >
+        #{incomeGrowth,jdbcType=REAL},
+      </if>
+      <if test="incomeGrowthRank != null" >
+        #{incomeGrowthRank,jdbcType=INTEGER},
+      </if>
+      <if test="netProfit != null" >
+        #{netProfit,jdbcType=REAL},
+      </if>
+      <if test="netProfitRank != null" >
+        #{netProfitRank,jdbcType=INTEGER},
+      </if>
+      <if test="profitGrowth != null" >
+        #{profitGrowth,jdbcType=REAL},
+      </if>
+      <if test="profitGrowthRank != null" >
+        #{profitGrowthRank,jdbcType=INTEGER},
+      </if>
+      <if test="assetsYield != null" >
+        #{assetsYield,jdbcType=REAL},
+      </if>
+      <if test="assetsYieldRank != null" >
+        #{assetsYieldRank,jdbcType=INTEGER},
+      </if>
+      <if test="costManagement != null" >
+        #{costManagement,jdbcType=REAL},
+      </if>
+      <if test="costManagementRank != null" >
+        #{costManagementRank,jdbcType=INTEGER},
+      </if>
+      <if test="averageProfit != null" >
+        #{averageProfit,jdbcType=REAL},
+      </if>
+      <if test="averageProfitRank != null" >
+        #{averageProfitRank,jdbcType=INTEGER},
+      </if>
+      <if test="publicExpendit != null" >
+        #{publicExpendit,jdbcType=REAL},
+      </if>
+      <if test="publicExpenditRank != null" >
+        #{publicExpenditRank,jdbcType=INTEGER},
+      </if>
+      <if test="netCapital != null" >
+        #{netCapital,jdbcType=REAL},
+      </if>
+      <if test="netCapitalRank != null" >
+        #{netCapitalRank,jdbcType=INTEGER},
+      </if>
+      <if test="capitalYield != null" >
+        #{capitalYield,jdbcType=REAL},
+      </if>
+      <if test="capitalYieldRank != null" >
+        #{capitalYieldRank,jdbcType=INTEGER},
+      </if>
+      <if test="riskCoverage != null" >
+        #{riskCoverage,jdbcType=REAL},
+      </if>
+      <if test="riskCoverageRank != null" >
+        #{riskCoverageRank,jdbcType=INTEGER},
+      </if>
+      <if test="financialLeverage != null" >
+        #{financialLeverage,jdbcType=REAL},
+      </if>
+      <if test="financialLeverageRank != null" >
+        #{financialLeverageRank,jdbcType=INTEGER},
+      </if>
+      <if test="customerBalance != null" >
+        #{customerBalance,jdbcType=REAL},
+      </if>
+      <if test="customerBalanceRank != null" >
+        #{customerBalanceRank,jdbcType=INTEGER},
+      </if>
+      <if test="escrowSecurities != null" >
+        #{escrowSecurities,jdbcType=REAL},
+      </if>
+      <if test="escrowSecuritiesRank != null" >
+        #{escrowSecuritiesRank,jdbcType=INTEGER},
+      </if>
+      <if test="tradeIncomeLease != null" >
+        #{tradeIncomeLease,jdbcType=REAL},
+      </if>
+      <if test="tradeIncomeLeaseRank != null" >
+        #{tradeIncomeLeaseRank,jdbcType=INTEGER},
+      </if>
+      <if test="tradeIncome != null" >
+        #{tradeIncome,jdbcType=REAL},
+      </if>
+      <if test="tradeIncomeRank != null" >
+        #{tradeIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="rentalIncome != null" >
+        #{rentalIncome,jdbcType=REAL},
+      </if>
+      <if test="rentalIncomeRank != null" >
+        #{rentalIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="departmentAvgIncome != null" >
+        #{departmentAvgIncome,jdbcType=REAL},
+      </if>
+      <if test="departmentAvgIncomeRank != null" >
+        #{departmentAvgIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="financeIncome != null" >
+        #{financeIncome,jdbcType=REAL},
+      </if>
+      <if test="financeIncomeRank != null" >
+        #{financeIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="financeScale != null" >
+        #{financeScale,jdbcType=REAL},
+      </if>
+      <if test="financeScaleRank != null" >
+        #{financeScaleRank,jdbcType=INTEGER},
+      </if>
+      <if test="managementFund != null" >
+        #{managementFund,jdbcType=REAL},
+      </if>
+      <if test="managementFundRank != null" >
+        #{managementFundRank,jdbcType=INTEGER},
+      </if>
+      <if test="managementIncome != null" >
+        #{managementIncome,jdbcType=REAL},
+      </if>
+      <if test="managementIncomeRank != null" >
+        #{managementIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="bankIncome != null" >
+        #{bankIncome,jdbcType=REAL},
+      </if>
+      <if test="bankIncomeRank != null" >
+        #{bankIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="underwritingSponsorIncome != null" >
+        #{underwritingSponsorIncome,jdbcType=REAL},
+      </if>
+      <if test="underwritingSponsorIncomeRank != null" >
+        #{underwritingSponsorIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockUnderwritingNum != null" >
+        #{stockUnderwritingNum,jdbcType=REAL},
+      </if>
+      <if test="stockUnderwritingNumRank != null" >
+        #{stockUnderwritingNumRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockUnderwritingMoney != null" >
+        #{stockUnderwritingMoney,jdbcType=REAL},
+      </if>
+      <if test="stockUnderwritingMoneyRank != null" >
+        #{stockUnderwritingMoneyRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockUnderwritingIncome != null" >
+        #{stockUnderwritingIncome,jdbcType=REAL},
+      </if>
+      <if test="stockUnderwritingIncomeRank != null" >
+        #{stockUnderwritingIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="bondUnderwritingNum != null" >
+        #{bondUnderwritingNum,jdbcType=REAL},
+      </if>
+      <if test="bondUnderwritingNumRank != null" >
+        #{bondUnderwritingNumRank,jdbcType=INTEGER},
+      </if>
+      <if test="bondUnderwritingMoney != null" >
+        #{bondUnderwritingMoney,jdbcType=REAL},
+      </if>
+      <if test="bondUnderwritingMoneyRank != null" >
+        #{bondUnderwritingMoneyRank,jdbcType=INTEGER},
+      </if>
+      <if test="bondUnderwritingIncome != null" >
+        #{bondUnderwritingIncome,jdbcType=REAL},
+      </if>
+      <if test="bondUnderwritingIncomeRank != null" >
+        #{bondUnderwritingIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="adviserIncome != null" >
+        #{adviserIncome,jdbcType=REAL},
+      </if>
+      <if test="adviserIncomeRank != null" >
+        #{adviserIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="mergersAdviserIncome != null" >
+        #{mergersAdviserIncome,jdbcType=REAL},
+      </if>
+      <if test="mergersAdviserIncomeRank != null" >
+        #{mergersAdviserIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="consultIncome != null" >
+        #{consultIncome,jdbcType=REAL},
+      </if>
+      <if test="consultIncomeRank != null" >
+        #{consultIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="financingIncome != null" >
+        #{financingIncome,jdbcType=REAL},
+      </if>
+      <if test="financingIncomeRank != null" >
+        #{financingIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="financingInterestIncome != null" >
+        #{financingInterestIncome,jdbcType=REAL},
+      </if>
+      <if test="financingInterestIncomeRank != null" >
+        #{financingInterestIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="financingBalance != null" >
+        #{financingBalance,jdbcType=REAL},
+      </if>
+      <if test="financingBalanceRank != null" >
+        #{financingBalanceRank,jdbcType=INTEGER},
+      </if>
+      <if test="repurchaseIncome != null" >
+        #{repurchaseIncome,jdbcType=REAL},
+      </if>
+      <if test="repurchaseIncomeRank != null" >
+        #{repurchaseIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="repurchaseScale != null" >
+        #{repurchaseScale,jdbcType=REAL},
+      </if>
+      <if test="repurchaseScaleRank != null" >
+        #{repurchaseScaleRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockPledgeIncome != null" >
+        #{stockPledgeIncome,jdbcType=REAL},
+      </if>
+      <if test="stockPledgeIncomeRank != null" >
+        #{stockPledgeIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockPledgeScale != null" >
+        #{stockPledgeScale,jdbcType=REAL},
+      </if>
+      <if test="stockPledgeScaleRank != null" >
+        #{stockPledgeScaleRank,jdbcType=INTEGER},
+      </if>
+      <if test="securityIncome != null" >
+        #{securityIncome,jdbcType=REAL},
+      </if>
+      <if test="securityIncomeRank != null" >
+        #{securityIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockIncome != null" >
+        #{stockIncome,jdbcType=REAL},
+      </if>
+      <if test="stockIncomeRank != null" >
+        #{stockIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="activeAsset != null" >
+        #{activeAsset,jdbcType=REAL},
+      </if>
+      <if test="activeAssetRank != null" >
+        #{activeAssetRank,jdbcType=INTEGER},
+      </if>
+      <if test="stocksBondMoney != null" >
+        #{stocksBondMoney,jdbcType=REAL},
+      </if>
+      <if test="stocksBondMoneyRank != null" >
+        #{stocksBondMoneyRank,jdbcType=INTEGER},
+      </if>
+      <if test="stocksBondNum != null" >
+        #{stocksBondNum,jdbcType=REAL},
+      </if>
+      <if test="stocksBondNumRank != null" >
+        #{stocksBondNumRank,jdbcType=INTEGER},
+      </if>
+      <if test="tradeBalance != null" >
+        #{tradeBalance,jdbcType=REAL},
+      </if>
+      <if test="tradeBalanceRank != null" >
+        #{tradeBalanceRank,jdbcType=INTEGER},
+      </if>
+      <if test="departmentIncomeAbove != null" >
+        #{departmentIncomeAbove,jdbcType=REAL},
+      </if>
+      <if test="departmentIncomeAboveRank != null" >
+        #{departmentIncomeAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="agentIncomeAbove != null" >
+        #{agentIncomeAbove,jdbcType=REAL},
+      </if>
+      <if test="agentIncomeAboveRank != null" >
+        #{agentIncomeAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="mergeEtcAbove != null" >
+        #{mergeEtcAbove,jdbcType=REAL},
+      </if>
+      <if test="mergeEtcAboveRank != null" >
+        #{mergeEtcAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="capitalGainsAbove != null" >
+        #{capitalGainsAbove,jdbcType=REAL},
+      </if>
+      <if test="capitalGainsAboveRank != null" >
+        #{capitalGainsAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="agentGrowthAbove != null" >
+        #{agentGrowthAbove,jdbcType=REAL},
+      </if>
+      <if test="agentGrowthAboveRank != null" >
+        #{agentGrowthAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="mergeetcGrowthAbove != null" >
+        #{mergeetcGrowthAbove,jdbcType=REAL},
+      </if>
+      <if test="mergeetcGrowthAboveRank != null" >
+        #{mergeetcGrowthAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="assetGrowthAbove != null" >
+        #{assetGrowthAbove,jdbcType=REAL},
+      </if>
+      <if test="assetGrowthAboveRank != null" >
+        #{assetGrowthAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="totalTrustFund != null" >
+        #{totalTrustFund,jdbcType=REAL},
+      </if>
+      <if test="totalTrustFundRank != null" >
+        #{totalTrustFundRank,jdbcType=INTEGER},
+      </if>
+      <if test="totalTrustIncome != null" >
+        #{totalTrustIncome,jdbcType=REAL},
+      </if>
+      <if test="totalTrustIncomeRank != null" >
+        #{totalTrustIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="capitalSumAbove != null" >
+        #{capitalSumAbove,jdbcType=REAL},
+      </if>
+      <if test="capitalSumAboveRank != null" >
+        #{capitalSumAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="avgIncomeAbove != null" >
+        #{avgIncomeAbove,jdbcType=REAL},
+      </if>
+      <if test="avgIncomeAboveRank != null" >
+        #{avgIncomeAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="consultantIncomeAbove != null" >
+        #{consultantIncomeAbove,jdbcType=REAL},
+      </if>
+      <if test="consultantIncomeAboveRank != null" >
+        #{consultantIncomeAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="consultantGrowth != null" >
+        #{consultantGrowth,jdbcType=REAL},
+      </if>
+      <if test="consultantGrowthRank != null" >
+        #{consultantGrowthRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockTradeMoney != null" >
+        #{stockTradeMoney,jdbcType=REAL},
+      </if>
+      <if test="stockTradeMoneyRank != null" >
+        #{stockTradeMoneyRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockbondManAbove != null" >
+        #{stockbondManAbove,jdbcType=REAL},
+      </if>
+      <if test="stockbondManAboveRank != null" >
+        #{stockbondManAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="cxbjGrowth != null" >
+        #{cxbjGrowth,jdbcType=REAL},
+      </if>
+      <if test="cxbjGrowthRank != null" >
+        #{cxbjGrowthRank,jdbcType=INTEGER},
+      </if>
+      <if test="assetManageGrowth != null" >
+        #{assetManageGrowth,jdbcType=REAL},
+      </if>
+      <if test="assetManageGrowthRank != null" >
+        #{assetManageGrowthRank,jdbcType=INTEGER},
+      </if>
+      <if test="brokerIncomeGrowth != null" >
+        #{brokerIncomeGrowth,jdbcType=REAL},
+      </if>
+      <if test="brokerIncomeGrowthRank != null" >
+        #{brokerIncomeGrowthRank,jdbcType=INTEGER},
+      </if>
+      <if test="gjzqTotalAmount != null" >
+        #{gjzqTotalAmount,jdbcType=REAL},
+      </if>
+      <if test="gjzqTotalAmountRank != null" >
+        #{gjzqTotalAmountRank,jdbcType=INTEGER},
+      </if>
+      <if test="settlementFundBalance != null" >
+        #{settlementFundBalance,jdbcType=REAL},
+      </if>
+      <if test="settlementFundBalanceRank != null" >
+        #{settlementFundBalanceRank,jdbcType=INTEGER},
+      </if>
+      <if test="brokeShare != null" >
+        #{brokeShare,jdbcType=REAL},
+      </if>
+      <if test="brokeShareRank != null" >
+        #{brokeShareRank,jdbcType=INTEGER},
+      </if>
+      <if test="underwritingShare != null" >
+        #{underwritingShare,jdbcType=REAL},
+      </if>
+      <if test="underwritingShareRank != null" >
+        #{underwritingShareRank,jdbcType=INTEGER},
+      </if>
+      <if test="minusAssetsTotal != null" >
+        #{minusAssetsTotal,jdbcType=REAL},
+      </if>
+      <if test="minusAssetsTotalRank != null" >
+        #{minusAssetsTotalRank,jdbcType=INTEGER},
+      </if>
+      <if test="minusAvgTotal != null" >
+        #{minusAvgTotal,jdbcType=REAL},
+      </if>
+      <if test="minusAvgTotalRank != null" >
+        #{minusAvgTotalRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockFundMoney != null" >
+        #{stockFundMoney,jdbcType=REAL},
+      </if>
+      <if test="stockFundMoneyRank != null" >
+        #{stockFundMoneyRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockFundSpecial != null" >
+        #{stockFundSpecial,jdbcType=REAL},
+      </if>
+      <if test="stockFundSpecialRank != null" >
+        #{stockFundSpecialRank,jdbcType=INTEGER},
+      </if>
+      <if test="reformSponsoNum != null" >
+        #{reformSponsoNum,jdbcType=REAL},
+      </if>
+      <if test="reformSponsoNumRank != null" >
+        #{reformSponsoNumRank,jdbcType=INTEGER},
+      </if>
+      <if test="minusLossTotal != null" >
+        #{minusLossTotal,jdbcType=REAL},
+      </if>
+      <if test="minusLossTotalRank != null" >
+        #{minusLossTotalRank,jdbcType=INTEGER},
+      </if>
+      <if test="lossAvgToatl != null" >
+        #{lossAvgToatl,jdbcType=REAL},
+      </if>
+      <if test="lossAvgToatlRank != null" >
+        #{lossAvgToatlRank,jdbcType=INTEGER},
+      </if>
+      <if test="profitTotal != null" >
+        #{profitTotal,jdbcType=REAL},
+      </if>
+      <if test="profitTotalRank != null" >
+        #{profitTotalRank,jdbcType=INTEGER},
+      </if>
+      <if test="avgProfitTotal != null" >
+        #{avgProfitTotal,jdbcType=REAL},
+      </if>
+      <if test="avgProfitTotalRank != null" >
+        #{avgProfitTotalRank,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.BrokerOperateRank" >
+    update broker_operate_rank
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="totalAssets != null" >
+        total_assets = #{totalAssets,jdbcType=REAL},
+      </if>
+      <if test="totalAssetsRank != null" >
+        total_assets_rank = #{totalAssetsRank,jdbcType=INTEGER},
+      </if>
+      <if test="netAssets != null" >
+        net_assets = #{netAssets,jdbcType=REAL},
+      </if>
+      <if test="netAssetsRank != null" >
+        net_assets_rank = #{netAssetsRank,jdbcType=INTEGER},
+      </if>
+      <if test="businessIncome != null" >
+        business_income = #{businessIncome,jdbcType=REAL},
+      </if>
+      <if test="businessIncomeRank != null" >
+        business_income_rank = #{businessIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="incomeGrowth != null" >
+        income_growth = #{incomeGrowth,jdbcType=REAL},
+      </if>
+      <if test="incomeGrowthRank != null" >
+        income_growth_rank = #{incomeGrowthRank,jdbcType=INTEGER},
+      </if>
+      <if test="netProfit != null" >
+        net_profit = #{netProfit,jdbcType=REAL},
+      </if>
+      <if test="netProfitRank != null" >
+        net_profit_rank = #{netProfitRank,jdbcType=INTEGER},
+      </if>
+      <if test="profitGrowth != null" >
+        profit_growth = #{profitGrowth,jdbcType=REAL},
+      </if>
+      <if test="profitGrowthRank != null" >
+        profit_growth_rank = #{profitGrowthRank,jdbcType=INTEGER},
+      </if>
+      <if test="assetsYield != null" >
+        assets_yield = #{assetsYield,jdbcType=REAL},
+      </if>
+      <if test="assetsYieldRank != null" >
+        assets_yield_rank = #{assetsYieldRank,jdbcType=INTEGER},
+      </if>
+      <if test="costManagement != null" >
+        cost_management = #{costManagement,jdbcType=REAL},
+      </if>
+      <if test="costManagementRank != null" >
+        cost_management_rank = #{costManagementRank,jdbcType=INTEGER},
+      </if>
+      <if test="averageProfit != null" >
+        average_profit = #{averageProfit,jdbcType=REAL},
+      </if>
+      <if test="averageProfitRank != null" >
+        average_profit_rank = #{averageProfitRank,jdbcType=INTEGER},
+      </if>
+      <if test="publicExpendit != null" >
+        public_expendit = #{publicExpendit,jdbcType=REAL},
+      </if>
+      <if test="publicExpenditRank != null" >
+        public_expendit_rank = #{publicExpenditRank,jdbcType=INTEGER},
+      </if>
+      <if test="netCapital != null" >
+        net_capital = #{netCapital,jdbcType=REAL},
+      </if>
+      <if test="netCapitalRank != null" >
+        net_capital_rank = #{netCapitalRank,jdbcType=INTEGER},
+      </if>
+      <if test="capitalYield != null" >
+        capital_yield = #{capitalYield,jdbcType=REAL},
+      </if>
+      <if test="capitalYieldRank != null" >
+        capital_yield_rank = #{capitalYieldRank,jdbcType=INTEGER},
+      </if>
+      <if test="riskCoverage != null" >
+        risk_coverage = #{riskCoverage,jdbcType=REAL},
+      </if>
+      <if test="riskCoverageRank != null" >
+        risk_coverage_rank = #{riskCoverageRank,jdbcType=INTEGER},
+      </if>
+      <if test="financialLeverage != null" >
+        financial_leverage = #{financialLeverage,jdbcType=REAL},
+      </if>
+      <if test="financialLeverageRank != null" >
+        financial_leverage_rank = #{financialLeverageRank,jdbcType=INTEGER},
+      </if>
+      <if test="customerBalance != null" >
+        customer_balance = #{customerBalance,jdbcType=REAL},
+      </if>
+      <if test="customerBalanceRank != null" >
+        customer_balance_rank = #{customerBalanceRank,jdbcType=INTEGER},
+      </if>
+      <if test="escrowSecurities != null" >
+        escrow_securities = #{escrowSecurities,jdbcType=REAL},
+      </if>
+      <if test="escrowSecuritiesRank != null" >
+        escrow_securities_rank = #{escrowSecuritiesRank,jdbcType=INTEGER},
+      </if>
+      <if test="tradeIncomeLease != null" >
+        trade_income_lease = #{tradeIncomeLease,jdbcType=REAL},
+      </if>
+      <if test="tradeIncomeLeaseRank != null" >
+        trade_income_lease_rank = #{tradeIncomeLeaseRank,jdbcType=INTEGER},
+      </if>
+      <if test="tradeIncome != null" >
+        trade_income = #{tradeIncome,jdbcType=REAL},
+      </if>
+      <if test="tradeIncomeRank != null" >
+        trade_income_rank = #{tradeIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="rentalIncome != null" >
+        rental_income = #{rentalIncome,jdbcType=REAL},
+      </if>
+      <if test="rentalIncomeRank != null" >
+        rental_income_rank = #{rentalIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="departmentAvgIncome != null" >
+        department_avg_income = #{departmentAvgIncome,jdbcType=REAL},
+      </if>
+      <if test="departmentAvgIncomeRank != null" >
+        department_avg_income_rank = #{departmentAvgIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="financeIncome != null" >
+        finance_income = #{financeIncome,jdbcType=REAL},
+      </if>
+      <if test="financeIncomeRank != null" >
+        finance_income_rank = #{financeIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="financeScale != null" >
+        finance_scale = #{financeScale,jdbcType=REAL},
+      </if>
+      <if test="financeScaleRank != null" >
+        finance_scale_rank = #{financeScaleRank,jdbcType=INTEGER},
+      </if>
+      <if test="managementFund != null" >
+        management_fund = #{managementFund,jdbcType=REAL},
+      </if>
+      <if test="managementFundRank != null" >
+        management_fund_rank = #{managementFundRank,jdbcType=INTEGER},
+      </if>
+      <if test="managementIncome != null" >
+        management_income = #{managementIncome,jdbcType=REAL},
+      </if>
+      <if test="managementIncomeRank != null" >
+        management_income_rank = #{managementIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="bankIncome != null" >
+        bank_income = #{bankIncome,jdbcType=REAL},
+      </if>
+      <if test="bankIncomeRank != null" >
+        bank_income_rank = #{bankIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="underwritingSponsorIncome != null" >
+        underwriting_sponsor_income = #{underwritingSponsorIncome,jdbcType=REAL},
+      </if>
+      <if test="underwritingSponsorIncomeRank != null" >
+        underwriting_sponsor_income_rank = #{underwritingSponsorIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockUnderwritingNum != null" >
+        stock_underwriting_num = #{stockUnderwritingNum,jdbcType=REAL},
+      </if>
+      <if test="stockUnderwritingNumRank != null" >
+        stock_underwriting_num_rank = #{stockUnderwritingNumRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockUnderwritingMoney != null" >
+        stock_underwriting_money = #{stockUnderwritingMoney,jdbcType=REAL},
+      </if>
+      <if test="stockUnderwritingMoneyRank != null" >
+        stock_underwriting_money_rank = #{stockUnderwritingMoneyRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockUnderwritingIncome != null" >
+        stock_underwriting_income = #{stockUnderwritingIncome,jdbcType=REAL},
+      </if>
+      <if test="stockUnderwritingIncomeRank != null" >
+        stock_underwriting_income_rank = #{stockUnderwritingIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="bondUnderwritingNum != null" >
+        bond_underwriting_num = #{bondUnderwritingNum,jdbcType=REAL},
+      </if>
+      <if test="bondUnderwritingNumRank != null" >
+        bond_underwriting_num_rank = #{bondUnderwritingNumRank,jdbcType=INTEGER},
+      </if>
+      <if test="bondUnderwritingMoney != null" >
+        bond_underwriting_money = #{bondUnderwritingMoney,jdbcType=REAL},
+      </if>
+      <if test="bondUnderwritingMoneyRank != null" >
+        bond_underwriting_money_rank = #{bondUnderwritingMoneyRank,jdbcType=INTEGER},
+      </if>
+      <if test="bondUnderwritingIncome != null" >
+        bond_underwriting_income = #{bondUnderwritingIncome,jdbcType=REAL},
+      </if>
+      <if test="bondUnderwritingIncomeRank != null" >
+        bond_underwriting_income_rank = #{bondUnderwritingIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="adviserIncome != null" >
+        adviser_income = #{adviserIncome,jdbcType=REAL},
+      </if>
+      <if test="adviserIncomeRank != null" >
+        adviser_income_rank = #{adviserIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="mergersAdviserIncome != null" >
+        mergers_adviser_income = #{mergersAdviserIncome,jdbcType=REAL},
+      </if>
+      <if test="mergersAdviserIncomeRank != null" >
+        mergers_adviser_income_rank = #{mergersAdviserIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="consultIncome != null" >
+        consult_income = #{consultIncome,jdbcType=REAL},
+      </if>
+      <if test="consultIncomeRank != null" >
+        consult_income_rank = #{consultIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="financingIncome != null" >
+        financing_income = #{financingIncome,jdbcType=REAL},
+      </if>
+      <if test="financingIncomeRank != null" >
+        financing_income_rank = #{financingIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="financingInterestIncome != null" >
+        financing_interest_income = #{financingInterestIncome,jdbcType=REAL},
+      </if>
+      <if test="financingInterestIncomeRank != null" >
+        financing_interest_income_rank = #{financingInterestIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="financingBalance != null" >
+        financing_balance = #{financingBalance,jdbcType=REAL},
+      </if>
+      <if test="financingBalanceRank != null" >
+        financing_balance_rank = #{financingBalanceRank,jdbcType=INTEGER},
+      </if>
+      <if test="repurchaseIncome != null" >
+        repurchase_income = #{repurchaseIncome,jdbcType=REAL},
+      </if>
+      <if test="repurchaseIncomeRank != null" >
+        repurchase_income_rank = #{repurchaseIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="repurchaseScale != null" >
+        repurchase_scale = #{repurchaseScale,jdbcType=REAL},
+      </if>
+      <if test="repurchaseScaleRank != null" >
+        repurchase_scale_rank = #{repurchaseScaleRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockPledgeIncome != null" >
+        stock_pledge_income = #{stockPledgeIncome,jdbcType=REAL},
+      </if>
+      <if test="stockPledgeIncomeRank != null" >
+        stock_pledge_income_rank = #{stockPledgeIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockPledgeScale != null" >
+        stock_pledge_scale = #{stockPledgeScale,jdbcType=REAL},
+      </if>
+      <if test="stockPledgeScaleRank != null" >
+        stock_pledge_scale_rank = #{stockPledgeScaleRank,jdbcType=INTEGER},
+      </if>
+      <if test="securityIncome != null" >
+        security_income = #{securityIncome,jdbcType=REAL},
+      </if>
+      <if test="securityIncomeRank != null" >
+        security_income_rank = #{securityIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockIncome != null" >
+        stock_income = #{stockIncome,jdbcType=REAL},
+      </if>
+      <if test="stockIncomeRank != null" >
+        stock_income_rank = #{stockIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="activeAsset != null" >
+        active_asset = #{activeAsset,jdbcType=REAL},
+      </if>
+      <if test="activeAssetRank != null" >
+        active_asset_rank = #{activeAssetRank,jdbcType=INTEGER},
+      </if>
+      <if test="stocksBondMoney != null" >
+        stocks_bond_money = #{stocksBondMoney,jdbcType=REAL},
+      </if>
+      <if test="stocksBondMoneyRank != null" >
+        stocks_bond_money_rank = #{stocksBondMoneyRank,jdbcType=INTEGER},
+      </if>
+      <if test="stocksBondNum != null" >
+        stocks_bond_num = #{stocksBondNum,jdbcType=REAL},
+      </if>
+      <if test="stocksBondNumRank != null" >
+        stocks_bond_num_rank = #{stocksBondNumRank,jdbcType=INTEGER},
+      </if>
+      <if test="tradeBalance != null" >
+        trade_balance = #{tradeBalance,jdbcType=REAL},
+      </if>
+      <if test="tradeBalanceRank != null" >
+        trade_balance_rank = #{tradeBalanceRank,jdbcType=INTEGER},
+      </if>
+      <if test="departmentIncomeAbove != null" >
+        department_income_above = #{departmentIncomeAbove,jdbcType=REAL},
+      </if>
+      <if test="departmentIncomeAboveRank != null" >
+        department_income_above_rank = #{departmentIncomeAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="agentIncomeAbove != null" >
+        agent_income_above = #{agentIncomeAbove,jdbcType=REAL},
+      </if>
+      <if test="agentIncomeAboveRank != null" >
+        agent_income_above_rank = #{agentIncomeAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="mergeEtcAbove != null" >
+        merge_etc_above = #{mergeEtcAbove,jdbcType=REAL},
+      </if>
+      <if test="mergeEtcAboveRank != null" >
+        merge_etc_above_rank = #{mergeEtcAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="capitalGainsAbove != null" >
+        capital_gains_above = #{capitalGainsAbove,jdbcType=REAL},
+      </if>
+      <if test="capitalGainsAboveRank != null" >
+        capital_gains_above_rank = #{capitalGainsAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="agentGrowthAbove != null" >
+        agent_growth_above = #{agentGrowthAbove,jdbcType=REAL},
+      </if>
+      <if test="agentGrowthAboveRank != null" >
+        agent_growth_above_rank = #{agentGrowthAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="mergeetcGrowthAbove != null" >
+        mergeetc_growth_above = #{mergeetcGrowthAbove,jdbcType=REAL},
+      </if>
+      <if test="mergeetcGrowthAboveRank != null" >
+        mergeetc_growth_above_rank = #{mergeetcGrowthAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="assetGrowthAbove != null" >
+        asset_growth_above = #{assetGrowthAbove,jdbcType=REAL},
+      </if>
+      <if test="assetGrowthAboveRank != null" >
+        asset_growth_above_rank = #{assetGrowthAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="totalTrustFund != null" >
+        total_trust_fund = #{totalTrustFund,jdbcType=REAL},
+      </if>
+      <if test="totalTrustFundRank != null" >
+        total_trust_fund_rank = #{totalTrustFundRank,jdbcType=INTEGER},
+      </if>
+      <if test="totalTrustIncome != null" >
+        total_trust_income = #{totalTrustIncome,jdbcType=REAL},
+      </if>
+      <if test="totalTrustIncomeRank != null" >
+        total_trust_income_rank = #{totalTrustIncomeRank,jdbcType=INTEGER},
+      </if>
+      <if test="capitalSumAbove != null" >
+        capital_sum_above = #{capitalSumAbove,jdbcType=REAL},
+      </if>
+      <if test="capitalSumAboveRank != null" >
+        capital_sum_above_rank = #{capitalSumAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="avgIncomeAbove != null" >
+        avg_income_above = #{avgIncomeAbove,jdbcType=REAL},
+      </if>
+      <if test="avgIncomeAboveRank != null" >
+        avg_income_above_rank = #{avgIncomeAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="consultantIncomeAbove != null" >
+        consultant_income_above = #{consultantIncomeAbove,jdbcType=REAL},
+      </if>
+      <if test="consultantIncomeAboveRank != null" >
+        consultant_income_above_rank = #{consultantIncomeAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="consultantGrowth != null" >
+        consultant_growth = #{consultantGrowth,jdbcType=REAL},
+      </if>
+      <if test="consultantGrowthRank != null" >
+        consultant_growth_rank = #{consultantGrowthRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockTradeMoney != null" >
+        stock_trade_money = #{stockTradeMoney,jdbcType=REAL},
+      </if>
+      <if test="stockTradeMoneyRank != null" >
+        stock_trade_money_rank = #{stockTradeMoneyRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockbondManAbove != null" >
+        stockbond_man_above = #{stockbondManAbove,jdbcType=REAL},
+      </if>
+      <if test="stockbondManAboveRank != null" >
+        stockbond_man_above_rank = #{stockbondManAboveRank,jdbcType=INTEGER},
+      </if>
+      <if test="cxbjGrowth != null" >
+        cxbj_growth = #{cxbjGrowth,jdbcType=REAL},
+      </if>
+      <if test="cxbjGrowthRank != null" >
+        cxbj_growth_rank = #{cxbjGrowthRank,jdbcType=INTEGER},
+      </if>
+      <if test="assetManageGrowth != null" >
+        asset_manage_growth = #{assetManageGrowth,jdbcType=REAL},
+      </if>
+      <if test="assetManageGrowthRank != null" >
+        asset_manage_growth_rank = #{assetManageGrowthRank,jdbcType=INTEGER},
+      </if>
+      <if test="brokerIncomeGrowth != null" >
+        broker_income_growth = #{brokerIncomeGrowth,jdbcType=REAL},
+      </if>
+      <if test="brokerIncomeGrowthRank != null" >
+        broker_income_growth_rank = #{brokerIncomeGrowthRank,jdbcType=INTEGER},
+      </if>
+      <if test="gjzqTotalAmount != null" >
+        gjzq_total_amount = #{gjzqTotalAmount,jdbcType=REAL},
+      </if>
+      <if test="gjzqTotalAmountRank != null" >
+        gjzq_total_amount_rank = #{gjzqTotalAmountRank,jdbcType=INTEGER},
+      </if>
+      <if test="settlementFundBalance != null" >
+        settlement_fund_balance = #{settlementFundBalance,jdbcType=REAL},
+      </if>
+      <if test="settlementFundBalanceRank != null" >
+        settlement_fund_balance_rank = #{settlementFundBalanceRank,jdbcType=INTEGER},
+      </if>
+      <if test="brokeShare != null" >
+        broke_share = #{brokeShare,jdbcType=REAL},
+      </if>
+      <if test="brokeShareRank != null" >
+        broke_share_rank = #{brokeShareRank,jdbcType=INTEGER},
+      </if>
+      <if test="underwritingShare != null" >
+        underwriting_share = #{underwritingShare,jdbcType=REAL},
+      </if>
+      <if test="underwritingShareRank != null" >
+        underwriting_share_rank = #{underwritingShareRank,jdbcType=INTEGER},
+      </if>
+      <if test="minusAssetsTotal != null" >
+        minus_assets_total = #{minusAssetsTotal,jdbcType=REAL},
+      </if>
+      <if test="minusAssetsTotalRank != null" >
+        minus_assets_total_rank = #{minusAssetsTotalRank,jdbcType=INTEGER},
+      </if>
+      <if test="minusAvgTotal != null" >
+        minus_avg_total = #{minusAvgTotal,jdbcType=REAL},
+      </if>
+      <if test="minusAvgTotalRank != null" >
+        minus_avg_total_rank = #{minusAvgTotalRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockFundMoney != null" >
+        stock_fund_money = #{stockFundMoney,jdbcType=REAL},
+      </if>
+      <if test="stockFundMoneyRank != null" >
+        stock_fund_money_rank = #{stockFundMoneyRank,jdbcType=INTEGER},
+      </if>
+      <if test="stockFundSpecial != null" >
+        stock_fund_special = #{stockFundSpecial,jdbcType=REAL},
+      </if>
+      <if test="stockFundSpecialRank != null" >
+        stock_fund_special_rank = #{stockFundSpecialRank,jdbcType=INTEGER},
+      </if>
+      <if test="reformSponsoNum != null" >
+        reform_sponso_num = #{reformSponsoNum,jdbcType=REAL},
+      </if>
+      <if test="reformSponsoNumRank != null" >
+        reform_sponso_num_rank = #{reformSponsoNumRank,jdbcType=INTEGER},
+      </if>
+      <if test="minusLossTotal != null" >
+        minus_loss_total = #{minusLossTotal,jdbcType=REAL},
+      </if>
+      <if test="minusLossTotalRank != null" >
+        minus_loss_total_rank = #{minusLossTotalRank,jdbcType=INTEGER},
+      </if>
+      <if test="lossAvgToatl != null" >
+        loss_avg_toatl = #{lossAvgToatl,jdbcType=REAL},
+      </if>
+      <if test="lossAvgToatlRank != null" >
+        loss_avg_toatl_rank = #{lossAvgToatlRank,jdbcType=INTEGER},
+      </if>
+      <if test="profitTotal != null" >
+        profit_total = #{profitTotal,jdbcType=REAL},
+      </if>
+      <if test="profitTotalRank != null" >
+        profit_total_rank = #{profitTotalRank,jdbcType=INTEGER},
+      </if>
+      <if test="avgProfitTotal != null" >
+        avg_profit_total = #{avgProfitTotal,jdbcType=REAL},
+      </if>
+      <if test="avgProfitTotalRank != null" >
+        avg_profit_total_rank = #{avgProfitTotalRank,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.BrokerOperateRank" >
+    update broker_operate_rank
+    set name = #{name,jdbcType=VARCHAR},
+      year = #{year,jdbcType=INTEGER},
+      total_assets = #{totalAssets,jdbcType=REAL},
+      total_assets_rank = #{totalAssetsRank,jdbcType=INTEGER},
+      net_assets = #{netAssets,jdbcType=REAL},
+      net_assets_rank = #{netAssetsRank,jdbcType=INTEGER},
+      business_income = #{businessIncome,jdbcType=REAL},
+      business_income_rank = #{businessIncomeRank,jdbcType=INTEGER},
+      income_growth = #{incomeGrowth,jdbcType=REAL},
+      income_growth_rank = #{incomeGrowthRank,jdbcType=INTEGER},
+      net_profit = #{netProfit,jdbcType=REAL},
+      net_profit_rank = #{netProfitRank,jdbcType=INTEGER},
+      profit_growth = #{profitGrowth,jdbcType=REAL},
+      profit_growth_rank = #{profitGrowthRank,jdbcType=INTEGER},
+      assets_yield = #{assetsYield,jdbcType=REAL},
+      assets_yield_rank = #{assetsYieldRank,jdbcType=INTEGER},
+      cost_management = #{costManagement,jdbcType=REAL},
+      cost_management_rank = #{costManagementRank,jdbcType=INTEGER},
+      average_profit = #{averageProfit,jdbcType=REAL},
+      average_profit_rank = #{averageProfitRank,jdbcType=INTEGER},
+      public_expendit = #{publicExpendit,jdbcType=REAL},
+      public_expendit_rank = #{publicExpenditRank,jdbcType=INTEGER},
+      net_capital = #{netCapital,jdbcType=REAL},
+      net_capital_rank = #{netCapitalRank,jdbcType=INTEGER},
+      capital_yield = #{capitalYield,jdbcType=REAL},
+      capital_yield_rank = #{capitalYieldRank,jdbcType=INTEGER},
+      risk_coverage = #{riskCoverage,jdbcType=REAL},
+      risk_coverage_rank = #{riskCoverageRank,jdbcType=INTEGER},
+      financial_leverage = #{financialLeverage,jdbcType=REAL},
+      financial_leverage_rank = #{financialLeverageRank,jdbcType=INTEGER},
+      customer_balance = #{customerBalance,jdbcType=REAL},
+      customer_balance_rank = #{customerBalanceRank,jdbcType=INTEGER},
+      escrow_securities = #{escrowSecurities,jdbcType=REAL},
+      escrow_securities_rank = #{escrowSecuritiesRank,jdbcType=INTEGER},
+      trade_income_lease = #{tradeIncomeLease,jdbcType=REAL},
+      trade_income_lease_rank = #{tradeIncomeLeaseRank,jdbcType=INTEGER},
+      trade_income = #{tradeIncome,jdbcType=REAL},
+      trade_income_rank = #{tradeIncomeRank,jdbcType=INTEGER},
+      rental_income = #{rentalIncome,jdbcType=REAL},
+      rental_income_rank = #{rentalIncomeRank,jdbcType=INTEGER},
+      department_avg_income = #{departmentAvgIncome,jdbcType=REAL},
+      department_avg_income_rank = #{departmentAvgIncomeRank,jdbcType=INTEGER},
+      finance_income = #{financeIncome,jdbcType=REAL},
+      finance_income_rank = #{financeIncomeRank,jdbcType=INTEGER},
+      finance_scale = #{financeScale,jdbcType=REAL},
+      finance_scale_rank = #{financeScaleRank,jdbcType=INTEGER},
+      management_fund = #{managementFund,jdbcType=REAL},
+      management_fund_rank = #{managementFundRank,jdbcType=INTEGER},
+      management_income = #{managementIncome,jdbcType=REAL},
+      management_income_rank = #{managementIncomeRank,jdbcType=INTEGER},
+      bank_income = #{bankIncome,jdbcType=REAL},
+      bank_income_rank = #{bankIncomeRank,jdbcType=INTEGER},
+      underwriting_sponsor_income = #{underwritingSponsorIncome,jdbcType=REAL},
+      underwriting_sponsor_income_rank = #{underwritingSponsorIncomeRank,jdbcType=INTEGER},
+      stock_underwriting_num = #{stockUnderwritingNum,jdbcType=REAL},
+      stock_underwriting_num_rank = #{stockUnderwritingNumRank,jdbcType=INTEGER},
+      stock_underwriting_money = #{stockUnderwritingMoney,jdbcType=REAL},
+      stock_underwriting_money_rank = #{stockUnderwritingMoneyRank,jdbcType=INTEGER},
+      stock_underwriting_income = #{stockUnderwritingIncome,jdbcType=REAL},
+      stock_underwriting_income_rank = #{stockUnderwritingIncomeRank,jdbcType=INTEGER},
+      bond_underwriting_num = #{bondUnderwritingNum,jdbcType=REAL},
+      bond_underwriting_num_rank = #{bondUnderwritingNumRank,jdbcType=INTEGER},
+      bond_underwriting_money = #{bondUnderwritingMoney,jdbcType=REAL},
+      bond_underwriting_money_rank = #{bondUnderwritingMoneyRank,jdbcType=INTEGER},
+      bond_underwriting_income = #{bondUnderwritingIncome,jdbcType=REAL},
+      bond_underwriting_income_rank = #{bondUnderwritingIncomeRank,jdbcType=INTEGER},
+      adviser_income = #{adviserIncome,jdbcType=REAL},
+      adviser_income_rank = #{adviserIncomeRank,jdbcType=INTEGER},
+      mergers_adviser_income = #{mergersAdviserIncome,jdbcType=REAL},
+      mergers_adviser_income_rank = #{mergersAdviserIncomeRank,jdbcType=INTEGER},
+      consult_income = #{consultIncome,jdbcType=REAL},
+      consult_income_rank = #{consultIncomeRank,jdbcType=INTEGER},
+      financing_income = #{financingIncome,jdbcType=REAL},
+      financing_income_rank = #{financingIncomeRank,jdbcType=INTEGER},
+      financing_interest_income = #{financingInterestIncome,jdbcType=REAL},
+      financing_interest_income_rank = #{financingInterestIncomeRank,jdbcType=INTEGER},
+      financing_balance = #{financingBalance,jdbcType=REAL},
+      financing_balance_rank = #{financingBalanceRank,jdbcType=INTEGER},
+      repurchase_income = #{repurchaseIncome,jdbcType=REAL},
+      repurchase_income_rank = #{repurchaseIncomeRank,jdbcType=INTEGER},
+      repurchase_scale = #{repurchaseScale,jdbcType=REAL},
+      repurchase_scale_rank = #{repurchaseScaleRank,jdbcType=INTEGER},
+      stock_pledge_income = #{stockPledgeIncome,jdbcType=REAL},
+      stock_pledge_income_rank = #{stockPledgeIncomeRank,jdbcType=INTEGER},
+      stock_pledge_scale = #{stockPledgeScale,jdbcType=REAL},
+      stock_pledge_scale_rank = #{stockPledgeScaleRank,jdbcType=INTEGER},
+      security_income = #{securityIncome,jdbcType=REAL},
+      security_income_rank = #{securityIncomeRank,jdbcType=INTEGER},
+      stock_income = #{stockIncome,jdbcType=REAL},
+      stock_income_rank = #{stockIncomeRank,jdbcType=INTEGER},
+      active_asset = #{activeAsset,jdbcType=REAL},
+      active_asset_rank = #{activeAssetRank,jdbcType=INTEGER},
+      stocks_bond_money = #{stocksBondMoney,jdbcType=REAL},
+      stocks_bond_money_rank = #{stocksBondMoneyRank,jdbcType=INTEGER},
+      stocks_bond_num = #{stocksBondNum,jdbcType=REAL},
+      stocks_bond_num_rank = #{stocksBondNumRank,jdbcType=INTEGER},
+      trade_balance = #{tradeBalance,jdbcType=REAL},
+      trade_balance_rank = #{tradeBalanceRank,jdbcType=INTEGER},
+      department_income_above = #{departmentIncomeAbove,jdbcType=REAL},
+      department_income_above_rank = #{departmentIncomeAboveRank,jdbcType=INTEGER},
+      agent_income_above = #{agentIncomeAbove,jdbcType=REAL},
+      agent_income_above_rank = #{agentIncomeAboveRank,jdbcType=INTEGER},
+      merge_etc_above = #{mergeEtcAbove,jdbcType=REAL},
+      merge_etc_above_rank = #{mergeEtcAboveRank,jdbcType=INTEGER},
+      capital_gains_above = #{capitalGainsAbove,jdbcType=REAL},
+      capital_gains_above_rank = #{capitalGainsAboveRank,jdbcType=INTEGER},
+      agent_growth_above = #{agentGrowthAbove,jdbcType=REAL},
+      agent_growth_above_rank = #{agentGrowthAboveRank,jdbcType=INTEGER},
+      mergeetc_growth_above = #{mergeetcGrowthAbove,jdbcType=REAL},
+      mergeetc_growth_above_rank = #{mergeetcGrowthAboveRank,jdbcType=INTEGER},
+      asset_growth_above = #{assetGrowthAbove,jdbcType=REAL},
+      asset_growth_above_rank = #{assetGrowthAboveRank,jdbcType=INTEGER},
+      total_trust_fund = #{totalTrustFund,jdbcType=REAL},
+      total_trust_fund_rank = #{totalTrustFundRank,jdbcType=INTEGER},
+      total_trust_income = #{totalTrustIncome,jdbcType=REAL},
+      total_trust_income_rank = #{totalTrustIncomeRank,jdbcType=INTEGER},
+      capital_sum_above = #{capitalSumAbove,jdbcType=REAL},
+      capital_sum_above_rank = #{capitalSumAboveRank,jdbcType=INTEGER},
+      avg_income_above = #{avgIncomeAbove,jdbcType=REAL},
+      avg_income_above_rank = #{avgIncomeAboveRank,jdbcType=INTEGER},
+      consultant_income_above = #{consultantIncomeAbove,jdbcType=REAL},
+      consultant_income_above_rank = #{consultantIncomeAboveRank,jdbcType=INTEGER},
+      consultant_growth = #{consultantGrowth,jdbcType=REAL},
+      consultant_growth_rank = #{consultantGrowthRank,jdbcType=INTEGER},
+      stock_trade_money = #{stockTradeMoney,jdbcType=REAL},
+      stock_trade_money_rank = #{stockTradeMoneyRank,jdbcType=INTEGER},
+      stockbond_man_above = #{stockbondManAbove,jdbcType=REAL},
+      stockbond_man_above_rank = #{stockbondManAboveRank,jdbcType=INTEGER},
+      cxbj_growth = #{cxbjGrowth,jdbcType=REAL},
+      cxbj_growth_rank = #{cxbjGrowthRank,jdbcType=INTEGER},
+      asset_manage_growth = #{assetManageGrowth,jdbcType=REAL},
+      asset_manage_growth_rank = #{assetManageGrowthRank,jdbcType=INTEGER},
+      broker_income_growth = #{brokerIncomeGrowth,jdbcType=REAL},
+      broker_income_growth_rank = #{brokerIncomeGrowthRank,jdbcType=INTEGER},
+      gjzq_total_amount = #{gjzqTotalAmount,jdbcType=REAL},
+      gjzq_total_amount_rank = #{gjzqTotalAmountRank,jdbcType=INTEGER},
+      settlement_fund_balance = #{settlementFundBalance,jdbcType=REAL},
+      settlement_fund_balance_rank = #{settlementFundBalanceRank,jdbcType=INTEGER},
+      broke_share = #{brokeShare,jdbcType=REAL},
+      broke_share_rank = #{brokeShareRank,jdbcType=INTEGER},
+      underwriting_share = #{underwritingShare,jdbcType=REAL},
+      underwriting_share_rank = #{underwritingShareRank,jdbcType=INTEGER},
+      minus_assets_total = #{minusAssetsTotal,jdbcType=REAL},
+      minus_assets_total_rank = #{minusAssetsTotalRank,jdbcType=INTEGER},
+      minus_avg_total = #{minusAvgTotal,jdbcType=REAL},
+      minus_avg_total_rank = #{minusAvgTotalRank,jdbcType=INTEGER},
+      stock_fund_money = #{stockFundMoney,jdbcType=REAL},
+      stock_fund_money_rank = #{stockFundMoneyRank,jdbcType=INTEGER},
+      stock_fund_special = #{stockFundSpecial,jdbcType=REAL},
+      stock_fund_special_rank = #{stockFundSpecialRank,jdbcType=INTEGER},
+      reform_sponso_num = #{reformSponsoNum,jdbcType=REAL},
+      reform_sponso_num_rank = #{reformSponsoNumRank,jdbcType=INTEGER},
+      minus_loss_total = #{minusLossTotal,jdbcType=REAL},
+      minus_loss_total_rank = #{minusLossTotalRank,jdbcType=INTEGER},
+      loss_avg_toatl = #{lossAvgToatl,jdbcType=REAL},
+      loss_avg_toatl_rank = #{lossAvgToatlRank,jdbcType=INTEGER},
+      profit_total = #{profitTotal,jdbcType=REAL},
+      profit_total_rank = #{profitTotalRank,jdbcType=INTEGER},
+      avg_profit_total = #{avgProfitTotal,jdbcType=REAL},
+      avg_profit_total_rank = #{avgProfitTotalRank,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <select id="selectQsRank" resultType="hashmap" parameterType="hashmap" >
+	select *
+	FROM broker_operate_rank 
+	LEFT JOIN `company_schema` ON (broker_operate_rank.`name` = company_schema.`full_name` OR broker_operate_rank.`name` = company_schema.`short_name`)
+	LEFT JOIN broker_grade_rank ON broker_operate_rank.`name` = broker_grade_rank.`comname` AND broker_operate_rank.`year` = broker_grade_rank.`year`
+	where 1=1 
+	<if test="year != null" >
+      	and broker_operate_rank.year = #{year}
+    </if>
+    order by broker_operate_rank.total_assets desc
+	<if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+  <select id="selectName" resultType="String" parameterType="hashmap" >
+	select DISTINCT(name) name
+	FROM broker_operate_rank 
+	left join company_schema on (broker_operate_rank.name = company_schema.`short_name` or broker_operate_rank.name = company_schema.`full_name` )
+	where 1=1 
+	<if test="brokerName != null" >
+       and  (company_schema.`full_name`= #{brokerName} or company_schema.`short_name` = #{brokerName} or broker_operate_rank.name = #{brokerName})
+      </if>
+  </select>
+  
+  <select id="selectId" resultType="java.lang.String" parameterType="java.lang.String" >
+	select DISTINCT(broker_operate_rank.id) id
+	FROM broker_operate_rank 
+	left join company_schema on (broker_operate_rank.name = company_schema.`short_name` or broker_operate_rank.name = company_schema.`full_name`)
+	where 1=1 
+    AND (company_schema.`full_name`= '${_parameter}'  OR company_schema.`short_name` = '${_parameter}'  OR broker_operate_rank.name = '${_parameter}' )
+  </select>
+  
+  
+   <select id="selectBrokerRankMaxDate" resultType="java.lang.String" >
+   SELECT MAX(YEAR) FROM broker_operate_rank
+  </select>
+  
+</mapper>

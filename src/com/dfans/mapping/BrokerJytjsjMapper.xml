@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.BrokerJytjsjMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.BrokerJytjsj" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="quarter" property="quarter" jdbcType="INTEGER" />
+    <result column="zzc" property="zzc" jdbcType="REAL" />
+    <result column="jzc" property="jzc" jdbcType="REAL" />
+    <result column="jzb" property="jzb" jdbcType="REAL" />
+    <result column="khjyjszjye" property="khjyjszjye" jdbcType="REAL" />
+    <result column="tgzqsz" property="tgzqsz" jdbcType="REAL" />
+    <result column="stglzbj" property="stglzbj" jdbcType="REAL" />
+    <result column="yysr" property="yysr" jdbcType="REAL" />
+    <result column="dlmmzqjsr" property="dlmmzqjsr" jdbcType="REAL" />
+    <result column="zqcxbjjsr" property="zqcxbjjsr" jdbcType="REAL" />
+    <result column="cwgwjsr" property="cwgwjsr" jdbcType="REAL" />
+    <result column="tzzxjsr" property="tzzxjsr" jdbcType="REAL" />
+    <result column="zcgljsr" property="zcgljsr" jdbcType="REAL" />
+    <result column="zqtzsy" property="zqtzsy" jdbcType="REAL" />
+    <result column="lxjsr" property="lxjsr" jdbcType="REAL" />
+    <result column="jlr" property="jlr" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, year, quarter, zzc, jzc, jzb, khjyjszjye, tgzqsz, stglzbj, yysr, dlmmzqjsr, zqcxbjjsr, 
+    cwgwjsr, tzzxjsr, zcgljsr, zqtzsy, lxjsr, jlr
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from broker_jytjsj
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from broker_jytjsj where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from broker_jytjsj 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from broker_jytjsj
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.BrokerJytjsj" >
+    insert into broker_jytjsj (id, year, quarter, 
+      zzc, jzc, jzb, khjyjszjye, 
+      tgzqsz, stglzbj, yysr, dlmmzqjsr, 
+      zqcxbjjsr, cwgwjsr, tzzxjsr, 
+      zcgljsr, zqtzsy, lxjsr, jlr
+      )
+    values (#{id,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{quarter,jdbcType=INTEGER}, 
+      #{zzc,jdbcType=REAL}, #{jzc,jdbcType=REAL}, #{jzb,jdbcType=REAL}, #{khjyjszjye,jdbcType=REAL}, 
+      #{tgzqsz,jdbcType=REAL}, #{stglzbj,jdbcType=REAL}, #{yysr,jdbcType=REAL}, #{dlmmzqjsr,jdbcType=REAL}, 
+      #{zqcxbjjsr,jdbcType=REAL}, #{cwgwjsr,jdbcType=REAL}, #{tzzxjsr,jdbcType=REAL}, 
+      #{zcgljsr,jdbcType=REAL}, #{zqtzsy,jdbcType=REAL}, #{lxjsr,jdbcType=REAL}, #{jlr,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.BrokerJytjsj" >
+    insert into broker_jytjsj
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="quarter != null" >
+        quarter,
+      </if>
+      <if test="zzc != null" >
+        zzc,
+      </if>
+      <if test="jzc != null" >
+        jzc,
+      </if>
+      <if test="jzb != null" >
+        jzb,
+      </if>
+      <if test="khjyjszjye != null" >
+        khjyjszjye,
+      </if>
+      <if test="tgzqsz != null" >
+        tgzqsz,
+      </if>
+      <if test="stglzbj != null" >
+        stglzbj,
+      </if>
+      <if test="yysr != null" >
+        yysr,
+      </if>
+      <if test="dlmmzqjsr != null" >
+        dlmmzqjsr,
+      </if>
+      <if test="zqcxbjjsr != null" >
+        zqcxbjjsr,
+      </if>
+      <if test="cwgwjsr != null" >
+        cwgwjsr,
+      </if>
+      <if test="tzzxjsr != null" >
+        tzzxjsr,
+      </if>
+      <if test="zcgljsr != null" >
+        zcgljsr,
+      </if>
+      <if test="zqtzsy != null" >
+        zqtzsy,
+      </if>
+      <if test="lxjsr != null" >
+        lxjsr,
+      </if>
+      <if test="jlr != null" >
+        jlr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="zzc != null" >
+        #{zzc,jdbcType=REAL},
+      </if>
+      <if test="jzc != null" >
+        #{jzc,jdbcType=REAL},
+      </if>
+      <if test="jzb != null" >
+        #{jzb,jdbcType=REAL},
+      </if>
+      <if test="khjyjszjye != null" >
+        #{khjyjszjye,jdbcType=REAL},
+      </if>
+      <if test="tgzqsz != null" >
+        #{tgzqsz,jdbcType=REAL},
+      </if>
+      <if test="stglzbj != null" >
+        #{stglzbj,jdbcType=REAL},
+      </if>
+      <if test="yysr != null" >
+        #{yysr,jdbcType=REAL},
+      </if>
+      <if test="dlmmzqjsr != null" >
+        #{dlmmzqjsr,jdbcType=REAL},
+      </if>
+      <if test="zqcxbjjsr != null" >
+        #{zqcxbjjsr,jdbcType=REAL},
+      </if>
+      <if test="cwgwjsr != null" >
+        #{cwgwjsr,jdbcType=REAL},
+      </if>
+      <if test="tzzxjsr != null" >
+        #{tzzxjsr,jdbcType=REAL},
+      </if>
+      <if test="zcgljsr != null" >
+        #{zcgljsr,jdbcType=REAL},
+      </if>
+      <if test="zqtzsy != null" >
+        #{zqtzsy,jdbcType=REAL},
+      </if>
+      <if test="lxjsr != null" >
+        #{lxjsr,jdbcType=REAL},
+      </if>
+      <if test="jlr != null" >
+        #{jlr,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.BrokerJytjsj" >
+    update broker_jytjsj
+    <set >
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        quarter = #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="zzc != null" >
+        zzc = #{zzc,jdbcType=REAL},
+      </if>
+      <if test="jzc != null" >
+        jzc = #{jzc,jdbcType=REAL},
+      </if>
+      <if test="jzb != null" >
+        jzb = #{jzb,jdbcType=REAL},
+      </if>
+      <if test="khjyjszjye != null" >
+        khjyjszjye = #{khjyjszjye,jdbcType=REAL},
+      </if>
+      <if test="tgzqsz != null" >
+        tgzqsz = #{tgzqsz,jdbcType=REAL},
+      </if>
+      <if test="stglzbj != null" >
+        stglzbj = #{stglzbj,jdbcType=REAL},
+      </if>
+      <if test="yysr != null" >
+        yysr = #{yysr,jdbcType=REAL},
+      </if>
+      <if test="dlmmzqjsr != null" >
+        dlmmzqjsr = #{dlmmzqjsr,jdbcType=REAL},
+      </if>
+      <if test="zqcxbjjsr != null" >
+        zqcxbjjsr = #{zqcxbjjsr,jdbcType=REAL},
+      </if>
+      <if test="cwgwjsr != null" >
+        cwgwjsr = #{cwgwjsr,jdbcType=REAL},
+      </if>
+      <if test="tzzxjsr != null" >
+        tzzxjsr = #{tzzxjsr,jdbcType=REAL},
+      </if>
+      <if test="zcgljsr != null" >
+        zcgljsr = #{zcgljsr,jdbcType=REAL},
+      </if>
+      <if test="zqtzsy != null" >
+        zqtzsy = #{zqtzsy,jdbcType=REAL},
+      </if>
+      <if test="lxjsr != null" >
+        lxjsr = #{lxjsr,jdbcType=REAL},
+      </if>
+      <if test="jlr != null" >
+        jlr = #{jlr,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.BrokerJytjsj" >
+    update broker_jytjsj
+    set year = #{year,jdbcType=INTEGER},
+      quarter = #{quarter,jdbcType=INTEGER},
+      zzc = #{zzc,jdbcType=REAL},
+      jzc = #{jzc,jdbcType=REAL},
+      jzb = #{jzb,jdbcType=REAL},
+      khjyjszjye = #{khjyjszjye,jdbcType=REAL},
+      tgzqsz = #{tgzqsz,jdbcType=REAL},
+      stglzbj = #{stglzbj,jdbcType=REAL},
+      yysr = #{yysr,jdbcType=REAL},
+      dlmmzqjsr = #{dlmmzqjsr,jdbcType=REAL},
+      zqcxbjjsr = #{zqcxbjjsr,jdbcType=REAL},
+      cwgwjsr = #{cwgwjsr,jdbcType=REAL},
+      tzzxjsr = #{tzzxjsr,jdbcType=REAL},
+      zcgljsr = #{zcgljsr,jdbcType=REAL},
+      zqtzsy = #{zqtzsy,jdbcType=REAL},
+      lxjsr = #{lxjsr,jdbcType=REAL},
+      jlr = #{jlr,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectFinancialTjYear" resultType="hashmap" parameterType="hashmap" >
+  SELECT id,year,quarter,zzc,jzc,jzb,khjyjszjye,
+  tgzqsz,stglzbj,yysr,dlmmzqjsr,zqcxbjjsr,
+  cwgwjsr,tzzxjsr,zcgljsr,zqtzsy,lxjsr,jlr 
+  FROM broker_jytjsj WHERE QUARTER = 4  ORDER BY YEAR DESC
+  </select>
+  <select id="getCount" resultType="hashmap" parameterType="hashmap" >
+  SELECT COUNT(*) count,YEAR FROM broker_jytjsj GROUP BY YEAR ORDER BY YEAR DESC
+  </select>
+  
+ <!-- 
+ <select id="selectFinancialTjQuarter" resultType="hashmap" parameterType="hashmap" >
+ SELECT YEAR,QUARTER,(zzc1-zzc2) AS zzc ,(jzc1-jzc2) AS jzc,(jzb1-jzb2) AS jzb,(khjyjszjye1-khjyjszjye2) AS khjyjszjye,(tgzqsz1-tgzqsz2) AS tgzqsz,(stglzbj1-stglzbj2) AS stglzbj,
+ (yysr1-yysr2) AS yysr, (dlmmzqjsr1-dlmmzqjsr2) AS dlmmzqjsr, (zqcxbjjsr1-zqcxbjjsr2) AS zqcxbjjsr, (cwgwjsr1-cwgwjsr2) AS cwgwjsr,(tzzxjsr1-tzzxjsr2) AS tzzxjsr,(zcgljsr1-zcgljsr2) AS zcgljsr,
+ (zqtzsy1-zqtzsy2) AS zqtzsy,(lxjsr1-lxjsr2) AS lxjsr,(jlr1-jlr2) AS jlr
+  FROM (
+SELECT 
+a.zzc zzc1,a.year YEAR,a.`quarter` QUARTER ,a.`jzc` jzc1,a.`jzb` jzb1,a.`khjyjszjye` khjyjszjye1,a.`tgzqsz` tgzqsz1,a.`stglzbj` stglzbj1,a.`yysr` yysr1,a.`dlmmzqjsr` dlmmzqjsr1,a.`zqcxbjjsr` zqcxbjjsr1,a.`cwgwjsr` cwgwjsr1,a.`tzzxjsr` tzzxjsr1,a.`zcgljsr` zcgljsr1,a.`zqtzsy` zqtzsy1,a.`lxjsr` lxjsr1,a.`jlr` jlr1,
+b.zzc zzc2,b.`jzc` jzc2,b.`jzb` jzb2,b.`khjyjszjye` khjyjszjye2,b.`tgzqsz` tgzqsz2,b.`stglzbj` stglzbj2,b.`yysr` yysr2,b.`dlmmzqjsr` dlmmzqjsr2,b.`zqcxbjjsr` zqcxbjjsr2,b.`cwgwjsr` cwgwjsr2,b.`tzzxjsr` tzzxjsr2,b.`zcgljsr` zcgljsr2,b.`zqtzsy` zqtzsy2,b.`lxjsr` lxjsr2,b.`jlr` jlr2
+FROM broker_jytjsj a, broker_jytjsj b 
+WHERE a.quarter= b.quarter+1
+<if test="year !=null">
+ AND a.year =#{year} AND b.`year`=#{year} 
+</if> 
+<if test="page !=null">
+ limit ${page},${count}
+</if>
+ ) t
+UNION ALL 
+(
+SELECT YEAR,QUARTER,zzc,`jzc` ,`jzb`,`khjyjszjye`,`tgzqsz`,`stglzbj`,`yysr`,`dlmmzqjsr`,`zqcxbjjsr`,`cwgwjsr`,`tzzxjsr`,`zcgljsr`,`zqtzsy`,`lxjsr`,`jlr` 
+FROM broker_jytjsj 
+WHERE 1=1 
+<if test="year !=null">
+ AND year =#{year}
+</if> AND `quarter` = 1 
+<if test="page !=null">
+ limit ${page},${count}
+</if>
+)
+
+  </select>
+  --> 
+  
+   <select id="selectFinancialTjQuarter" resultType="hashmap" parameterType="hashmap" >
+	   SELECT YEAR,QUARTER,zzc,`jzc` ,`jzb`,`khjyjszjye`,`tgzqsz`,`stglzbj`,`yysr`,`dlmmzqjsr`,`zqcxbjjsr`,`cwgwjsr`,`tzzxjsr`,`zcgljsr`,`zqtzsy`,`lxjsr`,`jlr` 
+	FROM broker_jytjsj 
+	WHERE 1=1 
+	order by YEAR desc,QUARTER desc
+	<if test="page !=null">
+	 limit ${page},${count}
+	</if>
+   </select>
+</mapper>

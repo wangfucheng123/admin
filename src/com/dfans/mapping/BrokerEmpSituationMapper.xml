@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.BrokerEmpSituationMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.BrokerEmpSituation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="education" property="education" jdbcType="VARCHAR" />
+    <result column="certificate_num" property="certificateNum" jdbcType="VARCHAR" />
+    <result column="practice_institute" property="practiceInstitute" jdbcType="VARCHAR" />
+    <result column="practice_post" property="practicePost" jdbcType="VARCHAR" />
+    <result column="get_date" property="getDate" jdbcType="DATE" />
+    <result column="end_date" property="endDate" jdbcType="DATE" />
+    <result column="change_record" property="changeRecord" jdbcType="VARCHAR" />
+    <result column="credit_record" property="creditRecord" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, gender, education, certificate_num, practice_institute, practice_post, 
+    get_date, end_date, change_record, credit_record
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from broker_emp_situation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+   <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from broker_emp_situation where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from broker_emp_situation 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from broker_emp_situation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.BrokerEmpSituation" >
+    insert into broker_emp_situation (id, name, gender, 
+      education, certificate_num, practice_institute, 
+      practice_post, get_date, end_date, 
+      change_record, credit_record)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+      #{education,jdbcType=VARCHAR}, #{certificateNum,jdbcType=VARCHAR}, #{practiceInstitute,jdbcType=VARCHAR}, 
+      #{practicePost,jdbcType=VARCHAR}, #{getDate,jdbcType=DATE}, #{endDate,jdbcType=DATE}, 
+      #{changeRecord,jdbcType=VARCHAR}, #{creditRecord,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.BrokerEmpSituation" >
+    insert into broker_emp_situation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="certificateNum != null" >
+        certificate_num,
+      </if>
+      <if test="practiceInstitute != null" >
+        practice_institute,
+      </if>
+      <if test="practicePost != null" >
+        practice_post,
+      </if>
+      <if test="getDate != null" >
+        get_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="changeRecord != null" >
+        change_record,
+      </if>
+      <if test="creditRecord != null" >
+        credit_record,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNum != null" >
+        #{certificateNum,jdbcType=VARCHAR},
+      </if>
+      <if test="practiceInstitute != null" >
+        #{practiceInstitute,jdbcType=VARCHAR},
+      </if>
+      <if test="practicePost != null" >
+        #{practicePost,jdbcType=VARCHAR},
+      </if>
+      <if test="getDate != null" >
+        #{getDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="changeRecord != null" >
+        #{changeRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="creditRecord != null" >
+        #{creditRecord,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.BrokerEmpSituation" >
+    update broker_emp_situation
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNum != null" >
+        certificate_num = #{certificateNum,jdbcType=VARCHAR},
+      </if>
+      <if test="practiceInstitute != null" >
+        practice_institute = #{practiceInstitute,jdbcType=VARCHAR},
+      </if>
+      <if test="practicePost != null" >
+        practice_post = #{practicePost,jdbcType=VARCHAR},
+      </if>
+      <if test="getDate != null" >
+        get_date = #{getDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="changeRecord != null" >
+        change_record = #{changeRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="creditRecord != null" >
+        credit_record = #{creditRecord,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.BrokerEmpSituation" >
+    update broker_emp_situation
+    set name = #{name,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      education = #{education,jdbcType=VARCHAR},
+      certificate_num = #{certificateNum,jdbcType=VARCHAR},
+      practice_institute = #{practiceInstitute,jdbcType=VARCHAR},
+      practice_post = #{practicePost,jdbcType=VARCHAR},
+      get_date = #{getDate,jdbcType=DATE},
+      end_date = #{endDate,jdbcType=DATE},
+      change_record = #{changeRecord,jdbcType=VARCHAR},
+      credit_record = #{creditRecord,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

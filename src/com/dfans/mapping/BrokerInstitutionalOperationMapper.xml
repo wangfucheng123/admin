@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.BrokerInstitutionalOperationMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.BrokerInstitutionalOperation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="total_assets" property="totalAssets" jdbcType="VARCHAR" />
+    <result column="net_assets" property="netAssets" jdbcType="VARCHAR" />
+    <result column="net_capital" property="netCapital" jdbcType="VARCHAR" />
+    <result column="business_income" property="businessIncome" jdbcType="VARCHAR" />
+    <result column="net_profit" property="netProfit" jdbcType="VARCHAR" />
+    <result column="brokerage_income" property="brokerageIncome" jdbcType="VARCHAR" />
+    <result column="assets_manage_income" property="assetsManageIncome" jdbcType="VARCHAR" />
+    <result column="proprietary_income" property="proprietaryIncome" jdbcType="VARCHAR" />
+    <result column="bank_income" property="bankIncome" jdbcType="VARCHAR" />
+    <result column="securities_margin" property="securitiesMargin" jdbcType="VARCHAR" />
+    <result column="shares_income" property="sharesIncome" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, year, total_assets, net_assets, net_capital, business_income, net_profit, 
+    brokerage_income, assets_manage_income, proprietary_income, bank_income, securities_margin, 
+    shares_income
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from broker_institutional_operation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from broker_institutional_operation where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from broker_institutional_operation 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from broker_institutional_operation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.BrokerInstitutionalOperation" >
+    insert into broker_institutional_operation (id, base_id, year, 
+      total_assets, net_assets, net_capital, 
+      business_income, net_profit, brokerage_income, 
+      assets_manage_income, proprietary_income, 
+      bank_income, securities_margin, shares_income
+      )
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, 
+      #{totalAssets,jdbcType=VARCHAR}, #{netAssets,jdbcType=VARCHAR}, #{netCapital,jdbcType=VARCHAR}, 
+      #{businessIncome,jdbcType=VARCHAR}, #{netProfit,jdbcType=VARCHAR}, #{brokerageIncome,jdbcType=VARCHAR}, 
+      #{assetsManageIncome,jdbcType=VARCHAR}, #{proprietaryIncome,jdbcType=VARCHAR}, 
+      #{bankIncome,jdbcType=VARCHAR}, #{securitiesMargin,jdbcType=VARCHAR}, #{sharesIncome,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.BrokerInstitutionalOperation" >
+    insert into broker_institutional_operation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="totalAssets != null" >
+        total_assets,
+      </if>
+      <if test="netAssets != null" >
+        net_assets,
+      </if>
+      <if test="netCapital != null" >
+        net_capital,
+      </if>
+      <if test="businessIncome != null" >
+        business_income,
+      </if>
+      <if test="netProfit != null" >
+        net_profit,
+      </if>
+      <if test="brokerageIncome != null" >
+        brokerage_income,
+      </if>
+      <if test="assetsManageIncome != null" >
+        assets_manage_income,
+      </if>
+      <if test="proprietaryIncome != null" >
+        proprietary_income,
+      </if>
+      <if test="bankIncome != null" >
+        bank_income,
+      </if>
+      <if test="securitiesMargin != null" >
+        securities_margin,
+      </if>
+      <if test="sharesIncome != null" >
+        shares_income,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="totalAssets != null" >
+        #{totalAssets,jdbcType=VARCHAR},
+      </if>
+      <if test="netAssets != null" >
+        #{netAssets,jdbcType=VARCHAR},
+      </if>
+      <if test="netCapital != null" >
+        #{netCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="businessIncome != null" >
+        #{businessIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfit != null" >
+        #{netProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="brokerageIncome != null" >
+        #{brokerageIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="assetsManageIncome != null" >
+        #{assetsManageIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="proprietaryIncome != null" >
+        #{proprietaryIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="bankIncome != null" >
+        #{bankIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="securitiesMargin != null" >
+        #{securitiesMargin,jdbcType=VARCHAR},
+      </if>
+      <if test="sharesIncome != null" >
+        #{sharesIncome,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.BrokerInstitutionalOperation" >
+    update broker_institutional_operation
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="totalAssets != null" >
+        total_assets = #{totalAssets,jdbcType=VARCHAR},
+      </if>
+      <if test="netAssets != null" >
+        net_assets = #{netAssets,jdbcType=VARCHAR},
+      </if>
+      <if test="netCapital != null" >
+        net_capital = #{netCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="businessIncome != null" >
+        business_income = #{businessIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfit != null" >
+        net_profit = #{netProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="brokerageIncome != null" >
+        brokerage_income = #{brokerageIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="assetsManageIncome != null" >
+        assets_manage_income = #{assetsManageIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="proprietaryIncome != null" >
+        proprietary_income = #{proprietaryIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="bankIncome != null" >
+        bank_income = #{bankIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="securitiesMargin != null" >
+        securities_margin = #{securitiesMargin,jdbcType=VARCHAR},
+      </if>
+      <if test="sharesIncome != null" >
+        shares_income = #{sharesIncome,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.BrokerInstitutionalOperation" >
+    update broker_institutional_operation
+    set base_id = #{baseId,jdbcType=INTEGER},
+      year = #{year,jdbcType=INTEGER},
+      total_assets = #{totalAssets,jdbcType=VARCHAR},
+      net_assets = #{netAssets,jdbcType=VARCHAR},
+      net_capital = #{netCapital,jdbcType=VARCHAR},
+      business_income = #{businessIncome,jdbcType=VARCHAR},
+      net_profit = #{netProfit,jdbcType=VARCHAR},
+      brokerage_income = #{brokerageIncome,jdbcType=VARCHAR},
+      assets_manage_income = #{assetsManageIncome,jdbcType=VARCHAR},
+      proprietary_income = #{proprietaryIncome,jdbcType=VARCHAR},
+      bank_income = #{bankIncome,jdbcType=VARCHAR},
+      securities_margin = #{securitiesMargin,jdbcType=VARCHAR},
+      shares_income = #{sharesIncome,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    
+  <select id="selectId" resultType="java.lang.String" parameterType="java.lang.String">
+  select id from company_schema where 1=1 and (full_name=  #{comeName} or short_name =  #{comeName})
+  </select>
+  
+</mapper>

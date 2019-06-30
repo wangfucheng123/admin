@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FuturesPartnerMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FuturesPartner" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="cgbl" property="cgbl" jdbcType="REAL" />
+    <result column="cdate" property="cdate" jdbcType="DATE" />
+    <result column="fddbr" property="fddbr" jdbcType="VARCHAR" />
+    <result column="zczb" property="zczb" jdbcType="VARCHAR" />
+    <result column="bgdz" property="bgdz" jdbcType="VARCHAR" />
+    <result column="web_url" property="webUrl" jdbcType="VARCHAR" />
+    <result column="dic_sshy" property="dicSshy" jdbcType="INTEGER" />
+    <result column="dic_jjlx" property="dicJjlx" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.dfans.model.FuturesPartner" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+   <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, name, cgbl, cdate, fddbr, zczb, bgdz, web_url, dic_sshy, dic_jjlx
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from futures_partner
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from futures_partner where 1=1 
+    and base_id = #{baseId}
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from futures_partner 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from futures_partner
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FuturesPartner" >
+    insert into futures_partner (id, base_id, name, 
+      cgbl, cdate, fddbr, zczb, 
+      bgdz, web_url, dic_sshy, 
+      dic_jjlx, remark)
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{cgbl,jdbcType=REAL}, #{cdate,jdbcType=DATE}, #{fddbr,jdbcType=VARCHAR}, #{zczb,jdbcType=VARCHAR}, 
+      #{bgdz,jdbcType=VARCHAR}, #{webUrl,jdbcType=VARCHAR}, #{dicSshy,jdbcType=INTEGER}, 
+      #{dicJjlx,jdbcType=INTEGER}, #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.FuturesPartner" >
+    insert into futures_partner
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="cgbl != null" >
+        cgbl,
+      </if>
+      <if test="cdate != null" >
+        cdate,
+      </if>
+      <if test="fddbr != null" >
+        fddbr,
+      </if>
+      <if test="zczb != null" >
+        zczb,
+      </if>
+      <if test="bgdz != null" >
+        bgdz,
+      </if>
+      <if test="webUrl != null" >
+        web_url,
+      </if>
+      <if test="dicSshy != null" >
+        dic_sshy,
+      </if>
+      <if test="dicJjlx != null" >
+        dic_jjlx,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cgbl != null" >
+        #{cgbl,jdbcType=REAL},
+      </if>
+      <if test="cdate != null" >
+        #{cdate,jdbcType=DATE},
+      </if>
+      <if test="fddbr != null" >
+        #{fddbr,jdbcType=VARCHAR},
+      </if>
+      <if test="zczb != null" >
+        #{zczb,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdz != null" >
+        #{bgdz,jdbcType=VARCHAR},
+      </if>
+      <if test="webUrl != null" >
+        #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="dicSshy != null" >
+        #{dicSshy,jdbcType=INTEGER},
+      </if>
+      <if test="dicJjlx != null" >
+        #{dicJjlx,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FuturesPartner" >
+    update futures_partner
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cgbl != null" >
+        cgbl = #{cgbl,jdbcType=REAL},
+      </if>
+      <if test="cdate != null" >
+        cdate = #{cdate,jdbcType=DATE},
+      </if>
+      <if test="fddbr != null" >
+        fddbr = #{fddbr,jdbcType=VARCHAR},
+      </if>
+      <if test="zczb != null" >
+        zczb = #{zczb,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdz != null" >
+        bgdz = #{bgdz,jdbcType=VARCHAR},
+      </if>
+      <if test="webUrl != null" >
+        web_url = #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="dicSshy != null" >
+        dic_sshy = #{dicSshy,jdbcType=INTEGER},
+      </if>
+      <if test="dicJjlx != null" >
+        dic_jjlx = #{dicJjlx,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dfans.model.FuturesPartner" >
+    update futures_partner
+    set base_id = #{baseId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      cgbl = #{cgbl,jdbcType=REAL},
+      cdate = #{cdate,jdbcType=DATE},
+      fddbr = #{fddbr,jdbcType=VARCHAR},
+      zczb = #{zczb,jdbcType=VARCHAR},
+      bgdz = #{bgdz,jdbcType=VARCHAR},
+      web_url = #{webUrl,jdbcType=VARCHAR},
+      dic_sshy = #{dicSshy,jdbcType=INTEGER},
+      dic_jjlx = #{dicJjlx,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FuturesPartner" >
+    update futures_partner
+    set base_id = #{baseId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      cgbl = #{cgbl,jdbcType=REAL},
+      cdate = #{cdate,jdbcType=DATE},
+      fddbr = #{fddbr,jdbcType=VARCHAR},
+      zczb = #{zczb,jdbcType=VARCHAR},
+      bgdz = #{bgdz,jdbcType=VARCHAR},
+      web_url = #{webUrl,jdbcType=VARCHAR},
+      dic_sshy = #{dicSshy,jdbcType=INTEGER},
+      dic_jjlx = #{dicJjlx,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

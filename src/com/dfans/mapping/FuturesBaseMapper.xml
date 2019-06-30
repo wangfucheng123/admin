@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FuturesBaseMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FuturesBase" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="xkzh" property="xkzh" jdbcType="VARCHAR" />
+    <result column="dic_jyfw" property="dicJyfw" jdbcType="VARCHAR" />
+    <result column="zglb" property="zglb" jdbcType="INTEGER" />
+    <result column="zgjysmc" property="zgjysmc" jdbcType="VARCHAR" />
+    <result column="zczb" property="zczb" jdbcType="VARCHAR" />
+    <result column="gszs" property="gszs" jdbcType="VARCHAR" />
+    <result column="fddbr" property="fddbr" jdbcType="VARCHAR" />
+    <result column="bgdz" property="bgdz" jdbcType="VARCHAR" />
+    <result column="khfwtsdh" property="khfwtsdh" jdbcType="VARCHAR" />
+    <result column="web_url" property="webUrl" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, xkzh, dic_jyfw, zglb, zgjysmc, zczb, gszs, fddbr, bgdz, khfwtsdh, web_url, 
+    email, logo
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from futures_base
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from futures_base where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from futures_base 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from futures_base
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FuturesBase" >
+    insert into futures_base (id, name, xkzh, 
+      dic_jyfw, zglb, zgjysmc, 
+      zczb, gszs, fddbr, 
+      bgdz, khfwtsdh, web_url, 
+      email, logo)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{xkzh,jdbcType=VARCHAR}, 
+      #{dicJyfw,jdbcType=VARCHAR}, #{zglb,jdbcType=INTEGER}, #{zgjysmc,jdbcType=VARCHAR}, 
+      #{zczb,jdbcType=VARCHAR}, #{gszs,jdbcType=VARCHAR}, #{fddbr,jdbcType=VARCHAR}, 
+      #{bgdz,jdbcType=VARCHAR}, #{khfwtsdh,jdbcType=VARCHAR}, #{webUrl,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.dfans.model.FuturesBase" >
+    insert into futures_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="xkzh != null" >
+        xkzh,
+      </if>
+      <if test="dicJyfw != null" >
+        dic_jyfw,
+      </if>
+      <if test="zglb != null" >
+        zglb,
+      </if>
+      <if test="zgjysmc != null" >
+        zgjysmc,
+      </if>
+      <if test="zczb != null" >
+        zczb,
+      </if>
+      <if test="gszs != null" >
+        gszs,
+      </if>
+      <if test="fddbr != null" >
+        fddbr,
+      </if>
+      <if test="bgdz != null" >
+        bgdz,
+      </if>
+      <if test="khfwtsdh != null" >
+        khfwtsdh,
+      </if>
+      <if test="webUrl != null" >
+        web_url,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="xkzh != null" >
+        #{xkzh,jdbcType=VARCHAR},
+      </if>
+      <if test="dicJyfw != null" >
+        #{dicJyfw,jdbcType=VARCHAR},
+      </if>
+      <if test="zglb != null" >
+        #{zglb,jdbcType=INTEGER},
+      </if>
+      <if test="zgjysmc != null" >
+        #{zgjysmc,jdbcType=VARCHAR},
+      </if>
+      <if test="zczb != null" >
+        #{zczb,jdbcType=VARCHAR},
+      </if>
+      <if test="gszs != null" >
+        #{gszs,jdbcType=VARCHAR},
+      </if>
+      <if test="fddbr != null" >
+        #{fddbr,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdz != null" >
+        #{bgdz,jdbcType=VARCHAR},
+      </if>
+      <if test="khfwtsdh != null" >
+        #{khfwtsdh,jdbcType=VARCHAR},
+      </if>
+      <if test="webUrl != null" >
+        #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FuturesBase" >
+    update futures_base
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="xkzh != null" >
+        xkzh = #{xkzh,jdbcType=VARCHAR},
+      </if>
+      <if test="dicJyfw != null" >
+        dic_jyfw = #{dicJyfw,jdbcType=VARCHAR},
+      </if>
+      <if test="zglb != null" >
+        zglb = #{zglb,jdbcType=INTEGER},
+      </if>
+      <if test="zgjysmc != null" >
+        zgjysmc = #{zgjysmc,jdbcType=VARCHAR},
+      </if>
+      <if test="zczb != null" >
+        zczb = #{zczb,jdbcType=VARCHAR},
+      </if>
+      <if test="gszs != null" >
+        gszs = #{gszs,jdbcType=VARCHAR},
+      </if>
+      <if test="fddbr != null" >
+        fddbr = #{fddbr,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdz != null" >
+        bgdz = #{bgdz,jdbcType=VARCHAR},
+      </if>
+      <if test="khfwtsdh != null" >
+        khfwtsdh = #{khfwtsdh,jdbcType=VARCHAR},
+      </if>
+      <if test="webUrl != null" >
+        web_url = #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FuturesBase" >
+    update futures_base
+    set name = #{name,jdbcType=VARCHAR},
+      xkzh = #{xkzh,jdbcType=VARCHAR},
+      dic_jyfw = #{dicJyfw,jdbcType=VARCHAR},
+      zglb = #{zglb,jdbcType=INTEGER},
+      zgjysmc = #{zgjysmc,jdbcType=VARCHAR},
+      zczb = #{zczb,jdbcType=VARCHAR},
+      gszs = #{gszs,jdbcType=VARCHAR},
+      fddbr = #{fddbr,jdbcType=VARCHAR},
+      bgdz = #{bgdz,jdbcType=VARCHAR},
+      khfwtsdh = #{khfwtsdh,jdbcType=VARCHAR},
+      web_url = #{webUrl,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="fuzzyQueryFutures" resultType="hashmap" parameterType="hashmap" >
+	select * from futures_base 
+	where 1=1 
+	and (name like '%${fuzzyQuery}%' 
+	or bgdz like '%${fuzzyQuery}%') 
+	limit 0,10
+  </select>
+    <select id="fuzzyQueryFutures2" resultType="hashmap" parameterType="hashmap" >
+	select name from futures_base 
+	where 1=1 
+	and (name like '%${fuzzyQuery}%') 
+	limit 0,10
+  </select>
+  
+  <select id="selectQhgsList" resultType="hashmap" parameterType="hashmap" >
+ SELECT futures_base.name,xkzh,dic_jyfw,zglb,zgjysmc,zczb,gszs,fddbr,bgdz,khfwtsdh,web_url,email,logo,xq,
+ jzb,jzc,qyze,sxfsr,jlr,(SELECT COUNT(1) FROM futures_emp WHERE futures_base.id = futures_emp.`base_id`) AS ygrs
+  FROM futures_base
+  LEFT JOIN qhgsml ON futures_base.name = qhgsml.name
+  LEFT JOIN futures_financial ON futures_base.id = futures_financial.base_id AND futures_financial.year = (SELECT MAX(YEAR) FROM futures_financial) 
+  where 1=1 
+  order by CAST(zczb AS DECIMAL) desc
+  <if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+  <select id="selectFuturesBase" resultType="hashmap" parameterType="hashmap" >
+   select * from futures_base
+   WHERE 1=1 
+   <if test="comName != null" >
+      and name = #{comName}
+    </if>
+  </select>
+   
+     <select id="selectFuturesHistory" resultType="hashmap" parameterType="hashmap" >
+  SELECT b.name,base_id ,cdate,sjjc,sjlr	
+	FROM futures_history a
+	LEFT JOIN futures_base b ON a.base_id = b.id
+   WHERE 1=1 
+   <if test="comName != null" >
+      and name = #{comName}
+    </if>
+    </select>
+    
+       
+     <select id="selectFuturesBranches" resultType="hashmap" parameterType="hashmap" >
+  SELECT a.name,a.*
+	FROM futures_branches a
+	LEFT JOIN futures_base b ON a.base_id = b.id
+   WHERE 1=1 and  b.name is  not null and a.name is not null and a.name !=''
+   <if test="comName != null" >
+      and b.name = #{comName}
+    </if>
+    </select>
+    
+       
+     <select id="selectFuturesExec" resultType="hashmap" parameterType="hashmap" >
+  SELECT b.name,a.name execname ,a.sex,a.dic_position,a.zgpzwh,a.cdate,a.rzjl,a.remark
+	FROM futures_exec a
+	LEFT JOIN futures_base b ON a.base_id = b.id
+   WHERE 1=1 and a.name is not null and a.name !=''
+   <if test="comName != null" >
+      and b.name = #{comName}
+    </if>
+    </select>
+
+     <select id="selectFuturesEmp" resultType="hashmap" parameterType="hashmap" >
+  SELECT b.name,a.name empname,a.sex,a.cyzgh,a.cyzsh,a.rzbm,IF( a.dic_position is null,'',CAST( a.dic_position as char)) dic_position,a.cdate
+	FROM futures_emp a
+	LEFT JOIN futures_base b ON a.base_id = b.id
+   WHERE 1=1 
+   <if test="comName != null" >
+      and b.name = #{comName}
+    </if>
+   AND a.name IS NOT NULL AND a.name !=''
+    </select>
+
+     <select id="selectFuturesPartner" resultType="hashmap" parameterType="hashmap" >
+  SELECT a.name comname,a.*
+	FROM futures_partner a
+	LEFT JOIN futures_base b ON a.base_id = b.id
+   WHERE 1=1 
+   <if test="comName != null" >
+      and b.name = #{comName}
+    </if>
+    </select>
+
+     <select id="selectFuturesFinancial" resultType="hashmap" parameterType="hashmap" >
+  SELECT b.name comname,a.*
+	FROM futures_financial a
+	LEFT JOIN futures_base b ON a.base_id = b.id
+   WHERE 1=1 
+   <if test="comName != null" >
+      and b.name = #{comName}
+    </if>
+    </select>
+
+     <select id="selectFuturesIntegrity" resultType="hashmap" parameterType="hashmap" >
+  SELECT b.name comname,a.*
+	FROM futures_integrity a
+	LEFT JOIN futures_base b ON a.base_id = b.id
+   WHERE 1=1 
+   <if test="comName != null" >
+      and b.name = #{comName}
+    </if>
+    AND b.name IS NOT NULL
+    </select>
+        
+</mapper>

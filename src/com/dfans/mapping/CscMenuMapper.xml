@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.dao.CscMenuMapper">
+	<resultMap id="BaseResultMap" type="com.dfans.model.CscMenu">
+		<id column="menu_id" property="menuId" jdbcType="INTEGER" />
+		<result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="menu_level" property="menuLevel" jdbcType="INTEGER" />
+		<result column="menu_order" property="menuOrder" jdbcType="INTEGER" />
+		<result column="menu_state" property="menuState" jdbcType="INTEGER" />
+		<result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		menu_id, menu_name, parent_id, menu_level, menu_order,
+		menu_state, ctime
+	</sql>
+	<resultMap id="PerMenuResultMap" type="com.dfans.model.CscMenuPer">
+		<result column="role_permission_id" property="rolePermissionId" jdbcType="INTEGER" />
+		<result column="menu_id" property="menuId" jdbcType="INTEGER" />
+		<result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="menu_level" property="menuLevel" jdbcType="INTEGER" />
+		<result column="menu_order" property="menuOrder" jdbcType="INTEGER" />
+		<result column="menu_state" property="menuState" jdbcType="INTEGER" />
+		<result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="union_per_Column_List">
+		role_permission_id as rolePermissionId, a.menu_id as
+		menuId, menu_name as menuName, parent_id as parentId, menu_level as menuLevel,
+		menu_order as menuOrder,menu_state as menuState,ctime
+	</sql>
+	<resultMap id="totalString" type="java.lang.String">
+		<result column="total" property="total" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from csc_menu
+	</select>
+
+	<select id="selectByUserId" resultMap="BaseResultMap">
+		select d.* FROM USER
+		a,csc_user_role b,csc_role_permission c ,csc_menu d WHERE
+		a.id=b.user_id AND b.role_id=c.role_id AND c.temp=1 AND
+		c.menu_id=d.menu_id AND a.id=#{id,jdbcType=INTEGER}
+	</select>
+
+
+	<select id="selectByList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from csc_menu
+		<if test="ids != null">
+			where menu_id in(
+			<foreach collection="ids" item="menuId" index="index"
+				separator=",">
+				#{menuId,jdbcType=INTEGER}
+			</foreach>
+			)
+		</if>
+	</select>
+
+	<select id="selectUnionPerByList" resultType="java.util.HashMap">
+		
+		select <include refid="union_per_Column_List" />
+		
+		from (
+		select
+		<include refid="Base_Column_List" />
+		from csc_menu
+		<if test="ids != null">
+			where menu_id in(
+			<foreach collection="ids" item="menuId" index="index"
+				separator=",">
+				#{menuId,jdbcType=INTEGER}
+			</foreach>
+			)
+		</if>
+		) a left join csc_role_permission b on a.menu_id=b.menu_id 
+		
+		
+	</select>
+	
+	<select id="selectUnionModelPerByList" resultMap="PerMenuResultMap">
+		
+		select <include refid="union_per_Column_List" />
+		
+		from (
+		select
+		<include refid="Base_Column_List" />
+		from csc_menu
+		<if test="ids != null">
+			where menu_id in(
+			<foreach collection="ids" item="menuId" index="index"
+				separator=",">
+				#{menuId,jdbcType=INTEGER}
+			</foreach>
+			)
+		</if>
+		) a left join csc_role_permission b on a.menu_id=b.menu_id 
+		
+		
+	</select>
+
+	<select id="selectAllPage" resultMap="BaseResultMap"
+		parameterType="hashmap">
+		select
+		<include refid="Base_Column_List" />
+		from csc_menu
+		order by menu_id desc limit #{page},10
+	</select>
+
+
+	<select id="selectCount" resultMap="totalString" parameterType="hashmap">
+		select count(menu_id) total from csc_menu
+
+	</select>
+
+	<select id="total" resultMap="totalString" parameterType="hashmap">
+		select
+		count(menu_id) total from csc_menu where is_delete=0 ${sql}
+	</select>
+
+
+	<select id="selectCountByMenuName" resultMap="totalString"
+		parameterType="String">
+		select
+		count(menu_id) total
+		from csc_menu
+		where menu_name =
+		#{menuName,jdbcType=VARCHAR}
+
+	</select>
+
+	<select id="selectCountByParentId" resultMap="totalString"
+		parameterType="Integer">
+		select
+		count(menu_id) total
+		from csc_menu
+		where menu_id =
+		#{parentId,jdbcType=INTEGER}
+
+	</select>
+
+	<select id="selectMenuChildren" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from csc_menu where parent_id =
+		#{menuId,jdbcType=INTEGER}
+	</select>
+	
+	
+	<select id="selectAllChildren" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from csc_menu where
+		FIND_IN_SET(menu_id,getCscMenuChildList(#{menuId,jdbcType=INTEGER}))
+		
+	</select>
+
+
+
+
+
+	<select id="isExistParent" resultMap="BaseResultMap"
+		parameterType="Integer">
+		SELECT COUNT(parent_id) total FROM csc_menu
+		a,csc_role_permission b
+		WHERE a.menu_id=b.menu_id AND b.menu_id =
+		#{menuId,jdbcType=INTEGER}
+
+	</select>
+
+
+	 <select id="getMenuParentId" resultMap="BaseResultMap"
+		parameterType="Integer">
+		SELECT parent_id FROM csc_menu 
+		WHERE menu_id = #{menuId,jdbcType=INTEGER}
+
+	</select> 
+	
+	<select id="getParentId" resultType="java.lang.Integer"
+		parameterType="Integer">
+		SELECT parent_id FROM csc_menu
+		WHERE menu_id = #{menuId,jdbcType=INTEGER}
+
+	</select>
+
+
+	<select id="getMenuChildrenId" resultMap="BaseResultMap">
+		SELECT menu_id FROM
+		csc_menu where parent_id= #{menuId,jdbcType=INTEGER}
+	</select>
+
+
+
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from csc_menu
+		where menu_id = #{menuId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		csc_menu
+		where menu_id = #{menuId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.dfans.model.CscMenu">
+		insert into csc_menu (menu_id,
+		menu_name, parent_id,
+		menu_level, menu_order, menu_state,
+		ctime)
+		values
+		(#{menuId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR},
+		#{parentId,jdbcType=INTEGER},
+		#{menuLevel,jdbcType=INTEGER},
+		#{menuOrder,jdbcType=INTEGER}, #{menuState,jdbcType=INTEGER},
+		#{ctime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.dfans.model.CscMenu">
+		insert into csc_menu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="menuId != null">
+				menu_id,
+			</if>
+			<if test="menuName != null">
+				menu_name,
+			</if>
+			<if test="parentId != null">
+				parent_id,
+			</if>
+			<if test="menuLevel != null">
+				menu_level,
+			</if>
+			<if test="menuOrder != null">
+				menu_order,
+			</if>
+			<if test="menuState != null">
+				menu_state,
+			</if>
+			<if test="ctime != null">
+				ctime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="menuId != null">
+				#{menuId,jdbcType=INTEGER},
+			</if>
+			<if test="menuName != null">
+				#{menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="menuLevel != null">
+				#{menuLevel,jdbcType=INTEGER},
+			</if>
+			<if test="menuOrder != null">
+				#{menuOrder,jdbcType=INTEGER},
+			</if>
+			<if test="menuState != null">
+				#{menuState,jdbcType=INTEGER},
+			</if>
+			<if test="ctime != null">
+				#{ctime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.CscMenu">
+		update csc_menu
+		<set>
+			<if test="menuName != null">
+				menu_name = #{menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="menuLevel != null">
+				menu_level = #{menuLevel,jdbcType=INTEGER},
+			</if>
+			<if test="menuOrder != null">
+				menu_order = #{menuOrder,jdbcType=INTEGER},
+			</if>
+			<if test="menuState != null">
+				menu_state = #{menuState,jdbcType=INTEGER},
+			</if>
+			<if test="ctime != null">
+				ctime = #{ctime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where menu_id = #{menuId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.dfans.model.CscMenu">
+		update csc_menu
+		set menu_name = #{menuName,jdbcType=VARCHAR},
+		parent_id =
+		#{parentId,jdbcType=INTEGER},
+		menu_level =
+		#{menuLevel,jdbcType=INTEGER},
+		menu_order =
+		#{menuOrder,jdbcType=INTEGER},
+		menu_state =
+		#{menuState,jdbcType=INTEGER},
+		ctime = #{ctime,jdbcType=TIMESTAMP}
+		where menu_id = #{menuId,jdbcType=INTEGER}
+	</update>
+</mapper>

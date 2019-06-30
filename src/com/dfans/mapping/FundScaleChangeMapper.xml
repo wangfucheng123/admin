@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FundScaleChangeMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FundScaleChange" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="come_name" property="comeName" jdbcType="VARCHAR" />
+    <result column="bdate" property="bdate" jdbcType="DATE" />
+    <result column="duration_buy" property="durationBuy" jdbcType="REAL" />
+    <result column="duration_redeem" property="durationRedeem" jdbcType="REAL" />
+    <result column="final_total" property="finalTotal" jdbcType="REAL" />
+    <result column="final_net_asset" property="finalNetAsset" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, come_name, bdate, duration_buy, duration_redeem, final_total, final_net_asset
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fund_scale_change
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from fund_scale_change where 1=1 
+    and base_id = #{baseId}
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from fund_scale_change where 1=1 and base_id = #{baseId}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fund_scale_change
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FundScaleChange" >
+    insert into fund_scale_change (id, base_id, come_name, 
+      bdate, duration_buy, duration_redeem, 
+      final_total, final_net_asset)
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{comeName,jdbcType=VARCHAR}, 
+      #{bdate,jdbcType=DATE}, #{durationBuy,jdbcType=REAL}, #{durationRedeem,jdbcType=REAL}, 
+      #{finalTotal,jdbcType=REAL}, #{finalNetAsset,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.FundScaleChange" >
+    insert into fund_scale_change
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="comeName != null" >
+        come_name,
+      </if>
+      <if test="bdate != null" >
+        bdate,
+      </if>
+      <if test="durationBuy != null" >
+        duration_buy,
+      </if>
+      <if test="durationRedeem != null" >
+        duration_redeem,
+      </if>
+      <if test="finalTotal != null" >
+        final_total,
+      </if>
+      <if test="finalNetAsset != null" >
+        final_net_asset,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="comeName != null" >
+        #{comeName,jdbcType=VARCHAR},
+      </if>
+      <if test="bdate != null" >
+        #{bdate,jdbcType=DATE},
+      </if>
+      <if test="durationBuy != null" >
+        #{durationBuy,jdbcType=REAL},
+      </if>
+      <if test="durationRedeem != null" >
+        #{durationRedeem,jdbcType=REAL},
+      </if>
+      <if test="finalTotal != null" >
+        #{finalTotal,jdbcType=REAL},
+      </if>
+      <if test="finalNetAsset != null" >
+        #{finalNetAsset,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FundScaleChange" >
+    update fund_scale_change
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="comeName != null" >
+        come_name = #{comeName,jdbcType=VARCHAR},
+      </if>
+      <if test="bdate != null" >
+        bdate = #{bdate,jdbcType=DATE},
+      </if>
+      <if test="durationBuy != null" >
+        duration_buy = #{durationBuy,jdbcType=REAL},
+      </if>
+      <if test="durationRedeem != null" >
+        duration_redeem = #{durationRedeem,jdbcType=REAL},
+      </if>
+      <if test="finalTotal != null" >
+        final_total = #{finalTotal,jdbcType=REAL},
+      </if>
+      <if test="finalNetAsset != null" >
+        final_net_asset = #{finalNetAsset,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FundScaleChange" >
+    update fund_scale_change
+    set base_id = #{baseId,jdbcType=INTEGER},
+      come_name = #{comeName,jdbcType=VARCHAR},
+      bdate = #{bdate,jdbcType=DATE},
+      duration_buy = #{durationBuy,jdbcType=REAL},
+      duration_redeem = #{durationRedeem,jdbcType=REAL},
+      final_total = #{finalTotal,jdbcType=REAL},
+      final_net_asset = #{finalNetAsset,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

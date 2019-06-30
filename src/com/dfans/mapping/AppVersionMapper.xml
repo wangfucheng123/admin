@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.dao.AppVersionMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.AppVersion" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, date, url, version, flag 
+  </sql>
+  
+  <select id="selectByNew" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from app_version where flag=#{flag,jdbcType=INTEGER}  
+    order by date desc limit 0,1
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from app_version
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByVersion" parameterType="com.dfans.model.AppVersion" >
+    delete from app_version
+    where version = #{version,jdbcType=VARCHAR} and flag=#{flag,jdbcType=INTEGER}  
+  </delete>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from app_version
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.AppVersion" >
+    insert into app_version (id, date, url, 
+      version)
+    values (#{id,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP}, #{url,jdbcType=VARCHAR}, 
+      #{version,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.AppVersion" >
+    insert into app_version
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByVersionSelective" parameterType="com.dfans.model.AppVersion" >
+    update app_version
+    <set >
+      <if test="date != null" >
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        url = #{flag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where version = #{version,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.AppVersion" >
+    update app_version
+    <set >
+      <if test="date != null" >
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.AppVersion" >
+    update app_version
+    set date = #{date,jdbcType=TIMESTAMP},
+      url = #{url,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.PrivateFundsBaseMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.PrivateFundsBase" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ch_name" property="chName" jdbcType="VARCHAR" />
+    <result column="en_name" property="enName" jdbcType="VARCHAR" />
+    <result column="djbh" property="djbh" jdbcType="VARCHAR" />
+    <result column="zzjgdm" property="zzjgdm" jdbcType="VARCHAR" />
+    <result column="ddate" property="ddate" jdbcType="DATE" />
+    <result column="cdate" property="cdate" jdbcType="DATE" />
+    <result column="zcdz" property="zcdz" jdbcType="VARCHAR" />
+    <result column="bgdz" property="bgdz" jdbcType="VARCHAR" />
+    <result column="zczb" property="zczb" jdbcType="VARCHAR" />
+    <result column="sjzb" property="sjzb" jdbcType="VARCHAR" />
+    <result column="dic_qyxz" property="dicQyxz" jdbcType="INTEGER" />
+    <result column="zcjlbl" property="zcjlbl" jdbcType="VARCHAR" />
+    <result column="dic_gljjlb" property="dicGljjlb" jdbcType="INTEGER" />
+    <result column="qtlwlx" property="qtlwlx" jdbcType="VARCHAR" />
+    <result column="ygrs" property="ygrs" jdbcType="INTEGER" />
+    <result column="web_url" property="webUrl" jdbcType="VARCHAR" />
+    <result column="flyjszt" property="flyjszt" jdbcType="VARCHAR" />
+    <result column="lsswsmc" property="lsswsmc" jdbcType="VARCHAR" />
+    <result column="ls_name" property="lsName" jdbcType="VARCHAR" />
+    <result column="bddbr" property="bddbr" jdbcType="VARCHAR" />
+    <result column="cyzg" property="cyzg" jdbcType="INTEGER" />
+    <result column="zghqfs" property="zghqfs" jdbcType="VARCHAR" />
+     <result column="gzll" property="gzll" jdbcType="LONGVARCHAR" />
+    <result column="integrity_info" property="integrityInfo" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ch_name, en_name, djbh, zzjgdm, ddate, cdate, zcdz, bgdz, zczb, sjzb, dic_qyxz, 
+    zcjlbl, dic_gljjlb, qtlwlx, ygrs, web_url, flyjszt, lsswsmc, ls_name, bddbr, cyzg, 
+    zghqfs
+  </sql>
+  <sql id="Blob_Column_List" >
+    gzll, integrity_info
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from private_funds_base
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from private_funds_base where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from private_funds_base 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from private_funds_base
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.PrivateFundsBase" >
+    insert into private_funds_base (id, ch_name, en_name, 
+      djbh, zzjgdm, ddate, cdate, 
+      zcdz, bgdz, zczb, sjzb, 
+      dic_qyxz, zcjlbl, dic_gljjlb, 
+      qtlwlx, ygrs, web_url, 
+      flyjszt, lsswsmc, ls_name, 
+      bddbr, cyzg, zghqfs, 
+      gzll, integrity_info)
+    values (#{id,jdbcType=INTEGER}, #{chName,jdbcType=VARCHAR}, #{enName,jdbcType=VARCHAR}, 
+      #{djbh,jdbcType=VARCHAR}, #{zzjgdm,jdbcType=VARCHAR}, #{ddate,jdbcType=DATE}, #{cdate,jdbcType=DATE}, 
+      #{zcdz,jdbcType=VARCHAR}, #{bgdz,jdbcType=VARCHAR}, #{zczb,jdbcType=VARCHAR}, #{sjzb,jdbcType=VARCHAR}, 
+      #{dicQyxz,jdbcType=INTEGER}, #{zcjlbl,jdbcType=VARCHAR}, #{dicGljjlb,jdbcType=INTEGER}, 
+      #{qtlwlx,jdbcType=VARCHAR}, #{ygrs,jdbcType=INTEGER}, #{webUrl,jdbcType=VARCHAR}, 
+      #{flyjszt,jdbcType=VARCHAR}, #{lsswsmc,jdbcType=VARCHAR}, #{lsName,jdbcType=VARCHAR}, 
+      #{bddbr,jdbcType=VARCHAR}, #{cyzg,jdbcType=INTEGER}, #{zghqfs,jdbcType=VARCHAR}, 
+      #{gzll,jdbcType=LONGVARCHAR}, #{integrityInfo,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.PrivateFundsBase" >
+    insert into private_funds_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="chName != null" >
+        ch_name,
+      </if>
+      <if test="enName != null" >
+        en_name,
+      </if>
+      <if test="djbh != null" >
+        djbh,
+      </if>
+      <if test="zzjgdm != null" >
+        zzjgdm,
+      </if>
+      <if test="ddate != null" >
+        ddate,
+      </if>
+      <if test="cdate != null" >
+        cdate,
+      </if>
+      <if test="zcdz != null" >
+        zcdz,
+      </if>
+      <if test="bgdz != null" >
+        bgdz,
+      </if>
+      <if test="zczb != null" >
+        zczb,
+      </if>
+      <if test="sjzb != null" >
+        sjzb,
+      </if>
+      <if test="dicQyxz != null" >
+        dic_qyxz,
+      </if>
+      <if test="zcjlbl != null" >
+        zcjlbl,
+      </if>
+      <if test="dicGljjlb != null" >
+        dic_gljjlb,
+      </if>
+      <if test="qtlwlx != null" >
+        qtlwlx,
+      </if>
+      <if test="ygrs != null" >
+        ygrs,
+      </if>
+      <if test="webUrl != null" >
+        web_url,
+      </if>
+      <if test="flyjszt != null" >
+        flyjszt,
+      </if>
+      <if test="lsswsmc != null" >
+        lsswsmc,
+      </if>
+      <if test="lsName != null" >
+        ls_name,
+      </if>
+      <if test="bddbr != null" >
+        bddbr,
+      </if>
+      <if test="cyzg != null" >
+        cyzg,
+      </if>
+      <if test="zghqfs != null" >
+        zghqfs,
+      </if>
+      <if test="gzll != null" >
+        gzll,
+      </if>
+      <if test="integrityInfo != null" >
+        integrity_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="chName != null" >
+        #{chName,jdbcType=VARCHAR},
+      </if>
+      <if test="enName != null" >
+        #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="djbh != null" >
+        #{djbh,jdbcType=VARCHAR},
+      </if>
+      <if test="zzjgdm != null" >
+        #{zzjgdm,jdbcType=VARCHAR},
+      </if>
+      <if test="ddate != null" >
+        #{ddate,jdbcType=DATE},
+      </if>
+      <if test="cdate != null" >
+        #{cdate,jdbcType=DATE},
+      </if>
+      <if test="zcdz != null" >
+        #{zcdz,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdz != null" >
+        #{bgdz,jdbcType=VARCHAR},
+      </if>
+      <if test="zczb != null" >
+        #{zczb,jdbcType=VARCHAR},
+      </if>
+      <if test="sjzb != null" >
+        #{sjzb,jdbcType=VARCHAR},
+      </if>
+      <if test="dicQyxz != null" >
+        #{dicQyxz,jdbcType=INTEGER},
+      </if>
+      <if test="zcjlbl != null" >
+        #{zcjlbl,jdbcType=VARCHAR},
+      </if>
+      <if test="dicGljjlb != null" >
+        #{dicGljjlb,jdbcType=INTEGER},
+      </if>
+      <if test="qtlwlx != null" >
+        #{qtlwlx,jdbcType=VARCHAR},
+      </if>
+      <if test="ygrs != null" >
+        #{ygrs,jdbcType=INTEGER},
+      </if>
+      <if test="webUrl != null" >
+        #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="flyjszt != null" >
+        #{flyjszt,jdbcType=VARCHAR},
+      </if>
+      <if test="lsswsmc != null" >
+        #{lsswsmc,jdbcType=VARCHAR},
+      </if>
+      <if test="lsName != null" >
+        #{lsName,jdbcType=VARCHAR},
+      </if>
+      <if test="bddbr != null" >
+        #{bddbr,jdbcType=VARCHAR},
+      </if>
+      <if test="cyzg != null" >
+        #{cyzg,jdbcType=INTEGER},
+      </if>
+      <if test="zghqfs != null" >
+        #{zghqfs,jdbcType=VARCHAR},
+      </if>
+      <if test="gzll != null" >
+        #{gzll,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="integrityInfo != null" >
+        #{integrityInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.PrivateFundsBase" >
+    update private_funds_base
+    <set >
+      <if test="chName != null" >
+        ch_name = #{chName,jdbcType=VARCHAR},
+      </if>
+      <if test="enName != null" >
+        en_name = #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="djbh != null" >
+        djbh = #{djbh,jdbcType=VARCHAR},
+      </if>
+      <if test="zzjgdm != null" >
+        zzjgdm = #{zzjgdm,jdbcType=VARCHAR},
+      </if>
+      <if test="ddate != null" >
+        ddate = #{ddate,jdbcType=DATE},
+      </if>
+      <if test="cdate != null" >
+        cdate = #{cdate,jdbcType=DATE},
+      </if>
+      <if test="zcdz != null" >
+        zcdz = #{zcdz,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdz != null" >
+        bgdz = #{bgdz,jdbcType=VARCHAR},
+      </if>
+      <if test="zczb != null" >
+        zczb = #{zczb,jdbcType=VARCHAR},
+      </if>
+      <if test="sjzb != null" >
+        sjzb = #{sjzb,jdbcType=VARCHAR},
+      </if>
+      <if test="dicQyxz != null" >
+        dic_qyxz = #{dicQyxz,jdbcType=INTEGER},
+      </if>
+      <if test="zcjlbl != null" >
+        zcjlbl = #{zcjlbl,jdbcType=VARCHAR},
+      </if>
+      <if test="dicGljjlb != null" >
+        dic_gljjlb = #{dicGljjlb,jdbcType=INTEGER},
+      </if>
+      <if test="qtlwlx != null" >
+        qtlwlx = #{qtlwlx,jdbcType=VARCHAR},
+      </if>
+      <if test="ygrs != null" >
+        ygrs = #{ygrs,jdbcType=INTEGER},
+      </if>
+      <if test="webUrl != null" >
+        web_url = #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="flyjszt != null" >
+        flyjszt = #{flyjszt,jdbcType=VARCHAR},
+      </if>
+      <if test="lsswsmc != null" >
+        lsswsmc = #{lsswsmc,jdbcType=VARCHAR},
+      </if>
+      <if test="lsName != null" >
+        ls_name = #{lsName,jdbcType=VARCHAR},
+      </if>
+      <if test="bddbr != null" >
+        bddbr = #{bddbr,jdbcType=VARCHAR},
+      </if>
+      <if test="cyzg != null" >
+        cyzg = #{cyzg,jdbcType=INTEGER},
+      </if>
+      <if test="zghqfs != null" >
+        zghqfs = #{zghqfs,jdbcType=VARCHAR},
+      </if>
+      <if test="gzll != null" >
+        gzll = #{gzll,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="integrityInfo != null" >
+        integrity_info = #{integrityInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dfans.model.PrivateFundsBase" >
+    update private_funds_base
+    set ch_name = #{chName,jdbcType=VARCHAR},
+      en_name = #{enName,jdbcType=VARCHAR},
+      djbh = #{djbh,jdbcType=VARCHAR},
+      zzjgdm = #{zzjgdm,jdbcType=VARCHAR},
+      ddate = #{ddate,jdbcType=DATE},
+      cdate = #{cdate,jdbcType=DATE},
+      zcdz = #{zcdz,jdbcType=VARCHAR},
+      bgdz = #{bgdz,jdbcType=VARCHAR},
+      zczb = #{zczb,jdbcType=VARCHAR},
+      sjzb = #{sjzb,jdbcType=VARCHAR},
+      dic_qyxz = #{dicQyxz,jdbcType=INTEGER},
+      zcjlbl = #{zcjlbl,jdbcType=VARCHAR},
+      dic_gljjlb = #{dicGljjlb,jdbcType=INTEGER},
+      qtlwlx = #{qtlwlx,jdbcType=VARCHAR},
+      ygrs = #{ygrs,jdbcType=INTEGER},
+      web_url = #{webUrl,jdbcType=VARCHAR},
+      flyjszt = #{flyjszt,jdbcType=VARCHAR},
+      lsswsmc = #{lsswsmc,jdbcType=VARCHAR},
+      ls_name = #{lsName,jdbcType=VARCHAR},
+      bddbr = #{bddbr,jdbcType=VARCHAR},
+      cyzg = #{cyzg,jdbcType=INTEGER},
+      zghqfs = #{zghqfs,jdbcType=VARCHAR},
+      gzll = #{gzll,jdbcType=LONGVARCHAR},
+      integrity_info = #{integrityInfo,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.PrivateFundsBase" >
+    update private_funds_base
+    set ch_name = #{chName,jdbcType=VARCHAR},
+      en_name = #{enName,jdbcType=VARCHAR},
+      djbh = #{djbh,jdbcType=VARCHAR},
+      zzjgdm = #{zzjgdm,jdbcType=VARCHAR},
+      ddate = #{ddate,jdbcType=DATE},
+      cdate = #{cdate,jdbcType=DATE},
+      zcdz = #{zcdz,jdbcType=VARCHAR},
+      bgdz = #{bgdz,jdbcType=VARCHAR},
+      zczb = #{zczb,jdbcType=VARCHAR},
+      sjzb = #{sjzb,jdbcType=VARCHAR},
+      dic_qyxz = #{dicQyxz,jdbcType=INTEGER},
+      zcjlbl = #{zcjlbl,jdbcType=VARCHAR},
+      dic_gljjlb = #{dicGljjlb,jdbcType=INTEGER},
+      qtlwlx = #{qtlwlx,jdbcType=VARCHAR},
+      ygrs = #{ygrs,jdbcType=INTEGER},
+      web_url = #{webUrl,jdbcType=VARCHAR},
+      flyjszt = #{flyjszt,jdbcType=VARCHAR},
+      lsswsmc = #{lsswsmc,jdbcType=VARCHAR},
+      ls_name = #{lsName,jdbcType=VARCHAR},
+      bddbr = #{bddbr,jdbcType=VARCHAR},
+      cyzg = #{cyzg,jdbcType=INTEGER},
+      zghqfs = #{zghqfs,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectIdByName" resultType="java.lang.String" parameterType="java.lang.String" >
+  select id from private_funds_base where ch_name='${_parameter}' 
+  </select>
+  
+   <select id="selectPrivateCount" resultType="hashmap" parameterType="hashmap" >
+   select count(*) from private_funds_base
+     LEFT JOIN private_manage_list ON private_manage_list.`name`= private_funds_base.`ch_name`
+
+   WHERE regist_addr =  #{province}
+   </select>
+   
+  <select id="fuzzyQueryPrivate" resultType="hashmap" parameterType="hashmap" >
+	select ch_name as name,en_name,djbh,zzjgdm,DATE_FORMAT(ddate,'%Y-%m-%d') ddate,DATE_FORMAT(cdate,'%Y-%m-%d') cdate,zcdz,bgdz,zczb,
+   sjzb,dic_qyxz,zcjlbl,dic_gljjlb,qtlwlx,
+   ygrs,web_url,flyjszt,lsswsmc,ls_name,bddbr,cyzg,zghqfs,gzll,integrity_info
+	from private_funds_base 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (ch_name like '%${fuzzyQuery}%' 
+	or zcdz like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10
+  </select> 
+  <select id="fuzzyQueryPrivate2" resultType="hashmap" parameterType="hashmap" >
+	select ch_name from private_funds_base 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (ch_name like '%${fuzzyQuery}%' ) 
+	</if>
+	limit 0,10
+  </select> 
+  
+  
+   <select id="selectPrivateList" resultType="hashmap" parameterType="hashmap" >
+   select ch_name,en_name,djbh,zzjgdm,DATE_FORMAT(ddate,'%Y-%m-%d') ddate,DATE_FORMAT(cdate,'%Y-%m-%d') cdate,zcdz,bgdz,zczb,
+   sjzb,dic_qyxz,zcjlbl,dic_gljjlb,qtlwlx,
+   ygrs,web_url,flyjszt,lsswsmc,ls_name,bddbr,cyzg,zghqfs,gzll,integrity_info
+   from private_funds_base
+   WHERE 1=1 
+   order by CAST(zczb AS DECIMAL) desc
+   <if test="page != null" >
+      	limit ${page},${count}
+    </if>
+   </select>
+  
+   <select id="selectPrivateBase" resultType="hashmap" parameterType="hashmap" >
+   select * from private_funds_base
+   WHERE 1=1 
+   <if test="comName != null" >
+      and ch_name = #{comName}
+    </if>
+   </select>
+  
+   <select id="selectPrivateExec" resultType="hashmap" parameterType="hashmap" >
+   SELECT a.id,a.ch_name,b.name,b.zw,b.cyzg 
+   FROM private_funds_base a
+   LEFT JOIN `private_funds_exec` b ON a.id = b.base_id
+   WHERE 1=1 
+   <if test="comName != null" >
+      and ch_name = #{comName}
+    </if>
+   </select>
+   
+  
+   <select id="selectPrivateExecFront" resultType="hashmap" parameterType="hashmap" >
+   SELECT a.id,a.ch_name,b.name
+   FROM private_funds_base a
+   LEFT JOIN `private_pause` b ON a.id = b.base_id
+   WHERE 1=1 
+   <if test="comName != null" >
+      and ch_name = #{comName}
+    </if>
+    and type=1
+   </select>
+   
+  
+   <select id="selectPrivatePauseBack" resultType="hashmap" parameterType="hashmap" >
+   SELECT a.id,a.ch_name,b.name
+   FROM private_funds_base a
+   LEFT JOIN `private_pause` b ON a.id = b.base_id
+   WHERE 1=1 
+   <if test="comName != null" >
+      and ch_name = #{comName}
+    </if>
+    and type=2
+   </select>
+   
+   
+</mapper>
+
+

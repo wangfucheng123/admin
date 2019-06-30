@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.EmpZxpjjgMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.EmpZxpjjg" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="zsbh" property="zsbh" jdbcType="VARCHAR" />
+    <result column="xrzw" property="xrzw" jdbcType="INTEGER" />
+    <result column="start_date" property="startDate" jdbcType="DATE" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, name, sex, zsbh, xrzw, DATE_FORMAT(start_date,'%Y-%m-%d') start_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from emp_zxpjjg
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+   <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from emp_zxpjjg where 1=1 
+    and base_id = #{baseId}
+    order by id desc limit #{page},10 
+  </select>
+   <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from emp_zxpjjg 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from emp_zxpjjg
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.EmpZxpjjg" >
+    insert into emp_zxpjjg (id, base_id, name, 
+      sex, zsbh, xrzw, start_date
+      )
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=INTEGER}, #{zsbh,jdbcType=VARCHAR}, #{xrzw,jdbcType=VARCHAR}, #{startDate,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.EmpZxpjjg" >
+    insert into emp_zxpjjg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="zsbh != null" >
+        zsbh,
+      </if>
+      <if test="xrzw != null" >
+        xrzw,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="zsbh != null" >
+        #{zsbh,jdbcType=VARCHAR},
+      </if>
+      <if test="xrzw != null" >
+        #{xrzw,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.EmpZxpjjg" >
+    update emp_zxpjjg
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="zsbh != null" >
+        zsbh = #{zsbh,jdbcType=VARCHAR},
+      </if>
+      <if test="xrzw != null" >
+        xrzw = #{xrzw,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.EmpZxpjjg" >
+    update emp_zxpjjg
+    set base_id = #{baseId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      zsbh = #{zsbh,jdbcType=VARCHAR},
+      xrzw = #{xrzw,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

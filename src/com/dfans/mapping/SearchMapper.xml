@@ -1,0 +1,902 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.dao.SearchMapper" >
+	<select id="selectStockMsg" resultType="hashmap" >
+		SELECT CompanyCode as innercode,secucode,secuabbr FROM sj_db.secumain WHERE SecuMarket IN (90,83) AND SecuCategory=1
+	</select>
+	
+	<select id="selectFundMsg" resultType="hashmap" >
+		SELECT SECU_SHT briefname,TRD_CODE code  FROM bd_admin.fndcn_bas_info
+	</select>
+	
+	<select id="selectApplyMsg" resultType="hashmap" >
+		SELECT f038v_0089 applycode, ob_seccode_0007 secucode FROM sz_data.tb_company_0089 LEFT JOIN sz_data.tb_public_0007 ON tb_company_0089.ob_orgid_0089 = tb_public_0007.ob_secid_0007 WHERE f038v_0089 IS NOT NULL
+	</select>
+	
+	<select id="selectJbzl" resultType="hashmap" parameterType="hashmap" >
+		SELECT (SELECT PictureURL FROM sj_db.LC_EnterpriseLogo WHERE CompanyCode=b.CompanyCode ORDER BY 
+		UpdateTime DESC LIMIT 0,1) AS PictureURL,b.AShareAbbr as name,b.AStockCode,b.ChiName,c.ListDate,
+		b.GeneralManager,b.LegalRepr, b.ContactAddr,b.SecretaryBD,b.ContactTel,b.Website,'介绍,概况' as bz_sign
+		,CONCAT('/admin/mobile/companyInfo.html?stockcode=',b.AStockCode) as mobileUrl
+		FROM sj_db.LC_StockArchives b,sj_db.LC_AShareIPO c 
+		WHERE b.CompanyCode=#{String,jdbcType=VARCHAR} AND c.innercode=(SELECT innercode FROM sj_db.SecuMain WHERE CompanyCode=#{String,jdbcType=VARCHAR} and SecuCode = ${secucode} and SecuCategory = 1 ) 
+	</select>
+	
+	<select id="selectBzt1" resultType="hashmap" parameterType="hashmap" >
+		select  a.EndDate,b.secucode as code,a.Project,a.MainOperIncome Value,b.secuabbr as name,'经营,主营,营业' as bz_sign,CONCAT('按产品分类的营业收入(',DATE_FORMAT(a.EndDate,'%Y-%m-%d'),')') as title
+		,CONCAT('/admin/mobile/analysis.html?stockcode=',b.secucode) as mobileUrl
+		from sj_db.LC_MainOperIncome a,sj_db.secumain 
+		b where a.CompanyCode=b.CompanyCode and b.SecuCategory=1 and 
+		b.CompanyCode=#{String,jdbcType=VARCHAR} AND a.classification=20 AND a.project!='合计' 
+		AND a.EndDate=(SELECT MAX(endDate) FROM sj_db.LC_MainOperIncome WHERE CompanyCode=a.CompanyCode) 
+		ORDER BY a.MainOperIncome DESC
+	</select>
+	
+	<select id="selectBzt2" resultType="hashmap" parameterType="hashmap" >
+		select  b.secucode as code,a.EndDate,c.HoldSum Value,c.SHList AS Project,b.secuabbr as name,'流通股东' as bz_sign,CONCAT('十大流通股东持股占比(',DATE_FORMAT(a.EndDate,'%Y-%m-%d'),')') as title
+		,CONCAT('/admin/mobile/guquanfenxi.html?stockcode=',b.secucode) as mobileUrl
+		from 
+		sj_db.lc_ShareStru a LEFT JOIN sj_db.LC_MainSHListNew c ON c.CompanyCode = a.CompanyCode AND c.EndDate = a.EndDate,sj_db.secumain b 
+		where a.CompanyCode=b.CompanyCode and b.SecuCategory=1 
+		and b.CompanyCode=#{String,jdbcType=VARCHAR} 
+		and (a.TotalShares is not null or a.FloatShare is not null)
+		order by a.EndDate desc limit 0,6
+	</select>
+	
+	<select id="selectZxt1" resultType="hashmap" parameterType="hashmap" >
+		select  b.secucode as code,a.EndDate,a.BasicEPS,a.DilutedEPS,a.NetAssetPS,b.secuabbr as name,'财务,财报' as bz_sign 
+		,CONCAT('/admin/mobile/caiwu.html?stockcode=',b.secucode) as mobileUrl
+		from 
+		sj_db.LC_MainIndexNew a,sj_db.secumain b 
+		where a.CompanyCode=b.CompanyCode and b.SecuCategory=1 and 
+		b.CompanyCode=#{String,jdbcType=VARCHAR} 
+		and (a.BasicEPS is not null or a.DilutedEPS is not null or a.NetAssetPS is not null)
+		order by a.EndDate desc limit 0,6
+	</select>
+	
+	<select id="selectZxt2" resultType="hashmap" parameterType="hashmap" >
+		select  b.secucode as code,a.EndDate,a.ROEWeighted,a.ROA_EBIT,a.ROIC,b.secuabbr as name,'盈利' as bz_sign 
+		,CONCAT('/admin/mobile/yingli.html?stockcode=',b.secucode) as mobileUrl
+		from 
+		sj_db.LC_MainIndexNew a,sj_db.secumain b 
+		where a.CompanyCode=b.CompanyCode and b.SecuCategory=1 and 
+		b.CompanyCode=#{String,jdbcType=VARCHAR} 
+		and (a.ROEWeighted is not null or a.ROA_EBIT is not null or a.ROIC is not null)
+		order by a.EndDate desc limit 0,6
+	</select>
+	
+	<select id="selectZxt3" resultType="hashmap" parameterType="hashmap" >
+		select  b.secucode as code,a.EndDate,a.CurrentRatio,a.QuickRatio,a.OperCashInToCurrentDebt,b.secuabbr as name,'偿债,偿还' as bz_sign 
+		,CONCAT('/admin/mobile/changzai.html?stockcode=',b.secucode) as mobileUrl
+		from 
+		sj_db.LC_MainIndexNew a,sj_db.secumain b 
+		where a.CompanyCode=b.CompanyCode and b.SecuCategory=1 and 
+		b.CompanyCode=#{String,jdbcType=VARCHAR} 
+		and (a.CurrentRatio is not null or a.QuickRatio is not null or a.OperCashInToCurrentDebt is not null)
+		order by a.EndDate desc limit 0,6
+	</select>
+	
+	<select id="selectZxt4" resultType="hashmap" parameterType="hashmap" >
+		select  b.secucode as code,a.EndDate,a.BasicEPSYOY,a.NetProfitGrowRate,a.NetAssetGrowRate,b.secuabbr as name,'成长' as bz_sign 
+		,CONCAT('/admin/mobile/chengzhang.html?stockcode=',b.secucode) as mobileUrl
+		from 
+		sj_db.LC_MainIndexNew a,sj_db.secumain b 
+		where a.CompanyCode=b.CompanyCode and b.SecuCategory=1 and 
+		b.CompanyCode=#{String,jdbcType=VARCHAR} 
+		and (a.BasicEPSYOY is not null or a.NetProfitGrowRate is not null or a.NetAssetGrowRate is not null)
+		order by a.EndDate desc limit 0,6
+	</select>
+	
+	<select id="selectZxt5" resultType="hashmap" parameterType="hashmap" >
+		select  b.secucode as code,a.EndDate,a.DebtAssetsRatio,a.CurrentAssetsToTA,a.EquityToAsset,b.secuabbr as name,'资本' as bz_sign 
+		,CONCAT('/admin/mobile/ziben.html?stockcode=',b.secucode) as mobileUrl
+		from 
+		sj_db.LC_MainIndexNew a,sj_db.secumain b 
+		where a.CompanyCode=b.CompanyCode and b.SecuCategory=1 and 
+		b.CompanyCode=#{String,jdbcType=VARCHAR} 
+		and (a.DebtAssetsRatio is not null or a.CurrentAssetsToTA is not null or a.EquityToAsset is not null)
+		order by a.EndDate desc limit 0,6
+	</select>
+	
+	<select id="selectZxt6" resultType="hashmap" parameterType="hashmap" >
+		select  b.secucode as code,a.EndDate,a.FixedAssetTRate,a.EquityTRate,a.TotalAssetTRate,b.secuabbr as name,'运营' as bz_sign 
+		,CONCAT('/admin/mobile/yingyun.html?stockcode=',b.secucode) as mobileUrl
+		from 
+		sj_db.LC_MainIndexNew a,sj_db.secumain b 
+		where a.CompanyCode=b.CompanyCode and b.SecuCategory=1 and 
+		b.CompanyCode=#{String,jdbcType=VARCHAR} 
+		and (a.FixedAssetTRate is not null or a.EquityTRate is not null or a.TotalAssetTRate is not null)
+		order by a.EndDate desc limit 0,6
+	</select>
+	
+	<select id="selectZxt7" resultType="hashmap" parameterType="hashmap" >
+		select  b.secucode as code,a.EndDate,a.SubtotalOperateCashInflow,a.SubtotalInvestCashInflow,a.SubtotalFinanceCashInflow,
+		b.secuabbr as name,'现金' as bz_sign 
+		,CONCAT('/admin/mobile/xianjinliuliang.html?stockcode=',b.secucode) as mobileUrl
+		from sj_db.lc_CashFlowStatementAll a,sj_db.secumain b 
+		where b.SecuCategory=1 and 
+		a.CompanyCode=b.CompanyCode and b.CompanyCode=#{String,jdbcType=VARCHAR} and Ifadjusted=2 and 
+		IfMerged=1 
+		and (a.SubtotalOperateCashInflow is not null or a.SubtotalInvestCashInflow is not null or a.SubtotalFinanceCashInflow is not null)
+		order by a.EndDate desc limit 0,6
+	</select>
+	
+	<select id="selectZxt8" resultType="hashmap" parameterType="hashmap" >
+		select  b.secucode as code,a.EndDate,a.TotalOperatingRevenue,a.OtherNetRevenue,a.OperatingProfit,b.secuabbr as name,'利润,收入,支出,成本,费用' as bz_sign
+		,CONCAT('/admin/mobile/lirun.html?stockcode=',b.secucode) as mobileUrl
+		from sj_db.lc_IncomeStatementAll a,sj_db.secumain b 
+		where a.CompanyCode=b.CompanyCode and 
+		b.SecuCategory=1 and IfMerged=1 and Ifadjusted=2 and b.CompanyCode=#{String,jdbcType=VARCHAR} 
+		and (a.TotalOperatingRevenue is not null or a.OtherNetRevenue is not null or a.OperatingProfit is not null)
+		order by a.EndDate desc limit 0,6
+	</select>
+	
+	<select id="selectZxt9" resultType="hashmap" parameterType="hashmap" >
+		select  b.secucode as code,a.EndDate,a.CashEquivalents,a.FixedAssets,a.AdvanceReceipts,b.secuabbr as name,'负债,资产' as bz_sign 
+		,CONCAT('/admin/mobile/zichanfuzai.html?stockcode=',b.secucode) as mobileUrl
+		from 
+		sj_db.lc_BalanceSheetAll a,sj_db.secumain b 
+		where a.CompanyCode=b.CompanyCode and b.SecuCategory=1 
+		and b.CompanyCode=#{String,jdbcType=VARCHAR} 
+		and (a.CashEquivalents is not null or a.FixedAssets is not null or a.AdvanceReceipts is not null)
+		order by a.EndDate desc limit 0,6
+	</select>
+	
+	<select id="selectZxt10" resultType="hashmap" parameterType="hashmap" >
+		select  b.secucode as code,a.EndDate,a.OperatingNIToTP,a.ValueChangeNIToTP,a.TaxesToTP,b.secuabbr as name,'收益' as bz_sign 
+		,CONCAT('/admin/mobile/shouyi.html?stockcode=',b.secucode) as mobileUrl
+		from 
+		sj_db.lc_MainIndexNew a,sj_db.secumain b 
+		where a.CompanyCode=b.CompanyCode and b.SecuCategory=1 and 
+		b.CompanyCode=#{String,jdbcType=VARCHAR} 
+		and (a.OperatingNIToTP is not null or a.ValueChangeNIToTP is not null or a.TaxesToTP is not null)
+		order by a.EndDate desc limit 0,6
+	</select>
+	
+	<select id="selectZxt11" resultType="hashmap" parameterType="hashmap" >
+		select  b.secucode as code,a.EndDate,a.SHNum,a.AverageHoldSum,a.HoldProportionPAccount,b.secuabbr as name,'股权,股东,股本' as bz_sign 
+		,CONCAT('/admin/mobile/guquanfenxi.html?stockcode=',b.secucode) as mobileUrl
+		from 
+		sj_db.LC_SHNumber a,sj_db.secumain b 
+		where a.CompanyCode=b.CompanyCode and b.SecuCategory=1 
+		and b.CompanyCode=#{String,jdbcType=VARCHAR} 
+		and a.SHNum  is not null
+		order by a.EndDate desc limit 0,6
+	</select>
+	
+	<select id="selectZxt12" resultType="hashmap" parameterType="hashmap" >
+		SELECT  a.PositionDescription,b.secucode as code,a.EndDate,a.LeaderName,a.Position,a.ShareAmount,b.secuabbr as name,'高管,管理层' as bz_sign 
+		,CONCAT('/admin/mobile/manager.html?stockcode=',b.secucode) as mobileUrl
+		FROM sj_db.LC_ExecutivesHoldings a,sj_db.secumain b 
+		WHERE 
+		a.CompanyCode=b.CompanyCode and b.SecuCategory=1 and b.CompanyCode=#{String,jdbcType=VARCHAR} AND a.enddate=(SELECT MAX(enddate) FROM 
+		sj_db.LC_ExecutivesHoldings WHERE CompanyCode=a.CompanyCode) 
+		and (a.LeaderName is not null or a.Position is not null or a.ShareAmount is not null)
+		ORDER BY a.ShareAmount DESC LIMIT 0,10 
+	</select>
+	
+	<select id="selectZxt13" resultType="hashmap" parameterType="hashmap" >
+		SELECT
+			a.EndDate,
+			b.secucode AS CODE,
+			'主营' AS Project,
+			SUM(a.MainOperIncome) AS MainOperIncome,
+			SUM(a.MainOperCost) AS MainOperCost,
+			b.secuabbr AS NAME,
+			'主营,主营收入,主营收入变动' AS bz_sign,
+			'' AS mobileUrl
+		FROM
+			sj_db.LC_MainOperIncome a,
+			sj_db.secumain b
+		WHERE
+			a.CompanyCode = b.CompanyCode
+		AND b.SecuCategory = 1
+		AND b.CompanyCode = #{String,jdbcType=VARCHAR}
+		AND a.classification=20 AND a.project!='合计' AND a.project!='其他业务'
+		GROUP BY a.EndDate
+		ORDER BY a.EndDate DESC
+		LIMIT 0,6
+	</select>
+	
+	<select id="selectZxt14" resultType="hashmap" parameterType="hashmap" >
+		select  b.secucode as code,a.EndDate,a.TotalOperatingRevenue,a.TotalOperatingCost,a.OperatingProfit,b.secuabbr as name,'公司经营分析' as bz_sign
+		,'' as mobileUrl
+		from sj_db.lc_IncomeStatementAll a,sj_db.secumain b 
+		where a.CompanyCode=b.CompanyCode and 
+		b.SecuCategory=1 and IfMerged=1 and Ifadjusted=2 and b.CompanyCode=#{String,jdbcType=VARCHAR} 
+		and (a.TotalOperatingRevenue is not null or a.OtherNetRevenue is not null or a.OperatingProfit is not null)
+		order by a.EndDate desc limit 0,6
+	</select>
+	
+	<select id="selectZxt15" resultType="hashmap" parameterType="hashmap" >
+		select  b.secucode as code,a.EndDate,a.TotalOperatingRevenuePS,a.MainIncomePS,a.OperProfitPS,b.secuabbr as name,'每股指标' as bz_sign 
+		,'' as mobileUrl
+		from 
+		sj_db.LC_MainIndexNew a,sj_db.secumain b 
+		where a.CompanyCode=b.CompanyCode and b.SecuCategory=1 and 
+		b.CompanyCode=#{String,jdbcType=VARCHAR} 
+		and (a.ROEWeighted is not null or a.ROA_EBIT is not null or a.ROIC is not null)
+		order by a.EndDate desc limit 0,6
+	</select>
+	
+	<select id="selectZxt16" resultType="hashmap" parameterType="hashmap" >
+		select  b.secucode as code,a.EndDate,a.TotalShares,a.FloatShare,a.AFloats,b.secuabbr as name,'股本' as bz_sign 
+		,CONCAT('/admin/mobile/guquanfenxi.html?stockcode=',b.secucode) as mobileUrl
+		from 
+		sj_db.lc_ShareStru a,sj_db.secumain b 
+		where a.CompanyCode=b.CompanyCode and b.SecuCategory=1 
+		and b.CompanyCode=#{String,jdbcType=VARCHAR} 
+		and (a.TotalShares is not null or a.FloatShare is not null)
+		order by a.EndDate desc limit 0,6
+	</select>
+	
+	<select id="selectZxt17" resultType="hashmap" parameterType="hashmap" >
+		SELECT
+			b.secucode AS code,
+			a.AdvanceDate AS EndDate,
+			a.AdjustedIssuePrice,
+			a.AdjustedIssueVol,
+			b.secuabbr AS name,
+			'增发' AS bz_sign,
+			'' AS mobileUrl
+		FROM
+			sj_db.LC_AShareSeasonedNewIssue a,
+			sj_db.secumain b
+		WHERE
+			a.InnerCode = b.InnerCode
+		AND b.SecuCategory = 1
+		AND b.CompanyCode = #{String,jdbcType=VARCHAR} 
+		AND a.AdjustedIssuePrice is not null
+		GROUP BY a.AdvanceDate
+		ORDER BY
+			a.AdvanceDate DESC
+		LIMIT 0,
+		 6
+	</select>
+	
+	<select id="selectZxt18" resultType="hashmap" parameterType="hashmap" >
+		SELECT
+			b.secucode AS code,
+			a.AdvanceDate AS EndDate,
+			a.CashDiviRMB,
+			a.ActualCashDiviRMB,
+			b.secuabbr AS name,
+			'分红' AS bz_sign,
+			'' AS mobileUrl
+		FROM
+			sj_db.LC_Dividend a,
+			sj_db.secumain b
+		WHERE
+			a.InnerCode = b.CompanyCode
+		AND b.SecuCategory = 1
+		AND b.CompanyCode = #{String,jdbcType=VARCHAR} 
+		AND a.CashDiviRMB IS NOT NULL
+		ORDER BY
+			a.AdvanceDate DESC
+		LIMIT 0,
+		 6
+	</select>
+	
+	<select id="selectZxt19" resultType="hashmap" parameterType="hashmap" >
+		SELECT
+			b.secucode AS code,
+			a.AdvanceDate AS EndDate,
+			a.PlaPrice,
+			a.ActualPlaVol,
+			b.secuabbr AS name,
+			'配股' AS bz_sign,
+			'' AS mobileUrl
+		FROM
+			sj_db.LC_ASharePlacement a,
+			sj_db.secumain b
+		WHERE
+			a.InnerCode = b.CompanyCode
+		AND b.SecuCategory = 1
+		AND b.CompanyCode = #{String,jdbcType=VARCHAR} 
+		AND a.PlaPriceCeiling IS NOT NULL
+		ORDER BY
+			a.AdvanceDate DESC
+		LIMIT 0,
+		 6
+	</select>
+	
+	<select id="selectZzt1" resultType="hashmap" parameterType="hashmap" >
+		select  b.secucode as code,a.InfoPublDate,a.PlannedSum,b.secuabbr as name,'分红,融资,增发,配股' as bz_sign 
+		,CONCAT('/admin/mobile/fenhong.html?stockcode=',b.secucode) as mobileUrl
+		from sj_db.lc_CapitalInvest a,
+		sj_db.secumain b where a.CompanyCode=b.CompanyCode and b.SecuCategory=1 and 
+		b.CompanyCode=#{String,jdbcType=VARCHAR} order by a.InfoPublDate desc limit 0,10
+	</select>
+	
+	<select id="selectZzt2" resultType="hashmap" parameterType="hashmap" >
+		SELECT
+			b.secucode AS code,
+			a.InfoPublDate AS EndDate,
+			a.PlannedSum,
+			b.secuabbr AS name,
+			'募集资金' AS bz_sign,
+			'' AS mobileUrl
+		FROM
+			sj_db.LC_CapitalInvest a,
+			sj_db.secumain b
+		WHERE
+			a.CompanyCode = b.CompanyCode
+		AND b.SecuCategory = 1
+		AND b.CompanyCode = #{String,jdbcType=VARCHAR} 
+		AND a.PlannedSum IS NOT NULL
+		GROUP BY a.InfoPublDate
+		ORDER BY
+			a.InfoPublDate DESC
+		LIMIT 0,
+		 6
+	</select>
+	
+	<select id="selectXwgg1" resultType="hashmap" parameterType="hashmap" >
+		select a.recid as id,a.seccode as code,a.F001D,a.F002V,a.SECNAME as name,'${String}公告,信息' as 
+		bz_sign,'${String}' as name 
+		,CONCAT('/admin/mobile/notice.html?stockcode=',a.seccode,'&amp;type=1&amp;word=',a.SECNAME) as mobileUrl
+		from sz_data.info3015 a,sz_data.tb_text_0046 b WHERE a.TEXTID = b.ob_textid_0046 and   
+		a.SECNAME='${String}' order by a.F001D desc limit 0,10
+	</select>
+	
+	<select id="selectYb1" resultType="hashmap" parameterType="hashmap" >
+		SELECT b.trd_code as code,a.id,a.PUB_DT,a.TIT,b.SECU_SHT as name,'${String}研报,研究报告,报告' as bz_sign,'${String}' as name 
+		,CONCAT('/admin/mobile/report.html?stockcode=',b.trd_code,'&amp;type=2&amp;word=',b.SECU_SHT) as mobileUrl
+		FROM bd_admin.RRP_RPT_BAS a,bd_admin.RRP_RPT_SECU b WHERE a.id=b.ORIG_ID 
+		AND b.SECU_SHT='${String}' order by a.id desc limit 0,10
+	</select>
+	
+	<select id="selectXwzx1" resultType="hashmap" parameterType="hashmap" >
+		select
+	        ni.ID id, DATE_FORMAT(ni.UpdateTime,'%Y-%m-%d') pub_dt, ni.InfoTitle tit,'${String}新闻,资讯' as bz_sign,'${String}' as name  
+	        ,CONCAT('/admin/mobile/consult.html?type=1&amp;word=${String}')  as mobileUrl
+		from 
+			 sj_db.NI_News  ni ,sj_db.SecuMain main,  sj_db.NI_News_SE se
+	    where
+	         main.SecuMarket IN (83,90) AND main.SecuCategory IN (1,2)  AND se.code = main.InnerCode AND ni.id = se.ID
+	   
+	         and main.secuabbr = '${String}'
+	
+	   
+	        order by ni.UpdateTime desc limit 0,10
+	
+	</select>
+	
+	<select id="selectHghy" resultType="hashmap" parameterType="hashmap" >
+		
+		SELECT t.* FROM ( (SELECT b.EndDate,concat(ROUND(b.DataValue,2),c.ms) as DataValue,'${String1}' AS bz_sign 
+		FROM sj_db.C_IN_IndicatorMain a,sj_db.C_IN_IndicatorData b,sj_db.C_in_SystemConst c WHERE 
+		a.IndicatorCode=b.IndicatorCode AND c.lb=17 and A.UnitCode=c.DM and 
+		a.IndicatorName='${String1}' ORDER BY b.EndDate DESC LIMIT 0,6) UNION ALL 
+		
+(SELECT b.EndDate,concat(ROUND(b.DataValue,2),c.ms) as DataValue,'${String1}' AS bz_sign FROM sj_db.C_ED_IndicatorMain a,
+sj_db.C_ED_RegEconData b,sj_db.C_ED_IDXSystemConst c where a.IndicatorCode=b.IndicatorCode and 
+a.IndicatorName='${String1}' and c.lb=17 and A.UnitCode=c.DM ORDER BY b.EndDate 
+		DESC LIMIT 0,6)   UNION ALL 
+		(SELECT b.EndDate,concat(ROUND(b.DataValue,2),c.ms) as DataValue,'${String1}' AS bz_sign FROM sj_db.C_ED_IndicatorMain a,
+		sj_db.C_ED_IndFinData b,sj_db.C_ED_IDXSystemConst c WHERE c.lb=17 and A.UnitCode=c.DM and 
+		a.IndicatorCode=b.IndicatorCode AND a.IndicatorName='${String1}' ORDER BY b.EndDate 
+		DESC LIMIT 0,6) UNION ALL
+		(SELECT b.EndDate,concat(ROUND(b.DataValue,2),c.ms) as DataValue,'${String1}' AS bz_sign FROM sj_db.C_ED_IndicatorMain a,
+		sj_db.C_ED_MacroIndicatorData b,sj_db.C_ED_IDXSystemConst c WHERE c.lb=17 and A.UnitCode=c.DM and 
+		a.IndicatorCode=b.IndicatorCode AND a.IndicatorName='${String1}' ORDER BY b.EndDate 
+		DESC LIMIT 0,6) UNION ALL
+		(SELECT b.EndDate,concat(ROUND(b.DataValue,2),c.ms) as DataValue,'${String1}' AS bz_sign FROM sj_db.C_ED_IndicatorMain a,
+		sj_db.C_ED_CustomsData b,sj_db.C_ED_IDXSystemConst c WHERE c.lb=17 and A.UnitCode=c.DM and 
+		a.IndicatorCode=b.IndicatorCode AND a.IndicatorName='${String1}' ORDER BY b.EndDate 
+		DESC LIMIT 0,6) 
+		) t
+	</select>
+	
+	
+	<select id="selectHghyXQ" resultType="hashmap" parameterType="hashmap" >
+		
+		SELECT t.* FROM ( (SELECT b.EndDate,concat(ROUND(b.DataValue,2),c.ms) as DataValue,'${String1}' AS bz_sign 
+		FROM sj_db.C_IN_IndicatorMain a,sj_db.C_IN_IndicatorData b,sj_db.C_in_SystemConst c WHERE 
+		a.IndicatorCode=b.IndicatorCode AND c.lb=17 and A.UnitCode=c.DM and 
+		a.IndicatorName='${String1}' ORDER BY b.EndDate DESC LIMIT ${count},20) UNION ALL 
+		
+(SELECT b.EndDate,concat(ROUND(b.DataValue,2),c.ms) as DataValue,'${String1}' AS bz_sign FROM sj_db.C_ED_IndicatorMain a,
+sj_db.C_ED_RegEconData b,sj_db.C_ED_IDXSystemConst c where a.IndicatorCode=b.IndicatorCode and 
+a.IndicatorName='${String1}' and c.lb=17 and A.UnitCode=c.DM ORDER BY b.EndDate 
+		DESC LIMIT ${count},20)   UNION ALL 
+		(SELECT b.EndDate,concat(ROUND(b.DataValue,2),c.ms) as DataValue,'${String1}' AS bz_sign FROM sj_db.C_ED_IndicatorMain a,
+		sj_db.C_ED_IndFinData b,sj_db.C_ED_IDXSystemConst c WHERE c.lb=17 and A.UnitCode=c.DM and 
+		a.IndicatorCode=b.IndicatorCode AND a.IndicatorName='${String1}' ORDER BY b.EndDate 
+		DESC LIMIT ${count},20) UNION ALL
+		(SELECT b.EndDate,concat(ROUND(b.DataValue,2),c.ms) as DataValue,'${String1}' AS bz_sign FROM sj_db.C_ED_IndicatorMain a,
+		sj_db.C_ED_MacroIndicatorData b,sj_db.C_ED_IDXSystemConst c WHERE c.lb=17 and A.UnitCode=c.DM and 
+		a.IndicatorCode=b.IndicatorCode AND a.IndicatorName='${String1}' ORDER BY b.EndDate 
+		DESC LIMIT ${count},20) UNION ALL
+		(SELECT b.EndDate,concat(ROUND(b.DataValue,2),c.ms) as DataValue,'${String1}' AS bz_sign FROM sj_db.C_ED_IndicatorMain a,
+		sj_db.C_ED_CustomsData b,sj_db.C_ED_IDXSystemConst c WHERE c.lb=17 and A.UnitCode=c.DM and 
+		a.IndicatorCode=b.IndicatorCode AND a.IndicatorName='${String1}' ORDER BY b.EndDate 
+		DESC LIMIT ${count},20) 
+		) t
+	</select>
+	
+	<select id="selectHghyXQ0" resultType="hashmap" parameterType="hashmap" >
+		SELECT b.EndDate,concat(ROUND(b.DataValue,2),CASE c.ms WHEN '-' THEN '' ELSE c.ms END) as DataValue
+		FROM sj_db.C_IN_IndicatorMain a,sj_db.C_IN_IndicatorData b,sj_db.C_in_SystemConst c 
+		WHERE 
+		a.IndicatorCode=b.IndicatorCode AND c.lb=17 and A.UnitCode=c.DM and
+		a.IndicatorCode='${indicatorCode}' ORDER BY b.EndDate DESC LIMIT ${count},20 
+	</select>
+	
+	<select id="selectHghyXQ1" resultType="hashmap" parameterType="hashmap" >
+		SELECT b.EndDate,concat(ROUND(b.DataValue,2),CASE c.ms WHEN '-' THEN '' ELSE c.ms END) as DataValue
+		FROM sj_db.C_ED_IndicatorMain a,sj_db.C_ED_RegEconData b,sj_db.C_ED_IDXSystemConst c 
+		where a.IndicatorCode=b.IndicatorCode and 
+		a.IndicatorCode='${indicatorCode}' and c.lb=17 and A.UnitCode=c.DM ORDER BY b.EndDate 
+		DESC LIMIT ${count},20
+	</select>
+	
+	<select id="selectHghyXQ2" resultType="hashmap" parameterType="hashmap" >
+		SELECT b.EndDate,concat(ROUND(b.DataValue,2),CASE c.ms WHEN '-' THEN '' ELSE c.ms END) as DataValue
+		FROM sj_db.C_ED_IndicatorMain a,sj_db.C_ED_IndFinData b,sj_db.C_ED_IDXSystemConst c 
+		WHERE c.lb=17 and A.UnitCode=c.DM and
+		a.IndicatorCode=b.IndicatorCode AND a.IndicatorCode='${indicatorCode}' 
+		ORDER BY b.EndDate DESC 
+		LIMIT ${count},20
+	</select>
+	
+	<select id="selectHghyXQ3" resultType="hashmap" parameterType="hashmap" >
+		SELECT b.EndDate,concat(ROUND(b.DataValue,2),CASE c.ms WHEN '-' THEN '' ELSE c.ms END) as DataValue
+		FROM sj_db.C_ED_IndicatorMain a,sj_db.C_ED_MacroIndicatorData b,sj_db.C_ED_IDXSystemConst c 
+		WHERE c.lb=17 and A.UnitCode=c.DM and
+		a.IndicatorCode=b.IndicatorCode AND a.IndicatorCode='${indicatorCode}' 
+		ORDER BY b.EndDate DESC 
+		LIMIT ${count},20
+	</select>
+	
+	<select id="selectHghyXQ4" resultType="hashmap" parameterType="hashmap" >
+		SELECT b.EndDate,concat(ROUND(b.DataValue,2),CASE c.ms WHEN '-' THEN '' ELSE c.ms END) as DataValue
+		FROM sj_db.C_ED_IndicatorMain a,sj_db.C_ED_CustomsData b,sj_db.C_ED_IDXSystemConst c 
+		WHERE c.lb=17 and A.UnitCode=c.DM and
+		a.IndicatorCode=b.IndicatorCode AND a.IndicatorCode='${indicatorCode}' 
+		ORDER BY b.EndDate DESC 
+		LIMIT ${count},20
+	</select>
+	
+	<select id="selectXwgg2" resultType="hashmap" parameterType="hashmap" >
+		select a.recid as id,a.seccode as code,a.F001D,a.F002V,a.SECNAME as name,'${String1}' as 
+		bz_sign,'' as name 
+		,CONCAT('/admin/mobile/notice.html?stockcode=',a.seccode,'&amp;type=2&amp;word=${String1}') as mobileUrl
+		from sz_data.info3015 a,sz_data.tb_text_0046 b WHERE a.TEXTID = b.ob_textid_0046 and     
+		a.F002V like '%${String1}%' order by a.F001D desc limit 0,10
+	</select>
+	
+	<select id="selectYb2" resultType="hashmap" parameterType="hashmap" >
+		SELECT a.id,a.PUB_DT,a.TIT,'${String1}' as bz_sign,'' as name 
+		,CONCAT('/admin/mobile/report.html?type=1&amp;word=${String1}')  as mobileUrl
+		FROM bd_admin.RRP_RPT_BAS a WHERE a.TIT like '%${String1}%' OR a.COM_NAME like '%${String1}%' order by 
+		a.id desc limit 0,10
+	</select>
+	
+	<select id="selectXwzz2" resultType="hashmap" parameterType="hashmap" >
+		select
+	        ni.ID id, DATE_FORMAT(ni.UpdateTime,'%Y-%m-%d') pub_dt, ni.InfoTitle tit,'${String1}' as bz_sign,'' as name  
+	        ,CONCAT('/admin/mobile/consult.html?type=2&amp;word=${String1}')  as mobileUrl
+		from 
+			 sj_db.Union_News  ni 
+	    where
+	         ni.InfoTitle like '%${String1}%' order by 
+		ni.UpdateTime desc limit 0,10
+	</select>
+	
+	<sql id="Tpzx_List">
+  		a.News_id infoId,a.News_title infoTitle,a.Source infoSouce,DATE_FORMAT(a.Issued_date, '%Y-%m-%d') infoTime,a.Author,a.Abstracts infoIntroduce,a.Abstracts_pic infoImage,a.Shareurl,a.TIMESTAMP,a.Bz1,a.Bz2,a.Bz3,a.Like_num
+  	</sql>
+	
+	<select id="selectTpzx" resultType="hashmap" parameterType="hashmap" >
+		SELECT DISTINCT 
+			<include refid="Tpzx_List"></include>
+			,b.Detail_pic infoCont,CASE WHEN isnull(c.info_id) = 1 THEN 0 ELSE 1 END as collect
+		FROM
+			news.tb_news_basic a
+			LEFT JOIN news.tb_news_detail b ON a.News_id = b.News_id
+			LEFT JOIN info_sys.my_favorite_info c ON CONCAT('pic',a.News_id) = c.info_id
+			AND c.FAVORITE_ID IN (SELECT id FROM info_sys.my_favorites WHERE uid = '${userId}' )
+		WHERE 1=1
+		<if test="News_id != null" >
+		  	AND a.News_id = ${News_id}
+		</if>
+		<if test="word != null" >
+		  	AND (a.News_title like '%${word}%' OR a.Abstracts like '%${word}%')
+		</if>
+		ORDER BY a.Issued_date desc 
+		<if test="page != null" >
+		  	limit ${page},${count}
+		</if>
+	</select>
+	<select id="selectTpzxById" resultType="hashmap" parameterType="hashmap" >
+		SELECT DISTINCT 
+			<include refid="Tpzx_List"></include>
+			,b.Detail_pic infoCont,CASE WHEN isnull(c.info_id) = 1 THEN 0 ELSE 1 END as collect
+		FROM
+			news.tb_news_basic a
+			LEFT JOIN news.tb_news_detail b ON a.News_id = b.News_id
+			LEFT JOIN info_sys.my_favorite_info c ON CONCAT('pic',a.News_id) = c.info_id 
+		WHERE 1=1
+		<if test="infoid != null" >
+		  	AND a.News_id =#{infoid}
+		</if>
+		 
+	</select>
+	<select id="selectF10" resultType="hashmap" parameterType="hashmap" >
+		select * from (
+			select b.secucode as code,
+		        ${col},b.secuabbr as name ,a.EndDate, '${word}' bz_sign
+			from 
+				 ${table}
+		    where
+		         b.CompanyCode=${code} AND b.SecuMarket IN (90,83) AND b.SecuCategory=1  ${where} 
+		 ) temp where temp.retValue is not null
+	</select>
+	
+	<sql id="Xgsg_List">
+  	ob_seccode_0007,ob_secname_0007,DATE_FORMAT(f007d_0007,'%Y-%m-%d') f007d_0007,DATE_FORMAT(F035D_0089,'%Y-%m-%d') F035D_0089,
+	f038v_0089,f008n_0089,f042n_0089,f045n_0089,DATE_FORMAT(F109D_0089,'%Y-%m-%d') F109D_0089,f056n_0089,f026n_0089 ,f023v_0089,f014n_0089,f015n_0089
+  	</sql>
+  
+  	<select id="selectXGSG" resultType="hashmap" parameterType="hashmap" >
+		SELECT 
+		<include refid="Xgsg_List"></include>
+	 	from sz_data.tb_company_0089
+		LEFT JOIN sz_data.tb_public_0007 ON sz_data.tb_company_0089.ob_orgid_0089 = sz_data.tb_public_0007.ob_secid_0007
+	 	where 1=1
+	 	<if test="code != null" >
+		  	AND f038v_0089 = ${code}
+		</if>
+		<if test="secucode != null" >
+		  	AND ob_seccode_0007 = ${secucode}
+		</if>
+		<if test="page != null" >
+		  	limit ${page},${count}
+		</if>
+	</select>
+	
+	<sql id="Xggh_List" >
+  		OB_ORGID_0809,ob_orgname_0809,DATE_FORMAT(f003d_0809,'%Y-%m-%d') f003d_0809,f004v_0809,f005v_0809,DATE_FORMAT(f006d_0809,'%Y-%m-%d') f006d_0809,ob_seccode_0007
+  	</sql>
+  	<select id="selectXGGH" parameterType="hashmap"  resultType="hashmap">
+  		select
+  		<include refid="Xggh_List"/>
+  		from sz_data.tb_company_0809
+  		LEFT JOIN sz_data.tb_public_0007 ON sz_data.tb_company_0809.ob_orgid_0809 = sz_data.tb_public_0007.ob_secid_0007
+ 	 	where ob_seccode_0007 = ${secucode}
+ 		<if test="page != null" >
+		  	limit ${page},${count}
+		</if>
+	</select>
+	
+	<sql id="Xgss_List" >
+		DATE_FORMAT(min(ob_tradedate_0160),'%Y-%m-%d') ob_tradedate_0160,ob_secname_0007, ob_seccode_0007,ob_tradedate_0160,f008n_0089,f003n_0160,
+		(f003n_0160- f008n_0089)/f008n_0089  firstDayYiJia,f025n_0160,f025n_0160,
+		f015n_0160,f002n_0160,(f003n_0160- f008n_0089)/f008n_0089 zhiJinZhangFu,Max(f003n_0160) f003n_0160,
+		MIN(f003n_0160) f003n_0160,f017n_0160,f031n_0137,f021n_0160,f019n_0137,f037n_0137,f080n_0293
+	</sql>
+	
+	<select id="selectXGSS" parameterType="hashmap" resultType="hashmap">
+		select 
+	  	<include refid="Xgss_List"/>
+	  	from sz_data.tb_trade_0160 a
+	  	LEFT JOIN sz_data.tb_public_0007 ON a.ob_seccode_0160=sz_data.tb_public_0007.ob_seccode_0007
+	  	LEFT JOIN sz_data.tb_company_0089 ON sz_data.tb_company_0089.ob_orgid_0089 = sz_data.tb_public_0007.ob_secid_0007
+	  	LEFT JOIN sz_data.tb_company_0137 ON sz_data.tb_public_0007.ob_secid_0007=sz_data.tb_company_0137.ob_orgid_0137
+	  	LEFT JOIN sz_data.tb_company_0293 ON sz_data.tb_public_0007.ob_secid_0007 = sz_data.tb_company_0293.ob_orgid_0293
+	  	where ob_seccode_0007 = ${secucode} 
+	  	AND OB_SECCODE_0160 in (
+			SELECT
+				b.ob_seccode_0160
+			FROM
+				(
+					SELECT
+						min(ob_tradedate_0160) tdate,
+						ob_seccode_0160,
+						ob_secname_0160
+					FROM
+						sz_data.tb_trade_0160 a
+					WHERE
+						F023V_0160 = 'A股'
+					GROUP BY
+						ob_seccode_0160
+				) b
+			WHERE
+				b.tdate BETWEEN date_add(now(), INTERVAL - 3 MONTH)
+			AND now()
+		)
+	  	AND tb_public_0007.F003V_0007='A股' AND a.F023V_0160='A股'
+	  	and ob_tradedate_0160 BETWEEN date_add(now(),interval -3 month) AND now()
+		GROUP BY ob_seccode_0160 
+  	</select>
+	
+	<sql id="Xfjj_List" >
+	  a.secu_id,b.secu_sht,b.pur_st,b.fmc_com_name,b.mng_psn_name,b.new_vol,INV_TYP_COM,b.FMC_COM_ID,b.trd_code,
+	  DATE_FORMAT(a.ISS_BGN_DT,'%Y-%m-%d') ISS_BGN_DT ,DATE_FORMAT(a.ISS_END_DT,'%Y-%m-%d') ISS_END_DT ,
+	  DATE_FORMAT(a.LST_DT,'%Y-%m-%d')  LST_DT  ,a.ISS_PRC ,a.PAR_VAL ,a.PAR_FEE ,a.MIN_SUB 
+	</sql>
+  
+	<select id="selectXFJJ" resultType="hashmap" parameterType="hashmap" >
+		SELECT 
+	<include refid="Xfjj_List" />,IFNULL(d.secu_id,'+') fh
+		FROM bd_admin.fndcn_iss a
+		LEFT JOIN bd_admin.fndcn_bas_info b ON a.secu_id = b.secu_id 
+		LEFT JOIN bd_admin.BAS_CST_INFO c ON b.INV_TYP_COM=c.CST_NUM AND c.CST_TYP=10041 
+		LEFT OUTER JOIN db_shuqin.fndcn_jjzx d on d.secu_id=a.secu_id and user_id=#{userId} and type=0
+		WHERE now() between iss_bgn_dt and iss_end_dt 
+		<if test="code != null" >
+		  	and b.trd_code = #{code}
+		</if>
+		order by a.iss_bgn_dt  desc
+		<if test="page != null" >
+		  	limit ${page},${count}
+		</if>
+  	</select>
+	
+	<select id="selectKFSJJ" resultType="hashmap" parameterType="hashmap" >
+	  SELECT
+	    DISTINCT(fndcn_bas_info.secu_id) secu_id,secu_sht,chi_name,fndcn_unit_nav_idx.UNIT_NAV,CHG_RAT_1D,INV_TYP,INV_TYP_DESC,
+	  	chg_rat_ty,chg_rat_1w,chg_rat_1m,chg_rat_3m,chg_rat_1y,chg_rat_bgn,fmc_com_name,
+	  	mng_psn_name,inv_styl_bd,pur_st,redem_st,day_chg_rat,DATE_FORMAT(fndcn_mkt_quot.TRD_DT,'%Y-%m-%d') TRD_DT ,
+	  	SECT_NAME,ISS_VOL  ,IFNULL(d.secu_id,'+') fh,FMC_COM_ID,TRD_CODE,
+	  	(SELECT UNIT_NAV_GR from bd_admin.FNDCN_NAV_PERF WHERE fndcn_bas_info.SECU_ID = FNDCN_NAV_PERF.SECU_ID  AND PRD_TYP_CODE =1 ORDER BY END_DT DESC LIMIT 0,1) AS monthzzl,
+		(SELECT UNIT_NAV_GR from bd_admin.FNDCN_NAV_PERF WHERE fndcn_bas_info.SECU_ID = FNDCN_NAV_PERF.SECU_ID  AND PRD_TYP_CODE =3 ORDER BY END_DT DESC LIMIT 0,1) AS jdzzl
+	   FROM bd_admin.fndcn_bas_info 
+		LEFT JOIN bd_admin.fndcn_unit_nav_idx  ON  fndcn_bas_info.secu_id= fndcn_unit_nav_idx.SECU_ID 
+		LEFT JOIN bd_admin.fndcn_mkt_quot  ON fndcn_bas_info.secu_id= fndcn_mkt_quot.SECU_ID 
+		LEFT JOIN bd_admin.FNDCN_SECT on fndcn_bas_info.secu_id = FNDCN_SECT.secu_id and (INFO_SOUR = '市场常用' ) 
+		LEFT OUTER JOIN db_shuqin.fndcn_jjzx d on d.secu_id=fndcn_bas_info.secu_id and user_id=#{userId} and type=1
+		LEFT OUTER JOIN bd_admin.FNDCN_RAT_PERF ON fndcn_bas_info.SECU_ID = FNDCN_RAT_PERF.SECU_ID
+		WHERE fndcn_mkt_quot.TRD_DT = fndcn_unit_nav_idx.TRD_DT 
+		<if test="code != null" >
+		  	AND TRD_CODE = #{code}
+		</if>
+		AND fndcn_unit_nav_idx.TRD_DT = #{trdDt}
+		AND SECT_NAME IN ('开放式基金')
+		AND INV_TYP_DESC != '封闭式基金'
+		<if test="page != null" >
+	      	limit ${page},${count}
+	    </if>
+	</select>
+	
+	<select id="selectHBXJJ" resultType="hashmap" parameterType="hashmap" >
+		SELECT DISTINCT(fndcn_bas_info.secu_id) secu_id,fndcn_bas_info.UPD_TIME ,secu_sht,chi_name,UNIT_NAV ,ACCU_UNIT_NAV ,UNIT_YLD ,ANN_YLD_RAT ,DAY_CHG ,DAY_CHG_RAT ,ADJ_UNIT_NAV ,
+		DATE_FORMAT(TRD_DT,'%Y-%m-%d') TRD_DT ,SECT_NAME,ISS_VOL ,IFNULL(d.secu_id,'+') fh ,FMC_COM_ID,TRD_CODE,fmc_com_name,mng_psn_name,ISS_VOL  
+		FROM bd_admin.fndcn_bas_info 
+		LEFT JOIN bd_admin.FNDCN_UNIT_NAV ON fndcn_bas_info.secu_id= FNDCN_UNIT_NAV.SECU_ID 
+		LEFT JOIN bd_admin.FNDCN_SECT on fndcn_bas_info.secu_id = FNDCN_SECT.secu_id 
+		LEFT OUTER JOIN db_shuqin.fndcn_jjzx d on d.secu_id=fndcn_bas_info.secu_id and user_id=#{userId} and type=2
+		WHERE SECT_NAME ='货币型' 
+		AND FNDCN_UNIT_NAV.TRD_DT=#{trdDt}
+		<if test="code != null" >
+		  	AND TRD_CODE = #{code}
+		</if>
+		<if test="page != null" >
+	      	limit ${page},${count}
+		</if>
+  	</select>
+  	
+	<sql id="fjjj_List" >
+		DISTINCT(fndcn_bas_info.secu_id) secu_id,secu_sht,chi_name,fndcn_unit_nav_idx.UNIT_NAV,CHG_RAT_1D,INV_TYP,INV_TYP_DESC,
+		chg_rat_ty,chg_rat_1w,chg_rat_1m,chg_rat_3m,chg_rat_1y,chg_rat_bgn,fmc_com_name,
+		mng_psn_name,inv_styl_bd,pur_st,redem_st,day_chg_rat,DATE_FORMAT(fndcn_mkt_quot.TRD_DT,'%Y-%m-%d') TRD_DT ,
+		SECT_NAME,ISS_VOL,FMC_COM_ID,TRD_CODE 
+	</sql>
+  	
+  	<select id="selectFJJJ" resultType="hashmap" parameterType="hashmap" >
+	 	select
+	  	<include refid="fjjj_List"/>,IFNULL(d.secu_id,'+') fh
+	   	FROM bd_admin.fndcn_bas_info 
+		LEFT JOIN bd_admin.fndcn_unit_nav_idx  ON  fndcn_bas_info.secu_id= fndcn_unit_nav_idx.SECU_ID 
+		LEFT JOIN bd_admin.fndcn_mkt_quot  ON fndcn_bas_info.secu_id= fndcn_mkt_quot.SECU_ID 
+		LEFT JOIN bd_admin.FNDCN_SECT on fndcn_bas_info.secu_id = FNDCN_SECT.secu_id 
+		left outer join db_shuqin.fndcn_jjzx d on d.secu_id=fndcn_bas_info.secu_id and user_id=#{userId} and type=3
+		LEFT outer JOIN bd_admin.FNDCN_RAT_PERF ON fndcn_bas_info.SECU_ID = FNDCN_RAT_PERF.SECU_ID 
+		where fndcn_unit_nav_idx.TRD_DT = fndcn_mkt_quot.TRD_DT 
+		<if test="code != null" >
+		  	and TRD_CODE = #{code}
+		</if>
+		and SECT_NAME = '分级基金' 
+		and fndcn_unit_nav_idx.TRD_DT=#{trdDt}
+		<if test="page != null" >
+	      	limit ${page},${count}
+	    </if>
+	</select>
+	
+	<select id="selectFBSJJ" resultType="hashmap" parameterType="hashmap" >
+	  SELECT DISTINCT(fndcn_bas_info.secu_id),secu_sht, chi_name,fmc_com_name,mng_psn_name,inv_styl_bd,pur_st,redem_st,oper_codei,fnd_hie_pat,FNDCN_UNIT_NAV.UNIT_NAV,ACCU_UNIT_NAV , DAY_CHG_RAT,
+	  DATE_FORMAT(FNDCN_UNIT_NAV.TRD_DT,'%Y-%m-%d') TRD_DT,ISS_VOL,IFNULL(d.secu_id,'+') fh,SECT_NAME,INV_TYP,INV_TYP_DESC,FMC_COM_ID,TRD_CODE
+	  FROM bd_admin.fndcn_bas_info 
+	  LEFT JOIN bd_admin.FNDCN_UNIT_NAV ON fndcn_bas_info.secu_id=FNDCN_UNIT_NAV.secu_id AND FNDCN_UNIT_NAV.TRD_DT=#{trdDt}
+	  LEFT JOIN bd_admin.FNDCN_SECT on fndcn_bas_info.secu_id = FNDCN_SECT.secu_id AND FNDCN_SECT.END_DT  IS NOT NULL 
+	  left outer join db_shuqin.fndcn_jjzx d on d.secu_id=fndcn_bas_info.secu_id and user_id=#{userId} and type=4
+	  LEFT outer JOIN bd_admin.FNDCN_RAT_PERF ON fndcn_bas_info.SECU_ID = FNDCN_RAT_PERF.SECU_ID and FNDCN_RAT_PERF.INV_TYP_DESC!='混合型'
+	  where FNDCN_SECT.SECT_NAME in ('封闭式基金')
+	  <if test="code != null" >
+		  	and TRD_CODE = #{code}
+	  </if>
+	  <if test="page != null" >
+	      	limit ${page},${count}
+	  </if>
+	</select>
+	
+	<sql id="JJHQ_List">
+		DATE_FORMAT(fndcn_mkt_quot.trd_dt,'%Y-%m-%d') trd_dt,fndcn_mkt_quot.secu_id, secu_sht,prev_cls_prc,open_prc,high_prc,low_prc,cls_prc,tnv_vol,tnv_val,day_chg,day_chg_rat
+		,unit_nav,prem_agio,prem_agio_rat,day_chg_rat,tnv_rat,day_amp,exch_shr,adj_cls_prc,TRD_CODE,UNIT_NAV ,
+		PREM_AGIO,PREM_AGIO_RAT,TNV_RAT ,EXCH_SHR,ADJ_CLS_PRC
+	</sql>
+	
+	<select id="selectJJHQ" resultType="hashmap" parameterType="hashmap" >
+	  select
+		<include refid="JJHQ_List"/>
+		from bd_admin.fndcn_mkt_quot
+		left join bd_admin.fndcn_bas_info on fndcn_mkt_quot.secu_id = fndcn_bas_info.secu_id
+		where trd_dt =#{trdDt} 
+		<if test="code != null" >
+		  	and TRD_CODE = #{code}
+	  	</if>
+	  	 order by fndcn_mkt_quot.secu_id,TRD_DT desc
+	  	<if test="page != null" >
+	      	limit ${page},${count}
+	  	</if>
+	</select>
+	
+	<sql id="JJGS_List">
+		DISTINCT(bas_com_info.com_id),
+		REPLACE( REPLACE( REPLACE( REPLACE(REPLACE(REPLACE(REPLACE(com_name, '管理股份有限责任公司', ''), '管理股份有限公司', ''), '资产管理有限公司', ''), '管理有限责任公司', ''), '管理有限公司', '') , '股份有限公司', ''), '有限责任公司', '')   com_name,
+		DATE_FORMAT(found_dt,'%Y-%m-%d') found_dt,lgl_repr,gm,tel,BIZ_SCO 
+		reg_cptl,gm,reg_addr,ofs_addr,tel,posc,fax,web_site,BIZ_SCO,COM_HIS 
+	</sql>
+	
+	<select id="selectJJGS" resultType="hashmap" parameterType="hashmap" >
+		select  
+		<include refid="JJGS_List"/>
+		from bd_admin.fndcn_bas_info
+		LEFT JOIN bd_admin.bas_com_info ON fndcn_bas_info.fmc_com_name = bas_com_info.com_name
+		left join bd_admin.BAS_COM_INFO_SUP on bas_com_info.com_id = BAS_COM_INFO_SUP.com_id
+	</select>
+	
+	<sql id="JJJL_List">
+		MAIN_SECU_ID,psn_id,psn_name,posi_name,age
+		gender,edu,DATE_FORMAT(bgn_dt,'%Y-%m-%d') bgn_dt ,DATE_FORMAT(end_dt,'%Y-%m-%d') end_dt ,bkgd
+	</sql>
+	
+	<select id="selectJJJL" resultType="hashmap" parameterType="hashmap" >
+		select 
+		<include refid="JJJL_List"/>
+		FROM bd_admin.fndcn_mng
+		<if test="page != null" >
+		  	limit ${page},${count}
+		</if>
+	</select>
+	
+	<!-- 我的资讯分类和我的 媒体分类 -->
+	<select id="myCagetorys" parameterType="hashmap" resultType="hashmap">
+		SELECT my.CLASS_ID,my.CODE cid, sys.MS cname FROM  info_sys.my_class my, sj_db.CT_SystemConst sys WHERE my.CLASS_ID = sys.LB AND my.CODE=sys.DM  and my.CLASS_ID = #{classid} and my.UID = #{UID} order by my.ID
+	</select>
+	
+	<select id="selectMyIndustrysMsg" parameterType="hashmap" resultType="hashmap">
+		 SELECT i.NodeCode cid, i.NodeName cname FROM info_sys.Industry_Base i, info_sys.my_class my 
+		 WHERE my.CODE = i.NodeCode  AND my.CLASS_ID = 3 and my.UID = #{userId}
+	</select>
+	
+	<!-- 我的行业分类产业新闻 -->
+	<select id="myIndustrys" parameterType="hashmap" resultType="hashmap">
+		SELECT DISTINCT
+		    ni.ID id
+		    , DATE_FORMAT(ni.UpdateTime,'%Y-%m-%d') InfoPublDate
+		    , ni.InfoTitle InfoTitle
+		    , ni.Media Media
+		    , ni.content Content
+		    , '' f003v
+		    ,'${secucode}产业新闻' as bz_sign
+		    ,'3' as type
+        FROM 
+            sj_db.NI_News ni
+        <if test="innercode != null" >
+            LEFT JOIN sj_db.NI_News_SE se ON ni.ID = se.ID and se.Code = #{innercode}  
+		</if>
+	   	order by ni.UpdateTime desc 
+	   	<if test="page != null" >
+		  	limit ${page},${count}
+		</if>
+	</select>
+	
+	<select id="selectMyStocksMsg" parameterType="hashmap" resultType="hashmap" >
+		SELECT innercode,secucode, secuabbr FROM sj_db.SecuMain s, info_sys.my_class my 
+		WHERE  SecuMarket IN (83,90) AND SecuCategory IN (1,2) AND my.CODE = s.SecuCode AND my.CLASS_ID = 4 and my.UID = #{userId}
+	</select>
+
+	<!-- 我的个股个股新闻 -->
+	<select id="myStocks" parameterType="hashmap" resultType="hashmap">
+		select
+	        ni.ID id
+	        , DATE_FORMAT(ni.UpdateTime,'%Y-%m-%d') InfoPublDate
+	        , ni.InfoTitle InfoTitle
+	        , ni.Media Media
+	        , ni.content Content
+	        , '' f003v
+	        ,'${secucode}个股新闻' as bz_sign
+	        ,'4' as type
+		from 
+			 sj_db.NI_News  ni ,sj_db.SecuMain main,  sj_db.NI_News_SE se
+	    where
+	         main.SecuMarket IN (83,90) AND main.SecuCategory IN (1,2)  AND se.code = main.`InnerCode` AND ni.id = se.`ID`
+       	<if test="secucode != null" >
+		  	 AND main.SecuCode = #{secucode}
+		</if>
+	  	order by ni.UpdateTime desc 
+	   	<if test="page != null" >
+		  	limit ${page},${count}
+		</if>
+	</select>
+	
+	<!-- 个股情绪分析 -->
+	<select id="stockAnalysis" parameterType="hashmap" resultType="hashmap">
+		SELECT name, id, count, industry, targ_prc, cls_prc, rpt_prc, avg_eps, pur_count, hold_count, neutral_count, reduc_count, avoid_count
+		FROM bd_admin.rrp_calculate_stock_all_nano
+		WHERE type = 'month'
+		ORDER BY count DESC
+		<if test="page != null" >
+		  	limit ${page},${count}
+		</if>
+	</select>
+	
+	<!-- 单一研报分析 -->
+	<select id="researchOneAnalysis" parameterType="hashmap" resultType="hashmap">
+		SELECT name, id, orig_id, rat, rat_lst, cls_prc, targ_prc, targ_rpt, eps, pe, com_name, aut, lst_sect_name, tit, pub_dt
+		FROM bd_admin.rrp_calculate_stock_one_nano
+		WHERE type = 'month'
+		ORDER BY pub_dt DESC
+		<if test="page != null" >
+		  	limit ${page},${count}
+		</if>
+	</select>
+	
+	<!-- 行业情绪分析 -->
+	<select id="industryAnalysis" parameterType="hashmap" resultType="hashmap">
+		SELECT name, count, incr_count, neut_count, redu_count
+		FROM bd_admin.rrp_calculate_industry_all_nano
+		WHERE type = 'month'
+		ORDER BY count DESC
+		<if test="page != null" >
+		  	limit ${page},${count}
+		</if>
+	</select>
+	
+	<!-- 机构研究成果分析 -->
+	<select id="researchAgencyAnalysis" parameterType="hashmap" resultType="hashmap">
+		SELECT name, right_rat, read_count, download_count, count, positive_count, up_count, up_range_avg, up_range_max
+		FROM bd_admin.rrp_calculate_agency_nano
+		WHERE type = 'month'
+		ORDER BY right_rat DESC
+		<if test="page != null" >
+		  	limit ${page},${count}
+		</if>
+	</select>
+	
+	<!-- 分析师研究成果分析 -->
+	<select id="researchAnalysis" parameterType="hashmap" resultType="hashmap">
+		select name, right_rat, com_name, read_count, download_count, count, positive_count, up_count, up_range_avg, up_range_max
+		FROM bd_admin.rrp_calculate_analyst_nano
+		WHERE type = 'month'
+		ORDER BY right_rat DESC
+		<if test="page != null" >
+		  	limit ${page},${count}
+		</if>
+	</select>
+	
+	<!-- totalShareCapital -->
+	<select id="totalShareCapital" parameterType="String" resultType="String">
+		SELECT
+			TotalShares
+		FROM
+			sj_db.LC_NewestShareStru a,
+			sj_db.secumain b
+		WHERE
+			a.CompanyCode = b.CompanyCode
+		AND b.SecuCode = #{code}
+	</select>
+	
+</mapper>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FundAssetAllocationMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FundAssetAllocation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="comname" property="comname" jdbcType="VARCHAR" />
+    <result column="report_date" property="reportDate" jdbcType="DATE" />
+    <result column="shares_ratio" property="sharesRatio" jdbcType="REAL" />
+    <result column="bond_ratio" property="bondRatio" jdbcType="REAL" />
+    <result column="cash_ratio" property="cashRatio" jdbcType="REAL" />
+    <result column="net_assets" property="netAssets" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, comname, report_date, shares_ratio, bond_ratio, cash_ratio, net_assets
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fund_asset_allocation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from fund_asset_allocation where 1=1 
+    and base_id = #{baseId}
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from fund_asset_allocation where 1=1 and base_id = #{baseId}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fund_asset_allocation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FundAssetAllocation" >
+    insert into fund_asset_allocation (id, base_id, comname, 
+      report_date, shares_ratio, bond_ratio, 
+      cash_ratio, net_assets)
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{comname,jdbcType=VARCHAR}, 
+      #{reportDate,jdbcType=DATE}, #{sharesRatio,jdbcType=REAL}, #{bondRatio,jdbcType=REAL}, 
+      #{cashRatio,jdbcType=REAL}, #{netAssets,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.FundAssetAllocation" >
+    insert into fund_asset_allocation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="comname != null" >
+        comname,
+      </if>
+      <if test="reportDate != null" >
+        report_date,
+      </if>
+      <if test="sharesRatio != null" >
+        shares_ratio,
+      </if>
+      <if test="bondRatio != null" >
+        bond_ratio,
+      </if>
+      <if test="cashRatio != null" >
+        cash_ratio,
+      </if>
+      <if test="netAssets != null" >
+        net_assets,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="comname != null" >
+        #{comname,jdbcType=VARCHAR},
+      </if>
+      <if test="reportDate != null" >
+        #{reportDate,jdbcType=DATE},
+      </if>
+      <if test="sharesRatio != null" >
+        #{sharesRatio,jdbcType=REAL},
+      </if>
+      <if test="bondRatio != null" >
+        #{bondRatio,jdbcType=REAL},
+      </if>
+      <if test="cashRatio != null" >
+        #{cashRatio,jdbcType=REAL},
+      </if>
+      <if test="netAssets != null" >
+        #{netAssets,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FundAssetAllocation" >
+    update fund_asset_allocation
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="comname != null" >
+        comname = #{comname,jdbcType=VARCHAR},
+      </if>
+      <if test="reportDate != null" >
+        report_date = #{reportDate,jdbcType=DATE},
+      </if>
+      <if test="sharesRatio != null" >
+        shares_ratio = #{sharesRatio,jdbcType=REAL},
+      </if>
+      <if test="bondRatio != null" >
+        bond_ratio = #{bondRatio,jdbcType=REAL},
+      </if>
+      <if test="cashRatio != null" >
+        cash_ratio = #{cashRatio,jdbcType=REAL},
+      </if>
+      <if test="netAssets != null" >
+        net_assets = #{netAssets,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FundAssetAllocation" >
+    update fund_asset_allocation
+    set base_id = #{baseId,jdbcType=INTEGER},
+      comname = #{comname,jdbcType=VARCHAR},
+      report_date = #{reportDate,jdbcType=DATE},
+      shares_ratio = #{sharesRatio,jdbcType=REAL},
+      bond_ratio = #{bondRatio,jdbcType=REAL},
+      cash_ratio = #{cashRatio,jdbcType=REAL},
+      net_assets = #{netAssets,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

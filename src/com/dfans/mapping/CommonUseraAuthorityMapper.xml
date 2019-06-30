@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfans.dao.CommonUserAuthorityMapper">
+  <resultMap id="BaseResultMap" type="com.dfans.model.CommonUserAuthority">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="authorityid" jdbcType="VARCHAR" property="authorityId" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="isLeaf" jdbcType="VARCHAR" property="isleaf" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+  </resultMap>
+   
+  <sql id="Base_Column_List">
+    id, name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sj_authority_common_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+ <select id="selectDateForTree" parameterType="string" resultMap="BaseResultMap">
+    select id, name, pid, isLeaf from sj_authority_common_user  where FIND_IN_SET(id,getMenus(#{tid}))
+ </select>
+ <select id="selectPMenu"  resultMap="BaseResultMap"> 
+ 	SELECT DISTINCT (SELECT   NAME  FROM  sj_authority_common_user  WHERE id = sc.`pid`) name ,pid
+	FROM sj_authority_common_user sc,  sj_user_authority sa 
+	WHERE sa.`authorityid` = sc.`id`   <if test="list != '' and list != null"> and sc.id in <foreach item="item" index="index" collection="list"
+open="(" separator="," close=")">
+#{item.id}
+</foreach></if>
+ </select>
+  <select id="selectCMenu" parameterType="string" resultMap="BaseResultMap">
+  	SELECT  sc.* FROM sj_authority_common_user sc,  sj_user_authority sa  WHERE sa.`authorityid` = sc.`id`  <if test="pid!= '' and pid != null">
+	AND sc.`pid`=#{pid}</if> 
+	AND sa.`userid`=#{userid}
+   
+ </select>
+   <select id="isExists" parameterType="com.dfans.model.CommonUserAuthority" resultType="int">
+    select count(id) from sj_user_authority where userid=#{userId} and authorityid=#{authorityId} 
+  </select>
+  <select id="get_authoritys2" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT c.`id` id ,c.`name` name,u.id authorityid FROM sj_authority_common_user c,sj_user_authority u, admin a WHERE a.id=#{id,jdbcType=INTEGER} AND a.id=u.`userid` AND u.`authorityid`=c.`id`
+  </select>
+  <select id="get_authoritys" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+   SELECT c.`id` id ,c.`name` NAME FROM sj_authority_common_user c WHERE NOT EXISTS (SELECT* FROM sj_authority_common_user u WHERE u.`pid`=c.`id`)
+  </select>
+  <delete id="remove_authority" parameterType="string">
+    delete from sj_user_authority
+    where id=#{id} 
+  </delete>
+  <delete id="remove_menu" parameterType="string">
+    delete from sj_authority_common_user
+    where id=#{id} or pid=#{id}
+  </delete>
+  <insert id="save_authority"  useGeneratedKeys="true" keyProperty="authorityId" parameterType="com.dfans.model.CommonUserAuthority">
+    insert into sj_authority_common_user ( name)
+    values ( #{name})
+  </insert> 
+   <insert id="save_menu"  useGeneratedKeys="true" keyProperty="id" parameterType="com.dfans.model.CommonUserAuthority">
+    insert into sj_authority_common_user ( name,pid)
+    values ( #{name},#{pid})
+  </insert>
+   <insert id="save_authority_user"  parameterType="com.dfans.model.CommonUserAuthority">
+    insert into sj_user_authority (userid,authorityid)
+    values (#{userId,jdbcType=INTEGER}, #{authorityId,jdbcType=INTEGER})
+  </insert> 
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.CommonUserAuthority">
+    update sj_user_authority
+    set userid = #{userId,jdbcType=VARCHAR},authorityid = #{authorityId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="rename" parameterType="com.dfans.model.CommonUserAuthority">
+    update sj_authority_common_user
+    set name = #{name,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER} 
+  </update>
+</mapper>

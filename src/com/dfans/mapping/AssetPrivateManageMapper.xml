@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.AssetPrivateManageMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.AssetPrivateManage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="quarter" property="quarter" jdbcType="INTEGER" />
+    <result column="manage_type" property="manageType" jdbcType="VARCHAR" />
+    <result column="regist_num" property="registNum" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, year, quarter, manage_type, regist_num
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from asset_private_manage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from asset_private_manage where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from asset_private_manage 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from asset_private_manage
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.AssetPrivateManage" >
+    insert into asset_private_manage (id, year, quarter, 
+      manage_type, regist_num)
+    values (#{id,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{quarter,jdbcType=INTEGER}, 
+      #{manageType,jdbcType=VARCHAR}, #{registNum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.AssetPrivateManage" >
+    insert into asset_private_manage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="quarter != null" >
+        quarter,
+      </if>
+      <if test="manageType != null" >
+        manage_type,
+      </if>
+      <if test="registNum != null" >
+        regist_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="manageType != null" >
+        #{manageType,jdbcType=VARCHAR},
+      </if>
+      <if test="registNum != null" >
+        #{registNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.AssetPrivateManage" >
+    update asset_private_manage
+    <set >
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        quarter = #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="manageType != null" >
+        manage_type = #{manageType,jdbcType=VARCHAR},
+      </if>
+      <if test="registNum != null" >
+        regist_num = #{registNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.AssetPrivateManage" >
+    update asset_private_manage
+    set year = #{year,jdbcType=INTEGER},
+      quarter = #{quarter,jdbcType=INTEGER},
+      manage_type = #{manageType,jdbcType=VARCHAR},
+      regist_num = #{registNum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectPrivateManage" resultType="hashmap" parameterType="hashmap" >
+  <if test="flag == 1" >
+  
+  	select * from asset_private_manage
+	where 1=1 
+	<if test="year != null" >
+      and	year = #{year}
+    </if>
+	<if test="quarter != null" >
+      and	quarter = #{quarter}
+    </if>
+	<if test="manageType != null" >
+      and	manage_type = #{manageType}
+    </if>
+    and quarter !=""
+	<if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </if>
+
+    <if test="flag == 2" >
+    		SELECT SUM(regist_num) regist_num,year,quarter 
+ FROM asset_private_manage 
+	WHERE 1=1 and quarter !="" GROUP BY YEAR,QUARTER 
+	
+	</if>
+  </select>
+  
+</mapper>

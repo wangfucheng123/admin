@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.2draft" version="1.2" xmlns:viz="http://www.gexf.net/1.2draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd">
+  <meta lastmodifieddate="2014-01-30">
+    <creator>Gephi 0.8.1</creator>
+    <description></description>
+  </meta>
+  <graph defaultedgetype="undirected" mode="static">
+    <attributes class="node" mode="static">
+      <attribute id="modularity_class" title="Modularity Class" type="integer"></attribute>
+    </attributes>
+    <nodes>
+      <node id="0" label="综合类">
+        <attvalues>
+          <attvalue for="modularity_class" value="0"></attvalue>
+        </attvalues>
+        <viz:size value="28.685715"></viz:size>
+        <viz:position x="-266.82776" y="299.6904" z="0.0"></viz:position>
+        <viz:color r="220" g="20" b="60"></viz:color>
+      </node>
+      <node id="1" label="创业扶持">
+        <attvalues>
+          <attvalue for="modularity_class" value="0"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="-418.08344" y="446.8853" z="0.0"></viz:position>
+        <viz:color r="128" g="0" b="128"></viz:color>
+      </node>
+      <node id="2" label="市场准入">
+        <attvalues>
+          <attvalue for="modularity_class" value="1"></attvalue>
+        </attvalues>
+        <viz:size value="9.485714"></viz:size>
+        <viz:position x="-212.76357" y="245.29176" z="0.0"></viz:position>
+        <viz:color r="72" g="61" b="139"></viz:color>
+      </node>
+      <node id="3" label="企业减负">
+        <attvalues>
+          <attvalue for="modularity_class" value="1"></attvalue>
+        </attvalues>
+        <viz:size value="9.485714"></viz:size>
+        <viz:position x="-242.82404" y="235.26283" z="0.0"></viz:position>
+        <viz:color r="0" g="0" b="139"></viz:color>
+      </node>
+      <node id="4" label="公共服务">
+        <attvalues>
+          <attvalue for="modularity_class" value="0"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="-379.30386" y="429.06424" z="0.0"></viz:position>
+        <viz:color r="30" g="144" b="255"></viz:color>
+      </node>
+      <node id="5" label="技术创新">
+        <attvalues>
+          <attvalue for="modularity_class" value="0"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="-417.26337" y="406.03506" z="0.0"></viz:position>
+        <viz:color r="0" g="255" b="255"></viz:color>
+      </node>
+      
+      <node id="6" label="知识产权">
+        <attvalues>
+          <attvalue for="modularity_class" value="0"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="-332.6012" y="485.16974" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="7" label="技术改造">
+        <attvalues>
+          <attvalue for="modularity_class" value="0"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="-382.69568" y="475.09113" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="8" label="数字化转型">
+        <attvalues>
+          <attvalue for="modularity_class" value="0"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="-320.384" y="387.17325" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="9" label="投融资">
+        <attvalues>
+          <attvalue for="modularity_class" value="0"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="-344.39832" y="451.16772" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="10" label="信用担保">
+        <attvalues>
+          <attvalue for="modularity_class" value="1"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="-89.34107" y="234.56128" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="11" label="人才建设">
+        <attvalues>
+          <attvalue for="modularity_class" value="1"></attvalue>
+        </attvalues>
+        <viz:size value="100.0"></viz:size>
+        <viz:position x="-87.93029" y="-6.8120565" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="12" label="政策服务">
+        <attvalues>
+          <attvalue for="modularity_class" value="1"></attvalue>
+        </attvalues>
+        <viz:size value="6.742859"></viz:size>
+        <viz:position x="-339.77908" y="-184.69139" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="13" label="公共服务">
+        <attvalues>
+          <attvalue for="modularity_class" value="1"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="-194.31313" y="178.55301" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="14" label="其他">
+        <attvalues>
+          <attvalue for="modularity_class" value="1"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="-158.05168" y="201.99768" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      
+      
+      
+      <node id="15" label="财政部 税务总局 民政部关于继续实施扶持自主就业退役士兵创业就业有关税收政策的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="1"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="-127.701546" y="242.55057" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="16" label="国务院关于调整工业产品生产许可证管理目录和试行简化审批程序的决定">
+        <attvalues>
+          <attvalue for="modularity_class" value="2"></attvalue>
+        </attvalues>
+        <viz:size value="25.942856"></viz:size>
+        <viz:position x="-385.2226" y="-393.5572" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="17" label="国家发展改革委 财政部关于降低电信网码号资源 占用费等部分行政事业性收费标准的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="2"></attvalue>
+        </attvalues>
+        <viz:size value="20.457146"></viz:size>
+        <viz:position x="-516.55884" y="-393.98975" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="18" label="关于公布第三批国家中小企业公共服务示范平台复核意见的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="2"></attvalue>
+        </attvalues>
+        <viz:size value="20.457146"></viz:size>
+        <viz:position x="-464.79382" y="-493.57944" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="19" label="关于延续支持农村金融发展有关税收政策的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="2"></attvalue>
+        </attvalues>
+        <viz:size value="20.457146"></viz:size>
+        <viz:position x="-515.1624" y="-456.9891" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="20" label="中共中央办公厅 国务院办公厅印发《关于加快构建政策体系培育新型农业经营主体的意见》">
+        <attvalues>
+          <attvalue for="modularity_class" value="2"></attvalue>
+        </attvalues>
+        <viz:size value="20.457146"></viz:size>
+        <viz:position x="-408.12122" y="-464.5048" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="21" label="山东省人民政府办公厅关于贯彻国办发〔2016〕42号文件促进有色金属工业创新发展转型升级提">
+        <attvalues>
+          <attvalue for="modularity_class" value="2"></attvalue>
+        </attvalues>
+        <viz:size value="20.457146"></viz:size>
+        <viz:position x="-456.44113" y="-425.13303" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      
+      
+      
+      
+      <node id="22" label="国家税务总局关于创业投资企业和天使投资个人税收试点政策有关问题的公告">
+        <attvalues>
+          <attvalue for="modularity_class" value="2"></attvalue>
+        </attvalues>
+        <viz:size value="20.457146"></viz:size>
+        <viz:position x="-459.1107" y="-362.5133" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="23" label="财政部 国家税务总局关于国家大学科技园税收政策的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="2"></attvalue>
+        </attvalues>
+        <viz:size value="42.4"></viz:size>
+        <viz:position x="-313.42786" y="-289.44803" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="24" label="国家税务总局关于有限合伙制创业投资企业法人合伙人企业所得税有关问题的公告">
+        <attvalues>
+          <attvalue for="modularity_class" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="31.428574"></viz:size>
+        <viz:position x="4.6313396" y="-273.8517" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="25" label="关于规范营利性民办技工院校和营利性民办职业技能培训机构名称登记管理有关工作的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="45.142853"></viz:size>
+        <viz:position x="82.80825" y="-203.1144" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="26" label="关于印发《智能网联汽车道路测试管理规范（试行）》的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="6"></attvalue>
+        </attvalues>
+        <viz:size value="31.428574"></viz:size>
+        <viz:position x="78.64646" y="-31.512747" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="27" label="《道路机动车辆生产企业及产品许可（第306批）》">
+        <attvalues>
+          <attvalue for="modularity_class" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="47.88571"></viz:size>
+        <viz:position x="-81.46074" y="-204.20204" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="28" label="《关于做好电信业务经营不良名单和失信名单管理工作的通知》">
+        <attvalues>
+          <attvalue for="modularity_class" value="4"></attvalue>
+        </attvalues>
+        <viz:size value="12.228573"></viz:size>
+        <viz:position x="-225.73984" y="82.41631" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="29" label="中华人民共和国工业和信息化部公告2018年第5号">
+        <attvalues>
+          <attvalue for="modularity_class" value="3"></attvalue>
+        </attvalues>
+        <viz:size value="23.2"></viz:size>
+        <viz:position x="-385.6842" y="-20.206686" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="30" label="国家税务总局关于税务师事务所行政登记有关问题的公告">
+        <attvalues>
+          <attvalue for="modularity_class" value="2"></attvalue>
+        </attvalues>
+        <viz:size value="6.742859"></viz:size>
+        <viz:position x="-403.92447" y="-197.69823" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="31" label="增值税一般纳税人登记管理办法">
+        <attvalues>
+          <attvalue for="modularity_class" value="2"></attvalue>
+        </attvalues>
+        <viz:size value="12.228573"></viz:size>
+        <viz:position x="-281.4253" y="-158.45137" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      
+      
+      
+      
+      <node id="32" label="关于调整完善新能源汽车推广应用财政补贴政策的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="1"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="-122.41348" y="210.37503" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="33" label="财政部 税务总局关于完善企业境外所得税收抵免政策问题的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="1"></attvalue>
+        </attvalues>
+        <viz:size value="6.742859"></viz:size>
+        <viz:position x="-234.6001" y="-113.15067" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="34" label="国家税务总局关于推行新办纳税人“套餐式”服务的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="3"></attvalue>
+        </attvalues>
+        <viz:size value="17.714287"></viz:size>
+        <viz:position x="-387.84915" y="58.7059" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="35" label="国家税务总局关于小微企业免征增值税有关问题的公告">
+        <attvalues>
+          <attvalue for="modularity_class" value="3"></attvalue>
+        </attvalues>
+        <viz:size value="17.714287"></viz:size>
+        <viz:position x="-338.2307" y="87.48405" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="36" label="财政部 税务总局关于租入固定资产进项税额抵扣等增值税政策的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="3"></attvalue>
+        </attvalues>
+        <viz:size value="17.714287"></viz:size>
+        <viz:position x="-453.26874" y="58.94648" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="37" label="财政部 发展改革委 工业和信息化部 海关总署 税务总局 能源局关于调整重大技术装备进口税收政">
+        <attvalues>
+          <attvalue for="modularity_class" value="3"></attvalue>
+        </attvalues>
+        <viz:size value="17.714287"></viz:size>
+        <viz:position x="-386.44904" y="140.05937" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="38" label="财政部 税务总局 国家发展改革委 商务部关于境外投资者以分配利润直接投资暂不征收预提所得税">
+        <attvalues>
+          <attvalue for="modularity_class" value="3"></attvalue>
+        </attvalues>
+        <viz:size value="17.714287"></viz:size>
+        <viz:position x="-446.7876" y="123.38005" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="39" label="工业和信息化部关于公布产业技术基础公共服务平台名单（第一批）的通告">
+        <attvalues>
+          <attvalue for="modularity_class" value="6"></attvalue>
+        </attvalues>
+        <viz:size value="9.485714"></viz:size>
+        <viz:position x="336.49738" y="-269.55914" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="40" label="关于互联网域名注册管理机构申请受理窗口工作调整的通告">
+        <attvalues>
+          <attvalue for="modularity_class" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="29.187843" y="-460.13132" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="41" label="工业和信息化部办公厅关于2018年开展国家技术创新示范企业复核评价工作的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="31.428574"></viz:size>
+        <viz:position x="238.36697" y="-210.00926" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="42" label="关于组织开展重大技术装备进口税收政策有关目录修订意见征集工作的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="9.485714"></viz:size>
+        <viz:position x="189.69513" y="-346.50662" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="43" label="国家税务总局关于研发费用税前加计扣除归集范围有关问题的公告">
+        <attvalues>
+          <attvalue for="modularity_class" value="6"></attvalue>
+        </attvalues>
+        <viz:size value="9.485714"></viz:size>
+        <viz:position x="-187.00418" y="-145.02663" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="44" label="国家税务总局关于提高科技型中小企业研究开发费用税前加计扣除比例有关问题的公告">
+        <attvalues>
+          <attvalue for="modularity_class" value="4"></attvalue>
+        </attvalues>
+        <viz:size value="6.742859"></viz:size>
+        <viz:position x="-252.99521" y="129.87549" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="45" label="财政部 税务总局 科技部 关于提高科技型中小企业研究开发费用税前加计扣除比例的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="4"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="-296.07935" y="163.11964" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="46" label="国家税务总局关于2016年度企业研究开发费用税前加计扣除政策企业所得税纳税申报问题的公告">
+        <attvalues>
+          <attvalue for="modularity_class" value="5"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="550.3201" y="522.4031" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="47" label="财政部 商务部 国家税务总局关于继续执行研发机构采购设备增值税政策的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="5"></attvalue>
+        </attvalues>
+        <viz:size value="6.742859"></viz:size>
+        <viz:position x="488.13535" y="356.8573" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      
+      
+      
+      <node id="48" label="工业和信息化部关于公布2015年工业企业知识产权运用标杆名单的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="8"></attvalue>
+        </attvalues>
+        <viz:size value="61.600006"></viz:size>
+        <viz:position x="387.89572" y="110.462326" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      
+      
+      
+      
+      <node id="49" label="关于开展2018年中小企业与高校毕业生创业就业对接服务工作的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="6"></attvalue>
+        </attvalues>
+        <viz:size value="20.457146"></viz:size>
+        <viz:position x="126.4831" y="68.10622" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="50" label="关于加强网络安全学科建设和人才培养的意见">
+        <attvalues>
+          <attvalue for="modularity_class" value="6"></attvalue>
+        </attvalues>
+        <viz:size value="6.742859"></viz:size>
+        <viz:position x="127.07365" y="-113.05923" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      <node id="51" label="工业和信息化部关于支持2016年高校毕业生就业创业促进中小企业创新发展的通知">
+        <attvalues>
+          <attvalue for="modularity_class" value="6"></attvalue>
+        </attvalues>
+        <viz:size value="20.457146"></viz:size>
+        <viz:position x="162.63559" y="117.6565" z="0.0"></viz:position>
+        <viz:color r="236" g="81" b="72"></viz:color>
+      </node>
+      
+    </nodes>
+      
+      
+      
+    
+    
+    
+    
+    <edges>
+      <edge id="0" source="15" target="0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="1" source="16" target="0" weight="8.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="2" source="17" target="0" weight="10.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="3" source="18" target="0" weight="6.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="4" source="19" target="0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="5" source="20" target="0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="6" source="22" target="0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="7" source="23" target="0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="8" source="24" target="0" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="9" source="25" target="0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="13" source="26" target="1" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="27" target="1" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="11" source="28" target="1" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      
+      <edge id="10" source="29" target="2">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="14" source="30" target="2">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="15" source="31" target="2">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="16" source="32" target="2">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="17" source="33" target="2">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="18" source="34" target="2" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="19" source="35" target="2" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      
+      
+      <edge id="20" source="36" target="3" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+       <edge id="21" source="37" target="3" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="22" source="38" target="3" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="23" source="39" target="3" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="24" source="40" target="3" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="25" source="41" target="3" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="26" source="42" target="3" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      
+       <edge id="27" source="43" target="4" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="28" source="44" target="4" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      
+       <edge id="29" source="45" target="5" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="30" source="46" target="5" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="31" source="47" target="5" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="32" source="48" target="5" weight="5.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="33" source="49" target="5" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="34" source="50" target="5" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="35" source="51" target="5" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      
+      <edge id="36" source="51" target="6" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      
+      <edge id="37" source="1" target="12" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="38" source="2" target="12" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="39" source="3" target="12" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+       <edge id="40" source="4" target="12" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="41" source="5" target="12" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="42" source="6" target="12" weight="3.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="43" source="7" target="12" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="44" source="8" target="12" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="45" source="9" target="12" weight="4.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="10" target="12" weight="7.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="48" source="11" target="12" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge id="49" source="0" target="12" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      
+      
+      
+      
+    </edges>
+  </graph>
+</gexf>

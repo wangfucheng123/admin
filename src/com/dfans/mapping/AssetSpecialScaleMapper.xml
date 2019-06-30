@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.AssetSpecialScaleMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.AssetSpecialScale" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="quarter" property="quarter" jdbcType="INTEGER" />
+    <result column="product_type" property="productType" jdbcType="VARCHAR" />
+    <result column="product_num" property="productNum" jdbcType="INTEGER" />
+    <result column="asset_scale" property="assetScale" jdbcType="REAL" />
+    <result column="com_type" property="comType" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, year, quarter, product_type, product_num, asset_scale, com_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from asset_special_scale
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from asset_special_scale where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from asset_special_scale 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from asset_special_scale
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.AssetSpecialScale" >
+    insert into asset_special_scale (id, year, quarter, 
+      product_type, product_num, asset_scale, 
+      com_type)
+    values (#{id,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{quarter,jdbcType=INTEGER}, 
+      #{productType,jdbcType=VARCHAR}, #{productNum,jdbcType=INTEGER}, #{assetScale,jdbcType=REAL}, 
+      #{comType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.AssetSpecialScale" >
+    insert into asset_special_scale
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="quarter != null" >
+        quarter,
+      </if>
+      <if test="productType != null" >
+        product_type,
+      </if>
+      <if test="productNum != null" >
+        product_num,
+      </if>
+      <if test="assetScale != null" >
+        asset_scale,
+      </if>
+      <if test="comType != null" >
+        com_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="productType != null" >
+        #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="productNum != null" >
+        #{productNum,jdbcType=INTEGER},
+      </if>
+      <if test="assetScale != null" >
+        #{assetScale,jdbcType=REAL},
+      </if>
+      <if test="comType != null" >
+        #{comType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.AssetSpecialScale" >
+    update asset_special_scale
+    <set >
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        quarter = #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="productType != null" >
+        product_type = #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="productNum != null" >
+        product_num = #{productNum,jdbcType=INTEGER},
+      </if>
+      <if test="assetScale != null" >
+        asset_scale = #{assetScale,jdbcType=REAL},
+      </if>
+      <if test="comType != null" >
+        com_type = #{comType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.AssetSpecialScale" >
+    update asset_special_scale
+    set year = #{year,jdbcType=INTEGER},
+      quarter = #{quarter,jdbcType=INTEGER},
+      product_type = #{productType,jdbcType=VARCHAR},
+      product_num = #{productNum,jdbcType=INTEGER},
+      asset_scale = #{assetScale,jdbcType=REAL},
+      com_type = #{comType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+      <select id="selectSpecialScale" resultType="hashmap" parameterType="hashmap" >
+      
+      <if test="flag == 1" >
+	      	select id,year ,quarter,product_type   type   ,   product_num,   asset_scale
+		 from asset_special_scale
+		where 1=1 
+		<if test="year != null" >
+	      and	year = #{year}
+	    </if>
+		<if test="quarter != null" >
+	      and	quarter = #{quarter}
+	    </if>
+		<if test="productType != null" >
+	      and	product_type = #{productType}
+	    </if>
+		<if test="comType == 1" >
+	      and	com_type = 1
+	    </if>
+		<if test="comType == 2" >
+	      and	com_type = 2
+	    </if>
+	    and quarter !=""
+	    
+ORDER BY id ASC
+		<if test="page != null" >
+	      	limit ${page},${count}
+	    </if>
+      </if>
+	  
+	   <if test="flag == 2" >
+	   SELECT SUM(asset_scale) asset_scale,year,quarter 
+ FROM asset_special_scale 
+	WHERE 1=1 and quarter !="" GROUP BY YEAR,QUARTER 
+	   </if>
+    
+  </select>
+  
+</mapper>

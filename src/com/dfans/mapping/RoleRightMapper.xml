@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.dao.RoleRightMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.RoleRight" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="right_id" property="rightId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, right_id, role_id
+  </sql>
+  
+  <select id="selectAllByRoleId" resultType="hashmap" parameterType="java.lang.Integer" >
+    select 
+    a.right_id,b.name,b.price 
+    from role_right a left outer join right_tree b on a.right_id=b.id 
+    where a.role_id = #{role_id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from role_right
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from role_right
+    where role_id = #{role_id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByRole" parameterType="java.lang.Integer" >
+    delete from role_right
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from role_right
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.RoleRight" >
+    insert into role_right (id, right_id, role_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{rightId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.RoleRight" >
+    insert into role_right
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="rightId != null" >
+        right_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="rightId != null" >
+        #{rightId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.RoleRight" >
+    update role_right
+    <set >
+      <if test="rightId != null" >
+        right_id = #{rightId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.RoleRight" >
+    update role_right
+    set right_id = #{rightId,jdbcType=INTEGER},
+      role_id = #{roleId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

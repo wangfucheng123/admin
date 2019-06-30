@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FuturesHistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FuturesHistory" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="cdate" property="cdate" jdbcType="DATE" />
+    <result column="sjjc" property="sjjc" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.dfans.model.FuturesHistory" extends="BaseResultMap" >
+    <result column="sjlr" property="sjlr" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, cdate, sjjc
+  </sql>
+  <sql id="Blob_Column_List" >
+    sjlr
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from futures_history
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from futures_history where 1=1 
+    and base_id = #{baseId}
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from futures_history 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from futures_history
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FuturesHistory" >
+    insert into futures_history (id, base_id, cdate, 
+      sjjc, sjlr)
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{cdate,jdbcType=DATE}, 
+      #{sjjc,jdbcType=VARCHAR}, #{sjlr,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.FuturesHistory" >
+    insert into futures_history
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="cdate != null" >
+        cdate,
+      </if>
+      <if test="sjjc != null" >
+        sjjc,
+      </if>
+      <if test="sjlr != null" >
+        sjlr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="cdate != null" >
+        #{cdate,jdbcType=DATE},
+      </if>
+      <if test="sjjc != null" >
+        #{sjjc,jdbcType=VARCHAR},
+      </if>
+      <if test="sjlr != null" >
+        #{sjlr,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FuturesHistory" >
+    update futures_history
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="cdate != null" >
+        cdate = #{cdate,jdbcType=DATE},
+      </if>
+      <if test="sjjc != null" >
+        sjjc = #{sjjc,jdbcType=VARCHAR},
+      </if>
+      <if test="sjlr != null" >
+        sjlr = #{sjlr,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dfans.model.FuturesHistory" >
+    update futures_history
+    set base_id = #{baseId,jdbcType=INTEGER},
+      cdate = #{cdate,jdbcType=DATE},
+      sjjc = #{sjjc,jdbcType=VARCHAR},
+      sjlr = #{sjlr,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FuturesHistory" >
+    update futures_history
+    set base_id = #{baseId,jdbcType=INTEGER},
+      cdate = #{cdate,jdbcType=DATE},
+      sjjc = #{sjjc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

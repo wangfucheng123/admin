@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.TzzhAhyflMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.TzzhAhyfl" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="quarter" property="quarter" jdbcType="INTEGER" />
+    <result column="fund_type" property="fundType" jdbcType="VARCHAR" />
+    <result column="shares" property="shares" jdbcType="REAL" />
+    <result column="blend" property="blend" jdbcType="REAL" />
+    <result column="whole_market" property="wholeMarket" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, year, quarter, fund_type, shares, blend, whole_market
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tzzh_ahyfl
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from tzzh_ahyfl where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from tzzh_ahyfl 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tzzh_ahyfl
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.TzzhAhyfl" >
+    insert into tzzh_ahyfl (id, year, quarter, 
+      fund_type, shares, blend, 
+      whole_market)
+    values (#{id,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{quarter,jdbcType=INTEGER}, 
+      #{fundType,jdbcType=VARCHAR}, #{shares,jdbcType=REAL}, #{blend,jdbcType=REAL}, 
+      #{wholeMarket,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.TzzhAhyfl" >
+    insert into tzzh_ahyfl
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="quarter != null" >
+        quarter,
+      </if>
+      <if test="fundType != null" >
+        fund_type,
+      </if>
+      <if test="shares != null" >
+        shares,
+      </if>
+      <if test="blend != null" >
+        blend,
+      </if>
+      <if test="wholeMarket != null" >
+        whole_market,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="fundType != null" >
+        #{fundType,jdbcType=VARCHAR},
+      </if>
+      <if test="shares != null" >
+        #{shares,jdbcType=REAL},
+      </if>
+      <if test="blend != null" >
+        #{blend,jdbcType=REAL},
+      </if>
+      <if test="wholeMarket != null" >
+        #{wholeMarket,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.TzzhAhyfl" >
+    update tzzh_ahyfl
+    <set >
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="quarter != null" >
+        quarter = #{quarter,jdbcType=INTEGER},
+      </if>
+      <if test="fundType != null" >
+        fund_type = #{fundType,jdbcType=VARCHAR},
+      </if>
+      <if test="shares != null" >
+        shares = #{shares,jdbcType=REAL},
+      </if>
+      <if test="blend != null" >
+        blend = #{blend,jdbcType=REAL},
+      </if>
+      <if test="wholeMarket != null" >
+        whole_market = #{wholeMarket,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.TzzhAhyfl" >
+    update tzzh_ahyfl
+    set year = #{year,jdbcType=INTEGER},
+      quarter = #{quarter,jdbcType=INTEGER},
+      fund_type = #{fundType,jdbcType=VARCHAR},
+      shares = #{shares,jdbcType=REAL},
+      blend = #{blend,jdbcType=REAL},
+      whole_market = #{wholeMarket,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <select id="selectAhy" resultType="hashmap" parameterType="hashmap" >
+  SELECT year,quarter,fund_type,shares,blend,whole_market
+  FROM tzzh_ahyfl WHERE 1=1
+  
+ <if test="year != null" >
+		AND year=#{year} 
+  </if>
+ <if test="quarter != null" >
+		AND quarter=#{quarter} 
+  </if>
+ <if test="fundType != null" >
+		AND fund_type=#{fundType} 
+  </if>
+ORDER BY YEAR desc, QUARTER desc,id asc
+  <if test="page != null" >
+      	limit ${page},${count}
+  </if>
+  </select>
+  
+  
+</mapper>

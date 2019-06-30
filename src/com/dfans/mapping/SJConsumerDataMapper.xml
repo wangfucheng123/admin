@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfans.dao.SJConsumerDataMapper">
+  <resultMap id="BaseResultMap" type="com.dfans.model.SJConsumerData">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="updateDate" jdbcType="TIMESTAMP" property="updatedate" />
+  </resultMap> 
+  <sql id="Base_Column_List">
+    id, url, description, user_id, createDate, updateDate,type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sj_consumer_dz
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="user_statist" parameterType="string" resultType="com.dfans.model.User">
+  	SELECT   (COUNT(*) - 1) title, al.dday regisday FROM (SELECT   DATE_FORMAT(${columnName},${format}) AS dday  FROM  ${tableName}   WHERE DATE(${columnName}) &lt;= CURDATE() 
+	UNION  ALL SELECT DATE_FORMAT(create_date, ${format}) DATE  FROM USER  ${sql}) al GROUP BY al.dday 
+  </select>
+   <select id="selectDatasByUserId" parameterType="string" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sj_consumer_dz
+    where user_id = #{userid,jdbcType=INTEGER}
+  </select>
+   <select id="getCusPage" parameterType="string" resultMap="BaseResultMap">
+    select 
+    c.id,c.url,c.description
+  from sj_consumer_dz c,user_order u
+    where   u.user_id=#{userid,jdbcType=INTEGER} and c.user_id =u.id and c.type='page'
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sj_consumer_dz
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.SJConsumerData">
+    insert into sj_consumer_dz ( url, description, 
+      user_id, createDate, updateDate,type
+      )
+    values ( #{url,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{updatedate,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.SJConsumerData">
+    insert into sj_consumer_dz
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="desc != null">
+        desc,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="updatedate != null">
+        updateDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null">
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert> 
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.SJConsumerData">
+    update sj_consumer_dz
+    <set>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null">
+        desc = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.SJConsumerData">
+    update sj_consumer_dz
+    set url = #{url,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      updateDate = #{updatedate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

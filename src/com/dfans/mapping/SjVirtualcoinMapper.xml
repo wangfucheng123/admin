@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfans.dao.SjVirtualcoinMapper"> 
+	<select id="findCoins" resultType="Integer">
+		select ifnull(Max(amount),0)amount from sj_virtualcoin where userid=#{userid}
+	</select>
+	<select id="isExist" resultType="String">
+		select id  from sj_virtualcoin where userid=#{userid}
+	</select>
+	<insert id="saveCoins" parameterType="Map">
+	    insert into sj_virtualcoin ( userid, updatetime, 
+	      amount)
+	    values (#{userid,jdbcType=INTEGER},  now(), 
+	      #{amount,jdbcType=INTEGER})
+  	</insert>
+	<update id="updateCoins" >
+	    update sj_virtualcoin set
+	      updatetime = now(),
+	     <if test="flag=='minus'"> amount =amount-#{amount}</if>
+	     <if test="flag=='plus'">  amount =#{amount}+amount</if>
+	    where userid = #{userid,jdbcType=INTEGER}
+  	</update>
+</mapper>

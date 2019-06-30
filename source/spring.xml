@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+xmlns:p="http://www.springframework.org/schema/p"  xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+">
+	<context:component-scan base-package="com.dfans.service" />
+	
+	<!-- 引入属性文件 -->
+	<context:property-placeholder location="classpath:config.properties" />
+
+	<!-- 自动扫描(自动注入) -->
+	
+	
+	<!-- <bean id="dataJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<property name="targetObject">
+	<bean class="com.dfans.job.SacData" />
+	</property>
+	<property name="targetMethod" value="getSacData" />
+	<property name="concurrent" value="false" />
+	</bean> 
+	
+	<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+	<property name="jobDetail" ref="dataJob" />
+	<property name="startDelay" value="10000" /> 
+	<property name="repeatInterval" value="43200000" /> 
+	</bean> 
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+	<property name="triggers">  
+	<list>  
+	<ref bean="simpleTrigger" />  
+	</list>  
+	</property>  
+	</bean> 
+	 
+	<bean id="parseLog" class="com.dfans.utils.ParseNginxLog"/> 
+	<bean id="parseLogServiceJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"
+        p:targetObject-ref="parseLog" p:targetMethod="getLogs" p:concurrent="false"/>
+	<bean id="parseLogServiceTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean"
+        p:jobDetail-ref="parseLogServiceJob" p:cronExpression="0 0 23 * * ?"/>
+	<bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="applicationContextSchedulerContextKey" value="applicationContext" />
+        <property name="triggers">
+            <list>
+                <ref bean="parseLogServiceTrigger" />
+            </list> 
+        </property>
+	</bean>
+	<bean id="parseLogServiceJob2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"
+        p:targetObject-ref="parseLog" p:targetMethod="parseLog" p:concurrent="false"/>
+	<bean id="parseLogServiceTrigger2" class="org.springframework.scheduling.quartz.CronTriggerBean"
+        p:jobDetail-ref="parseLogServiceJob2" p:cronExpression="0 0 22 * * ?"/>
+	<bean id="schedulerFactoryBean2" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="applicationContextSchedulerContextKey" value="applicationContext" />
+        <property name="triggers">
+            <list>
+                <ref bean="parseLogServiceTrigger2" />
+            </list> 
+        </property>
+	</bean> -->
+	
+	<bean id="userMemoy" class="com.dfans.cache.UserMemoy" init-method="init"></bean>
+</beans>

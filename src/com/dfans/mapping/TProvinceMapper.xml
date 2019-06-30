@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.dao.TProvinceMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.TProvince" >
+    <id column="ProID" property="proid" jdbcType="INTEGER" />
+    <result column="ProName" property="proname" jdbcType="VARCHAR" />
+    <result column="ProSort" property="prosort" jdbcType="INTEGER" />
+    <result column="ProRemark" property="proremark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ProID, ProName, ProSort, ProRemark
+  </sql>
+  
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="com.dfans.model.TProvince">
+    select 
+    <include refid="Base_Column_List" />
+    from t_province where ProName like '%${proname}%' 
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    ProID, ProName 
+    from t_province order by ProID
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_province
+    where ProID = #{proid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_province
+    where ProID = #{proid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.TProvince" >
+    insert into t_province (ProID, ProName, ProSort, 
+      ProRemark)
+    values (#{proid,jdbcType=INTEGER}, #{proname,jdbcType=VARCHAR}, #{prosort,jdbcType=INTEGER}, 
+      #{proremark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.TProvince" >
+    insert into t_province
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="proid != null" >
+        ProID,
+      </if>
+      <if test="proname != null" >
+        ProName,
+      </if>
+      <if test="prosort != null" >
+        ProSort,
+      </if>
+      <if test="proremark != null" >
+        ProRemark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="proid != null" >
+        #{proid,jdbcType=INTEGER},
+      </if>
+      <if test="proname != null" >
+        #{proname,jdbcType=VARCHAR},
+      </if>
+      <if test="prosort != null" >
+        #{prosort,jdbcType=INTEGER},
+      </if>
+      <if test="proremark != null" >
+        #{proremark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.TProvince" >
+    update t_province
+    <set >
+      <if test="proname != null" >
+        ProName = #{proname,jdbcType=VARCHAR},
+      </if>
+      <if test="prosort != null" >
+        ProSort = #{prosort,jdbcType=INTEGER},
+      </if>
+      <if test="proremark != null" >
+        ProRemark = #{proremark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ProID = #{proid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.TProvince" >
+    update t_province
+    set ProName = #{proname,jdbcType=VARCHAR},
+      ProSort = #{prosort,jdbcType=INTEGER},
+      ProRemark = #{proremark,jdbcType=VARCHAR}
+    where ProID = #{proid,jdbcType=INTEGER}
+  </update>
+</mapper>

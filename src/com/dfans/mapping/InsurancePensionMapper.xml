@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.InsurancePensionMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.InsurancePension" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="statistical_time" property="statisticalTime" jdbcType="DATE" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="comp_entr_asse" property="compEntrAsse" jdbcType="DECIMAL" />
+    <result column="comp_inve_asse" property="compInveAsse" jdbcType="DECIMAL" />
+    <result column="pension_other_pay" property="pensionOtherPay" jdbcType="DECIMAL" />
+    <result column="comp_entr_prop" property="compEntrProp" jdbcType="DECIMAL" />
+    <result column="comp_inve_prop" property="compInveProp" jdbcType="DECIMAL" />
+    <result column="pens_other_prop" property="pensOtherProp" jdbcType="DECIMAL" />
+  </resultMap>
+  
+    <resultMap id="totalString" type="java.lang.String">
+		<result column="total" property="total" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+  <sql id="Base_Column_List" >
+    id, statistical_time, company_name, comp_entr_asse, comp_inve_asse, pension_other_pay, 
+    comp_entr_prop, comp_inve_prop, pens_other_prop
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from insurance_pension
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+		select
+		<include refid="Base_Column_List" />
+		from insurance_pension where 1=1
+		order by statistical_time DESC  limit ${page},10
+	</select>
+	<select id="selectCount" resultMap="totalString" parameterType="hashmap">
+		select count(id) total from insurance_pension
+	</select>
+  
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from insurance_pension
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.InsurancePension" >
+    insert into insurance_pension (id, statistical_time, company_name, 
+      comp_entr_asse, comp_inve_asse, pension_other_pay, 
+      comp_entr_prop, comp_inve_prop, pens_other_prop
+      )
+    values (#{id,jdbcType=INTEGER}, #{statisticalTime,jdbcType=DATE}, #{companyName,jdbcType=VARCHAR}, 
+      #{compEntrAsse,jdbcType=DECIMAL}, #{compInveAsse,jdbcType=DECIMAL}, #{pensionOtherPay,jdbcType=DECIMAL}, 
+      #{compEntrProp,jdbcType=DECIMAL}, #{compInveProp,jdbcType=DECIMAL}, #{pensOtherProp,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.InsurancePension" >
+    insert into insurance_pension
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="statisticalTime != null" >
+        statistical_time,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="compEntrAsse != null" >
+        comp_entr_asse,
+      </if>
+      <if test="compInveAsse != null" >
+        comp_inve_asse,
+      </if>
+      <if test="pensionOtherPay != null" >
+        pension_other_pay,
+      </if>
+      <if test="compEntrProp != null" >
+        comp_entr_prop,
+      </if>
+      <if test="compInveProp != null" >
+        comp_inve_prop,
+      </if>
+      <if test="pensOtherProp != null" >
+        pens_other_prop,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="statisticalTime != null" >
+        #{statisticalTime,jdbcType=DATE},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="compEntrAsse != null" >
+        #{compEntrAsse,jdbcType=DECIMAL},
+      </if>
+      <if test="compInveAsse != null" >
+        #{compInveAsse,jdbcType=DECIMAL},
+      </if>
+      <if test="pensionOtherPay != null" >
+        #{pensionOtherPay,jdbcType=DECIMAL},
+      </if>
+      <if test="compEntrProp != null" >
+        #{compEntrProp,jdbcType=DECIMAL},
+      </if>
+      <if test="compInveProp != null" >
+        #{compInveProp,jdbcType=DECIMAL},
+      </if>
+      <if test="pensOtherProp != null" >
+        #{pensOtherProp,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.InsurancePension" >
+    update insurance_pension
+    <set >
+      <if test="statisticalTime != null" >
+        statistical_time = #{statisticalTime,jdbcType=DATE},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="compEntrAsse != null" >
+        comp_entr_asse = #{compEntrAsse,jdbcType=DECIMAL},
+      </if>
+      <if test="compInveAsse != null" >
+        comp_inve_asse = #{compInveAsse,jdbcType=DECIMAL},
+      </if>
+      <if test="pensionOtherPay != null" >
+        pension_other_pay = #{pensionOtherPay,jdbcType=DECIMAL},
+      </if>
+      <if test="compEntrProp != null" >
+        comp_entr_prop = #{compEntrProp,jdbcType=DECIMAL},
+      </if>
+      <if test="compInveProp != null" >
+        comp_inve_prop = #{compInveProp,jdbcType=DECIMAL},
+      </if>
+      <if test="pensOtherProp != null" >
+        pens_other_prop = #{pensOtherProp,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.InsurancePension" >
+    update insurance_pension
+    set statistical_time = #{statisticalTime,jdbcType=DATE},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      comp_entr_asse = #{compEntrAsse,jdbcType=DECIMAL},
+      comp_inve_asse = #{compInveAsse,jdbcType=DECIMAL},
+      pension_other_pay = #{pensionOtherPay,jdbcType=DECIMAL},
+      comp_entr_prop = #{compEntrProp,jdbcType=DECIMAL},
+      comp_inve_prop = #{compInveProp,jdbcType=DECIMAL},
+      pens_other_prop = #{pensOtherProp,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.dao.TCountryMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.TCountry" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="en_name" property="enName" jdbcType="VARCHAR" />
+    <result column="zh_name" property="zhName" jdbcType="VARCHAR" />
+    <result column="zone" property="zone" jdbcType="VARCHAR" />
+    <result column="abbreviation" property="abbreviation" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, en_name, zh_name, zone, abbreviation
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_country
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_country
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.TCountry" >
+    insert into t_country (id, en_name, zh_name, 
+      zone, abbreviation)
+    values (#{id,jdbcType=INTEGER}, #{enName,jdbcType=VARCHAR}, #{zhName,jdbcType=VARCHAR}, 
+      #{zone,jdbcType=VARCHAR}, #{abbreviation,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.TCountry" >
+    insert into t_country
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="enName != null" >
+        en_name,
+      </if>
+      <if test="zhName != null" >
+        zh_name,
+      </if>
+      <if test="zone != null" >
+        zone,
+      </if>
+      <if test="abbreviation != null" >
+        abbreviation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="enName != null" >
+        #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="zhName != null" >
+        #{zhName,jdbcType=VARCHAR},
+      </if>
+      <if test="zone != null" >
+        #{zone,jdbcType=VARCHAR},
+      </if>
+      <if test="abbreviation != null" >
+        #{abbreviation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.TCountry" >
+    update t_country
+    <set >
+      <if test="enName != null" >
+        en_name = #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="zhName != null" >
+        zh_name = #{zhName,jdbcType=VARCHAR},
+      </if>
+      <if test="zone != null" >
+        zone = #{zone,jdbcType=VARCHAR},
+      </if>
+      <if test="abbreviation != null" >
+        abbreviation = #{abbreviation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.TCountry" >
+    update t_country
+    set en_name = #{enName,jdbcType=VARCHAR},
+      zh_name = #{zhName,jdbcType=VARCHAR},
+      zone = #{zone,jdbcType=VARCHAR},
+      abbreviation = #{abbreviation,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    id, en_name, zh_name, 
+      zone, abbreviation
+    from t_country order by id
+  </select>
+  
+  
+</mapper>

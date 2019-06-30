@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.FuturesFinancialMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.FuturesFinancial" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="jzb" property="jzb" jdbcType="REAL" />
+    <result column="jzc" property="jzc" jdbcType="REAL" />
+    <result column="qyze" property="qyze" jdbcType="REAL" />
+    <result column="sxfsr" property="sxfsr" jdbcType="REAL" />
+    <result column="jlr" property="jlr" jdbcType="REAL" />
+    <result column="zskjsws" property="zskjsws" jdbcType="VARCHAR" />
+    <result column="dic_sjyj" property="dicSjyj" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.dfans.model.FuturesFinancial" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, year, jzb, jzc, qyze, sxfsr, jlr, zskjsws, dic_sjyj
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from futures_financial
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from futures_financial where 1=1 
+    and base_id = #{baseId}
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from futures_financial 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from futures_financial
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.FuturesFinancial" >
+    insert into futures_financial (id, base_id, year, 
+      jzb, jzc, qyze, sxfsr, 
+      jlr, zskjsws, dic_sjyj, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, 
+      #{jzb,jdbcType=REAL}, #{jzc,jdbcType=REAL}, #{qyze,jdbcType=REAL}, #{sxfsr,jdbcType=REAL}, 
+      #{jlr,jdbcType=REAL}, #{zskjsws,jdbcType=VARCHAR}, #{dicSjyj,jdbcType=INTEGER}, 
+      #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.FuturesFinancial" >
+    insert into futures_financial
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="jzb != null" >
+        jzb,
+      </if>
+      <if test="jzc != null" >
+        jzc,
+      </if>
+      <if test="qyze != null" >
+        qyze,
+      </if>
+      <if test="sxfsr != null" >
+        sxfsr,
+      </if>
+      <if test="jlr != null" >
+        jlr,
+      </if>
+      <if test="zskjsws != null" >
+        zskjsws,
+      </if>
+      <if test="dicSjyj != null" >
+        dic_sjyj,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="jzb != null" >
+        #{jzb,jdbcType=REAL},
+      </if>
+      <if test="jzc != null" >
+        #{jzc,jdbcType=REAL},
+      </if>
+      <if test="qyze != null" >
+        #{qyze,jdbcType=REAL},
+      </if>
+      <if test="sxfsr != null" >
+        #{sxfsr,jdbcType=REAL},
+      </if>
+      <if test="jlr != null" >
+        #{jlr,jdbcType=REAL},
+      </if>
+      <if test="zskjsws != null" >
+        #{zskjsws,jdbcType=VARCHAR},
+      </if>
+      <if test="dicSjyj != null" >
+        #{dicSjyj,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.FuturesFinancial" >
+    update futures_financial
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="jzb != null" >
+        jzb = #{jzb,jdbcType=REAL},
+      </if>
+      <if test="jzc != null" >
+        jzc = #{jzc,jdbcType=REAL},
+      </if>
+      <if test="qyze != null" >
+        qyze = #{qyze,jdbcType=REAL},
+      </if>
+      <if test="sxfsr != null" >
+        sxfsr = #{sxfsr,jdbcType=REAL},
+      </if>
+      <if test="jlr != null" >
+        jlr = #{jlr,jdbcType=REAL},
+      </if>
+      <if test="zskjsws != null" >
+        zskjsws = #{zskjsws,jdbcType=VARCHAR},
+      </if>
+      <if test="dicSjyj != null" >
+        dic_sjyj = #{dicSjyj,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dfans.model.FuturesFinancial" >
+    update futures_financial
+    set base_id = #{baseId,jdbcType=INTEGER},
+      year = #{year,jdbcType=INTEGER},
+      jzb = #{jzb,jdbcType=REAL},
+      jzc = #{jzc,jdbcType=REAL},
+      qyze = #{qyze,jdbcType=REAL},
+      sxfsr = #{sxfsr,jdbcType=REAL},
+      jlr = #{jlr,jdbcType=REAL},
+      zskjsws = #{zskjsws,jdbcType=VARCHAR},
+      dic_sjyj = #{dicSjyj,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.FuturesFinancial" >
+    update futures_financial
+    set base_id = #{baseId,jdbcType=INTEGER},
+      year = #{year,jdbcType=INTEGER},
+      jzb = #{jzb,jdbcType=REAL},
+      jzc = #{jzc,jdbcType=REAL},
+      qyze = #{qyze,jdbcType=REAL},
+      sxfsr = #{sxfsr,jdbcType=REAL},
+      jlr = #{jlr,jdbcType=REAL},
+      zskjsws = #{zskjsws,jdbcType=VARCHAR},
+      dic_sjyj = #{dicSjyj,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

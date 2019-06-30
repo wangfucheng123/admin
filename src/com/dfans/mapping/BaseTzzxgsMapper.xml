@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.BaseTzzxgsMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.BaseTzzxgs" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="frdb" property="frdb" jdbcType="VARCHAR" />
+    <result column="xxzcdz" property="xxzcdz" jdbcType="VARCHAR" />
+    <result column="zcd" property="zcd" jdbcType="INTEGER" />
+    <result column="ywzgxkzbh" property="ywzgxkzbh" jdbcType="VARCHAR" />
+    <result column="zczb" property="zczb" jdbcType="VARCHAR" />
+    <result column="zjl" property="zjl" jdbcType="VARCHAR" />
+    <result column="bgdz" property="bgdz" jdbcType="VARCHAR" />
+    <result column="bgdzyzbm" property="bgdzyzbm" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="fax" property="fax" jdbcType="VARCHAR" />
+  </resultMap>
+    <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, code, name, frdb, xxzcdz, zcd, ywzgxkzbh, zczb, zjl, bgdz, bgdzyzbm, email, phone, 
+    fax
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_tzzxgs
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_tzzxgs where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from base_tzzxgs 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from base_tzzxgs
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.BaseTzzxgs" >
+    insert into base_tzzxgs (id, code, name, 
+      frdb, xxzcdz, zcd, 
+      ywzgxkzbh, zczb, zjl, 
+      bgdz, bgdzyzbm, email, 
+      phone, fax)
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{frdb,jdbcType=VARCHAR}, #{xxzcdz,jdbcType=VARCHAR}, #{zcd,jdbcType=INTEGER}, 
+      #{ywzgxkzbh,jdbcType=VARCHAR}, #{zczb,jdbcType=VARCHAR}, #{zjl,jdbcType=VARCHAR}, 
+      #{bgdz,jdbcType=VARCHAR}, #{bgdzyzbm,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.BaseTzzxgs" >
+    insert into base_tzzxgs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="frdb != null" >
+        frdb,
+      </if>
+      <if test="xxzcdz != null" >
+        xxzcdz,
+      </if>
+      <if test="zcd != null" >
+        zcd,
+      </if>
+      <if test="ywzgxkzbh != null" >
+        ywzgxkzbh,
+      </if>
+      <if test="zczb != null" >
+        zczb,
+      </if>
+      <if test="zjl != null" >
+        zjl,
+      </if>
+      <if test="bgdz != null" >
+        bgdz,
+      </if>
+      <if test="bgdzyzbm != null" >
+        bgdzyzbm,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="frdb != null" >
+        #{frdb,jdbcType=VARCHAR},
+      </if>
+      <if test="xxzcdz != null" >
+        #{xxzcdz,jdbcType=VARCHAR},
+      </if>
+      <if test="zcd != null" >
+        #{zcd,jdbcType=INTEGER},
+      </if>
+      <if test="ywzgxkzbh != null" >
+        #{ywzgxkzbh,jdbcType=VARCHAR},
+      </if>
+      <if test="zczb != null" >
+        #{zczb,jdbcType=VARCHAR},
+      </if>
+      <if test="zjl != null" >
+        #{zjl,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdz != null" >
+        #{bgdz,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdzyzbm != null" >
+        #{bgdzyzbm,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.BaseTzzxgs" >
+    update base_tzzxgs
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="frdb != null" >
+        frdb = #{frdb,jdbcType=VARCHAR},
+      </if>
+      <if test="xxzcdz != null" >
+        xxzcdz = #{xxzcdz,jdbcType=VARCHAR},
+      </if>
+      <if test="zcd != null" >
+        zcd = #{zcd,jdbcType=INTEGER},
+      </if>
+      <if test="ywzgxkzbh != null" >
+        ywzgxkzbh = #{ywzgxkzbh,jdbcType=VARCHAR},
+      </if>
+      <if test="zczb != null" >
+        zczb = #{zczb,jdbcType=VARCHAR},
+      </if>
+      <if test="zjl != null" >
+        zjl = #{zjl,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdz != null" >
+        bgdz = #{bgdz,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdzyzbm != null" >
+        bgdzyzbm = #{bgdzyzbm,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.BaseTzzxgs" >
+    update base_tzzxgs
+    set code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      frdb = #{frdb,jdbcType=VARCHAR},
+      xxzcdz = #{xxzcdz,jdbcType=VARCHAR},
+      zcd = #{zcd,jdbcType=INTEGER},
+      ywzgxkzbh = #{ywzgxkzbh,jdbcType=VARCHAR},
+      zczb = #{zczb,jdbcType=VARCHAR},
+      zjl = #{zjl,jdbcType=VARCHAR},
+      bgdz = #{bgdz,jdbcType=VARCHAR},
+      bgdzyzbm = #{bgdzyzbm,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <select id="selectTzzxgsList" resultType="hashmap" parameterType="hashmap" >
+	select  substring_index(code,'.0',1)  code,name,frdb,xxzcdz,zcd,ywzgxkzbh,zczb,zjl,bgdz,
+	substring_index(bgdzyzbm,'.0',1) bgdzyzbm,email,substring_index(phone,'.0',1) phone,fax
+	from base_tzzxgs 
+	where 1=1 
+	order by CAST(zczb AS DECIMAL)  desc
+  <if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+    <select id="fuzzyQueryTzzxgs" resultType="hashmap" parameterType="hashmap" >
+	select * from base_tzzxgs 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' 
+	or xxzcdz like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10
+  </select>
+  
+   <select id="fuzzyQueryTzzxgs2" resultType="hashmap" parameterType="hashmap" >
+	select * from base_tzzxgs 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' ) 
+	</if>
+	limit 0,10
+  </select>
+  
+      <select id="selectTzzx" resultType="hashmap" parameterType="hashmap" >
+	select * from base_tzzxgs 
+	where 1=1 
+   <if test="comName != null" >
+      and name = #{comName}
+    </if>
+  </select>
+  
+</mapper>

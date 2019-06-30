@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfans.dao.AliOrderMapper">
+  <resultMap id="BaseResultMap" type="com.dfans.model.AliOrder">
+    <id column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="tree_id" jdbcType="VARCHAR" property="treeId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="price" jdbcType="FLOAT" property="price" />
+    <result column="num" jdbcType="SMALLINT" property="num" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_id, tree_id, user_id, price, num, status, created_at, updated_at
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="string" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from payment_order 
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select> 
+  <select id="getData" parameterType="string" resultType="com.dfans.model.AliOrder">
+   SELECT SUM(round(price))price,DATE_FORMAT(created_at,${sql} ) date FROM `payment_order` ${treeId} GROUP BY date ORDER BY DATE 
+  </select>
+  <select id="getPieData" parameterType="string" resultType="com.dfans.model.AliOrder">
+  SELECT 
+	 IF (SUM(round(p.price)) IS NULL,0,SUM(round(p.price))) price, r.id treeId,  r.name date FROM
+  (SELECT  rt.id,  rt.name   FROM right_tree rt  WHERE rt.isFree = 0) r 
+  LEFT JOIN (SELECT price,tree_id FROM payment_order WHERE ${sql} ) p    ON p.tree_id = r.id  GROUP BY r.id    
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from payment_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="orderId" parameterType="com.dfans.model.AliOrder">
+    insert into payment_order (order_id, tree_id, user_id, 
+      price, num, status, 
+      created_at, updated_at)
+    values (#{orderId,jdbcType=INTEGER}, #{treeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{price,jdbcType=INTEGER}, #{num,jdbcType=SMALLINT}, #{status,jdbcType=SMALLINT}, 
+      now(), #{updatedAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.AliOrder">
+    insert into payment_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="treeId != null">
+        tree_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="treeId != null">
+        #{treeId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.AliOrder">
+    update payment_order
+    <set>
+      <if test="treeId != null">
+        tree_id = #{treeId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.AliOrder">
+    update payment_order
+    set tree_id = #{treeId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      price = #{price,jdbcType=INTEGER},
+      num = #{num,jdbcType=SMALLINT},
+      status = #{status,jdbcType=SMALLINT},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at =now()
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+   </mapper>

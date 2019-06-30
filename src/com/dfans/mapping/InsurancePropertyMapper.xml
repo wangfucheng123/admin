@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.InsurancePropertyMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.InsuranceProperty" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="statistical_time" property="statisticalTime" jdbcType="DATE" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="premium_income" property="premiumIncome" jdbcType="DECIMAL" />
+    <result column="capital_structure" property="capitalStructure" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String">
+		<result column="total" property="total" jdbcType="VARCHAR" />
+	</resultMap>
+  <sql id="Base_Column_List" >
+    id, statistical_time, company_name, premium_income, capital_structure
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from insurance_property
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  	<select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+		select
+		<include refid="Base_Column_List" />
+		from insurance_property where 1=1
+		order by statistical_time DESC  limit ${page},10
+	</select>
+  
+  <select id="selectPropertyByTime" resultType="hashmap" parameterType="hashmap">
+		select
+		id,DATE_FORMAT(statistical_time,'%Y') YEAR, DATE_FORMAT(statistical_time,'%Y-%m') as statistical_time, company_name, premium_income, capital_structure
+		from insurance_property where 1=1 and premium_income is not null 
+		<if test="year != null" >
+      	and DATE_FORMAT(statistical_time,'%Y') = #{year}
+   		</if>
+   		<if test="comName != null" >
+      	AND company_name = #{comName}
+   		</if>
+		order by statistical_time desc
+	</select>
+	
+	
+	<select id="selectPropertyByCompany" resultMap="BaseResultMap" parameterType="hashmap">
+		select
+		 <include refid="Base_Column_List" />
+		from insurance_property where 1=1 and company_name=#{company} and
+		DATE_FORMAT(statistical_time,'%Y') = #{year} 
+	</select>
+  
+  
+  
+  
+  
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+		select count(id) total from insurance_property
+	</select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from insurance_property
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.InsuranceProperty" >
+    insert into insurance_property (id, statistical_time, company_name, 
+      premium_income, capital_structure)
+    values (#{id,jdbcType=INTEGER}, #{statisticalTime,jdbcType=DATE}, #{companyName,jdbcType=VARCHAR}, 
+      #{premiumIncome,jdbcType=DECIMAL}, #{capitalStructure,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.InsuranceProperty" >
+    insert into insurance_property
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="statisticalTime != null" >
+        statistical_time,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="premiumIncome != null" >
+        premium_income,
+      </if>
+      <if test="capitalStructure != null" >
+        capital_structure,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="statisticalTime != null" >
+        #{statisticalTime,jdbcType=DATE},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="premiumIncome != null" >
+        #{premiumIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="capitalStructure != null" >
+        #{capitalStructure,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.InsuranceProperty" >
+    update insurance_property
+    <set >
+      <if test="statisticalTime != null" >
+        statistical_time = #{statisticalTime,jdbcType=DATE},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="premiumIncome != null" >
+        premium_income = #{premiumIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="capitalStructure != null" >
+        capital_structure = #{capitalStructure,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.InsuranceProperty" >
+    update insurance_property
+    set statistical_time = #{statisticalTime,jdbcType=DATE},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      premium_income = #{premiumIncome,jdbcType=DECIMAL},
+      capital_structure = #{capitalStructure,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectInsurancePropertyMaxDate" resultType="java.lang.String" >
+   select date_format(MAX(statistical_time),'%Y') from insurance_property
+  </select>
+</mapper>

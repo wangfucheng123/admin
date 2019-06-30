@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.JjmlPjjgMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.JjmlPjjg" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="hdate" property="hdate" jdbcType="DATE" />
+    <result column="website" property="website" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="zcd" property="zcd" jdbcType="INTEGER" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="xhhy" property="xhhy" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, hdate, website, address, zcd, tel, xhhy
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jjml_pjjg
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from jjml_pjjg where 1=1 
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from jjml_pjjg 
+  </select>
+  
+      
+  <select id="selectPjjgList" resultType="hashmap" parameterType="hashmap" >
+	select 
+	name, DATE_FORMAT(hdate,'%Y-%m-%d') hdate, website, address, zcd, tel, xhhy
+	from jjml_pjjg 
+	where 1=1 
+  <if test="page != null" >
+      	limit ${page},${count}
+    </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jjml_pjjg
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.JjmlPjjg" >
+    insert into jjml_pjjg (id, name, hdate, 
+      website, address, zcd, 
+      tel, xhhy)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{hdate,jdbcType=DATE}, 
+      #{website,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{zcd,jdbcType=INTEGER}, 
+      #{tel,jdbcType=VARCHAR}, #{xhhy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.JjmlPjjg" >
+    insert into jjml_pjjg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="hdate != null" >
+        hdate,
+      </if>
+      <if test="website != null" >
+        website,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="zcd != null" >
+        zcd,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="xhhy != null" >
+        xhhy,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hdate != null" >
+        #{hdate,jdbcType=DATE},
+      </if>
+      <if test="website != null" >
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="zcd != null" >
+        #{zcd,jdbcType=INTEGER},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="xhhy != null" >
+        #{xhhy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.JjmlPjjg" >
+    update jjml_pjjg
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hdate != null" >
+        hdate = #{hdate,jdbcType=DATE},
+      </if>
+      <if test="website != null" >
+        website = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="zcd != null" >
+        zcd = #{zcd,jdbcType=INTEGER},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="xhhy != null" >
+        xhhy = #{xhhy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.JjmlPjjg" >
+    update jjml_pjjg
+    set name = #{name,jdbcType=VARCHAR},
+      hdate = #{hdate,jdbcType=DATE},
+      website = #{website,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      zcd = #{zcd,jdbcType=INTEGER},
+      tel = #{tel,jdbcType=VARCHAR},
+      xhhy = #{xhhy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <select id="fuzzyQueryPjjg" resultType="hashmap" parameterType="hashmap" >
+	select * from jjml_pjjg 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' 
+	or address like '%${fuzzyQuery}%') 
+	</if>
+	limit 0,10
+  </select>
+  
+    <select id="fuzzyQueryPjjg2" resultType="hashmap" parameterType="hashmap" >
+	select name from jjml_pjjg 
+	where 1=1 
+	<if test="fuzzyQuery != null" >
+	and (name like '%${fuzzyQuery}%' ) 
+	</if>
+	limit 0,10
+  </select>
+  
+  <select id="selectEvaluate" resultType="hashmap" parameterType="hashmap" >
+	select * from jjml_pjjg 
+	where 1=1 
+  	<if test="comName != null" >
+     and 	REPLACE(NAME,' ','') =#{comName}
+    </if>
+  </select>
+  
+  
+</mapper>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.datadao.BrokerYybMapper" >
+  <resultMap id="BaseResultMap" type="com.dfans.model.BrokerYyb" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="bgdz" property="bgdz" jdbcType="VARCHAR" />
+    <result column="yybfzr" property="yybfzr" jdbcType="VARCHAR" />
+    <result column="zcdz" property="zcdz" jdbcType="VARCHAR" />
+    <result column="khfwtsdh" property="khfwtsdh" jdbcType="VARCHAR" />
+    <result column="zjjtsdh" property="zjjtsdh" jdbcType="VARCHAR" />
+    <result column="lng" property="lng" jdbcType="DOUBLE" />
+    <result column="lat" property="lat" jdbcType="DOUBLE" />
+  </resultMap>
+  <resultMap id="totalString" type="java.lang.String" >
+  	<result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, name, bgdz, yybfzr, zcdz, khfwtsdh, zjjtsdh, lng, lat
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from broker_yyb
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+      <select id="selectAll" resultMap="BaseResultMap" parameterType="hashmap">
+    select 
+    <include refid="Base_Column_List" />
+    from broker_yyb where 1=1 
+    and base_id = #{baseId}
+    order by id desc limit #{page},10 
+  </select>
+  
+  <select id="selectCount" resultMap="totalString" parameterType="hashmap">
+    select count(id) total from broker_yyb where 1=1 
+    and base_id = #{baseId} 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from broker_yyb
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dfans.model.BrokerYyb" >
+    insert into broker_yyb (id, base_id, name, 
+      bgdz, yybfzr, zcdz, 
+      khfwtsdh, zjjtsdh, lng, 
+      lat)
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{bgdz,jdbcType=VARCHAR}, #{yybfzr,jdbcType=VARCHAR}, #{zcdz,jdbcType=VARCHAR}, 
+      #{khfwtsdh,jdbcType=VARCHAR}, #{zjjtsdh,jdbcType=VARCHAR}, #{lng,jdbcType=DOUBLE}, 
+      #{lat,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dfans.model.BrokerYyb" >
+    insert into broker_yyb
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="bgdz != null" >
+        bgdz,
+      </if>
+      <if test="yybfzr != null" >
+        yybfzr,
+      </if>
+      <if test="zcdz != null" >
+        zcdz,
+      </if>
+      <if test="khfwtsdh != null" >
+        khfwtsdh,
+      </if>
+      <if test="zjjtsdh != null" >
+        zjjtsdh,
+      </if>
+      <if test="lng != null" >
+        lng,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdz != null" >
+        #{bgdz,jdbcType=VARCHAR},
+      </if>
+      <if test="yybfzr != null" >
+        #{yybfzr,jdbcType=VARCHAR},
+      </if>
+      <if test="zcdz != null" >
+        #{zcdz,jdbcType=VARCHAR},
+      </if>
+      <if test="khfwtsdh != null" >
+        #{khfwtsdh,jdbcType=VARCHAR},
+      </if>
+      <if test="zjjtsdh != null" >
+        #{zjjtsdh,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        #{lng,jdbcType=DOUBLE},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.BrokerYyb" >
+    update broker_yyb
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdz != null" >
+        bgdz = #{bgdz,jdbcType=VARCHAR},
+      </if>
+      <if test="yybfzr != null" >
+        yybfzr = #{yybfzr,jdbcType=VARCHAR},
+      </if>
+      <if test="zcdz != null" >
+        zcdz = #{zcdz,jdbcType=VARCHAR},
+      </if>
+      <if test="khfwtsdh != null" >
+        khfwtsdh = #{khfwtsdh,jdbcType=VARCHAR},
+      </if>
+      <if test="zjjtsdh != null" >
+        zjjtsdh = #{zjjtsdh,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        lng = #{lng,jdbcType=DOUBLE},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dfans.model.BrokerYyb" >
+    update broker_yyb
+    set base_id = #{baseId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      bgdz = #{bgdz,jdbcType=VARCHAR},
+      yybfzr = #{yybfzr,jdbcType=VARCHAR},
+      zcdz = #{zcdz,jdbcType=VARCHAR},
+      khfwtsdh = #{khfwtsdh,jdbcType=VARCHAR},
+      zjjtsdh = #{zjjtsdh,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=DOUBLE},
+      lat = #{lat,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+
+ <select id="selectMapByYyb" resultType="hashmap" parameterType="hashmap" >
+  SELECT NAME,REPLACE(REPLACE(bgdz,LEFT(bgdz,POSITION('市' IN bgdz)),''),'市辖区','') bgdz,khfwtsdh,lng,lat,
+  CEIL((SELECT COUNT(1) FROM broker_yyb WHERE 1=1
+  <!--  -->
+ <if test="province != null" >
+ 		AND LEFT(REPLACE(bgdz,REPLACE(REPLACE(bgdz,LEFT(bgdz,POSITION('市' IN bgdz)),''),'市辖区',''),''), 2) = '${province}'
+		<!-- AND REPLACE(REPLACE(bgdz,LEFT(bgdz,POSITION('市' IN bgdz)),''),'市辖区','') like '%${province}%' -->
+  </if>
+  <if test="query != null" >
+		AND NAME LIKE '%${query}%'
+  </if>  )/10) AS TotalPage
+  FROM broker_yyb
+  where 1=1
+  <if test="province != null" >
+		AND LEFT(REPLACE(bgdz,REPLACE(REPLACE(bgdz,LEFT(bgdz,POSITION('市' IN bgdz)),''),'市辖区',''),''), 2) = '${province}'
+  </if>
+  <if test="query != null" >
+		AND NAME LIKE '%${query}%'
+  </if>
+  <if test="page != null" >
+      	limit ${page},${count}
+  </if>
+  </select>
+</mapper>

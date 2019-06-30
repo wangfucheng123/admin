@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfans.dao.CscDataMapper">
+	<resultMap id="BaseResultMap" type="com.dfans.model.CscData">
+		<id column="data_id" property="dataId" jdbcType="INTEGER" />
+		<result column="data_name" property="dataName" jdbcType="VARCHAR" />
+		<result column="data_source" property="dataSource" jdbcType="VARCHAR" />
+		<result column="data_code" property="dataCode" jdbcType="INTEGER" />
+		<result column="data_status" property="dataStatus" jdbcType="INTEGER" />
+		<result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<resultMap id="totalString" type="java.lang.String">
+		<result column="total" property="total" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		data_id, data_name, data_source, data_code, data_status, ctime
+	</sql>
+
+	<sql id="union_per_Column_List">
+		role_permission_id as rolePermissionId,a.data_id as dataId, data_name as dataName,
+		data_source as dataSource,
+		data_code as dataCode, data_status as dataStatus, ctime
+	</sql>
+
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from csc_data
+	</select>
+
+
+	<select id="selectAllPage" resultMap="BaseResultMap"
+		parameterType="hashmap">
+		select
+		<include refid="Base_Column_List" />
+		from csc_data
+		order by data_id desc limit #{page},10
+	</select>
+
+	<select id="selectByList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from csc_data
+		<if test="ids != null">
+			where data_id in(
+			<foreach collection="ids" item="dataId" index="index"
+				separator=",">
+				#{dataId,jdbcType=INTEGER}
+			</foreach>
+			)
+		</if>
+	</select>
+	<select id="selectUnionPerByList" resultType="java.util.HashMap">
+		select
+		<include refid="union_per_Column_List" />
+		from
+		(select
+		<include refid="Base_Column_List" />
+		from csc_data
+		<if test="ids != null">
+			where data_id in(
+			<foreach collection="ids" item="dataId" index="index"
+				separator=",">
+				#{dataId,jdbcType=INTEGER}
+			</foreach>
+			)
+		</if>
+
+		) a left join csc_role_permission b on a.data_id=b.data_id
+
+
+
+	</select>
+
+
+	<select id="selectCount" resultMap="totalString" parameterType="hashmap">
+		select count(data_id) total from csc_data
+	</select>
+
+
+	<select id="total" resultMap="totalString" parameterType="hashmap">
+		select
+		count(data_id) total from csc_data where is_delete=0 ${sql}
+	</select>
+
+	<select id="selectCountByDataName" resultMap="totalString"
+		parameterType="String">
+		select
+		count(data_id) total
+		from csc_data
+		where data_name =
+		#{dataName,jdbcType=VARCHAR}
+	</select>
+
+
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from csc_data
+		where data_id = #{dataId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from csc_data
+		where data_id = #{dataId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.dfans.model.CscData">
+		insert into csc_data (data_id, data_name, data_source,
+		data_code, data_status, ctime
+		)
+		values (#{dataId,jdbcType=INTEGER}, #{dataName,jdbcType=VARCHAR},
+		#{dataSource,jdbcType=VARCHAR},
+		#{dataCode,jdbcType=INTEGER}, #{dataStatus,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.dfans.model.CscData">
+		insert into csc_data
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dataId != null">
+				data_id,
+			</if>
+			<if test="dataName != null">
+				data_name,
+			</if>
+			<if test="dataSource != null">
+				data_source,
+			</if>
+			<if test="dataCode != null">
+				data_code,
+			</if>
+			<if test="dataStatus != null">
+				data_status,
+			</if>
+			<if test="ctime != null">
+				ctime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="dataId != null">
+				#{dataId,jdbcType=INTEGER},
+			</if>
+			<if test="dataName != null">
+				#{dataName,jdbcType=VARCHAR},
+			</if>
+			<if test="dataSource != null">
+				#{dataSource,jdbcType=VARCHAR},
+			</if>
+			<if test="dataCode != null">
+				#{dataCode,jdbcType=INTEGER},
+			</if>
+			<if test="dataStatus != null">
+				#{dataStatus,jdbcType=INTEGER},
+			</if>
+			<if test="ctime != null">
+				#{ctime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.dfans.model.CscData">
+		update csc_data
+		<set>
+			<if test="dataName != null">
+				data_name = #{dataName,jdbcType=VARCHAR},
+			</if>
+			<if test="dataSource != null">
+				data_source = #{dataSource,jdbcType=VARCHAR},
+			</if>
+			<if test="dataCode != null">
+				data_code = #{dataCode,jdbcType=INTEGER},
+			</if>
+			<if test="dataStatus != null">
+				data_status = #{dataStatus,jdbcType=INTEGER},
+			</if>
+			<if test="ctime != null">
+				ctime = #{ctime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where data_id = #{dataId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.dfans.model.CscData">
+		update csc_data
+		set data_name = #{dataName,jdbcType=VARCHAR},
+		data_source = #{dataSource,jdbcType=VARCHAR},
+		data_code = #{dataCode,jdbcType=INTEGER},
+		data_status = #{dataStatus,jdbcType=INTEGER},
+		ctime = #{ctime,jdbcType=TIMESTAMP}
+		where data_id = #{dataId,jdbcType=INTEGER}
+	</update>
+</mapper>
