@@ -53,7 +53,7 @@ function submitForm() {
 	
 	if($("#password").val()!=""){ 
 		if(!preg.test(document.getElementById('pword').value)){
-			$('#erM').text("密码错误（6-16个字符，字母或数字、特殊字符均可）");
+			$('#erM').text("密码错误（6-16个字符，字母或数字、特殊字符均可）！");
 			return;
 		}
 		if($("#pword").val()!=$("#rpword").val()){
