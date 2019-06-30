@@ -126,10 +126,10 @@ a:hover {
 				<tr>
 					<th>用户名称</th>
 					<th>手机号码</th>
-					<th>分类</th>
+					<th>分  类</th>
 					<th>真实姓名</th>
 					<th>邮箱地址</th>
-					<th>操作</th>
+					<th>操  作</th>
 				</tr>
 			</thead>
 			<tbody id="msg">
@@ -148,7 +148,7 @@ a:hover {
 				<input type="hidden" name="id" id="id" value="" />
 				<input type="hidden" name="userid" id="userid" value="" />
 				<ul class="forminfo" id="ul">
-					<li id="next"><label>用户名称*</label><input name="name" id="name"
+					<li id="next"><label>用户名称</label><input name="name" id="name"
 						type="text" class="dfinput" /></li> 
 					<li><label>手机号码</label><input name="phone" id="phone" type="text" onblur="checkPhone(this);" class="dfinput" /></li>
 					<li><label>真实姓名</label><input name="realname" id="realname" type="text"  class="dfinput" /></li>
@@ -338,9 +338,9 @@ loadTable();
 		if(""==id){
 			var li="<li id='v'><label>管理员密码*</label><input name=\"password\" id=\"password\" type=\"password\" class=\"dfinput\" /></li>";
 			$("#next").after(li); 
-			$("#h2").text("添加普通管理员用户");
+			$("#h2").text("添加管理员用户");
 		}else{
-			$("#h2").text("修改普通管理员用户");
+			$("#h2").text("修改管理员用户");
 			$("#id").val(id); 
 			$("#"+id).each(function (){
 				var tdArr=$(this).children();
