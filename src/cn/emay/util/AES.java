@@ -117,7 +117,7 @@ public class AES {
 	 * @param ivStr
 	 *            向量
 	 * @return 解密后数据
-	 */
+	  */
 	public static byte[] decrypt(byte[] content, byte[] password, byte[] ivStr, String algorithm) {
 		if (content == null || password == null)
 			return null;
@@ -131,11 +131,11 @@ public class AES {
 			IvParameterSpec iv = new IvParameterSpec(ivStr);
 			cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(password, "AES"), iv);
 			byte[] bytes = cipher.doFinal(content);
-			return bytes;
+			return bytes;                                    
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
-		}
+		} 
 	}
 
 }
