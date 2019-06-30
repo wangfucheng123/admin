@@ -117,8 +117,10 @@ var setting = {
 			if(treeNode.id==1){
 				return false;
 			}
+			
 			return true;
 		}
+	
 
 		function filter(treeId, parentNode, childNodes) {
 			if (!childNodes) return null;
@@ -128,24 +130,32 @@ var setting = {
 			return childNodes;
 		}
 
+	
 		$(document).ready(function(){
 			$.fn.zTree.init($("#treeDemo"), setting);
 		});
 		
 
+	
 </script>
 
 
+	
 </head>
 
+	
 <body>
 
 	
     
     <div style="float:left;width:42%;height:100%;">
+	    
     <ul id="treeDemo" class="ztree"></ul>
+	    
     </div>
+	
     <br/>
+	
     <form name="edtForm" id="edtForm" action="" method="post">
     <div style="float:right;width:58%;height:100%;">
     	价格：<input type="text" name="price" id="price" value="0" />元/月<br/>
@@ -160,6 +170,7 @@ var setting = {
     </form>
 
 <script type="text/javascript">
+	
 function saveMsg()
 {
 	var id=document.getElementById('id').value;
@@ -185,5 +196,4 @@ function saveMsg()
 var msg=CKEDITOR.replace('content');
 </script>
 </body>
-
 </html>
