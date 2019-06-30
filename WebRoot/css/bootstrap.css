@@ -1,43 +1,43 @@
 /*!
- * Bootstrap v3.3.4 (http://getbootstrap.com)
+ * Bootstrap v3.3.4 (http://getbootstrap.com)  
  * Copyright 2011-2015 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE) 
  */
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%; 
 }
 body {
-  margin: 0;
+  margin: 0; 
 }
 article,
 aside,
 details,
-figcaption,
+figcaption, 
 figure,
 footer,
 header,
-hgroup,
+hgroup, 
 main,
 menu,
 nav,
-section,
+section, 
 summary {
   display: block;
 }
 audio,
 canvas,
-progress,
+progress, 
 video {
   display: inline-block;
   vertical-align: baseline;
 }
 audio:not([controls]) {
   display: none;
-  height: 0;
+  height: 0; 
 }
 [hidden],
 template {
@@ -48,20 +48,20 @@ a {
 }
 a:active,
 a:hover {
-  outline: 0;
+  outline: 0; 
 }
 abbr[title] {
   border-bottom: 1px dotted;
 }
 b,
 strong {
-  font-weight: bold;
+  font-weight: bold; 
 }
 dfn {
   font-style: italic;
 }
 h1 {
-  margin: .67em 0;
+  margin: .67em 0; 
   font-size: 2em;
 }
 mark {
@@ -73,31 +73,31 @@ small {
 }
 sub,
 sup {
-  position: relative;
+  position: relative; 
   font-size: 75%;
   line-height: 0;
   vertical-align: baseline;
 }
 sup {
-  top: -.5em;
+  top: -.5em; 
 }
 sub {
   bottom: -.25em;
 }
 img {
-  border: 0;
+  border: 0; 
 }
 svg:not(:root) {
   overflow: hidden;
 }
 figure {
-  margin: 1em 40px;
+  margin: 1em 40px; 
 }
 hr {
   height: 0;
-  -webkit-box-sizing: content-box;
+  -webkit-box-sizing: content-box; 
      -moz-box-sizing: content-box;
-          box-sizing: content-box;
+          box-sizing: content-box; 
 }
 pre {
   overflow: auto;
@@ -106,12 +106,12 @@ code,
 kbd,
 pre,
 samp {
-  font-family: monospace, monospace;
+  font-family: monospace, monospace; 
   font-size: 1em;
 }
 button,
 input,
-optgroup,
+optgroup,    
 select,
 textarea {
   margin: 0;
@@ -119,8 +119,8 @@ textarea {
   color: inherit;
 }
 button {
-  overflow: visible;
-}
+  overflow: visible; 
+} 
 button,
 select {
   text-transform: none;
@@ -142,7 +142,7 @@ input::-moz-focus-inner {
   border: 0;
 }
 input {
-  line-height: normal;
+  line-height: normal; 
 }
 input[type="checkbox"],
 input[type="radio"] {
@@ -156,7 +156,7 @@ input[type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 input[type="search"] {
-  -webkit-box-sizing: content-box;
+  -webkit-box-sizing: content-box; 
      -moz-box-sizing: content-box;
           box-sizing: content-box;
   -webkit-appearance: textfield;
@@ -175,7 +175,7 @@ legend {
   border: 0;
 }
 textarea {
-  overflow: auto;
+  overflow: auto; 
 }
 optgroup {
   font-weight: bold;
@@ -204,7 +204,7 @@ th {
     text-decoration: underline;
   }
   a[href]:after {
-    content: " (" attr(href) ")";
+    content: " (" attr(href) ")"; 
   }
   abbr[title]:after {
     content: " (" attr(title) ")";
@@ -227,7 +227,7 @@ th {
     page-break-inside: avoid;
   }
   img {
-    max-width: 100% !important;
+    max-width: 100% !important; 
   }
   p,
   h2,
@@ -240,7 +240,7 @@ th {
     page-break-after: avoid;
   }
   select {
-    background: #fff !important;
+    background: #fff !important; 
   }
   .navbar {
     display: none;
@@ -265,7 +265,7 @@ th {
   }
 }
 @font-face {
-  font-family: 'Glyphicons Halflings';
+  font-family: 'Glyphicons Halflings'; 
 
   src: url('../fonts/glyphicons-halflings-regular.eot');
   src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
@@ -280,7 +280,7 @@ th {
   line-height: 1;
 
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale; 
 }
 .glyphicon-asterisk:before {
   content: "\2a";
@@ -293,7 +293,7 @@ th {
   content: "\20ac";
 }
 .glyphicon-minus:before {
-  content: "\2212";
+  content: "\2212"; 
 }
 .glyphicon-cloud:before {
   content: "\2601";
