@@ -21,8 +21,6 @@ session.invalidate();
 });
 </script>
 </head>
-
-
 <body>
 <!--header-->
 <div class="header">
@@ -57,10 +55,7 @@ session.invalidate();
 
 </body>
 </html>
-
 <!--account-->
-
-
 <div class="account">
     <div class="container">
         <div class="register">
@@ -105,7 +100,6 @@ session.invalidate();
     <meta charset="utf-8"/>
 </head>
 <body>
-
 <!--footer-->
 <div class="footer">
     <div class="container">
