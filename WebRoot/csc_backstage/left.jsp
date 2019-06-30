@@ -29,21 +29,14 @@ $(function(){
 		}else{
 			$(this).next('ul').slideDown();
 		}
-	});
-	
-	
+	});	                                        	
 })	
-</script>
-
-
-</head>
-
-<body style="background:#f0f9fd;">
-	
-      
+</script>                 
+</head>                 
+<body style="background:#f0f9fd;">                                                                                               
     <dl class="leftmenu" id="menu">
      <dd>
-    <div class="title">
+    <div class="title">                                        
     <span><img src="<%=path%>/images/leftico01.png" /></span>基础设置
     </div>
     	<ul class="menuson">
@@ -52,9 +45,7 @@ $(function(){
         <li><cite></cite><a href="csc_function_menu/menu.jsp" target="rightFrame">菜单管理</a><i></i></li>
         <li><cite></cite><a href="csc_function_menu/function.jsp" target="rightFrame">功能管理</a><i></i></li>
         </ul>   
-    </dd> 
-     
-    </dl>
-    
-</body>
-</html>
+    </dd>                                
+    </dl>                                                                                       
+</body>                                                  
+</html>                                                                                                                              
