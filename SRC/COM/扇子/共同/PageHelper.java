@@ -29,9 +29,9 @@ public class PageHelper {
 				if(i == pageCount) {
 					List subList = targetList.subList((i-1)*pageSize, pageSize*(i));
 					newlist.add(subList);
-				}
+				}  
 			}           
-		} 
+		}   
 		return newlist;
 	} 
 	//method fenye end
@@ -62,7 +62,7 @@ public class PageHelper {
 			}
 			   
 			rlstList = targetList.subList((currPage-1)*pageSize, (currPage * pageSize));
-			      
+			        
 			/*
 			 * Collections.sort(rlstList, new Comparator<T>() {
 			 * 
