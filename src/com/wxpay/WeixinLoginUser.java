@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class WeixinLoginUser implements Serializable{
     
     private static final long serialVersionUID = -8449856597137213512L;
-
+   
     private String openID;
     private String unionID;
     private String headImageUrl;
