@@ -16,7 +16,7 @@ String path = request.getContextPath();
 $(document).ready(function(){
   $(".click").click(function(){
   $(".tip").fadeIn(200);
-  });
+  });                       
   
   $(".tiptop a").click(function(){
   $(".tip").fadeOut(200);
@@ -30,10 +30,9 @@ $(document).ready(function(){
   $(".tip").fadeOut(100);
 });
 
-});
-</script>
-
-<style type="text/css">
+});         
+</script>                                                                                                  
+<style type="text/css">                      
 .Popup {
 	width: 570px;
 	height: 680px;
@@ -46,28 +45,23 @@ $(document).ready(function(){
 	background-color: #F0F0F0;
 	z-index: 999;
 }
-
 .Close {
 	float: right;
 	font-family: Arial, Helvetica, sans-serif;
 	margin-right: 10px;
 	margin-top: 10px;
 }
-
 a {
 	text-decoration: none;
 }
-
 a:hover {
 	text-decoration: none;
 }
-
 .Popup_top {
 	height: 40px;
 	line-height: 40px;
 	border-bottom: 1px solid #cccccc;
 }
-
 .Popup_top h2 {
 	float: left;
 	font-size: 14px;
@@ -77,7 +71,6 @@ a:hover {
 	width: 200px;
 	height: 28px;
 }
-
 #tip {
 	position: absolute;
 	right: 0px;
@@ -106,169 +99,168 @@ a:hover {
 	padding: 0px 3px 0px 3px;
 	filter: Alpha(Opacity = 100);
 }
-
-#tip h1 a, #detail h1 a {
-	float: right;
-	text-decoration: none;
-	color: #FFFFFF;
+#tip h1 a, #detail h1 a {             
+	float: right;                
+	text-decoration: none;                  
+	color: #FFFFFF;        
 }
-
+    
 .hover {
 	background-color: #E0E0E0;
-}
+}               
 
 .demo {
-	width: 570px;
+	width: 570px;             
 	height: 480px;
-	position: absolute;
-	left: 50%;
+	position: absolute;          
+	left: 50%;                                                  
 	top: 50%;
-	margin-left: -400px;
-	padding: 0 15px;
+	margin-left: -400px;            
+	padding: 0 15px;               
 	margin-top: -250px;
-	background-color: #F0F0F0;
+	background-color: #F0F0F0;            
 	z-index: 999;  
-}
+}              
 
-.select_side {
+.select_side {           
 	float: left;
 	width: 200px
-}
+}                
  
-
+           
 .select_opt {
-	float: left;
+	float: left;             
 	width: 40px;
-	height: 100%;
+	height: 100%;                                                     
 	margin-top: 36px
 }
 
 .select_opt button {
 	width:60px;
-	height:30px;
+	height:30px;        
 	text-align:center;
 	line-height:30px;
-	border:1px solid #666666;
+	border:1px solid #666666;       
 	margin-top: 6px; 
 	cursor: pointer;
 }
-
-.select_opt p#toright {
+                
+.select_opt p#toright {                   
 	background-position: 2px 0
 }
 
-.select_opt p#toleft {
+.select_opt p#toleft {                
 	background-position: 2px -22px
 }
-
+         
 .sub_btn {
 	clear: both;
-	height: 42px;
+	height: 42px;          
 	line-height: 42px;
 	padding-top: 10px;
 	text-align: center
-}
+}            
 .clearfix {
   zoom: 1; 
 } 
-.clearfix:before, 
+.clearfix:before,                
 .clearfix:after {
   display: table; 
   line-height: 0; 
   content: ""; 
 }
-.clearfix:after { 
-  clear: both; 
+.clearfix:after {            
+  clear: both;                                                 
 } 
 </style>
 <script type="text/javascript">
 	function autoS(val) {
 		$.ajax({
-			type : "POST",
+			type : "POST",                 
 			dataType : "json",
 			url : "${pageContext.request.contextPath}/user/phoneList.do",
-			data : {
+			data : {                                                    
 				phone : val
 			},
 			success : function(data) {
 				var options = "";
 				var r = $.parseJSON(data);
 				for (var i = 0; i < r.length; i++) {
-					options += '<option ondblclick="toRight(this)">' + r[i].phone + '</option>';
+					options += '<option ondblclick="toRight(this)">' + r[i].phone + '</option>';            
 				}
-				$("#selectL").empty();
+				$("#selectL").empty();                                  
 				$("#selectL").append(options);
 			}
 		})
 	}
-	function toRight(e){ 
-		var option; 
-		if("undefined"==typeof(e)){  
+	function toRight(e){                           
+		var option;                
+		if("undefined"==typeof(e)){                              
 			if(""!=$("#selectL option:selected").text()){
 				appendEle( $("#selectL option:selected").text());
-			}else{
+			}else{                   
 				alert("手机号不能为空！")
-			}
+			}              
 		}else {
-			option=e;
+			option=e;           
 			appendEle(option.text);
 		}
 		var roptions=$("#selectR option"); 	 
 	}
-	function appendEle(text){
+	function appendEle(text){             
 		var flag=true;
-		$("#selectR option").each(function (){
+		$("#selectR option").each(function (){                                
 			if(text==$(this).text()){
 				flag=false;
-			} 
+			}                       
 		})
 		if(flag){
 			$("#selectR").append('<option ondblclick="toLeft(this)">' + text + '</option>');
-		}
+		}                  
 	}
 	function toLeft(){
-		var option; 
+		var option;                
 		if("undefined"==typeof(e)){
 			 option=$("#selectR option:selected");
-		}else option=e;  
+		}else option=e;              
 		$(option).remove()
 	}
-	function anota(){
+	function anota(){                              
 		if($("#autoA").attr("checked")){
 			$.ajax({
 				type : "POST",
-				dataType : "json",
+				dataType : "json",                               
 				url : "${pageContext.request.contextPath}/user/phoneList.do",
 				data : {
 					phone : "1"
 				},
 				success : function(data) {
-					var options = "";
+					var options = "";             
 					var r = $.parseJSON(data);
 					for (var i = 0; i < r.length; i++) {
 						options += '<option ondblclick="toLeft(this)">' + r[i].phone + '</option>';
 					}
 					$("#selectR").empty();
 					$("#selectR").append(options);
-				}
-			})
+				}                      
+			})               
 
 		}else $("#selectR").empty();
 	}
 	function fs(){
 		var roptions=$("#selectR option"); 
-		var phones=""; 
+		var phones="";                 
 			if(roptions!=null&&roptions.length>0){ 
 				for (var i = 0; i < roptions.length; i++){ 
-					if(!(/^1(3|4|5|7|8)\d{9}$/.test(roptions[i].text))){
+					if(!(/^1(3|4|5|7|8)\d{9}$/.test(roptions[i].text))){           
 						
 					}else{
-						phones+=roptions[i].text+","
+						phones+=roptions[i].text+","                           
 					}
 				} 
 			}if($("#autoC").val()==""){
 				alert("内容不能为空!")
-				return;
+				return;                 
 			}
 			if(phones==""){
 				alert("手机号不能为空！")
@@ -280,11 +272,11 @@ a:hover {
 			url : "${pageContext.request.contextPath}/notice/fsdx.do",
 			data : {
 				phones : phones,content:""+$("#autoC").val()+""
-			},
+			},                  
 			success : function(data) {
 				closeAuto();
 			}
-		})
+		})                                                                  
 	}
 </script>
 </head>
@@ -295,24 +287,24 @@ a:hover {
 				<span style="float:left">短信编辑</span>
 				<a  href="javascript:void(0);" style="float:right" onclick="closeAuto();">取消</a>
 			</p>
-			<p class="clearfix">
+			<p class="clearfix">                               
 				<span style="height:71px;width:70px;line-height:71px;text-align:right;float:left">短信内容：</span>
 				<textarea style="float:right;width:calc(100% - 70px)"  id="autoC" rows="4"></textarea>	
 			</p>
-			<p class="clearfix" style="margin:20px 0">
+			<p class="clearfix" style="margin:20px 0">                     
 				<span style="width:70px;float:left;text-align:right">发送到：</span>
 				<input style="float:left;width:calc(50% - 70px);height:20px" id="autoS" onkeyup="autoS(this.value);" type="text">
 				<span style="width:70px;float:left;text-align:right">全部&nbsp;&nbsp;</span>
 				<input style="float:left;width:20px;height:20px" id="autoA" onchange="anota();" type="checkbox">
 				
-			</p>
+			</p>                                 
 			
 			<div class="select_side" style="width:45%;text-align:center">
 				<p style="line-height:24px">待选区</p>
 				<select id="selectL" name="selectL"  multiple="multiple" style="	width: 180px;
 	height: 120px;overflow:auto">
 					 				</select>
-			</div>
+			</div>                                   
 			<div class="select_opt" style="width:10%;text-align:center"> 
 				<p id="toright" title="添加"><button onclick="toRight();">添加</button></p>
 				<p id="toleft" title="移除"><button  onclick="toLeft();">移除</button></p>
@@ -322,14 +314,14 @@ a:hover {
 				<select id="selectR" name="selectR" multiple="multiple" style="overflow:auto;	width: 180px;
 	height: 120px">
 				
-				</select>
+				</select>                    
 			</div>
 				<p class="clearfix" style="margin:20px 0">
 				<span style="width:90px;float:right;height:40px;text-align:right"><input style="width:60px;
 	height:30px;
 	text-align:center;
-	line-height:30px;
-	border:1px solid #666666;
+	line-height:30px;                          
+	border:1px solid #666666;                                                           
 	margin-top: 6px; 
 	cursor: pointer;" type="button" id="fs" onclick="fs();" value="发送" /></span>
 				</p> 
@@ -344,12 +336,12 @@ a:hover {
 				</select></li>
 				<li ><label>所在市</label><select  style="width:200" name="city" id="s_city" class="wh"></select></li> 
 				<li ><label>职业</label><select name="profession"   class="wh">
-				<option value="0">选择职业</option>
+				<option value="0">选择职业</option>               
 					<option value="4">产品经理</option>
 					<option value="5">金融研究员</option>
 					<option value="6">经纪人</option>
 					<option value="7">开发工程师</option>
-					<option value="8">职业炒股人</option>
+					<option value="8">职业炒股人</option>                                                             
 					<option value="9">自由职业者</option>
 					</select></li>
 					<li ><label>注册时间</label><input name="startDate" id="search_start" type="text" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" /></li>
@@ -363,9 +355,9 @@ a:hover {
 							</select>
 					</li> 
 					</form>
-			</ul>
+			</ul>                     
 		</div>
-		<div class="tools">
+		<div class="tools">                               
 			<ul class="toolbar">
 				<li class="click" onclick="openDetail('');"><span><img src="<%=path%>/images/t01.png" /></span>添加</li>
 				<li class="click" onclick="loadTable();"><span><img src="" /></span>查询</li>
@@ -377,9 +369,9 @@ a:hover {
 				<tr>
 					<th>用户名</th>
 					<th>真实姓名</th>
-					<th>性别</th>
+					<th>性别</th>                   
 					<th>出生日期</th>
-					<th>手机号码</th>
+					<th>手机号码</th>               
 					<th>所在地</th>
 					<th>职业</th>
 					<th>工作单位</th>
@@ -391,7 +383,7 @@ a:hover {
 			</thead>
 			<tbody id="msg"> </tbody>
 		</table>
-		<div class="pagin" id="pagin"></div>
+		<div class="pagin" id="pagin"></div>                      
 		<div class="tools">
 			<ul class="toolbar">
 				<li class="click" onclick="addTr();"><span><img
@@ -402,7 +394,7 @@ a:hover {
 		<table id="tauthority" class="tablelist">
 			<thead>
 				<tr>
-					<th>菜单名称</th>
+					<th>菜单名称</th>                                                    
 					<th>开始时间</th>
 					<th>截止时间</th>
 					<th>操作</th>
@@ -413,10 +405,10 @@ a:hover {
 		</table>
 		<div id="dialog" class="Popup" style="display: none; width: 200;">
 			<div class="Popup_top">
-				<h2 id="h2"></h2>
+				<h2 id="h2"></h2>                              
 				<a href="javascript:void(0);" class="Close" onclick="closeDialog();">关闭</a>
 			</div> 
-			<form name="edtForm" id="edtForm" action="" method="post">
+			<form name="edtForm" id="edtForm" action="" method="post">                                 
 				<input type="hidden" name="id" id="id" value="" />
 				<input type="hidden" name="userid" id="userid" value="" />
 				<ul class="forminfo" id="ul">
@@ -430,14 +422,14 @@ a:hover {
 									<option value="1">女</option>
 								</select>
 						</div>
-					</li>	
+					</li>	                                 
 					<li ><label>手机号码</label><input name="phone" id="phone" type="text" class="dfinput" /></li> 
 					<li ><label>出生日期</label><input name="birthday" id="birthday" type="text" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true,maxDate:'%y-%M-%d'})" /></li> 
 					<li ><label>所在省</label><div class="vocation"><select  onchange="getCities();" style="width:200" name="province" id="province" class="dfinput"></select></div></li>
 					<li ><label>所在市</label><div class="vocation"><select  style="width:200" name="city" id="city" class="dfinput"></select></div></li>
 					<li ><label>职业</label><select name="profession" id="profession" class="dfinput">
 					<option value="0">选择职业</option>
-					<option value="4">产品经理</option>
+					<option value="4">产品经理</option>                                      
 					<option value="5">金融研究员</option>
 					<option value="6">经纪人</option>
 					<option value="7">开发工程师</option>
@@ -447,7 +439,7 @@ a:hover {
 					<li ><label>工作单位</label><input name="company" id="company" type="text" class="dfinput" /></li>
 					<li ><label>邮箱</label><input name="email" id="email" type="text" class="dfinput" /></li>	
 					<li><label>分类</label>
-					<div class="vocation">
+					<div class="vocation">                              
 							<select name="type" id="type" class="dfinput">
 								<option value="0">后台创建</option>
 								<option value="1">PC</option>
@@ -464,7 +456,7 @@ a:hover {
 		<div id="tip">
 			<h1>
 				<a href="javascript:void(0)" onclick="start()"></a>提示
-			</h1>
+			</h1>                       
 			<p id="alt"></p>
 		</div>
 		</body>
@@ -480,7 +472,7 @@ function closeAuto(){
 	$("#selectL").empty();
 	$("#selectR").empty();
 	$("#autoA").attr("checked",false);
-} 
+}                      
 var pageNum=0; 
 function loadTable(){
 	document.getElementById('msg').innerHTML="";
@@ -491,14 +483,14 @@ function loadTable(){
 	if(content!=null) { 
 		var html='';
 		for(var i=0;i<content.length;i++) { 
-			var address="";
+			var address="";                   
 			var profession="";
 			var company="";
 			var realname="";
 			var name="";
 			var birthday="";
 			var createDate="";
-			var email="";
+			var email="";                    
 			var sex="";
 			var source="PC"; 
 			if(content[i].province!=null&&content[i].province!=""){
@@ -514,7 +506,7 @@ function loadTable(){
 				company=content[i].company;
 			}
 			if(content[i].email!=null&&content[i].email!=""){
-				email=content[i].email;
+				email=content[i].email;                     
 			}
 			if(content[i].regisday!=null&&content[i].regisday!=""){
 				createDate=content[i].regisday
@@ -532,7 +524,7 @@ function loadTable(){
 				sex="男";
 			} if(content[i].sex=="1"){
 				sex="女";
-			} 
+			}                       
 			if(content[i].source=="0"){
 				source="后台创建";
 			} 
@@ -550,26 +542,26 @@ function loadTable(){
 			loadPrivileges(content[0].id); 
 		  	document.getElementById('msg').innerHTML=html; 
 		  	$("#"+content[0].id).addClass("hover").siblings().removeClass("hover");
-		}
+		}                          
 }
 function getList(){
-	var jsons;
+	var jsons;          
 	$.ajax({
 		type : "POST",
-		dataType : "json",
+		dataType : "json",                        
 		async: false,
 		url : "${pageContext.request.contextPath}/user/getList.do?page="+pageNum,
 		data :serializeObject($('#user_searchForm')),
-		success : function(data) {
+		success : function(data) {       
 			jsons=$.parseJSON(data);  
 		}
 	}) 
-	return jsons; 
+	return jsons;     
 } 
 serializeObject = function(form) {
 	var o = {};
-	$.each(form.serializeArray(), function(index) {
-		if (o[this['name']]) {
+	$.each(form.serializeArray(), function(index) {   
+		if (o[this['name']]) {                               
 			if(this['value'] == '' || this['value'] == null){
 				
 			}else{
@@ -581,10 +573,10 @@ serializeObject = function(form) {
 			}else{
 			   o[this['name']] = this['value'];
 			}
-		}
+		}           
 	});
 	return o;
-};
+};                              
 loadTable();
 	function loadPrivileges(userid){  
 		$("#"+userid).addClass("hover").siblings().removeClass("hover");
@@ -598,14 +590,14 @@ loadTable();
 				var data = $.parseJSON(data);
 				var ops;
 				$.ajax({
-					type : "POST",
+					type : "POST",         
 					dataType : "html",
 					async: false,
 					url : "${pageContext.request.contextPath}/rightTree/getTreeList.do", 
-					success : function(r) {
+					success : function(r) {       
 						var option=''; 
 						var r = $.parseJSON(r);    
-						ops=r; 
+						ops=r;                                  
 					}
 				})
 					for(var json=0;json<data.length;json++){ 
@@ -617,7 +609,7 @@ loadTable();
 						'<td><a href="#" onclick="save_authority('+data[json].id+',\'\');">保存</a>&nbsp;<a href="#" onclick="enable('+data[json].id+',\'\');">修改</a>&nbsp;<a onclick="removeElement('+data[json].id+')" href="#">删除</a></td></tr>';
 						var id=data[json].rightId;  
 						var key='#id'+data[json].id; 
-						for(var num=0;num<ops.length;num++){
+						for(var num=0;num<ops.length;num++){                                  
 							if(ops[num].id==id){
 								option=option+'<option value="'+ops[num].id+'" selected="selected">'+ops[num].name+'</option>';
 							}else{
@@ -634,7 +626,7 @@ loadTable();
 					}  
 			}
 		})
- 	}
+ 	}                                            
 	function addTr(){ 
 		var i = $("#tauthority tr").length-1;
 		var tr='<tr id="tr'+i+'"><td><select  name="name'+i+'" style="width:200" id="id'+i+'"></select></td><td><input name="startDate'+i+'"  id="startDate'+i+'" type="text" class="Wdate" onfocus="WdatePicker({dateFmt:\'yyyy-MM-dd HH:mm:ss\'})" /></td>'
@@ -650,7 +642,7 @@ loadTable();
 					option=option+'<option value="'+r[json].id+'">'+r[json].name+'</option>';
 				} 
 				$('#id'+i).append(option);
-			} 
+			}                                    
 		}) 
 		$('#authority').append(tr);
 		$('#endDate'+i).val(new Date().format("yyyy-MM-dd hh:mm:ss"));
@@ -664,7 +656,7 @@ loadTable();
  	function removeElement(key){
  		if(confirm("你确定要删除么？")){ 
  		$.ajax({
-			type : "POST",
+			type : "POST",                           
 			dataType : "json",
 			url : "${pageContext.request.contextPath}/rightTree/remove_authority.do",
 			data : {id : key},
@@ -678,7 +670,7 @@ loadTable();
 		}
  	}
  	function removeT(id){
- 		if(confirm("你确定要删除么？")){
+ 		if(confirm("你确定要删除么？")){                         
  	 		$.ajax({
  				type : "POST",
  				dataType : "json",
@@ -692,7 +684,7 @@ loadTable();
 	}
 	function save_authority(key){
 		var authorityId;
-		var  startDate ;var  endDate ;
+		var  startDate ;var  endDate ;                     
 		if(!isNaN(key)){
 			authorityId= $("#id"+key).val() 
 			startDate=$("#startDate"+key).val();
@@ -709,15 +701,15 @@ loadTable();
 			data : {id : key , userId : $("#userid").val(), rightId :authorityId,startDate: startDate,endDate: endDate},
 			success : function(data) { 
 				var r = $.parseJSON(data);  
-				if (r.flag == 'true') {   
+				if (r.flag == 'true') {                             
 					alert("保存成功！");
 					loadPrivileges($("#userid").val()); 
 				}
 			if (r.flag == 're') {   
 				alert("权限已存在！"); 
 				$("tr[id="+'tr'+key.replace("id","")+"]").remove();
-			}}
-		})
+			}}                      
+		})                                          
 	} 
 	function getProvinces(){
 		$.ajax({
@@ -731,7 +723,7 @@ loadTable();
 					option=option+'<option value="'+r[json].proid+'"  >'+r[json].proname+'</option>';
 				} 
 				$('#province').append(option); 
-			} 
+			}                                                                                                   
 		}) 
 	}
 	getS_Provinces();
@@ -749,7 +741,7 @@ loadTable();
 				$('#s_province').append(option); 
 			} 
 		}) 
-	} 
+	}                          
 	function getCities(){
 		$.ajax({
 			type : "POST",
@@ -768,7 +760,7 @@ loadTable();
 		}) 
 	}
 	function getS_Cities(){
-		$.ajax({
+		$.ajax({                                        
 			type : "POST",
 			dataType : "html",
 			url : "${pageContext.request.contextPath}/user/getcityList.do", 
@@ -787,7 +779,7 @@ loadTable();
 	function openDetail(id) {  
 		getProvinces(); 
 		$("#li").remove();
-		if(""==id){ 
+		if(""==id){                                                                     
 			$("#next").after('<li id="li"><label>用户密码*</label><input name="password" id="password" type="password" class="dfinput" /></li>')
 			$("#h2").text("添加用户"); 
 		}else{
