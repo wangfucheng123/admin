@@ -18,7 +18,7 @@ function getData(url,pageNum)
 		},
 		error:function(e)
 		{
-			alert('网络错误！！！');
+			alert('网络错误！！');
 		},
 		success:function(data)
 		{
