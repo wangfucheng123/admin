@@ -3,16 +3,16 @@
 <%
 String userId=request.getParameter("userId");
 if(userId==null)
-{
+{                                          
 	userId="";
-}
+}                                                                                                                            
 String path = request.getContextPath();
-%>
+%>                                                                                                                 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml">                                                                                   
+<head>                                                                                                                
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
+<title>无标题文档</title>                                                                                              
 <link href="<%=path%>/css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<%=path%>/js/jquery.js"></script>
 <script type="text/javascript" src="<%=path%>/common/common.js"></script>
@@ -21,7 +21,7 @@ String path = request.getContextPath();
 <script type="text/javascript"
 	src="<%=path%>/js/WdatePicker/WdatePicker.js"></script>
 </head>
-
+                                                                                                            
 <body>
 	<div class="formbody">
 		<div class="formtitle">
@@ -55,7 +55,7 @@ if(userId!=null && !userId.equals(""))
 %>
 <script type="text/javascript">
 
-
+                                                                              
 $.ajax({
 	type:'post',
 	url:'<%=path%>/view/cscRole/getRoleList',
@@ -69,7 +69,7 @@ $.ajax({
 	},
 	success:function(obj)
 	{
-		r=JSON.parse(obj);
+		r=JSON.parse(obj);                                                                                     
 	    var option = '';	
 		for(var i=0;i<r.length;i++)
 		{						
@@ -126,7 +126,7 @@ function save()
 	var url='<%=path%>/view/cscUserRole/saveUserRole?userId=<%=userId%>&roleId='+roleId
 	$.ajax({
 		type:'post',
-		url:url,
+		url:url,                                                                                       
 		dataType:'json',
 		async:false,
 		beforeSend:function()
@@ -142,7 +142,7 @@ function save()
 			{
 				window.close();
 			}
-		}
+		}                                                                                           
 	});
 }
 
