@@ -18,6 +18,7 @@
 	<div id="top" style="width: 990px; height: 500px;"></div><br/><br/>
 	<div id="bottom" style="width: 990px; height: 500px;"></div>
 </body>
+	
 <script type="text/javascript">
 	$("input[type=radio]").change(function() {
 		rendererBar();
