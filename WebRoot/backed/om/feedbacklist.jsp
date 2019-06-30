@@ -1,25 +1,25 @@
-<%@ page language="java" pageEncoding="UTF-8"
-	contentType="text/html;charset=utf-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%
-	String path = request.getContextPath();
-%>
+<%@ page language="java" pageEncoding="UTF-8"        
+	contentType="text/html;charset=utf-8"%>       
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>       
+<%              
+	String path = request.getContextPath();         
+%>       
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
-<link href="<%=path%>/css/style.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="<%=path%>/css/demo.css" type="text/css">
+<html xmlns="http://www.w3.org/1999/xhtml">       
+<head>       
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />       
+<title>无标题文档</title>       
+<link href="<%=path%>/css/style.css" rel="stylesheet" type="text/css" />       
+<link rel="stylesheet" href="<%=path%>/css/demo.css" type="text/css">           
 <script type="text/javascript" src="<%=path%>/js/jquery.js"></script>
-<script type="text/javascript" src="<%=path%>/common/common.js"></script>
-<script type="text/javascript"
-	src="<%=path%>/js/WdatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="<%=path%>/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<%=path%>/common/common.js"></script>   
+<script type="text/javascript"    
+	src="<%=path%>/js/WdatePicker/WdatePicker.js"></script>    
+<script type="text/javascript" src="<%=path%>/js/ckeditor/ckeditor.js"></script>   
 <script type="text/javascript" src="<%=path%>/editor/config.js"></script> 
-</head> 
-
-<body>
+</head>      
+   
+<body>   
 	<div class="rightinfo">
 		<div class="tools">
 			<ul class="toolbar">
@@ -28,28 +28,28 @@
 						style="width: 290px; height: 28px;" placeholder="请输入内容关键词" /></li>
 					<li class="click" onclick="loadTable();"><span><img
 							src="" /></span>查询</li>
-				</form>
-			</ul>
-		</div> 
-		<table class="tablelist" >
-			<thead>
-				<tr> 
-					<th>反馈内容</th>
-					<th>用户名</th>
-					<th>提交时间</th>
-					<th>来源</th>
+				</form>   
+			</ul>     
+		</div>    
+		<table class="tablelist" >   
+			<thead>   
+				<tr>    
+					<th>反馈内容</th>   
+					<th>用户名</th>   
+					<th>提交时间</th>   
+					<th>来源</th>   
 				</tr>
-			</thead>
-			<tbody id="msg">
-			</tbody>
+			</thead>    
+			<tbody id="msg">   
+			</tbody>      
 		</table>
-		<div class="pagin" id="pagin"></div> 
-</body>
+		<div class="pagin" id="pagin"></div>      
+</body>        
 </html>
-<script type="text/javascript"> 
+<script type="text/javascript">    
 	var pageNum = 0;
-	function loadTable() {
-		document.getElementById('msg').innerHTML = "";
+	function loadTable() {      
+		document.getElementById('msg').innerHTML = "";    
 		var data = getList();
 		var content = data.content;
 		var count = data.count;
@@ -63,7 +63,7 @@
 				}if(content[i].source=="2"){
 					source="app";
 				}
-				var name='';
+				var name='';      
 				if(content[i].userId!=null){
 					name=content[i].userId;
 				}
