@@ -20,7 +20,6 @@ String path = request.getContextPath();
 	<script type="text/javascript" src="<%=path%>/js/jquery.ztree.exedit.js"></script>
 	<script type="text/javascript" src="<%=path%>/js/jquery.ztree.exhide.js"></script>
 	<script type="text/javascript" src="<%=path%>/js/ckeditor/ckeditor.js"></script>
-
 <script type="text/javascript">
 var setting = {
 		   async:{
@@ -43,7 +42,6 @@ var setting = {
                selectedMulti: false,
                dblClickExpand: true
            },
-          
 		edit: {
 			enable: true,
 			editNameSelectAll: true,
@@ -143,13 +141,8 @@ var setting = {
 		$(document).ready(function(){
 			$.fn.zTree.init($("#tree"), setting);
 		});
-		
-
 </script>
-
-
 </head>
-
 <body>  
     <div style="float:left;width:42%;height:100%;">
     <ul id="tree" class="ztree"></ul>
@@ -180,5 +173,4 @@ function saveMsg()
 var msg=CKEDITOR.replace('content');
 </script>
 </body>
-
 </html>
