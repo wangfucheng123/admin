@@ -35,7 +35,7 @@ public class AccessToken {
     }
     public String getScope() {
         return scope;
-    }
+    }              
     public void setScope(String scope) {
         this.scope = scope;
     }
