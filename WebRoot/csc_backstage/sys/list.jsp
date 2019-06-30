@@ -1,10 +1,10 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%
-String path = request.getContextPath();
+<% 
+String path = request.getContextPath(); 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml">     
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
@@ -16,7 +16,7 @@ String path = request.getContextPath();
 <script type="text/javascript" src="<%=path%>/js/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	CKEDITOR.replace('content');
+    CKEDITOR.replace('content');
 	//	
 });
 </script>
@@ -72,28 +72,28 @@ a:hover {	text-decoration: none;
 		<thead>
 			<tr> 
 				<th>用户名</th> 
-				<th>真实姓名</th>
-				<th>操作时间</th>
+				<th>真实姓名</th>  
+				<th>操作时间</th>       
 				<th>操作</th>
-			</tr>
+			</tr>                 
 		</thead>
-		<tbody id="msg">
+		<tbody id="msg">                     
 		</tbody>
-	</table>
+	</table>                                  
 	<div class="pagin" id="pagin"></div>
 </body>
-</html>
+</html>  
 <script type="text/javascript">
-	var pageNum=0; 
+	var pageNum=0;                                  
 	loadTable();
 	function loadTable(){
-		document.getElementById('msg').innerHTML="";
+		document.getElementById('msg').innerHTML="";                  
 		var data=getList(); 
-		var content=data.content; 
+		var content=data.content;                 
 		var count=data.count; 
-		getPage(count,pageNum);
+		getPage(count,pageNum);                
 		if(content!=null) { 
-			var html='';
+			var html='';                                                          
 			for(var i=0;i<content.length;i++) {  
 				html=html+'<tr><td>'+content[i].logname+'</td><td>'+content[i].username+'</td><td>'+(content[i].createtime).replace(".0","")+
 			'</td><td>'+content[i].msg+
@@ -102,15 +102,15 @@ a:hover {	text-decoration: none;
 			  	document.getElementById('msg').innerHTML=html; 
 			}
 	}
-	function getList(){
+	function getList(){   
 		var jsons;
 		$.ajax({
 			type : "POST",
-			dataType : "html",
-			async: false,
+			dataType : "html", 
+			async: false, 
 			url : "${pageContext.request.contextPath}/notice/logs.do?page="+pageNum,  
-			success : function(data) {
-				jsons=$.parseJSON(data);  
+			success : function(data) { 
+				jsons=$.parseJSON(data);   
 			}
 		}) 
 		return jsons; 
