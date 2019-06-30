@@ -14,6 +14,7 @@ if(requestPath==null || requestPath.equals(""))
 	requestPath="upload";
 }
 %>
+	
 <script type="text/javascript" src="<%=path%>/js/jquery.js"></script>
 <script type="text/javascript" src="<%=path%>/js/jquery.easyui.min.js"></script>
 <body  width="100%" height="100%"  valign="top" style="margin-left:0px;margin-top:0px;">
