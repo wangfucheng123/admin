@@ -2,6 +2,8 @@
 	contentType="text/html;charset=utf-8"%>
 
 <html>
+	
+	
 
 <% 
 String path = request.getContextPath();
