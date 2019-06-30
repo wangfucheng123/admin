@@ -24,6 +24,8 @@
 	background-color: #F0F0F0;
 	z-index: 9999999;
 }
+	
+	
 
 .Close {
 	float: right;
