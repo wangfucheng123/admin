@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
+<title>title</title>
 <link href="<%=path%>/css/style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="<%=path%>/css/demo.css" type="text/css">
 <script type="text/javascript" src="<%=path%>/js/jquery.js"></script>
